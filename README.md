@@ -27,7 +27,14 @@ Event Horizon uses xml file to set event types & users, so this ability decouple
 - Local xml file to set user name, user icon color & database location
 - Local or network based settings xml file, that sits in the database folder, which holds the event types, source types & function key assignments
 - First 8 Event types in the xml settings file, associate themselves with the function keys F3 to F12
-- 
+- Used FontAwesomeIcons, choose an icon to associate with an event type
+- Uses a database file watch to refresh the main DataTable, all calculations and LINQ queries performed from this Table, instead of directly with the database, avoiding unnecessary database locks
+- User icons on main window to show when users are running Event Horizon
+- Built in notifications so targeted users don't miss any messages / events
+- Events are tracked so the originator user knows if a event / message has been notified / read by the target user
+- Create new blank database from within Event Horizon, browse & set database location
+- Use it as an office, internal messaging system, create memo's / phone call / loggin etc
+- Free to use, open source, buy me a coffee via my Patreon link if you find it useful
   
 ## Getting Started
 
