@@ -1,0 +1,189 @@
+﻿<Window x:Class="The_Oracle.EventWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:The_Oracle"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Icon="OracleIcon.ico" Closing="Window_Closing" Topmost="True"
+        Title="Oracle Event" MinWidth="860" MinHeight="700" Width="860" Height="700" WindowStartupLocation="CenterScreen">
+    <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
+        <Grid Margin="10,10,20,10" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Top">
+                <Label Content="Ref." HorizontalAlignment="Right" Margin="0,0,0,0" FontSize="13"/>
+                <Label Content="Origin User" HorizontalAlignment="Right" Margin="0,0,0,0" FontSize="13"/>
+                <Label Content="Event Type" HorizontalAlignment="Right" Margin="0,14,0,0" FontSize="13"/>
+                <Label Content="Details" HorizontalAlignment="Right" Margin="0,16,0,0" FontSize="13"/>
+                <Label Content="Source" HorizontalAlignment="Right" Margin="0,112,0,0" FontSize="13"/>
+                <Label Content="Frequency" HorizontalAlignment="Right" Margin="0,18,0,0" FontSize="13"/>
+                <Label Content="Target User" HorizontalAlignment="Right" Margin="0,20,0,0" FontSize="13"/>
+                <Label Content="Status" HorizontalAlignment="Right" Margin="0,20,0,0" FontSize="13"/>
+                <Label Content="Target Date" HorizontalAlignment="Right" Margin="0,18,0,0" FontSize="13"/>
+                <Label Content="Target Time" HorizontalAlignment="Right" Margin="0,20,0,0" FontSize="13"/>
+            </StackPanel>
+
+            <Label x:Name="EventTitleLabel" Grid.Column="1" Grid.Row="0" Content="Event" Margin="10,0,10,0" FontSize="18" FontWeight="Medium"/>
+
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Height="34" Margin="14,0,0,0">
+                    <Grid Grid.Column="0" Grid.Row="0" Background="#f7f8f9" Height="18" Width="44" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,5,5,0">
+                        <Grid.Effect>
+                            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.2" />
+                        </Grid.Effect>
+                        <Label x:Name="EventIDLabel" Content="00000" Foreground="Black" FontSize="13" Margin="5,0,2,0" Padding="0" VerticalAlignment="Top"/>
+                    </Grid>
+                    <Label Content="PEID." HorizontalAlignment="Right" Margin="0,0,0,0" FontSize="13"/>
+                    <Grid Background="#f7f8f9" Height="18" Width="44" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,5,5,0">
+                        <Grid.Effect>
+                            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.2" />
+                        </Grid.Effect>
+                        <Label x:Name="ParentEventIDLabel" Content="00000" Foreground="Black" FontSize="13" Margin="5,0,2,0" Padding="0" VerticalAlignment="Top"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel x:Name="OriginStackPanel" Orientation="Horizontal" Height="34" Margin="14,0,0,0">
+                    <Ellipse x:Name="UserEllipse" Width = "24" Height = "24" Fill = "Black" HorizontalAlignment = "Center" Margin="0,3,0,0"/>
+                    <Label x:Name="UserNameLabel" Content="Users Name" HorizontalAlignment="Right" Margin="10,0,0,0" FontSize="18"/>
+                </StackPanel>
+                <ComboBox x:Name="EventTypeComboBox" IsEditable="False" IsReadOnly="True" FontSize="18" Background="White" Width="280" Height="40" Margin="10,6,0,0"
+                    Style="{DynamicResource FrequencyComboBoxStyle}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    ItemContainerStyle="{DynamicResource theComboBoxItem}" DisplayMemberPath="Name" SelectedValuePath="Name">
+                    <ComboBox.Effect>
+                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
+                    </ComboBox.Effect>
+                </ComboBox>
+
+                <Border CornerRadius="6" BorderBrush="#3b71ca" Background="White" BorderThickness="1" Margin="10,6,10,0">
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                    </Border.Effect>
+                    <TextBox x:Name="DetailsTextBox" Width="600" Height="120" HorizontalAlignment="Left" FontSize="18" Margin="4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
+                </Border>
+
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox x:Name="SourceComboBox" IsEditable="False" IsReadOnly="True" FontSize="18" Background="White" Width="220" Height="40" Margin="10,6,0,0"
+                        Style="{DynamicResource FrequencyComboBoxStyle}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left"
+                        ItemContainerStyle="{DynamicResource theComboBoxItem}" DisplayMemberPath="Name" SelectedValuePath="Name">
+                        <ComboBox.Effect>
+                            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
+                        </ComboBox.Effect>
+                    </ComboBox>
+
+                    <Button x:Name="GenButton" Tag="2" Content="Gen" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,6,0,0" Click="Gen_ButtonClick">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                        </Button.Effect>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <ComboBox x:Name="FrequencyComboBox" IsEditable="False" IsReadOnly="True" FontSize="18" Background="White" Width="140" Height="40" Margin="10,6,0,0"
+                    Style="{DynamicResource FrequencyComboBoxStyle}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="FrequencyComboBox_SelectionChanged">
+                        <ComboBox.Effect>
+                            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
+                        </ComboBox.Effect>
+                    </ComboBox>
+                </StackPanel>
+
+                <ComboBox x:Name="TargetUserIDComboBox" IsEditable="False" IsReadOnly="True" FontSize="18" Background="White" Width="200" Height="40" Margin="10,6,0,0"
+                    Style="{DynamicResource FrequencyComboBoxStyle}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="TargetUserIDComboBox_SelectionChanged">
+                    <ComboBox.Effect>
+                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
+                    </ComboBox.Effect>
+                </ComboBox>
+
+                <ComboBox x:Name="StatusComboBox" IsEditable="False" IsReadOnly="True" FontSize="18" Background="White" Width="140" Height="40" Margin="10,6,0,0"
+                    Style="{DynamicResource FrequencyComboBoxStyle}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="StatusComboBox_SelectionChanged">
+                    <ComboBox.Effect>
+                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
+                    </ComboBox.Effect>
+                    <ComboBoxItem Tag="0" Content="Inactive"/>
+                    <ComboBoxItem Tag="1" Content="Active" IsSelected="True"/>
+                    <ComboBoxItem Tag="2" Content="Notified"/>
+                    <ComboBoxItem Tag="2" Content="Read"/>
+                    <ComboBoxItem Tag="3" Content="Archived"/>
+                </ComboBox>
+                <DatePicker x:Name="TargetDatePicker" Width="210" HorizontalAlignment="Left" Margin="10,10,0,0" FontSize="18" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
+                    <xctk:TimePicker x:Name="TargetTimeHoursPicker" Text="00" Value="00:00:00" StartTime="00:00:0" EndTime="23:59:0" Format="Custom" FormatString="HH" ShowDropDownButton="False" FontSize="18" MinWidth="50" MaxWidth="50"/>
+                    <Label Content=":" HorizontalAlignment="Center" FontSize="18"/>
+                    <xctk:TimePicker x:Name="TargetTimeMinutesPicker" Text="00" Value="00:00:00" StartTime="00:00:0" EndTime="23:59:0" Format="Custom" FormatString="ss" ShowDropDownButton="False" FontSize="18" MinWidth="50" MaxWidth="50"/>
+                    <StackPanel x:Name="TargetTimeButtonsStackPanel" Orientation="Horizontal">
+                        <Button Tag="0" Content="Now" Width="50" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,2,0,0" Click="TargetTime_ButtonClick">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                        <Button Tag="1" Content="1 Hour" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,2,0,0" Click="TargetTime_ButtonClick">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                        <Button Tag="2" Content="2 Hours" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,2,0,0" Click="TargetTime_ButtonClick">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                        <Button Tag="3" Content="3 Hours" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,2,0,0" Click="TargetTime_ButtonClick">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                        <Button Tag="4" Content="4 Hour" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,2,0,0" Click="TargetTime_ButtonClick">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                        <Button Tag="5" Content="5 Hours" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,2,0,0" Click="TargetTime_ButtonClick">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" Margin="0,10,0,10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="500"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="Status" Grid.Column="0" Content="Awaiting details." Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"/>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+                        <Button Tag="0" Content="Close" Click="FormCloseButtons_ButtonClick" Style="{DynamicResource OracleButtonStyle }">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                        <Button x:Name="ReplyButton" Tag="1" Content="Reply" Click="FormCloseButtons_ButtonClick" Style="{DynamicResource OracleButtonStyle }">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                        <Button x:Name="SaveButton" Tag="2" Content="Save" Click="FormCloseButtons_ButtonClick" Style="{DynamicResource OracleButtonStyle }">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,71 @@
+﻿<Window x:Class="The_Oracle.OracleNotification"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:The_Oracle"
+        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
+        mc:Ignorable="d" Name="OracleNotificationWindow" AllowsTransparency="True" Topmost="True" BorderBrush="#d7d8df" BorderThickness="2,2,2,2"
+        Background="White" WindowStyle="None" Loaded="Window_Loaded"
+        Title="Event Horizon Notification" Height="210" Width="530">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard BeginTime="0" Duration="Forever">
+                        <DoubleAnimation Storyboard.TargetName="OracleNotificationWindow" Storyboard.TargetProperty="Opacity" From="0" To="1" BeginTime="0:0:0" Duration="0:0:0.8"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="47"/>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="74"/>
+            <RowDefinition Height="56"/>
+        </Grid.RowDefinitions>
+
+        <Image Grid.Row="0" Source="pack://application:,,/EventHorizonLogoNewSmall.png" Stretch="UniformToFill" Width="189" Height="34" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0"
+                RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled"/>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label x:Name="NotificationsLabel" Content="1 of 2" FontSize="14" Foreground="LightSlateGray" HorizontalContentAlignment="Right" Margin="0,3,12,0" Padding="0"/>
+            <Button Tag="1" Content="✕" Style="{DynamicResource CloseButtonStyle }" VerticalAlignment="Top" Click="TreeView_ButtonClick"/>
+        </StackPanel>
+
+        <TextBlock x:Name="UserNameTextBlock" Grid.Row="1" Text="New message detected" FontSize="18" FontWeight="Medium" Foreground="Black" HorizontalAlignment="Left" Margin="56,0,0,0"/>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <fa:FontAwesome Icon="Crosshairs" Width="50" Height="50" FontSize="30" Foreground="#3b71ca" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,1,0,0"/>
+            <TextBlock x:Name="DetailsTextBlock" Text="Looks like you've have some new notifications. We recommend a quick view to make sure they don't contain urgent messages." FontSize="15" FontWeight="Normal" Foreground="LightSlateGray" Width="450" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,0,0,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Background="#f7f8f9">
+            <StackPanel Orientation="Horizontal" Background="#f7f8f9" HorizontalAlignment="Right" Margin="0,0,24,0">
+                
+                <Label Content="Notification settings" FontSize="15" Foreground="#3b71ca" Margin="30,14,0,0"/>
+
+                <ComboBox x:Name="RemindMeComboBox" Text="Remind me in" FontWeight="Medium" IsEditable="True" IsReadOnly="True" Width="140" Height="30" Margin="12,0,0,0"
+                    Style="{DynamicResource FrequencyComboBoxStyle}"
+                    MinWidth="140" MaxWidth="140" ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="RemindMeComboBox_SelectionChanged">
+                    <ComboBox.Effect>
+                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                    </ComboBox.Effect>
+                    <ComboBoxItem Tag="0" Content="5 Minutes"/>
+                    <ComboBoxItem Tag="1" Content="1 Hour"/>
+                    <ComboBoxItem Tag="2" Content="1 Day"/>
+                    <ComboBoxItem Tag="3" Content="2 Days"/>
+                    <ComboBoxItem Tag="4" Content="Next Week"/>
+                    <ComboBoxItem Tag="5" Content="Next Month"/>
+
+                </ComboBox>
+
+                <Grid x:Name="TempGrid"/>
+                <Button Tag="0" Content="View Message" FontSize="16" Width="160" Height="30" Margin="16,0,0,0" Style="{DynamicResource OracleButtonStyle }" Click="TreeView_ButtonClick"/>
+                
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
