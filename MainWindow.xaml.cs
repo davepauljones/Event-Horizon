@@ -95,7 +95,7 @@ namespace The_Oracle
                         else
                             RefreshLog(ListViews.Log);
 
-                        //GetLastEntry(EventHorizonLINQList);
+                        GetLastEntry(EventHorizonLINQList);
                     }
                 }
                 else
@@ -245,7 +245,7 @@ namespace The_Oracle
 
         public void GetLastEntry(List<EventHorizonLINQ> ehll, bool JustLoaded = false)
         {
-            if (ehll != null)
+            try
             {
                 var maxValue = ehll.Max(x => x.ID);
                 var result = ehll.First(x => x.ID == maxValue);
@@ -256,6 +256,10 @@ namespace The_Oracle
                     n.Show();
                     LastGetLastEntry = maxValue;
                 }
+            }
+            catch (Exception e)
+            {
+                //necessary if searching a blank database
             }
         }
         
