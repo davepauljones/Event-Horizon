@@ -95,7 +95,7 @@ namespace The_Oracle
                         else
                             RefreshLog(ListViews.Log);
 
-                        GetLastEntry(EventHorizonLINQList);
+                        //GetLastEntry(EventHorizonLINQList);
                     }
                 }
                 else
@@ -245,14 +245,17 @@ namespace The_Oracle
 
         public void GetLastEntry(List<EventHorizonLINQ> ehll, bool JustLoaded = false)
         {
-            var maxValue = ehll.Max(x => x.ID);
-            var result = ehll.First(x => x.ID == maxValue);
-
-            if (LastGetLastEntry != maxValue && JustLoaded == true)
+            if (ehll != null)
             {
-                OracleBriefNotification n = new OracleBriefNotification(this, maxValue, 1, 1, result);
-                n.Show();
-                LastGetLastEntry = maxValue;
+                var maxValue = ehll.Max(x => x.ID);
+                var result = ehll.First(x => x.ID == maxValue);
+
+                if (LastGetLastEntry != maxValue && JustLoaded == true)
+                {
+                    OracleBriefNotification n = new OracleBriefNotification(this, maxValue, 1, 1, result);
+                    n.Show();
+                    LastGetLastEntry = maxValue;
+                }
             }
         }
         
