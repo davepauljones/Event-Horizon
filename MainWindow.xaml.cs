@@ -498,8 +498,8 @@ namespace The_Oracle
                         Opacity = 0.6
                     };
 
-                    Label UsersName = new Label { Content = u.UserName, Foreground = Brushes.Black, FontSize = 11, Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
+                    TextBlock UsersName = new TextBlock { Text = u.UserName, Foreground = Brushes.Black, FontSize = 11, MaxWidth = 70, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
+                    
                     UserStackPanel.Children.Add(OriginUserIconEllipseGrid);
                     UserStackPanel.Children.Add(UsersName);
                 }

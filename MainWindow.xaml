@@ -225,7 +225,7 @@
                                         <StackPanel Orientation="Vertical" Margin="10,10,10,4">
                                             <local:EventHorizonLogo/>
                                         </StackPanel>
-                                        <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="110">
+                                        <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="110" MaxWidth="110">
                                             <Label Content="Current User" Margin="3,0,0,0"/>
                                             <StackPanel x:Name="UserStackPanel" Orientation="Horizontal" HorizontalAlignment="Left"/>
                                         </StackPanel>
