@@ -1,8 +1,8 @@
 <?xml version="1.0" standalone="yes"?>
-<OracleDatabase>
+<EventHorizonDatabase>
+  
   <Users>
-    <UserID>1</UserID>
-    <UserName>David Jones</UserName>
+	<UserName>David Jones</UserName>
 	<Color>#FFA0B392</Color>
   </Users>
   <Users>
@@ -31,155 +31,86 @@
 	<Color>#FF5F9595</Color>
   </Users>
   
-  <FunctionKeys>
-	<EventTypeID>1</EventTypeID>
-	<ShortName>Memo</ShortName>
-  </FunctionKeys>
-  <FunctionKeys>
-	<EventTypeID>2</EventTypeID>
-	<ShortName>Phone Call</ShortName>
-  </FunctionKeys>
-  <FunctionKeys>
-	<EventTypeID>3</EventTypeID>
-	<ShortName>To Do</ShortName>
-  </FunctionKeys>
-  <FunctionKeys>
-	<EventTypeID>4</EventTypeID>
-	<ShortName>Ticket</ShortName>
-  </FunctionKeys>
-  <FunctionKeys>
-	<EventTypeID>5</EventTypeID>
-	<ShortName>Road Map</ShortName>
-  </FunctionKeys>
-  <FunctionKeys>
-	<EventTypeID>6</EventTypeID>
-	<ShortName>Stock</ShortName>
-  </FunctionKeys>
-  <FunctionKeys>
-	<EventTypeID>7</EventTypeID>
-	<ShortName>YouTube</ShortName>
-  </FunctionKeys>
-  <FunctionKeys>
-	<EventTypeID>0</EventTypeID>
-	<ShortName>All Events</ShortName>
-  </FunctionKeys>
-  <FunctionKeys>
-	<EventTypeID>0</EventTypeID>
-	<ShortName>All Events</ShortName>
-  </FunctionKeys>
-  <FunctionKeys>
-	<EventTypeID>0</EventTypeID>
-	<ShortName>All Events</ShortName>
-  </FunctionKeys>
-  
   <EventTypes>
-	<ID>0</ID>
-	<Name>All Events</Name>
-	<Icon>FireExtinguisher</Icon>
-	<Color>SlateGray</Color>
-  </EventTypes>
-  <EventTypes>
-	<ID>1</ID>
 	<Name>Memo</Name>
 	<Icon>Pencil</Icon>
 	<Color>Crimson</Color>
   </EventTypes>
   <EventTypes>
-	<ID>2</ID>
 	<Name>Phone Call</Name>
 	<Icon>Phone</Icon>
 	<Color>Orange</Color>
   </EventTypes>
   <EventTypes>
-	<ID>3</ID>
 	<Name>To Do</Name>
 	<Icon>ThList</Icon>
 	<Color>Crimson</Color>
   </EventTypes>
   <EventTypes>
-	<ID>4</ID>
 	<Name>Ticket</Name>
-	<Icon>Tasks</Icon>
+	<Icon>Ticket</Icon>
 	<Color>Crimson</Color>
   </EventTypes>
   <EventTypes>
-	<ID>5</ID>
 	<Name>Road Map</Name>
 	<Icon>Road</Icon>
 	<Color>SlateBlue</Color>
   </EventTypes>
   <EventTypes>
-	<ID>6</ID>
 	<Name>Stock</Name>
 	<Icon>Chain</Icon>
 	<Color>Crimson</Color>
   </EventTypes>
   <EventTypes>
-	<ID>7</ID>
 	<Name>YouTube</Name>
 	<Icon>Youtube</Icon>
 	<Color>Crimson</Color>
   </EventTypes>
   
   <SourceTypes>
-	<ID>0</ID>
-	<Name>None</Name>
-	<Icon>StarOutline</Icon>
-	<Color>Pink</Color>
-  </SourceTypes>
-  <SourceTypes>
-	<ID>1</ID>
 	<Name>David Jones</Name>
 	<Icon>Industry</Icon>
 	<Color>ForestGreen</Color>
   </SourceTypes>
   <SourceTypes>
-	<ID>2</ID>
 	<Name>Bill Gates</Name>
 	<Icon>Industry</Icon>
 	<Color>ForestGreen</Color>
   </SourceTypes>
   <SourceTypes>
-	<ID>3</ID>
 	<Name>Steve Jobs</Name>
 	<Icon>Home</Icon>
 	<Color>ForestGreen</Color>
   </SourceTypes>
   <SourceTypes>
-	<ID>4</ID>
 	<Name>Elon Musk</Name>
 	<Icon>Home</Icon>
 	<Color>ForestGreen</Color>
   </SourceTypes>
   <SourceTypes>
-	<ID>5</ID>
 	<Name>Mark Zukerberg</Name>
 	<Icon>User</Icon>
 	<Color>ForestGreen</Color>
   </SourceTypes>
   <SourceTypes>
-	<ID>6</ID>
 	<Name>Steve Wazniak</Name>
 	<Icon>User</Icon>
 	<Color>ForestGreen</Color>
   </SourceTypes>
   <SourceTypes>
-	<ID>7</ID>
 	<Name>Recording Studio</Name>
 	<Icon>User</Icon>
 	<Color>ForestGreen</Color>
   </SourceTypes>
   <SourceTypes>
-	<ID>8</ID>
 	<Name>Electronics Lab</Name>
 	<Icon>User</Icon>
 	<Color>ForestGreen</Color>
   </SourceTypes>
   <SourceTypes>
-	<ID>9</ID>
 	<Name>Retro Computers</Name>
 	<Icon>User</Icon>
 	<Color>ForestGreen</Color>
   </SourceTypes>
- 
-</OracleDatabase>
+  
+</EventHorizonDatabase>

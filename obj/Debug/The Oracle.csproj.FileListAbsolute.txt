@@ -146,3 +146,4 @@ C:\My Solutions\Event Horizon\obj\Debug\The Oracle.csproj.CoreCompileInputs.cach
 C:\My Solutions\Event Horizon\obj\Debug\Event Horizon.exe.manifest
 C:\My Solutions\Event Horizon\obj\Debug\Event Horizon.application
 C:\My Solutions\Event Horizon\obj\Debug\The Oracle.csproj.CopyComplete
+C:\My Solutions\Event Horizon\bin\Debug\Resources\EventHorizonRemoteDatabase.mdb

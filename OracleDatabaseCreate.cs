@@ -9,7 +9,7 @@ namespace The_Oracle
     {
         internal static bool CheckIfDatabaseExists()
         {
-            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\Oracle.mdb"))
+            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb"))
             {
                 return true;
             }
@@ -23,30 +23,30 @@ namespace The_Oracle
         
         internal static void Create_Oracle()
         {
-            if (!File.Exists(XMLReaderWriter.DatabaseLocationString + "\\Oracle.mdb"))
+            if (!File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb"))
             { 
-                File.WriteAllBytes("Oracle.mdb", Properties.Resources.BlankDB);
+                File.WriteAllBytes("EventHorizonRemoteDatabase.mdb", Properties.Resources.EventHorizonRemoteDatabase);
 
                 CreateEventLogTable();
                 CreateUsersTable();
             }
         }
         
-        internal static void CreateNew_OracleSettingsXML()
+        internal static void CreateNew_EventHorizonLocalSettings()
         {
-            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleSettingsXML.xml"))
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\EventHorizonLocalSettings.xml"))
             {
-                File.WriteAllText("OracleSettingsXML.xml", Properties.Resources.OracleSettingsXML);
+                File.WriteAllText("EventHorizonLocalSettings.xml", Properties.Resources.EventHorizonLocalSettings);
 
                 MainWindow.mw.RefreshXML();
             }
         }
         
-        internal static void CreateNew_OracleDatabaseSettingsXML()
+        internal static void CreateNew_EventHorizonRemoteSettings()
         {
-            if (!File.Exists(XMLReaderWriter.DatabaseLocationString + "\\OracleDatabaseSettingsXML.xml"))
+            if (!File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml"))
             {
-                File.WriteAllText("OracleDatabaseSettingsXML.xml", Properties.Resources.OracleDatabaseSettingsXML);
+                File.WriteAllText("EventHorizonRemoteSettings.xml", Properties.Resources.EventHorizonRemoteSettings);
 
                 MainWindow.mw.RefreshXML();
             }
@@ -60,7 +60,7 @@ namespace The_Oracle
 
             try
             {
-                using (OleDbConnection connection = new OleDbConnection("Provider=Microsoft.Jet.Oledb.4.0; Data Source = " + AppDomain.CurrentDomain.BaseDirectory + "\\Oracle.mdb"))
+                using (OleDbConnection connection = new OleDbConnection("Provider=Microsoft.Jet.Oledb.4.0; Data Source = " + AppDomain.CurrentDomain.BaseDirectory + "\\EventHorizonRemoteDatabase.mdb"))
                 {
                     using (OleDbCommand updateCommand = new OleDbCommand(sqlquery, connection))
                     {
@@ -94,7 +94,7 @@ namespace The_Oracle
 
             try
             {
-                using (OleDbConnection connection = new OleDbConnection("Provider=Microsoft.Jet.Oledb.4.0; Data Source = " + AppDomain.CurrentDomain.BaseDirectory + "\\Oracle.mdb"))
+                using (OleDbConnection connection = new OleDbConnection("Provider=Microsoft.Jet.Oledb.4.0; Data Source = " + AppDomain.CurrentDomain.BaseDirectory + "\\EventHorizonRemoteDatabase.mdb"))
                 {
                     using (OleDbCommand updateCommand = new OleDbCommand(sqlquery, connection))
                     {

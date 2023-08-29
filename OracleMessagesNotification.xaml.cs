@@ -44,34 +44,34 @@ namespace The_Oracle
             switch (Mode)
             {
                 case OracleMessagesNotificationModes.Welcome:
-                    MessageTitleTextBlock.Text = "Welcome to The Oracle";
+                    MessageTitleTextBlock.Text = "Welcome to Event Horizon";
                     InformationTextBlock.Text = "This software solution can be used in the factory, office or home. Designed built by David Paul Jones in 2023 GPLv3";
                     OptionsComboBox.Items.Clear();
                     break;
                 case OracleMessagesNotificationModes.OracleSettingsXmlMissing:
-                    MessageTitleTextBlock.Text = "OracleSettingsXml.xml file is missing";
-                    InformationTextBlock.Text = "Oracle could not find a required xml file, located in the Oracle install folder!";
+                    MessageTitleTextBlock.Text = "EventHorizonLocalSettings.xml file is missing";
+                    InformationTextBlock.Text = "Event Horizon could not find a required xml file, located in the Event Horizon install folder!";
                     OptionsComboBox.Items.Clear();
                     OptionsComboBox.Items.Add("Browse for Xml file");
                     OptionsComboBox.Items.Add("Create a new Xml file");
                     break;
                 case OracleMessagesNotificationModes.OracleDatabaseSettingsXmlMissing:
-                    MessageTitleTextBlock.Text = "OracleDatabaseSettingsXml.xml file is missing";
-                    InformationTextBlock.Text = "Oracle could not find a required xml file, normally located in the OracleDatabase folder!";
+                    MessageTitleTextBlock.Text = "EventHorizonRemoteSettings.xml file is missing";
+                    InformationTextBlock.Text = "Event Horizon could not find a required xml file, normally located in the EventHorizonRemoteDatabase folder!";
                     OptionsComboBox.Items.Clear();
                     OptionsComboBox.Items.Add("Browse for Xml file");
                     OptionsComboBox.Items.Add("Create a new Xml file");
                     break;
                 case OracleMessagesNotificationModes.OracleDatabaseNotFound:
-                    MessageTitleTextBlock.Text = "Oracle could not connect to a database";
-                    InformationTextBlock.Text = "You have a few options, you can browse for the database, create a new database or close Oracle and seek IT Support.";
+                    MessageTitleTextBlock.Text = "Event Horizon could not connect to a database";
+                    InformationTextBlock.Text = "You have a few options, you can browse for the database, create a new database or close Event Horizon and seek IT Support.";
                     OptionsComboBox.Items.Clear();
                     OptionsComboBox.Items.Add("Browse for Database");
                     OptionsComboBox.Items.Add("Create a new Database");
                     break;
                 case OracleMessagesNotificationModes.OracleDatabaseError:
-                    MessageTitleTextBlock.Text = "Oracle had a database error";
-                    InformationTextBlock.Text = "The database might be busy or the network could have become slow, Oracle will try the last operation again.";
+                    MessageTitleTextBlock.Text = "Event Horizon had a database error";
+                    InformationTextBlock.Text = "The database might be busy or the network could have become slow, Event Horizon will try the last operation again.";
                     OptionsComboBox.Items.Clear();
                     break;
                 case OracleMessagesNotificationModes.Custom:
@@ -135,8 +135,8 @@ namespace The_Oracle
                                         }
                                         break;
                                     case 1:
-                                        OracleDatabaseCreate.CreateNew_OracleSettingsXML();
-                                        MainWindow.mw.Status.Content = "Created and connected to a new Oracle settings file";
+                                        OracleDatabaseCreate.CreateNew_EventHorizonLocalSettings();
+                                        MainWindow.mw.Status.Content = "Created and connected to a new Event Horizon settings file";
                                         break;
                                 }
                                 break;
@@ -157,8 +157,8 @@ namespace The_Oracle
                                         }
                                         break;
                                     case 1:
-                                        OracleDatabaseCreate.CreateNew_OracleDatabaseSettingsXML();
-                                        MainWindow.mw.Status.Content = "Created and connected to a new Oracle database settings file";
+                                        OracleDatabaseCreate.CreateNew_EventHorizonRemoteSettings();
+                                        MainWindow.mw.Status.Content = "Created and connected to a new Event Horizon database settings file";
                                         break;
                                 }
                                 break;
@@ -183,7 +183,7 @@ namespace The_Oracle
                                         break;
                                     case 1:
                                         OracleDatabaseCreate.Create_Oracle();
-                                        MainWindow.mw.Status.Content = "Created and connected to a new Oracle database";
+                                        MainWindow.mw.Status.Content = "Created and connected to a new Event Horizon database";
                                         break;
                                 }
                                 break;
@@ -218,7 +218,7 @@ namespace The_Oracle
                                         break;
                                     case 1:
                                         OracleDatabaseCreate.Create_Oracle();
-                                        MainWindow.mw.Status.Content = "Created and connected to a new Oracle database";
+                                        MainWindow.mw.Status.Content = "Created and connected to a new Event Horizon database";
                                         break;
                                 }
                                 break;

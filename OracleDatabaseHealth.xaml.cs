@@ -18,7 +18,7 @@ namespace The_Oracle
         
         public void UpdateLastWriteDateTime(DateTime LastWriteDateTime)
         {
-            string fileName = XMLReaderWriter.DatabaseLocationString + "\\Oracle.mdb";
+            string fileName = XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb";
             FileInfo fi = new FileInfo(fileName);
 
             bool exists = fi.Exists;

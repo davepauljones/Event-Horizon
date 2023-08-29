@@ -48,7 +48,7 @@ namespace The_Oracle
 
         private void Init_OracleDatabaseFileWatcher()
         {
-            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\Oracle.mdb"))
+            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb"))
             {
                 fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
             }
@@ -131,7 +131,7 @@ namespace The_Oracle
 
             mw = this;
 
-            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.png"))
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg"))
             {
                 ImageBrush myBrush = new ImageBrush();
                 myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg", UriKind.Absolute));
@@ -292,7 +292,7 @@ namespace The_Oracle
             {
                 Console.WriteLine("----------------------------------------");
 
-                OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, OracleMessagesNotificationModes.Custom, new OracleCustomMessage { MessageTitleTextBlock = "LoadCurrentUserIntoUserStackPanel - " + e.Source, InformationTextBlock = e.Message });
+                OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, OracleMessagesNotificationModes.Custom, new OracleCustomMessage { MessageTitleTextBlock = "RefreshLog - " + e.Source, InformationTextBlock = e.Message });
                 msg.ShowDialog();
             }
         }
@@ -313,11 +313,22 @@ namespace The_Oracle
             }
             else
             {
-                _EventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(XMLReaderWriter.EventTypesList[_EventHorizonLINQ.EventTypeID].Color);
-                _EventRow.EventTypeFontAwesomeIcon.Icon = XMLReaderWriter.EventTypesList[_EventHorizonLINQ.EventTypeID].Icon;
-                _EventRow.EventTypeTextBlock.Text = XMLReaderWriter.EventTypesList[_EventHorizonLINQ.EventTypeID].Name;
-                _EventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
-                _EventRow.SourceIDGrid.Visibility = Visibility.Visible;
+                if (_EventHorizonLINQ.EventTypeID < XMLReaderWriter.EventTypesList.Count)
+                {
+                    _EventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(XMLReaderWriter.EventTypesList[_EventHorizonLINQ.EventTypeID].Color);
+                    _EventRow.EventTypeFontAwesomeIcon.Icon = XMLReaderWriter.EventTypesList[_EventHorizonLINQ.EventTypeID].Icon;
+                    _EventRow.EventTypeTextBlock.Text = XMLReaderWriter.EventTypesList[_EventHorizonLINQ.EventTypeID].Name;
+                    _EventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
+                    _EventRow.SourceIDGrid.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    _EventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.White);
+                    _EventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Question;
+                    _EventRow.EventTypeTextBlock.Text = "Error";
+                    _EventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
+                    _EventRow.SourceIDGrid.Visibility = Visibility.Visible;
+                }
             }
 
             _EventRow.CreatedDateTimeTextBlock.Text = _EventHorizonLINQ.CreationDate.ToString("dd/MM/y HH:mm");
@@ -328,7 +339,10 @@ namespace The_Oracle
             }
             else
             {
-                _EventRow.SourceIDTextBlock.Text = XMLReaderWriter.SourceTypesList[_EventHorizonLINQ.SourceID].Name;
+                if (_EventHorizonLINQ.SourceID < XMLReaderWriter.SourceTypesList.Count)
+                    _EventRow.SourceIDTextBlock.Text = XMLReaderWriter.SourceTypesList[_EventHorizonLINQ.SourceID].Name;
+                else
+                    _EventRow.SourceIDTextBlock.Text = "Error";
             }
 
             _EventRow.DetailsTextBlock.Text = _EventHorizonLINQ.Details;
@@ -344,19 +358,43 @@ namespace The_Oracle
 
             _EventRow.StatusGrid.Children.Add(StatusIcons.GetStatus(_EventHorizonLINQ.StatusID));
 
-            _EventRow.OriginUserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[_EventHorizonLINQ.UserID].Color);
-            _EventRow.OriginUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, _EventHorizonLINQ.UserID);
-
-            _EventRow.TargetUserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[_EventHorizonLINQ.TargetUserID].Color);
-            _EventRow.TargetUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, _EventHorizonLINQ.TargetUserID);
-
-            if (_EventHorizonLINQ.TargetUserID > 0)
-                _EventRow.TargetUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, _EventHorizonLINQ.TargetUserID);
+            if (_EventHorizonLINQ.UserID < XMLReaderWriter.UsersList.Count)
+            {
+                _EventRow.OriginUserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[_EventHorizonLINQ.UserID].Color);
+                _EventRow.OriginUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, _EventHorizonLINQ.UserID);
+            }
             else
             {
-                _EventRow.TargetUserLabel.Content = "★";
-                _EventRow.TargetUserLabel.Margin = new Thickness(0, -3, 0, 0);
-                _EventRow.TargetUserLabel.FontSize = 14;
+                _EventRow.OriginUserEllipse.Fill = new SolidColorBrush(Colors.White);
+                _EventRow.OriginUserLabel.Content = _EventHorizonLINQ.UserID;
+            }
+
+            if (_EventHorizonLINQ.TargetUserID < XMLReaderWriter.UsersList.Count)
+            {
+                _EventRow.TargetUserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[_EventHorizonLINQ.TargetUserID].Color);
+                _EventRow.TargetUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, _EventHorizonLINQ.TargetUserID);
+            }
+            else
+            {
+                _EventRow.TargetUserEllipse.Fill = new SolidColorBrush(Colors.White);
+                _EventRow.TargetUserLabel.Content = _EventHorizonLINQ.TargetUserID;
+            }
+
+            if (_EventHorizonLINQ.TargetUserID < XMLReaderWriter.UsersList.Count)
+            {
+                if (_EventHorizonLINQ.TargetUserID > 0)
+                    _EventRow.TargetUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, _EventHorizonLINQ.TargetUserID);
+                else
+                {
+                    _EventRow.TargetUserLabel.Content = "★";
+                    _EventRow.TargetUserLabel.Margin = new Thickness(0, -3, 0, 0);
+                    _EventRow.TargetUserLabel.FontSize = 14;
+                }
+            }
+            else
+            {
+                _EventRow.TargetUserEllipse.Fill = new SolidColorBrush(Colors.White);
+                _EventRow.TargetUserLabel.Content = _EventHorizonLINQ.TargetUserID;
             }
 
             String TotalDaysString = string.Empty;
@@ -1154,10 +1192,13 @@ namespace The_Oracle
                 Console.Write("DisplayMode = ");
                 Console.WriteLine(DisplayMode);
 
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
+                if (MainWindowIs_Loaded)
+                {
+                    if (DisplayMode == DisplayModes.Reminders)
+                        RefreshLog(ListViews.Reminder);
+                    else
+                        RefreshLog(ListViews.Log);
+                }
             }
         }
 

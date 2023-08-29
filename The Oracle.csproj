@@ -115,6 +115,7 @@
     <Compile Include="EventHorizonLogo.xaml.cs">
       <DependentUpon>EventHorizonLogo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EventHorizonPrerequisites.cs" />
     <Compile Include="EventRow.xaml.cs">
       <DependentUpon>EventRow.xaml</DependentUpon>
     </Compile>
@@ -264,6 +265,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="EventHorizonIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EventHorizonLocalSettings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EventHorizonRemoteSettings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EventHorizonRemoteDatabase.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,7 +10,7 @@ namespace The_Oracle
     {
         public static String TitleString;
         public static String PathString = AppDomain.CurrentDomain.BaseDirectory;
-        public static String OracleFileName = "Oracle.mdb";
+        public static String OracleFileName = "EventHorizonRemoteDatabase.mdb";
 
         public static void SetMainWindowTitle()
         {

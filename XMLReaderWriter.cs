@@ -33,17 +33,16 @@ namespace The_Oracle
         {
             try
             {
-                if (File.Exists(PathName + "\\OracleSettingsXML.xml"))
+                if (File.Exists(PathName + "\\EventHorizonLocalSettings.xml"))
                 {
                     XmlDocument doc = new XmlDocument();
-                    doc.Load(PathName + "\\OracleSettingsXML.xml");
+                    doc.Load(PathName + "\\EventHorizonLocalSettings.xml");
 
-                    XmlNodeList nodes = doc.DocumentElement.SelectNodes("/Oracle/Settings");
+                    XmlNodeList nodes = doc.DocumentElement.SelectNodes("/EventHorizon/Settings");
 
                     Console.WriteLine("User");
                     foreach (XmlNode node in nodes)
                     {
-                        UserID = Convert.ToInt32(node.SelectSingleNode("UserID").InnerText);
                         UserNameString = node.SelectSingleNode("UserName").InnerText;
                         DatabaseLocationString = node.SelectSingleNode("DatabaseLocation").InnerText;
 
@@ -59,7 +58,6 @@ namespace The_Oracle
                 }
                 else
                 {
-                    //MessageBox.Show("Could not connect to Oracle Local Settings File at " + AppDomain.CurrentDomain.BaseDirectory + "\\OracleSettingsXML.xml", "Oracle Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, OracleMessagesNotificationModes.OracleSettingsXmlMissing);
                     msg.ShowDialog();
                 }
@@ -83,12 +81,12 @@ namespace The_Oracle
         {
             try
             {
-                if (File.Exists(PathName + "\\OracleDatabaseSettingsXML.xml"))
+                if (File.Exists(PathName + "\\EventHorizonRemoteSettings.xml"))
                 {
                     XmlDocument doc = new XmlDocument();
-                    doc.Load(PathName + "\\OracleDatabaseSettingsXML.xml");
+                    doc.Load(PathName + "\\EventHorizonRemoteSettings.xml");
 
-                    XmlNodeList UsersNodes = doc.DocumentElement.SelectNodes("/OracleDatabase/Users");
+                    XmlNodeList UsersNodes = doc.DocumentElement.SelectNodes("/EventHorizonDatabase/Users");
 
                     UsersList.Clear();
                     
@@ -98,6 +96,8 @@ namespace The_Oracle
 
                     foreach (XmlNode node in UsersNodes)
                     {
+                        if (UserNameString == node["UserName"].InnerText) UserID = id;
+
                         UsersList.Add(new User { ID = id, UserName = node["UserName"].InnerText, Color = (Color)ColorConverter.ConvertFromString(node["Color"].InnerText) });
                         id++;
                     }
@@ -113,61 +113,7 @@ namespace The_Oracle
                         Console.WriteLine(u.Color);
                     }
 
-                    //XmlNodeList FunctionKeyEventTypesNodes = doc.DocumentElement.SelectNodes("/OracleDatabase/FunctionKeys");
-
-                    //FunctionKeyEventTypesList.Clear();
-
-                    //foreach (XmlNode node in FunctionKeyEventTypesNodes)
-                    //{
-                    //    FunctionKeyEventTypesList.Add(new FunctionKeyEventType { EventTypeID = Convert.ToInt32(node["EventTypeID"].InnerText), ShortName = node["ShortName"].InnerText });
-                    //}
-
-                    //Console.WriteLine("FunctionKeyEventTypesList");
-                    //id = 0;
-                    //foreach (FunctionKeyEventType fket in FunctionKeyEventTypesList)
-                    //{
-                    //    switch (id)
-                    //    {
-                    //        case 0:
-                    //            MainWindow.mw.F3ButtonLabel.Content = fket.ShortName;
-                    //            break;
-                    //        case 1:
-                    //            MainWindow.mw.F4ButtonLabel.Content = fket.ShortName;
-                    //            break;
-                    //        case 2:
-                    //            MainWindow.mw.F5ButtonLabel.Content = fket.ShortName;
-                    //            break;
-                    //        case 3:
-                    //            MainWindow.mw.F6ButtonLabel.Content = fket.ShortName;
-                    //            break;
-                    //        case 4:
-                    //            MainWindow.mw.F7ButtonLabel.Content = fket.ShortName;
-                    //            break;
-                    //        case 5:
-                    //            MainWindow.mw.F8ButtonLabel.Content = fket.ShortName;
-                    //            break;
-                    //        case 6:
-                    //            MainWindow.mw.F9ButtonLabel.Content = fket.ShortName;
-                    //            break;
-                    //        case 7:
-                    //            MainWindow.mw.F10ButtonLabel.Content = fket.ShortName;
-                    //            break;
-                    //        case 8:
-                    //            MainWindow.mw.F11ButtonLabel.Content = fket.ShortName;
-                    //            break;
-                    //        case 9:
-                    //            MainWindow.mw.F12ButtonLabel.Content = fket.ShortName;
-                    //            break;
-                    //    }
-
-                    //    Console.Write("EventTypeID = ");
-                    //    Console.Write(fket.EventTypeID);
-                    //    Console.Write(" ShortName = ");
-                    //    Console.WriteLine(fket.ShortName);
-                    //    id++;
-                    //}
-
-                    XmlNodeList EventTypesNodes = doc.DocumentElement.SelectNodes("/OracleDatabase/EventTypes");
+                    XmlNodeList EventTypesNodes = doc.DocumentElement.SelectNodes("/EventHorizonDatabase/EventTypes");
 
                     EventTypesList.Clear();
 
@@ -251,9 +197,11 @@ namespace The_Oracle
                         Console.WriteLine(et.Color);
                     }
 
-                    XmlNodeList SourceTypesNodes = doc.DocumentElement.SelectNodes("/OracleDatabase/SourceTypes");
+                    XmlNodeList SourceTypesNodes = doc.DocumentElement.SelectNodes("/EventHorizonDatabase/SourceTypes");
                     
                     SourceTypesList.Clear();
+
+                    SourceTypesList.Add(new SourceType { ID = 0, Name = "None", Icon = FontAwesomeIcon.StarOutline, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
 
                     id = 1;
                     foreach (XmlNode node in SourceTypesNodes)
@@ -282,18 +230,18 @@ namespace The_Oracle
                     msg.ShowDialog();
                 }
             }
-            catch (XmlException e)
-            {
-                Console.WriteLine("----------------------------------------");
-
-                Console.WriteLine("An exception was thrown.");
-                Console.WriteLine(e.Message);
-                if (e.Data.Count > 0)
+                catch (XmlException e)
                 {
-                    Console.WriteLine("  Extra details:");
-                    foreach (DictionaryEntry de in e.Data)
-                        Console.WriteLine("    Key: {0,-20}      Value: {1}", "'" + de.Key.ToString() + "'", de.Value);
-                }
+                    Console.WriteLine("----------------------------------------");
+
+                    Console.WriteLine("An exception was thrown.");
+                    Console.WriteLine(e.Message);
+                    if (e.Data.Count > 0)
+                    {
+                        Console.WriteLine("  Extra details:");
+                        foreach (DictionaryEntry de in e.Data)
+                            Console.WriteLine("    Key: {0,-20}      Value: {1}", "'" + de.Key.ToString() + "'", de.Value);
+                    }
             }
         }
 
@@ -310,21 +258,19 @@ namespace The_Oracle
         {
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
-            XmlWriter writer = XmlWriter.Create(os.DatabaseLocation + @"\" + @"OracleSettingsXML.xml", settings);
+            XmlWriter writer = XmlWriter.Create(os.DatabaseLocation + @"\" + @"EventHorizonLocalSettings.xml", settings);
 
             Console.Write("os.DatabaseLocation = ");
-            Console.WriteLine(os.DatabaseLocation + @"\OracleSettingsXML.xml");
+            Console.WriteLine(os.DatabaseLocation + @"\EventHorizonLocalSettings.xml");
 
             writer.WriteStartDocument();
 
-            writer.WriteComment("Oracle solution settings file generated by the program.");
+            writer.WriteComment("Event Horizon local settings file generated by the program.");
 
-            writer.WriteStartElement("Oracle");
+            writer.WriteStartElement("EventHorizon");
             writer.WriteStartElement("Settings");
-            writer.WriteElementString("UserID", os.UserID.ToString());
             writer.WriteElementString("UserName", os.UserName);
             writer.WriteElementString("DatabaseLocation", os.DatabaseLocation);
-            writer.WriteElementString("HoverDatabaseLocation", "N:\\HoverData");
 
             writer.WriteEndElement();
             writer.WriteEndElement();
@@ -337,12 +283,12 @@ namespace The_Oracle
         {
             bool Result = false;
 
-            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\OracleDatabaseSettingsXML.xml"))
+            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml"))
             {
                 XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(XMLReaderWriter.DatabaseLocationString);
                 Result = true;
             }
-            else if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleDatabaseSettingsXML.xml"))
+            else if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\EventHorizonRemoteSettings.xml"))
             {
                 XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(AppDomain.CurrentDomain.BaseDirectory);
                 Result = true;
@@ -361,7 +307,7 @@ namespace The_Oracle
         {
             bool result = false;
 
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleSettingsXML.xml"))
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\EventHorizonLocalSettings.xml"))
             {
                 ReadXMLNodesOracleSettingsXMLFile(AppDomain.CurrentDomain.BaseDirectory);
                 result = true;
