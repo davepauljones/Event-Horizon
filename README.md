@@ -4,7 +4,7 @@
 
 Up coming Events odbc mdb database, single or multi-user, primary use is to get organized, XML Event Types &amp; XML Users List
 
-![Alt Text](./EventHorizonImage.jpg)
+![Alt Text](./EventHorizonImage.png)
 
 ## Table of Contents
 - [About](#about)
@@ -40,7 +40,9 @@ Event Horizon uses xml file to set event types & users, so this ability decouple
   
 ## Getting Started
 
-Provide instructions on how to install and set up your project. You can include code snippets or step-by-step guides.
+Copy files to your hard drive, something like 'c:\Event Horizon\'
+Goto that folder and edit 'OracleSettingsXML.xml' Oracle was just the project name while major works was done, now 'Event Horizon'
+Goto the database folder & edit the main settings file 'OracleDatabaseSettingsXML.xml' change the event types to suit your requirements
 
 ## Usage
 
