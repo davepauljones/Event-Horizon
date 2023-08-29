@@ -414,47 +414,50 @@ namespace The_Oracle
             {
                 UserStackPanel.Children.Clear();
 
-                User u = XMLReaderWriter.UsersList[XMLReaderWriter.UserID];
-
-                Grid OriginUserIconEllipseGrid;
-                Ellipse OriginUserIconEllipse;
-
-                Color IconEllipseColor = Colors.White;
-
-                IconEllipseColor = XMLReaderWriter.UsersList[u.ID].Color;
-
-                if (u.ID > 0)
-                    OriginUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(IconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                else
-                    OriginUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(IconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                OriginUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                OriginUserIconEllipseGrid.Children.Add(OriginUserIconEllipse);
-
-                Label OriginUserIconEllipseLabel;
-
-                if (u.ID > 0)
-                    OriginUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(u.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                else
-                    OriginUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
-
-                OriginUserIconEllipseGrid.Children.Add(OriginUserIconEllipseLabel);
-
-                OriginUserIconEllipseGrid.Opacity = 1;
-
-                OriginUserIconEllipseGrid.Effect = new DropShadowEffect
+                if (XMLReaderWriter.UsersList[XMLReaderWriter.UserID] != null)
                 {
-                    Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                    Direction = 320,
-                    ShadowDepth = 1,
-                    Opacity = 0.6
-                };
+                    User u = XMLReaderWriter.UsersList[XMLReaderWriter.UserID];
 
-                Label UsersName = new Label { Content = u.UserName, Foreground = Brushes.Black, FontSize = 11, Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    Grid OriginUserIconEllipseGrid;
+                    Ellipse OriginUserIconEllipse;
 
-                UserStackPanel.Children.Add(OriginUserIconEllipseGrid);
-                UserStackPanel.Children.Add(UsersName);
+                    Color IconEllipseColor = Colors.White;
+
+                    IconEllipseColor = XMLReaderWriter.UsersList[u.ID].Color;
+
+                    if (u.ID > 0)
+                        OriginUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(IconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    else
+                        OriginUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(IconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+
+                    OriginUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+
+                    OriginUserIconEllipseGrid.Children.Add(OriginUserIconEllipse);
+
+                    Label OriginUserIconEllipseLabel;
+
+                    if (u.ID > 0)
+                        OriginUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(u.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    else
+                        OriginUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
+
+                    OriginUserIconEllipseGrid.Children.Add(OriginUserIconEllipseLabel);
+
+                    OriginUserIconEllipseGrid.Opacity = 1;
+
+                    OriginUserIconEllipseGrid.Effect = new DropShadowEffect
+                    {
+                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
+                        Direction = 320,
+                        ShadowDepth = 1,
+                        Opacity = 0.6
+                    };
+
+                    Label UsersName = new Label { Content = u.UserName, Foreground = Brushes.Black, FontSize = 11, Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+
+                    UserStackPanel.Children.Add(OriginUserIconEllipseGrid);
+                    UserStackPanel.Children.Add(UsersName);
+                }
             }
             catch (Exception e)
             {
