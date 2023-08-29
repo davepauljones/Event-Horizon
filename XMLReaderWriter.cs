@@ -332,5 +332,48 @@ namespace The_Oracle
             writer.Flush();
             writer.Close();
         }
+
+        public static bool CheckIf_DatabaseSettingsXML_FileExists()
+        {
+            bool Result = false;
+
+            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\OracleDatabaseSettingsXML.xml"))
+            {
+                XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(XMLReaderWriter.DatabaseLocationString);
+                Result = true;
+            }
+            else if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleDatabaseSettingsXML.xml"))
+            {
+                XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(AppDomain.CurrentDomain.BaseDirectory);
+                Result = true;
+            }
+            else
+            {
+                OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, OracleMessagesNotificationModes.OracleDatabaseSettingsXmlMissing);
+                msg.ShowDialog();
+                Result = false;
+            }
+            
+            return Result;
+        }
+
+        public static bool CheckIf_SettingsXML_FileExists()
+        {
+            bool result = false;
+
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleSettingsXML.xml"))
+            {
+                ReadXMLNodesOracleSettingsXMLFile(AppDomain.CurrentDomain.BaseDirectory);
+                result = true;
+            }
+            else
+            {
+                OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, OracleMessagesNotificationModes.OracleSettingsXmlMissing);
+                msg.ShowDialog();
+                result = false;
+            }
+
+            return result;
+        }
     }
 }

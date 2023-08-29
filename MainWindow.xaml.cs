@@ -144,36 +144,23 @@ namespace The_Oracle
 
             EventStackPanel.Visibility = Visibility.Visible;
 
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleSettingsXML.xml"))
+            if (XMLReaderWriter.CheckIf_SettingsXML_FileExists())
             {
-                XMLReaderWriter.ReadXMLNodesOracleSettingsXMLFile(AppDomain.CurrentDomain.BaseDirectory);
-            }
-            else
-            {
-                OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, OracleMessagesNotificationModes.OracleSettingsXmlMissing);
-                msg.ShowDialog();
-            }
-            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\OracleDatabaseSettingsXML.xml"))
-            {
-                XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(XMLReaderWriter.DatabaseLocationString);
-            }
-            else if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleDatabaseSettingsXML.xml"))
-            {
-                XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(AppDomain.CurrentDomain.BaseDirectory);
-            }
-            else
-            {
-                OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, OracleMessagesNotificationModes.OracleDatabaseSettingsXmlMissing);
-                msg.ShowDialog();
-            }
-
-            String swv = System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("dd/MM/yyyy");
+                if (XMLReaderWriter.CheckIf_DatabaseSettingsXML_FileExists())
+                {
+                    String swv = System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("dd/MM/yyyy");
             
-            HSE_LOG_GlobalMDBConnectionString = String.Empty;
+                    HSE_LOG_GlobalMDBConnectionString = String.Empty;
 
-            MainWindowTitle.SetMainWindowTitle();
+                    MainWindowTitle.SetMainWindowTitle();
 
-            Loaded += MainWindow_Loaded;
+                    Loaded += MainWindow_Loaded;
+                }
+                else
+                    Close();
+            }
+            else
+                Close();
         }
 
         bool MainWindowIs_Loaded = false;

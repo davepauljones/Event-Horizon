@@ -83,3 +83,66 @@ C:\My Solutions\The Oracle\obj\Debug\Event Horizon.application
 C:\My Solutions\The Oracle\obj\Debug\The Oracle.csproj.CopyComplete
 C:\My Solutions\The Oracle\obj\Debug\Event Horizon.exe
 C:\My Solutions\The Oracle\obj\Debug\Event Horizon.pdb
+C:\My Solutions\Event Horizon\obj\Debug\The Oracle.csproj.AssemblyReference.cache
+C:\My Solutions\Event Horizon\obj\Debug\OracleResource.baml
+C:\My Solutions\Event Horizon\obj\Debug\EventHorizonLogo.g.cs
+C:\My Solutions\Event Horizon\obj\Debug\EventRow.g.cs
+C:\My Solutions\Event Horizon\obj\Debug\MainWindow.g.cs
+C:\My Solutions\Event Horizon\obj\Debug\EventWindow.g.cs
+C:\My Solutions\Event Horizon\obj\Debug\OracleDatabaseHealth.g.cs
+C:\My Solutions\Event Horizon\obj\Debug\OracleMessagesNotification.g.cs
+C:\My Solutions\Event Horizon\obj\Debug\OracleBriefNotification.g.cs
+C:\My Solutions\Event Horizon\obj\Debug\OracleNotification.g.cs
+C:\My Solutions\Event Horizon\obj\Debug\Now.g.cs
+C:\My Solutions\Event Horizon\obj\Debug\Today.g.cs
+C:\My Solutions\Event Horizon\obj\Debug\App.g.cs
+C:\My Solutions\Event Horizon\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\My Solutions\Event Horizon\obj\Debug\Event Horizon_MarkupCompile.cache
+C:\My Solutions\Event Horizon\obj\Debug\Event Horizon_MarkupCompile.lref
+C:\My Solutions\Event Horizon\obj\Debug\Event Horizon.exe
+C:\My Solutions\Event Horizon\obj\Debug\Event Horizon.pdb
+C:\My Solutions\Event Horizon\bin\Debug\Event Horizon.exe.config
+C:\My Solutions\Event Horizon\bin\Debug\Event Horizon.exe.manifest
+C:\My Solutions\Event Horizon\bin\Debug\Event Horizon.application
+C:\My Solutions\Event Horizon\bin\Debug\Event Horizon.exe
+C:\My Solutions\Event Horizon\bin\Debug\Event Horizon.pdb
+C:\My Solutions\Event Horizon\bin\Debug\FontAwesome.WPF.dll
+C:\My Solutions\Event Horizon\bin\Debug\System.Data.OleDb.dll
+C:\My Solutions\Event Horizon\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\My Solutions\Event Horizon\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\My Solutions\Event Horizon\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\My Solutions\Event Horizon\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\My Solutions\Event Horizon\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\My Solutions\Event Horizon\bin\Debug\FontAwesome.WPF.xml
+C:\My Solutions\Event Horizon\bin\Debug\System.Data.OleDb.xml
+C:\My Solutions\Event Horizon\bin\Debug\cs-CZ\Xceed.Wpf.AvalonDock.resources.dll
+C:\My Solutions\Event Horizon\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\My Solutions\Event Horizon\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\My Solutions\Event Horizon\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\My Solutions\Event Horizon\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\My Solutions\Event Horizon\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\My Solutions\Event Horizon\bin\Debug\ja-JP\Xceed.Wpf.AvalonDock.resources.dll
+C:\My Solutions\Event Horizon\bin\Debug\nl-BE\Xceed.Wpf.AvalonDock.resources.dll
+C:\My Solutions\Event Horizon\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\My Solutions\Event Horizon\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\My Solutions\Event Horizon\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\My Solutions\Event Horizon\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\My Solutions\Event Horizon\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\My Solutions\Event Horizon\obj\Debug\App.baml
+C:\My Solutions\Event Horizon\obj\Debug\EventHorizonLogo.baml
+C:\My Solutions\Event Horizon\obj\Debug\EventRow.baml
+C:\My Solutions\Event Horizon\obj\Debug\MainWindow.baml
+C:\My Solutions\Event Horizon\obj\Debug\EventWindow.baml
+C:\My Solutions\Event Horizon\obj\Debug\OracleDatabaseHealth.baml
+C:\My Solutions\Event Horizon\obj\Debug\OracleMessagesNotification.baml
+C:\My Solutions\Event Horizon\obj\Debug\OracleBriefNotification.baml
+C:\My Solutions\Event Horizon\obj\Debug\OracleNotification.baml
+C:\My Solutions\Event Horizon\obj\Debug\Now.baml
+C:\My Solutions\Event Horizon\obj\Debug\Today.baml
+C:\My Solutions\Event Horizon\obj\Debug\Event Horizon.g.resources
+C:\My Solutions\Event Horizon\obj\Debug\The_Oracle.Properties.Resources.resources
+C:\My Solutions\Event Horizon\obj\Debug\The Oracle.csproj.GenerateResource.cache
+C:\My Solutions\Event Horizon\obj\Debug\The Oracle.csproj.CoreCompileInputs.cache
+C:\My Solutions\Event Horizon\obj\Debug\Event Horizon.exe.manifest
+C:\My Solutions\Event Horizon\obj\Debug\Event Horizon.application
+C:\My Solutions\Event Horizon\obj\Debug\The Oracle.csproj.CopyComplete
