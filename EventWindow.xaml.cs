@@ -161,7 +161,11 @@ namespace The_Oracle
                 TargetTimeHoursPicker.IsEnabled = true;
                 TargetTimeMinutesPicker.IsEnabled = true;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
-                ReplyButton.Visibility = Visibility.Collapsed;
+                if (oe.UserID == XMLReaderWriter.UserID)
+                    ReplyButton.Content = "Note";
+                else
+                    ReplyButton.Content = "Reply";
+                ReplyButton.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Visible;
             }
             else if (oe.Source_Mode == EventWindowModes.EditReply)
@@ -193,8 +197,8 @@ namespace The_Oracle
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
                 CreatedDateTimeLabel.Content = oe.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "New Event";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 EventTypeComboBox.SelectedIndex = oe.EventTypeID;
                 EventTypeComboBox.IsEnabled = true;
@@ -206,8 +210,10 @@ namespace The_Oracle
                 FrequencyComboBox.IsEnabled = true;
                 TargetUserIDComboBox.SelectedIndex = oe.TargetUserID;
                 TargetUserIDComboBox.IsEnabled = true;
+                StatusComboBox.SelectedIndex = oe.StatusID;
                 StatusComboBox.IsEnabled = true;
                 TargetDatePicker.IsEnabled = true;
+                TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
                 TargetTimeHoursPicker.IsEnabled = true;
                 TargetTimeMinutesPicker.IsEnabled = true;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
@@ -219,10 +225,20 @@ namespace The_Oracle
                 EventIDLabel.Content = "-1";
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
                 CreatedDateTimeLabel.Content = oe.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "New Reply";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, oe.UserID);
+                if (oe.UserID == XMLReaderWriter.UserID)
+                {
+                    EventTitleLabel.Content = "New Note";
+                    UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
+                    UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
+                    UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
+                }
+                else
+                {
+                    EventTitleLabel.Content = "New Reply";
+                    UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
+                    UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
+                    UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, oe.UserID);
+                }
                 EventTypeComboBox.SelectedIndex = oe.EventTypeID;
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.SelectedIndex = oe.SourceID;
@@ -233,8 +249,10 @@ namespace The_Oracle
                 FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.SelectedIndex = oe.TargetUserID;
                 TargetUserIDComboBox.IsEnabled = false;
+                StatusComboBox.SelectedIndex = oe.StatusID;
                 StatusComboBox.IsEnabled = true;
                 TargetDatePicker.IsEnabled = true;
+                TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
                 TargetTimeHoursPicker.IsEnabled = true;
                 TargetTimeMinutesPicker.IsEnabled = true;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
@@ -422,6 +440,37 @@ namespace The_Oracle
             }
         }
 
+        private void TargetDate_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            Button button = e.OriginalSource as Button;
+
+            int ButtonID = 0;
+
+            bool success = Int32.TryParse(button.Tag.ToString(), out ButtonID);
+
+            if (button != null && success)
+            {
+                switch (ButtonID)
+                {
+                    case TargetDateButtons.OneDay:
+                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(1);
+                        break;
+                    case TargetDateButtons.TwoDays:
+                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(2);
+                        break;
+                    case TargetDateButtons.ThreeDays:
+                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(3);
+                        break;
+                    case TargetDateButtons.FiveDays:
+                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(5);
+                        break;
+                    case TargetDateButtons.SevenDays:
+                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
+                        break;
+                }
+            }
+        }
+
         private void TargetTime_ButtonClick(object sender, RoutedEventArgs e)
         {
             Button button = e.OriginalSource as Button;
@@ -435,6 +484,7 @@ namespace The_Oracle
                 switch (ButtonID)
                 {
                     case TargetTimeButtons.Now:
+                        TargetDatePicker.SelectedDate = DateTime.Now;
                         TargetTimeHoursPicker.Text = DateTime.Now.ToString("HH");
                         TargetTimeMinutesPicker.Text = DateTime.Now.ToString("mm");
                         break;
@@ -555,5 +605,6 @@ namespace The_Oracle
             Console.Write("** item.Tag SourceTypeName = ");
             Console.WriteLine(SourceTypeName);
         }
+
     }
 }

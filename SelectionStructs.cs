@@ -171,6 +171,14 @@ namespace The_Oracle
         public const int No = 0;
         public const int Yes = 1;
     }
+    public struct TargetDateButtons
+    {
+        public const int OneDay = 0;
+        public const int TwoDays = 1;
+        public const int ThreeDays = 2;
+        public const int FiveDays = 3;
+        public const int SevenDays = 4;
+    }
     public struct TargetTimeButtons
     {
         public const int Now = 0;

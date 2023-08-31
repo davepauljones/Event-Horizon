@@ -65,8 +65,8 @@
                     <Border.Effect>
                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                     </Border.Effect>
-                    <StackPanel Orientation="Horizontal" Height="34" Margin="7,0,0,0">
-                        <Grid Grid.Column="3" Grid.Row="0" Margin="3,4,4,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal" Height="34" Margin="8,0,0,0">
+                        <Grid Grid.Column="3" Grid.Row="0" Margin="3,4,3,0" HorizontalAlignment="Center" VerticalAlignment="Top">
                             <Grid.Effect>
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                             </Grid.Effect>
@@ -132,38 +132,67 @@
                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
                     </ComboBox.Effect>
                 </ComboBox>
-                <DatePicker x:Name="TargetDatePicker" Width="210" HorizontalAlignment="Left" Margin="10,10,0,0" Padding="13,0,0,0" FontSize="18" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <DatePicker x:Name="TargetDatePicker" Width="210" HorizontalAlignment="Left" Margin="10,0,0,0" Padding="13,6,0,0" FontSize="18" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Tag="0" Content="1 Day" Width="50" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="20,0,0,0" Click="TargetDate_ButtonClick">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                        <Button Tag="1" Content="2 Days" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,0,0,0" Click="TargetDate_ButtonClick">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                        <Button Tag="2" Content="3 Days" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,0,0,0" Click="TargetDate_ButtonClick">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                        <Button Tag="3" Content="5 Days" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,0,0,0" Click="TargetDate_ButtonClick">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                        <Button Tag="4" Content="7 Days" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,0,0,0" Click="TargetDate_ButtonClick">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
                     <xctk:TimePicker x:Name="TargetTimeHoursPicker" Text="00" Value="00:00:00" StartTime="00:00:0" EndTime="23:59:0" Format="Custom" FormatString="HH" ShowDropDownButton="False" FontSize="18" MinWidth="66" MaxWidth="50" Padding="12,0,0,0" TextAlignment="Left"/>
                     <Label Content=":" HorizontalAlignment="Center" FontSize="18" Margin="0,2,0,0" FontWeight="Bold"/>
                     <xctk:TimePicker x:Name="TargetTimeMinutesPicker" Text="00" Value="00:00:00" StartTime="00:00:0" EndTime="23:59:0" Format="Custom" FormatString="ss" ShowDropDownButton="False" FontSize="18" MinWidth="66" MaxWidth="50" Padding="12,0,0,0" TextAlignment="Left"/>
                     <StackPanel x:Name="TargetTimeButtonsStackPanel" Orientation="Horizontal">
-                        <Button Tag="0" Content="Now" Width="50" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="20,2,0,0" Click="TargetTime_ButtonClick">
+                        <Button Tag="0" Content="Now" Width="50" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="20,0,0,0" Click="TargetTime_ButtonClick">
                             <Button.Effect>
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                             </Button.Effect>
                         </Button>
-                        <Button Tag="1" Content="1 Hour" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,2,0,0" Click="TargetTime_ButtonClick">
+                        <Button Tag="1" Content="1 Hour" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,0,0,0" Click="TargetTime_ButtonClick">
                             <Button.Effect>
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                             </Button.Effect>
                         </Button>
-                        <Button Tag="2" Content="2 Hours" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,2,0,0" Click="TargetTime_ButtonClick">
+                        <Button Tag="2" Content="2 Hours" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,0,0,0" Click="TargetTime_ButtonClick">
                             <Button.Effect>
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                             </Button.Effect>
                         </Button>
-                        <Button Tag="3" Content="3 Hours" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,2,0,0" Click="TargetTime_ButtonClick">
+                        <Button Tag="3" Content="3 Hours" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,0,0,0" Click="TargetTime_ButtonClick">
                             <Button.Effect>
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                             </Button.Effect>
                         </Button>
-                        <Button Tag="4" Content="4 Hour" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,2,0,0" Click="TargetTime_ButtonClick">
+                        <Button Tag="4" Content="4 Hour" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,0,0,0" Click="TargetTime_ButtonClick">
                             <Button.Effect>
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                             </Button.Effect>
                         </Button>
-                        <Button Tag="5" Content="5 Hours" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,2,0,0" Click="TargetTime_ButtonClick">
+                        <Button Tag="5" Content="5 Hours" Width="70" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,0,0,0" Click="TargetTime_ButtonClick">
                             <Button.Effect>
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                             </Button.Effect>

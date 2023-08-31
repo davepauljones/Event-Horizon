@@ -26,7 +26,7 @@ namespace The_Oracle
             Color IconColor = XMLReaderWriter.EventTypesList[e.ID].Color;
             FontAwesomeIcon fai = XMLReaderWriter.EventTypesList[e.ID].Icon;
 
-            Border IconBorder = new Border { Width = 28, Height = 28, BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), Background = new SolidColorBrush(IconColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(0,2,0,0), Padding = new Thickness(0) };
+            Border IconBorder = new Border { Width = 28, Height = 28, BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), Background = new SolidColorBrush(IconColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(1,2,0,0), Padding = new Thickness(0) };
 
             FontAwesome.WPF.FontAwesome fa = new FontAwesome.WPF.FontAwesome { Icon = fai, Width = 28, Height = 28, FontSize = 17, Foreground = new SolidColorBrush(Colors.White), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(0,5,0,0) };
 
