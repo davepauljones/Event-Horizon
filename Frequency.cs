@@ -112,7 +112,7 @@ namespace The_Oracle
             StackPanel h = new StackPanel { Orientation = Orientation.Vertical, Height = 23 };
 
             Label label = new Label { Content = LabelContent, FontSize = 13, Width = 105, Height = 20, FontWeight = FontWeights.Normal, HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center, VerticalContentAlignment = System.Windows.VerticalAlignment.Center, Padding = new System.Windows.Thickness(0), Margin = new Thickness(0,0,0,0) };
-            Rectangle LabelBackground = new Rectangle { Fill = new SolidColorBrush(Colors.White), Width = 83, Height = 12, Stroke = new SolidColorBrush(Colors.Transparent), StrokeThickness = 0, Margin = new System.Windows.Thickness(11, -1, 11, 0) };
+            Rectangle LabelBackground = new Rectangle { Fill = new SolidColorBrush(Colors.White), Width = 83, Height = 16, Stroke = new SolidColorBrush(Colors.Transparent), StrokeThickness = 0, Margin = new System.Windows.Thickness(11, 0, 11, 0) };
 
             Rectangle r;
             StackPanel sh;

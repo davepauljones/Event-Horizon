@@ -100,6 +100,8 @@ namespace The_Oracle
                 EventIDLabel.Content = oe.ID.ToString("D5");
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
                 EventTitleLabel.Content = "View Event";
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, oe.UserID);
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.IsEnabled = false;
@@ -120,6 +122,8 @@ namespace The_Oracle
                 EventIDLabel.Content = oe.ID.ToString("D5");
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
                 EventTitleLabel.Content = "View Reply";
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, oe.UserID);
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.IsEnabled = false;
@@ -140,6 +144,8 @@ namespace The_Oracle
                 EventIDLabel.Content = oe.ID.ToString("D5");
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
                 EventTitleLabel.Content = "Edit Event";
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, oe.UserID);
                 EventTypeComboBox.IsEnabled = true;
                 SourceComboBox.IsEnabled = true;
@@ -160,6 +166,8 @@ namespace The_Oracle
                 EventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
                 EventTitleLabel.Content = "Edit Reply";
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, oe.UserID);
                 EventTypeComboBox.IsEnabled = true;
                 SourceComboBox.IsEnabled = true;
@@ -180,6 +188,8 @@ namespace The_Oracle
                 EventIDLabel.Content = "-1";
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
                 EventTitleLabel.Content = "New Event";
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 EventTypeComboBox.SelectedIndex = oe.EventTypeID;
                 EventTypeComboBox.IsEnabled = true;
@@ -204,6 +214,8 @@ namespace The_Oracle
                 EventIDLabel.Content = "-1";
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
                 EventTitleLabel.Content = "New Reply";
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, oe.UserID);
                 EventTypeComboBox.SelectedIndex = oe.EventTypeID;
                 EventTypeComboBox.IsEnabled = false;
@@ -224,25 +236,29 @@ namespace The_Oracle
                 SaveButton.Visibility = Visibility.Visible;
             }
 
-            foreach (User u in XMLReaderWriter.UsersList)
-            {
-                TargetUserIDComboBox.Items.Add(u.UserName);
-            }
+            AddUsersToTargetUsersComboBox();
+            AddStatusToStatusComboBox();
 
             this.Owner = Application.Current.MainWindow;
         }
         
         private void AddItemsToEventTypeComboBox()
         {
-            EventTypeComboBox.ItemsSource = (from c in XMLReaderWriter.EventTypesList select new { c.Name }).Distinct().ToList();
-            EventTypeComboBox.DisplayMemberPath = "Name";
+            foreach (EventType e in XMLReaderWriter.EventTypesList)
+            {
+                EventTypeComboBox.Items.Add(EventHorizonEventTypes.GetEventTypeStackPanel(e));
+            }
 
             if (oe.Source_Mode != EventWindowModes.EditEvent) EventTypeComboBox.SelectedIndex = 0;
         }
         
         private void AddItemsToSourceComboBox()
         {
-            SourceComboBox.ItemsSource = (from c in XMLReaderWriter.SourceTypesList select new { c.Name }).Distinct().ToList();
+            foreach (SourceType s in XMLReaderWriter.SourceTypesList)
+            {
+                SourceComboBox.Items.Add(EventHorizonSources.GetSourceStackPanel(s));
+            }
+            
             if (oe.Source_Mode != EventWindowModes.EditEvent) SourceComboBox.SelectedIndex = 0;
         }
 
@@ -275,6 +291,23 @@ namespace The_Oracle
             FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Months_09, false));
 
             if (oe.Source_Mode != EventWindowModes.EditEvent) FrequencyComboBox.SelectedIndex = 0;
+        }
+
+        private void AddUsersToTargetUsersComboBox()
+        {
+            foreach (User u in XMLReaderWriter.UsersList)
+            {
+                TargetUserIDComboBox.Items.Add(EventHorizonUsers.GetUserStackPanel(u));
+            }
+        }
+
+        private void AddStatusToStatusComboBox()
+        {
+            StatusComboBox.Items.Add(StatusIcons.GetStatus(Statuses.Inactive));
+            StatusComboBox.Items.Add(StatusIcons.GetStatus(Statuses.Active));
+            StatusComboBox.Items.Add(StatusIcons.GetStatus(Statuses.ActiveNotified));
+            StatusComboBox.Items.Add(StatusIcons.GetStatus(Statuses.ActiveNotifiedRead));
+            StatusComboBox.Items.Add(StatusIcons.GetStatus(Statuses.ActiveNotifiedReadArchived));
         }
 
         private void GetOracleEvent()
@@ -357,7 +390,7 @@ namespace The_Oracle
 
         private void Gen_ButtonClick(object sender, RoutedEventArgs e)
         {
-            DetailsTextBox.Text = EventTypeComboBox.Text + " " + SourceComboBox.Text;
+            DetailsTextBox.Text = EventTypeName + " " + SourceTypeName;
         }
         
         public int TargetUserID = 0;
@@ -467,6 +500,54 @@ namespace The_Oracle
                         break;
                 }
             }
+        }
+
+        String EventTypeName = string.Empty;
+
+        private void EventTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is StackPanel))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            var selectedTag = ((StackPanel)EventTypeComboBox.SelectedItem).Tag.ToString();
+
+            EventTypeName = selectedTag;
+           
+            Console.Write("** EventTypeComboBox_SelectedIndex = ");
+            Console.WriteLine(EventTypeComboBox.SelectedIndex);
+            Console.Write("** item.Tag EventTypeName = ");
+            Console.WriteLine(EventTypeName);
+        }
+
+        String SourceTypeName = string.Empty;
+
+        private void SourceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is StackPanel))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            var selectedTag = ((StackPanel)SourceComboBox.SelectedItem).Tag.ToString();
+
+            SourceTypeName = selectedTag;
+
+            Console.Write("** SourceComboBox_SelectedIndex = ");
+            Console.WriteLine(SourceComboBox.SelectedIndex);
+            Console.Write("** item.Tag SourceTypeName = ");
+            Console.WriteLine(SourceTypeName);
         }
     }
 }
