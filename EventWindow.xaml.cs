@@ -99,6 +99,7 @@ namespace The_Oracle
             {
                 EventIDLabel.Content = oe.ID.ToString("D5");
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = oe.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "View Event";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
@@ -121,6 +122,7 @@ namespace The_Oracle
             {
                 EventIDLabel.Content = oe.ID.ToString("D5");
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = oe.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "View Reply";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
@@ -143,6 +145,7 @@ namespace The_Oracle
             {
                 EventIDLabel.Content = oe.ID.ToString("D5");
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = oe.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "Edit Event";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
@@ -165,6 +168,7 @@ namespace The_Oracle
             {
                 EventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = oe.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "Edit Reply";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
@@ -187,6 +191,7 @@ namespace The_Oracle
             {
                 EventIDLabel.Content = "-1";
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = oe.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "New Event";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
@@ -213,6 +218,7 @@ namespace The_Oracle
             {
                 EventIDLabel.Content = "-1";
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = oe.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "New Reply";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);

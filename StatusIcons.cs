@@ -37,6 +37,8 @@ namespace The_Oracle
             gd = new Grid { };
             s = new StackPanel { Orientation = Orientation.Horizontal };
 
+            s.Margin = new Thickness(4, 0, 0, 0);
+
             switch (_Status)
             {
                 case Statuses.Inactive:

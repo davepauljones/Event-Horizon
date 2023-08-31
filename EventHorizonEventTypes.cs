@@ -32,7 +32,7 @@ namespace The_Oracle
 
             IconBorder.Child = fa;
            
-            EventTypeIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+            EventTypeIconEllipseGrid = new Grid { Margin = new Thickness(0, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
 
             EventTypeIconEllipseGrid.Children.Add(IconBorder);
 
