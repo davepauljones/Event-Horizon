@@ -5,6 +5,8 @@ using System.Linq;
 using System.Windows.Media;
 using System.IO;
 
+using System.Reflection;
+
 namespace The_Oracle
 {
     public class MiscFunctions
@@ -115,5 +117,6 @@ namespace The_Oracle
 
             return ReturnUserName;
         }
+
     }
 }

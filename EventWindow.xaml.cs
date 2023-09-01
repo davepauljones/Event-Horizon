@@ -41,7 +41,7 @@ namespace The_Oracle
             InitializeComponent();
 
             this.mw = mw;
-            this.oe = oe;
+            this.oe = (EventHorizonLINQ)oe.Clone();
             this.ew = ew;
             this.UserID = oe.UserID;
 

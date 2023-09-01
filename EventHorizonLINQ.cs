@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace The_Oracle
 {
-    public class EventHorizonLINQ
+    public class EventHorizonLINQ : ICloneable
     {
         public Int32 Source_ID = 0;
         public Int32 Source_UserID = 0;
@@ -37,5 +37,11 @@ namespace The_Oracle
         public Int32 Attributes_TotalDays = 0;
         public Color Attributes_TotalDaysEllipseColor = Colors.Black;
         public Int32 Attributes_Replies = 0;
+
+        public object Clone()
+        {
+            var person = (EventHorizonLINQ)MemberwiseClone();
+            return person;
+        }
     }
 }
