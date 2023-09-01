@@ -530,7 +530,7 @@ namespace The_Oracle
 
                         if (EventMode == EventWindowModes.EditEvent || EventMode == EventWindowModes.EditReply)
                             rowsAffected = command.ExecuteNonQuery();
-                        else if (rowsAffected == 0 || EventMode == EventWindowModes.NewEvent || EventMode == EventWindowModes.NewReply)
+                        else if (rowsAffected == 0 || EventMode == EventWindowModes.NewEvent || EventMode == EventWindowModes.NewNote || EventMode == EventWindowModes.NewReply)
                         {
                             command.Parameters.Clear();
                             command.CommandText = "INSERT INTO EventLog (EventTypeID, SourceID, Details, FrequencyID, StatusID, CreatedDateTime, TargetDateTime, UserID, TargetUserID, ReadByMeID, LastViewedDateTime, RemindMeID, RemindMeDateTime, NotificationAcknowledged, ParentEventID, EventModeID) VALUES (@EventTypeID, @SourceID, @Details, @FrequencyID, @StatusID, @CreatedDateTime, @TargetDateTime, @UserID, @TargetUserID, @ReadByMeID, @LastViewedDateTime, @RemindMeID, @RemindMeDateTime, @NotificationAcknowledged, @ParentEventID, @EventModeID);";
@@ -565,6 +565,10 @@ namespace The_Oracle
                                 case EventWindowModes.NewEvent:
                                     command.Parameters.AddWithValue("@ParentEventID", 0);
                                     command.Parameters.AddWithValue("@EventModeID", EventModes.MainEvent);
+                                    break;
+                                case EventWindowModes.NewNote:
+                                    command.Parameters.AddWithValue("@ParentEventID", ehl.Source_ParentEventID);
+                                    command.Parameters.AddWithValue("@EventModeID", EventModes.ReplyEvent);
                                     break;
                                 case EventWindowModes.NewReply:
                                     command.Parameters.AddWithValue("@ParentEventID", ehl.Source_ParentEventID);

@@ -91,6 +91,8 @@ namespace The_Oracle
                     break;
                 case EventWindowModes.NewEvent:
                     break;
+                case EventWindowModes.NewNote:
+                    break;
                 case EventWindowModes.NewReply:
                     break;
             }
@@ -115,6 +117,7 @@ namespace The_Oracle
                 TargetTimeHoursPicker.IsEnabled = false;
                 TargetTimeMinutesPicker.IsEnabled = false;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Collapsed;
+                AddNoteButton.Visibility = Visibility.Visible;
                 ReplyButton.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Collapsed;
             }
@@ -138,6 +141,7 @@ namespace The_Oracle
                 TargetTimeHoursPicker.IsEnabled = false;
                 TargetTimeMinutesPicker.IsEnabled = false;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Collapsed;
+                AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Collapsed;
             }
@@ -161,10 +165,7 @@ namespace The_Oracle
                 TargetTimeHoursPicker.IsEnabled = true;
                 TargetTimeMinutesPicker.IsEnabled = true;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
-                if (oe.UserID == XMLReaderWriter.UserID)
-                    ReplyButton.Content = "Note";
-                else
-                    ReplyButton.Content = "Reply";
+                AddNoteButton.Visibility = Visibility.Visible;
                 ReplyButton.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Visible;
             }
@@ -188,6 +189,7 @@ namespace The_Oracle
                 TargetTimeHoursPicker.IsEnabled = true;
                 TargetTimeMinutesPicker.IsEnabled = true;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
+                AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
             }
@@ -217,6 +219,37 @@ namespace The_Oracle
                 TargetTimeHoursPicker.IsEnabled = true;
                 TargetTimeMinutesPicker.IsEnabled = true;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
+                AddNoteButton.Visibility = Visibility.Collapsed;
+                ReplyButton.Visibility = Visibility.Collapsed;
+                SaveButton.Visibility = Visibility.Visible;
+            }
+            else if (oe.Source_Mode == EventWindowModes.NewNote)
+            {
+                EventIDLabel.Content = "-1";
+                ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = oe.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventTitleLabel.Content = "New Note";
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
+                EventTypeComboBox.SelectedIndex = oe.EventTypeID;
+                EventTypeComboBox.IsEnabled = false;
+                SourceComboBox.SelectedIndex = oe.SourceID;
+                SourceComboBox.IsEnabled = false;
+                GenButton.Visibility = Visibility.Visible;
+                DetailsTextBox.IsEnabled = true;
+                FrequencyComboBox.SelectedIndex = oe.FrequencyID;
+                FrequencyComboBox.IsEnabled = false;
+                TargetUserIDComboBox.SelectedIndex = 0;
+                TargetUserIDComboBox.IsEnabled = true;
+                StatusComboBox.SelectedIndex = oe.StatusID;
+                StatusComboBox.IsEnabled = true;
+                TargetDatePicker.IsEnabled = true;
+                TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
+                TargetTimeHoursPicker.IsEnabled = true;
+                TargetTimeMinutesPicker.IsEnabled = true;
+                TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
+                AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
             }
@@ -225,20 +258,10 @@ namespace The_Oracle
                 EventIDLabel.Content = "-1";
                 ParentEventIDLabel.Content = oe.Source_ParentEventID.ToString("D5");
                 CreatedDateTimeLabel.Content = oe.CreationDate.ToString("dd/MM/yy HH:mm");
-                if (oe.UserID == XMLReaderWriter.UserID)
-                {
-                    EventTitleLabel.Content = "New Note";
-                    UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
-                    UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
-                    UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
-                }
-                else
-                {
-                    EventTitleLabel.Content = "New Reply";
-                    UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[oe.UserID].Color);
-                    UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, oe.UserID);
-                    UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, oe.UserID);
-                }
+                EventTitleLabel.Content = "New Reply";
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 EventTypeComboBox.SelectedIndex = oe.EventTypeID;
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.SelectedIndex = oe.SourceID;
@@ -256,6 +279,7 @@ namespace The_Oracle
                 TargetTimeHoursPicker.IsEnabled = true;
                 TargetTimeMinutesPicker.IsEnabled = true;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
+                AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
             }
@@ -528,6 +552,14 @@ namespace The_Oracle
                         mw.Status.Content = "Last log entry was cancelled.";
                         Close();
                         break;
+                    case EventFormCloseButtons.Note:
+                        SetOracleEvent();
+                        oe.Source_Mode = EventWindowModes.NewNote;
+                        EventWindow nevn = new EventWindow(mw, oe, this);
+                        nevn.Show();
+                        nevn.Left += 30;
+                        nevn.Top += 30;
+                        break;
                     case EventFormCloseButtons.Reply:
                         SetOracleEvent();
                         oe.Source_Mode = EventWindowModes.NewReply;
@@ -544,6 +576,9 @@ namespace The_Oracle
                                 break;
                             case EventWindowModes.EditEvent:
                                 DataTableManagement.SaveEvent(this, oe, EventWindowModes.EditEvent);
+                                break;
+                            case EventWindowModes.NewNote:
+                                DataTableManagement.SaveEvent(this, oe, EventWindowModes.NewNote);
                                 break;
                             case EventWindowModes.NewReply:
                                 DataTableManagement.SaveEvent(this, oe, EventWindowModes.NewReply);

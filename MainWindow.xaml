@@ -290,10 +290,10 @@
                                         <Label Content="Created" MinWidth="136" Style="{StaticResource LabelStyle }"/>
                                         <Label Content="Target" MinWidth="141" Style="{StaticResource LabelStyle }"/>
                                         <Label Content="Days" MinWidth="35" Padding="0,5,0,5" Style="{StaticResource LabelStyle }"/>
-                                        <Label Content="Details" MinWidth="406" Style="{StaticResource LabelStyle }"/>
-                                        <Label Content="Source" MinWidth="135" Style="{StaticResource LabelStyle }"/>
-                                        <Label Content="Frequency" MinWidth="97" Style="{StaticResource LabelStyle }"/>
-                                        <Label Content="Status" MinWidth="106" Style="{StaticResource LabelStyle }"/>
+                                        <Label Content="Details" MinWidth="436" Style="{StaticResource LabelStyle }"/>
+                                        <Label Content="Source" MinWidth="117" Style="{StaticResource LabelStyle }"/>
+                                        <Label Content="Frequency" MinWidth="121" Style="{StaticResource LabelStyle }"/>
+                                        <Label Content="Status" MinWidth="69" Style="{StaticResource LabelStyle }"/>
                                         <Label Content="Notes" MinWidth="24" Style="{StaticResource LabelStyle }"/>
                                     </StackPanel>
 

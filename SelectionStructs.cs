@@ -191,8 +191,9 @@ namespace The_Oracle
     public struct EventFormCloseButtons
     {
         public const int Cancel = 0;
-        public const int Reply = 1;
-        public const int Save = 2;
+        public const int Note = 1;
+        public const int Reply = 2;
+        public const int Save = 3;
     }
     public struct EventModes
     {
@@ -206,6 +207,7 @@ namespace The_Oracle
         public const int EditEvent = 2;
         public const int EditReply = 3;
         public const int NewEvent = 4;
-        public const int NewReply = 5;
+        public const int NewNote = 5;
+        public const int NewReply = 6;
     }
 }

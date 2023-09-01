@@ -214,12 +214,17 @@
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                             </Button.Effect>
                         </Button>
-                        <Button x:Name="ReplyButton" Tag="1" Content="Reply" Click="FormCloseButtons_ButtonClick" Style="{DynamicResource OracleButtonStyle }">
+                        <Button x:Name="AddNoteButton" Tag="1" Content="Add Note" Click="FormCloseButtons_ButtonClick" Style="{DynamicResource OracleButtonStyle }">
                             <Button.Effect>
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                             </Button.Effect>
                         </Button>
-                        <Button x:Name="SaveButton" Tag="2" Content="Save" Click="FormCloseButtons_ButtonClick" Style="{DynamicResource OracleButtonStyle }">
+                        <Button x:Name="ReplyButton" Tag="2" Content="New Reply" Click="FormCloseButtons_ButtonClick" Style="{DynamicResource OracleButtonStyle }">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                            </Button.Effect>
+                        </Button>
+                        <Button x:Name="SaveButton" Tag="3" Content="Save" Click="FormCloseButtons_ButtonClick" Style="{DynamicResource OracleButtonStyle }">
                             <Button.Effect>
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                             </Button.Effect>
