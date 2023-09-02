@@ -35,8 +35,12 @@
             <Button Tag="1" Content="✕" Style="{DynamicResource CloseButtonStyle }" VerticalAlignment="Top" Click="TreeView_ButtonClick"/>
         </StackPanel>
 
-        <TextBlock x:Name="UserNameTextBlock" Grid.Row="1" Text="New message detected" FontSize="18" FontWeight="Medium" Foreground="Black" HorizontalAlignment="Left" Margin="56,0,0,0"/>
-        
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock x:Name="UserNameTextBlock" Text="New message detected" FontSize="18" FontWeight="Medium" Foreground="Black" HorizontalAlignment="Left" Margin="56,0,0,0"/>
+            <TextBlock Text=" to " FontSize="18" FontWeight="Medium" Foreground="LightSlateGray" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+            <TextBlock x:Name="TargetUserNameTextBlock" Text="New message detected" FontSize="18" FontWeight="Medium" Foreground="Black" HorizontalAlignment="Left" Margin="0,0,0,0"/>
+        </StackPanel>
+
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <fa:FontAwesome Icon="Crosshairs" Width="50" Height="50" FontSize="30" Foreground="#3b71ca" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,1,0,0"/>
             <TextBlock x:Name="DetailsTextBlock" Text="Looks like you've have some new notifications. We recommend a quick view to make sure they don't contain urgent messages." FontSize="15" FontWeight="Normal" Foreground="LightSlateGray" Width="450" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,0,0,0"/>

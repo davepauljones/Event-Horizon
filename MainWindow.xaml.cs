@@ -27,22 +27,22 @@ namespace The_Oracle
 
         public Int32 LastRecordCount = 0;
 
-        Today t;
-        Now n;
-        OracleDatabaseHealth odbh;
+        private Today t;
+        private Now n;
+        private OracleDatabaseHealth odbh;
 
         public static MainWindow mw;
         public static DateTime OracleDatabaseLastWriteTime = DateTime.Now;
 
-        public static string HSE_LOG_GlobalMDBConnectionString = String.Empty;
+        public static string HSE_LOG_GlobalMDBConnectionString = string.Empty;
 
         public delegate void OnOracleDatabaseChanged(object source, FileSystemEventArgs e);
 
-        OracleDatabaseFileWatcher fileWatcher;
+        private OracleDatabaseFileWatcher fileWatcher;
 
-        bool JustLoaded = false;
+        private bool JustLoaded = false;
 
-        List<EventHorizonLINQ> EventHorizonLINQList;
+        private List<EventHorizonLINQ> EventHorizonLINQList;
 
         public static Dictionary<Int32, DateTime> UsersLastTimeOnlineDictionary = new Dictionary<int, DateTime>();
 
@@ -86,20 +86,17 @@ namespace The_Oracle
             {
                 odbh.UpdateLastWriteDateTime(DateTime.Now);
 
-                if (!JustLoaded)
-                {
-                    if (ReminderListView.SelectedItems.Count == 0)
-                    {
-                        if (DisplayMode == DisplayModes.Reminders)
-                            RefreshLog(ListViews.Reminder);
-                        else
-                            RefreshLog(ListViews.Log);
+                 if (ReminderListView.SelectedItems.Count == 0)
+                 {
+                     if (DisplayMode == DisplayModes.Reminders)
+                         RefreshLog(ListViews.Reminder);
+                     else
+                         RefreshLog(ListViews.Log);
 
-                        GetLastEntry(EventHorizonLINQList, JustLoaded);
-                    }
-                }
-                else
-                    JustLoaded = true;
+                     GetLastEntry(EventHorizonLINQList, JustLoaded);
+                 }
+
+                 JustLoaded = true;
             }));
         }
         
@@ -150,7 +147,7 @@ namespace The_Oracle
                 {
                     String swv = System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("dd/MM/yyyy");
             
-                    HSE_LOG_GlobalMDBConnectionString = String.Empty;
+                    HSE_LOG_GlobalMDBConnectionString = string.Empty;
 
                     MainWindowTitle.SetMainWindowTitle();
 
@@ -167,7 +164,6 @@ namespace The_Oracle
         
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            MainWindowIs_Loaded = true;
 
             t = new Today();
             TodayGrid.Children.Add(t);
@@ -194,6 +190,8 @@ namespace The_Oracle
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
                 UpdateUsersOnline();
             }
+
+            MainWindowIs_Loaded = true;
         }
         
         public void RefreshXML()
@@ -243,17 +241,21 @@ namespace The_Oracle
 
         private Int32 LastGetLastEntry = 0;
 
-        public void GetLastEntry(List<EventHorizonLINQ> ehll, bool JustLoaded = false)
+        public void GetLastEntry(List<EventHorizonLINQ> ehll, bool justLoaded)
         {
             try
             {
                 var maxValue = ehll.Max(x => x.ID);
                 var result = ehll.First(x => x.ID == maxValue);
 
-                if (LastGetLastEntry != maxValue && JustLoaded == true)
+                if (LastGetLastEntry < maxValue)
                 {
-                    OracleBriefNotification n = new OracleBriefNotification(this, maxValue, 1, 1, result);
-                    n.Show();
+                    if (justLoaded == true && result.UserID != XMLReaderWriter.UserID)
+                    {
+                        OracleBriefNotification n = new OracleBriefNotification(this, maxValue, 1, 1, result);
+                        n.Show();
+                    }
+
                     LastGetLastEntry = maxValue;
                 }
             }

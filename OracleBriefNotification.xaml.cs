@@ -48,6 +48,7 @@ namespace The_Oracle
             {
                 NotificationsLabel.Content = NotificationNumber + " of " + TotalNotifications;
                 UserNameTextBlock.Text = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, oe.UserID);
+                TargetUserNameTextBlock.Text = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, oe.TargetUserID);
                 //UserNameTextBlock.Text = oe.TargetUserID.ToString();
                 DetailsTextBlock.Text = oe.Details;
             }
