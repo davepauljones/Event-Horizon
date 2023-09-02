@@ -173,11 +173,12 @@ namespace The_Oracle
     }
     public struct TargetDateButtons
     {
-        public const int OneDay = 0;
-        public const int TwoDays = 1;
-        public const int ThreeDays = 2;
-        public const int FiveDays = 3;
-        public const int SevenDays = 4;
+        public const int Today = 0;
+        public const int OneDay = 1;
+        public const int TwoDays = 2;
+        public const int ThreeDays = 3;
+        public const int FiveDays = 4;
+        public const int SevenDays = 5;
     }
     public struct TargetTimeButtons
     {

@@ -116,6 +116,7 @@ namespace The_Oracle
                 TargetDatePicker.IsEnabled = false;
                 TargetTimeHoursPicker.IsEnabled = false;
                 TargetTimeMinutesPicker.IsEnabled = false;
+                TargetDayButtonsStackPanel.Visibility = Visibility.Collapsed;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Collapsed;
                 AddNoteButton.Visibility = Visibility.Visible;
                 ReplyButton.Visibility = Visibility.Visible;
@@ -140,6 +141,7 @@ namespace The_Oracle
                 TargetDatePicker.IsEnabled = false;
                 TargetTimeHoursPicker.IsEnabled = false;
                 TargetTimeMinutesPicker.IsEnabled = false;
+                TargetDayButtonsStackPanel.Visibility = Visibility.Collapsed;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Collapsed;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
@@ -164,6 +166,7 @@ namespace The_Oracle
                 TargetDatePicker.IsEnabled = true;
                 TargetTimeHoursPicker.IsEnabled = true;
                 TargetTimeMinutesPicker.IsEnabled = true;
+                TargetDayButtonsStackPanel.Visibility = Visibility.Visible;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
                 AddNoteButton.Visibility = Visibility.Visible;
                 ReplyButton.Visibility = Visibility.Visible;
@@ -188,6 +191,7 @@ namespace The_Oracle
                 TargetDatePicker.IsEnabled = true;
                 TargetTimeHoursPicker.IsEnabled = true;
                 TargetTimeMinutesPicker.IsEnabled = true;
+                TargetDayButtonsStackPanel.Visibility = Visibility.Visible;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
@@ -218,6 +222,7 @@ namespace The_Oracle
                 TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
                 TargetTimeHoursPicker.IsEnabled = true;
                 TargetTimeMinutesPicker.IsEnabled = true;
+                TargetDayButtonsStackPanel.Visibility = Visibility.Visible;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
@@ -248,6 +253,7 @@ namespace The_Oracle
                 TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
                 TargetTimeHoursPicker.IsEnabled = true;
                 TargetTimeMinutesPicker.IsEnabled = true;
+                TargetDayButtonsStackPanel.Visibility = Visibility.Visible;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
@@ -278,6 +284,7 @@ namespace The_Oracle
                 TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
                 TargetTimeHoursPicker.IsEnabled = true;
                 TargetTimeMinutesPicker.IsEnabled = true;
+                TargetDayButtonsStackPanel.Visibility = Visibility.Visible;
                 TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
@@ -464,78 +471,6 @@ namespace The_Oracle
             }
         }
 
-        private void TargetDate_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            Button button = e.OriginalSource as Button;
-
-            int ButtonID = 0;
-
-            bool success = Int32.TryParse(button.Tag.ToString(), out ButtonID);
-
-            if (button != null && success)
-            {
-                switch (ButtonID)
-                {
-                    case TargetDateButtons.OneDay:
-                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(1);
-                        break;
-                    case TargetDateButtons.TwoDays:
-                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(2);
-                        break;
-                    case TargetDateButtons.ThreeDays:
-                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(3);
-                        break;
-                    case TargetDateButtons.FiveDays:
-                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(5);
-                        break;
-                    case TargetDateButtons.SevenDays:
-                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
-                        break;
-                }
-            }
-        }
-
-        private void TargetTime_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            Button button = e.OriginalSource as Button;
-
-            int ButtonID = 0;
-
-            bool success = Int32.TryParse(button.Tag.ToString(), out ButtonID);
-
-            if (button != null && success)
-            {
-                switch (ButtonID)
-                {
-                    case TargetTimeButtons.Now:
-                        TargetDatePicker.SelectedDate = DateTime.Now;
-                        TargetTimeHoursPicker.Text = DateTime.Now.ToString("HH");
-                        TargetTimeMinutesPicker.Text = DateTime.Now.ToString("mm");
-                        break;
-                    case TargetTimeButtons.OneHour:
-                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(60)).ToString("HH");
-                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(60)).ToString("mm");
-                        break;
-                    case TargetTimeButtons.TwoHours:
-                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(120)).ToString("HH");
-                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(120)).ToString("mm");
-                        break;
-                    case TargetTimeButtons.ThreeHours:
-                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(180)).ToString("HH");
-                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(180)).ToString("mm");
-                        break;
-                    case TargetTimeButtons.FourHours:
-                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(240)).ToString("HH");
-                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(240)).ToString("mm");
-                        break;
-                    case TargetTimeButtons.FiveHours:
-                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(300)).ToString("HH");
-                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(300)).ToString("mm");
-                        break;
-                }
-            }
-        }
-
         private void FormCloseButtons_ButtonClick(object sender, RoutedEventArgs e)
         {
             Button button = e.OriginalSource as Button;
@@ -639,6 +574,81 @@ namespace The_Oracle
             Console.WriteLine(SourceComboBox.SelectedIndex);
             Console.Write("** item.Tag SourceTypeName = ");
             Console.WriteLine(SourceTypeName);
+        }
+
+        private void DaysRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton radioButton = e.OriginalSource as RadioButton;
+
+            int ButtonID = 0;
+
+            bool success = Int32.TryParse(radioButton.Tag.ToString(), out ButtonID);
+
+            if (radioButton != null && success)
+            {
+                switch (ButtonID)
+                {
+                    case TargetDateButtons.Today:
+                        TargetDatePicker.SelectedDate = DateTime.Now;
+                        break;
+                    case TargetDateButtons.OneDay:
+                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(1);
+                        break;
+                    case TargetDateButtons.TwoDays:
+                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(2);
+                        break;
+                    case TargetDateButtons.ThreeDays:
+                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(3);
+                        break;
+                    case TargetDateButtons.FiveDays:
+                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(5);
+                        break;
+                    case TargetDateButtons.SevenDays:
+                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
+                        break;
+                }
+            }
+        }
+
+        private void HoursRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton radioButton = e.OriginalSource as RadioButton;
+
+            int ButtonID = 0;
+
+            bool success = Int32.TryParse(radioButton.Tag.ToString(), out ButtonID);
+
+            if (radioButton != null && success)
+            {
+                switch (ButtonID)
+                {
+                    case TargetTimeButtons.Now:
+                        TargetDatePicker.SelectedDate = DateTime.Now;
+                        TargetTimeHoursPicker.Text = DateTime.Now.ToString("HH");
+                        TargetTimeMinutesPicker.Text = DateTime.Now.ToString("mm");
+                        break;
+                    case TargetTimeButtons.OneHour:
+                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(60)).ToString("HH");
+                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(60)).ToString("mm");
+                        break;
+                    case TargetTimeButtons.TwoHours:
+                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(120)).ToString("HH");
+                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(120)).ToString("mm");
+                        break;
+                    case TargetTimeButtons.ThreeHours:
+                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(180)).ToString("HH");
+                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(180)).ToString("mm");
+                        break;
+                    case TargetTimeButtons.FourHours:
+                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(240)).ToString("HH");
+                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(240)).ToString("mm");
+                        break;
+                    case TargetTimeButtons.FiveHours:
+                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(300)).ToString("HH");
+                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(300)).ToString("mm");
+                        break;
+                }
+            }
         }
 
     }

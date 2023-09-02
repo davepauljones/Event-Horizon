@@ -1295,7 +1295,7 @@ namespace The_Oracle
             }
             else
             {
-                MainWindow.mw.Status.Content = "Please fill in all details!";
+                ew.StatusLabel.Content = "Please fill in all details!";
                 return false;
             }
         }

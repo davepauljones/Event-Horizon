@@ -95,7 +95,7 @@ namespace The_Oracle
                         else
                             RefreshLog(ListViews.Log);
 
-                        GetLastEntry(EventHorizonLINQList);
+                        GetLastEntry(EventHorizonLINQList, JustLoaded);
                     }
                 }
                 else
@@ -260,6 +260,8 @@ namespace The_Oracle
             catch (Exception e)
             {
                 //necessary if searching a blank database
+                Console.WriteLine("***** GeLastEntry *****");
+                Console.WriteLine(e);
             }
         }
         
