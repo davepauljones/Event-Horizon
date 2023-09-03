@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Windows.Media;
 
 namespace The_Oracle
@@ -40,8 +35,8 @@ namespace The_Oracle
 
         public object Clone()
         {
-            var person = (EventHorizonLINQ)MemberwiseClone();
-            return person;
+            var eventHorizonLINQClone = (EventHorizonLINQ)MemberwiseClone();
+            return eventHorizonLINQClone;
         }
     }
 }

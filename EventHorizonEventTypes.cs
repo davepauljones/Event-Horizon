@@ -1,44 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
-using System.Windows.Shapes;
 using FontAwesome.WPF;
 
 namespace The_Oracle
 {
     public class EventHorizonEventTypes
     {
-        public static StackPanel GetEventTypeStackPanel(EventType e)
+        public static StackPanel GetEventTypeStackPanel(EventType eventType)
         {
-            StackPanel sp = new StackPanel();
+            StackPanel stackPanel = new StackPanel();
 
-            sp.Orientation = Orientation.Horizontal;
+            stackPanel.Orientation = Orientation.Horizontal;
 
-            Grid EventTypeIconEllipseGrid;
+            Grid eventTypeIconEllipseGrid;
 
-            Color IconColor = XMLReaderWriter.EventTypesList[e.ID].Color;
-            FontAwesomeIcon fai = XMLReaderWriter.EventTypesList[e.ID].Icon;
+            Color iconColor = XMLReaderWriter.EventTypesList[eventType.ID].Color;
+            FontAwesomeIcon fontAwesomeIcon = XMLReaderWriter.EventTypesList[eventType.ID].Icon;
 
-            Border IconBorder = new Border { Width = 28, Height = 28, BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), Background = new SolidColorBrush(IconColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(1,2,0,0), Padding = new Thickness(0) };
+            Border iconBorder = new Border { Width = 28, Height = 28, BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), Background = new SolidColorBrush(iconColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(1,2,0,0), Padding = new Thickness(0) };
 
-            FontAwesome.WPF.FontAwesome fa = new FontAwesome.WPF.FontAwesome { Icon = fai, Width = 28, Height = 28, FontSize = 17, Foreground = new SolidColorBrush(Colors.White), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(0,5,0,0) };
+            FontAwesome.WPF.FontAwesome fa = new FontAwesome.WPF.FontAwesome { Icon = fontAwesomeIcon, Width = 28, Height = 28, FontSize = 17, Foreground = new SolidColorBrush(Colors.White), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(0,5,0,0) };
 
-            IconBorder.Child = fa;
-           
-            EventTypeIconEllipseGrid = new Grid { Margin = new Thickness(0, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+            iconBorder.Child = fa;
 
-            EventTypeIconEllipseGrid.Children.Add(IconBorder);
+            eventTypeIconEllipseGrid = new Grid { Margin = new Thickness(0, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
 
-            EventTypeIconEllipseGrid.Opacity = 1;
+            eventTypeIconEllipseGrid.Children.Add(iconBorder);
 
-            EventTypeIconEllipseGrid.Effect = new DropShadowEffect
+            eventTypeIconEllipseGrid.Opacity = 1;
+
+            eventTypeIconEllipseGrid.Effect = new DropShadowEffect
             {
                 Color = new Color { A = 255, R = 0, G = 0, B = 0 },
                 Direction = 320,
@@ -46,18 +40,17 @@ namespace The_Oracle
                 Opacity = 0.6
             };
 
-            TextBlock EventTypeName = new TextBlock { Text = e.Name, Foreground = Brushes.Black, FontSize = 18, MaxWidth = 170, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
+            TextBlock eventTypeName = new TextBlock { Text = eventType.Name, Foreground = Brushes.Black, FontSize = 18, MaxWidth = 170, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
 
-            sp.Tag = e.Name;
+            stackPanel.Tag = eventType.Name;
 
             Console.Write("*******TAG = ");
-            Console.WriteLine(sp.Tag);
+            Console.WriteLine(stackPanel.Tag);
 
-            sp.Children.Add(EventTypeIconEllipseGrid);
-            sp.Children.Add(EventTypeName);
+            stackPanel.Children.Add(eventTypeIconEllipseGrid);
+            stackPanel.Children.Add(eventTypeName);
 
-            return sp;
+            return stackPanel;
         }
-
     }
 }

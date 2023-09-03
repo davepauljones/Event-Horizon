@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Data;
 using System.Data.OleDb;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
 using System.Globalization;
@@ -19,12 +15,12 @@ namespace The_Oracle
 
         public static EventHorizonEvent EventHorizon_Event = new EventHorizonEvent();
 
-        public static void SetConnectionString(string _ConnectionString)
+        public static void SetConnectionString(string connectionString)
         {
-            ConnectionString = _ConnectionString;
+            ConnectionString = connectionString;
         }
 
-        public static List<EventHorizonLINQ> GetEvents(int ListViewToPopulate, Int32 EventTypeID, Int32 FilterMode, Int32 DisplayMode)
+        public static List<EventHorizonLINQ> GetEvents(int listViewToPopulate, Int32 eventTypeID, Int32 filterMode, Int32 displayMode)
         {
             List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();
 
@@ -59,23 +55,23 @@ namespace The_Oracle
 
             EnumerableRowCollection<DataRow> query;
 
-            if (EventTypeID != 0)
+            if (eventTypeID != 0)
             {
-                switch (ListViewToPopulate)
+                switch (listViewToPopulate)
                 {
                     case ListViews.Reminder:
-                        switch (FilterMode)
+                        switch (filterMode)
                         {
                             case FilterModes.None:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == EventTypeID
+                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
                                         select eventHorizonEvent;
                                 break;
                             case FilterModes.OriginIsMe:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == EventTypeID
+                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
@@ -83,7 +79,7 @@ namespace The_Oracle
                                 break;
                             case FilterModes.OriginOrTargetIsMe:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == EventTypeID
+                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID || eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
@@ -91,7 +87,7 @@ namespace The_Oracle
                                 break;
                             case FilterModes.OriginAndTargetIsMe:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == EventTypeID
+                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
                                         where eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
@@ -100,7 +96,7 @@ namespace The_Oracle
                                 break;
                             default:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == EventTypeID
+                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
                                         select eventHorizonEvent;
@@ -108,31 +104,31 @@ namespace The_Oracle
                         }
                         break;
                     case ListViews.Log:
-                        switch (FilterMode)
+                        switch (filterMode)
                         {
                             case FilterModes.None:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == EventTypeID
+                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
                             case FilterModes.OriginIsMe:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == EventTypeID
+                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
                             case FilterModes.OriginOrTargetIsMe:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == EventTypeID
+                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID || eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
                             case FilterModes.OriginAndTargetIsMe:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == EventTypeID
+                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
                                         where eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
@@ -140,7 +136,7 @@ namespace The_Oracle
                                 break;
                             default:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == EventTypeID
+                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
@@ -148,7 +144,7 @@ namespace The_Oracle
                         break;
                     default:
                         query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                where eventHorizonEvent.Field<Int32>("EventTypeID") == EventTypeID
+                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                 where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                 orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") descending
                                 select eventHorizonEvent;
@@ -157,10 +153,10 @@ namespace The_Oracle
             }
             else
             {
-                switch (ListViewToPopulate)
+                switch (listViewToPopulate)
                 {
                     case ListViews.Reminder:
-                        switch (FilterMode)
+                        switch (filterMode)
                         {
                             case FilterModes.None:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
@@ -199,7 +195,7 @@ namespace The_Oracle
                         }
                         break;
                     case ListViews.Log:
-                        switch (FilterMode)
+                        switch (filterMode)
                         {
                             case FilterModes.None:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
@@ -240,258 +236,254 @@ namespace The_Oracle
                 }
             }
  
-            DataView view = query.AsDataView();
+            DataView dataView = query.AsDataView();
 
             Console.WriteLine("*** Start of view.ToTable().Rows ***");
 
-            foreach (DataRow dr in view.ToTable().Rows)
+            foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                EventHorizonLINQ evhl = new EventHorizonLINQ();
+                EventHorizonLINQ eventHorizonLINQ = new EventHorizonLINQ();
 
-                if (!int.TryParse(dr["ID"].ToString(), out evhl.ID)) evhl.ID = 0;
-                if (!int.TryParse(dr["EventTypeID"].ToString(), out evhl.EventTypeID)) evhl.EventTypeID = 0;
-                if (!int.TryParse(dr["SourceID"].ToString(), out evhl.SourceID)) evhl.SourceID = 0;
+                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonLINQ.ID)) eventHorizonLINQ.ID = 0;
+                if (!int.TryParse(dataRow["EventTypeID"].ToString(), out eventHorizonLINQ.EventTypeID)) eventHorizonLINQ.EventTypeID = 0;
+                if (!int.TryParse(dataRow["SourceID"].ToString(), out eventHorizonLINQ.SourceID)) eventHorizonLINQ.SourceID = 0;
 
-                evhl.Details = dr["Details"].ToString();
+                eventHorizonLINQ.Details = dataRow["Details"].ToString();
 
-                if (!int.TryParse(dr["FrequencyID"].ToString(), out evhl.FrequencyID)) evhl.FrequencyID = 0;
-                if (!int.TryParse(dr["StatusID"].ToString(), out evhl.StatusID)) evhl.StatusID = 0;
+                if (!int.TryParse(dataRow["FrequencyID"].ToString(), out eventHorizonLINQ.FrequencyID)) eventHorizonLINQ.FrequencyID = 0;
+                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonLINQ.StatusID)) eventHorizonLINQ.StatusID = 0;
 
-                String CreatedDateTimeString = dr["CreatedDateTime"].ToString();
-                DateTime cdt = DateTime.MinValue;
-                if (DateTime.TryParse(CreatedDateTimeString, out cdt)) CreatedDateTimeString = cdt.ToString("dd/MM/y HH:mm");
-                evhl.CreationDate = cdt;
+                string createdDateTimeString = dataRow["CreatedDateTime"].ToString();
+                DateTime createdDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
+                eventHorizonLINQ.CreationDate = createdDateTime;
 
-                String TargetDateTimeString = dr["TargetDateTime"].ToString();
-                DateTime tdt = DateTime.MinValue;
-                if (DateTime.TryParse(TargetDateTimeString, out tdt))
+                string targetDateTimeString = dataRow["TargetDateTime"].ToString();
+                DateTime targetDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(targetDateTimeString, out targetDateTime))
                 {
-                    if (tdt.TimeOfDay == TimeSpan.Zero)
-                        TargetDateTimeString = tdt.ToString("dd/MM/y");
+                    if (targetDateTime.TimeOfDay == TimeSpan.Zero)
+                        targetDateTimeString = targetDateTime.ToString("dd/MM/y");
                     else
-                        TargetDateTimeString = tdt.ToString("dd/MM/y HH:mm");
+                        targetDateTimeString = targetDateTime.ToString("dd/MM/y HH:mm");
 
-                    evhl.TargetDate = tdt;
+                    eventHorizonLINQ.TargetDate = targetDateTime;
                 }
                 else
-                    Console.WriteLine("Unable to parse TargetDateTimeString '{0}'", TargetDateTimeString);
+                    Console.WriteLine("Unable to parse targetDateTimeString '{0}'", targetDateTimeString);
 
-                if (!int.TryParse(dr["UserID"].ToString(), out evhl.UserID)) evhl.UserID = 0;
+                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonLINQ.UserID)) eventHorizonLINQ.UserID = 0;
 
-                if (!int.TryParse(dr["TargetUserID"].ToString(), out evhl.TargetUserID)) evhl.TargetUserID = 0;
+                if (!int.TryParse(dataRow["TargetUserID"].ToString(), out eventHorizonLINQ.TargetUserID)) eventHorizonLINQ.TargetUserID = 0;
 
-                if (!int.TryParse(dr["ReadByMeID"].ToString(), out evhl.ReadByMeID)) evhl.ReadByMeID = 0;
+                if (!int.TryParse(dataRow["ReadByMeID"].ToString(), out eventHorizonLINQ.ReadByMeID)) eventHorizonLINQ.ReadByMeID = 0;
 
-                String LastViewedDateTimeString = dr["LastViewedDateTime"].ToString();
-                DateTime lvdt = DateTime.MinValue;
-                if (DateTime.TryParse(LastViewedDateTimeString, out lvdt)) LastViewedDateTimeString = lvdt.ToString("dd/MM/y HH:mm");
-                evhl.LastViewedDate = lvdt;
+                string lastViewedDateTimeString = dataRow["LastViewedDateTime"].ToString();
+                DateTime lastViewedDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(lastViewedDateTimeString, out lastViewedDateTime)) lastViewedDateTimeString = lastViewedDateTime.ToString("dd/MM/y HH:mm");
+                eventHorizonLINQ.LastViewedDate = lastViewedDateTime;
 
-                TimeSpan ts = MainWindow.mw.ReminderListTimeSpan;
+                TimeSpan timeSpan = MainWindow.mw.ReminderListTimeSpan;
 
-                int TotalDays = Convert.ToInt32((tdt.Date - DateTime.Today).Days);
-                Color IconEllipeColor = Colors.Pink;
+                int totalDays = Convert.ToInt32((targetDateTime.Date - DateTime.Today).Days);
+                Color iconEllipeColor = Colors.Pink;
 
-                if ((DateTime.Today + ts) > tdt.Date)
+                if ((DateTime.Today + timeSpan) > targetDateTime.Date)
                 {
-                    switch (TotalDays)
+                    switch (totalDays)
                     {
                         case int n when (n <= 0):
-                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe60000");
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe60000");
                             break;
                         case int n when (n > 0 && n <= 3):
-                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFff7800");
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFff7800");
                             break;
                         case int n when (n > 3 && n <= 7):
-                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF4cbb17");
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF4cbb17");
                             break;
                         case int n when (n > 7 && n <= 14):
-                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF9fee79");
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF9fee79");
                             break;
                         case int n when (n > 14 && n <= 28):
-                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFcff6bb");
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFcff6bb");
                             break;
                         case int n when (n > 28):
-                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe7fadd");
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe7fadd");
                             break;
                     }
                 }
 
-                evhl.Source_ID = evhl.ID;
-                evhl.Source_Mode = EventWindowModes.ViewEvent;
-                //evhl.Source_ParentEventID = evhl.ID;
+                eventHorizonLINQ.Source_ID = eventHorizonLINQ.ID;
+                eventHorizonLINQ.Source_Mode = EventWindowModes.ViewEvent;
 
-                if (!int.TryParse(dr["RemindMeID"].ToString(), out evhl.RemindMeID)) evhl.RemindMeID = 0;
+                if (!int.TryParse(dataRow["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
 
-                String RemindMeDateTimeString = dr["RemindMeDateTime"].ToString();
-                DateTime rmdt = DateTime.MinValue;
-                if (DateTime.TryParse(RemindMeDateTimeString, out rmdt)) RemindMeDateTimeString = rmdt.ToString("dd/MM/y HH:mm");
-                evhl.RemindMeDateTime = rmdt;
+                string remindMeDateTimeString = dataRow["RemindMeDateTime"].ToString();
+                DateTime remindMeDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(remindMeDateTimeString, out remindMeDateTime)) remindMeDateTimeString = remindMeDateTime.ToString("dd/MM/y HH:mm");
+                eventHorizonLINQ.RemindMeDateTime = remindMeDateTime;
 
-                if (!int.TryParse(dr["NotificationAcknowledged"].ToString(), out evhl.NotificationAcknowledged)) evhl.NotificationAcknowledged = 0;
+                if (!int.TryParse(dataRow["NotificationAcknowledged"].ToString(), out eventHorizonLINQ.NotificationAcknowledged)) eventHorizonLINQ.NotificationAcknowledged = 0;
 
-                if (!int.TryParse(dr["ParentEventID"].ToString(), out evhl.Source_ParentEventID)) evhl.Source_ParentEventID = 0;
+                if (!int.TryParse(dataRow["ParentEventID"].ToString(), out eventHorizonLINQ.Source_ParentEventID)) eventHorizonLINQ.Source_ParentEventID = 0;
 
-                if (!int.TryParse(dr["EventModeID"].ToString(), out evhl.EventModeID)) evhl.EventModeID = 0;
+                if (!int.TryParse(dataRow["EventModeID"].ToString(), out eventHorizonLINQ.EventModeID)) eventHorizonLINQ.EventModeID = 0;
 
-                evhl.Attributes_TotalDays = TotalDays;
-                evhl.Attributes_TotalDaysEllipseColor = IconEllipeColor;
+                eventHorizonLINQ.Attributes_TotalDays = totalDays;
+                eventHorizonLINQ.Attributes_TotalDaysEllipseColor = iconEllipeColor;
 
-                if (DisplayMode == DisplayModes.Normal)
-                    _EventHorizonLINQReturnList.Add(evhl);
-                else if ((DateTime.Today + ts) > tdt.Date)
-                    _EventHorizonLINQReturnList.Add(evhl);
+                if (displayMode == DisplayModes.Normal)
+                    _EventHorizonLINQReturnList.Add(eventHorizonLINQ);
+                else if ((DateTime.Today + timeSpan) > targetDateTime.Date)
+                    _EventHorizonLINQReturnList.Add(eventHorizonLINQ);
             }
 
             return _EventHorizonLINQReturnList;
         }
 
-        public static List<EventHorizonLINQ> GetReplies(Int32 EventID)
+        public static List<EventHorizonLINQ> GetReplies(Int32 eventID)
         {
             List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();
 
             EnumerableRowCollection<DataRow> query;
 
             query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                    where eventHorizonEvent.Field<Int32>("ParentEventID") == EventID
+                    where eventHorizonEvent.Field<Int32>("ParentEventID") == eventID
                     where eventHorizonEvent.Field<Int32>("EventModeID") == EventModes.ReplyEvent
                     orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") ascending
                     select eventHorizonEvent;
 
-            DataView view = query.AsDataView();
+            DataView dataView = query.AsDataView();
 
-            foreach (DataRow dr in view.ToTable().Rows)
+            foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                EventHorizonLINQ evhl = new EventHorizonLINQ();
+                EventHorizonLINQ eventHorizonLINQ = new EventHorizonLINQ();
 
-                if (!int.TryParse(dr["ID"].ToString(), out evhl.ID)) evhl.ID = 0;
-                if (!int.TryParse(dr["EventTypeID"].ToString(), out evhl.EventTypeID)) evhl.EventTypeID = 0;
-                if (!int.TryParse(dr["SourceID"].ToString(), out evhl.SourceID)) evhl.SourceID = 0;
+                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonLINQ.ID)) eventHorizonLINQ.ID = 0;
+                if (!int.TryParse(dataRow["EventTypeID"].ToString(), out eventHorizonLINQ.EventTypeID)) eventHorizonLINQ.EventTypeID = 0;
+                if (!int.TryParse(dataRow["SourceID"].ToString(), out eventHorizonLINQ.SourceID)) eventHorizonLINQ.SourceID = 0;
 
-                evhl.Details = dr["Details"].ToString();
+                eventHorizonLINQ.Details = dataRow["Details"].ToString();
 
-                if (!int.TryParse(dr["FrequencyID"].ToString(), out evhl.FrequencyID)) evhl.FrequencyID = 0;
-                if (!int.TryParse(dr["StatusID"].ToString(), out evhl.StatusID)) evhl.StatusID = 0;
+                if (!int.TryParse(dataRow["FrequencyID"].ToString(), out eventHorizonLINQ.FrequencyID)) eventHorizonLINQ.FrequencyID = 0;
+                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonLINQ.StatusID)) eventHorizonLINQ.StatusID = 0;
 
-                String CreatedDateTimeString = dr["CreatedDateTime"].ToString();
-                DateTime cdt = DateTime.MinValue;
-                if (DateTime.TryParse(CreatedDateTimeString, out cdt)) CreatedDateTimeString = cdt.ToString("dd/MM/y HH:mm");
-                evhl.CreationDate = cdt;
+                string createdDateTimeString = dataRow["CreatedDateTime"].ToString();
+                DateTime createdDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
+                eventHorizonLINQ.CreationDate = createdDateTime;
 
-                String TargetDateTimeString = dr["TargetDateTime"].ToString();
-                DateTime tdt = DateTime.MinValue;
-                if (DateTime.TryParse(TargetDateTimeString, out tdt))
+                string targetDateTimeString = dataRow["TargetDateTime"].ToString();
+                DateTime targetDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(targetDateTimeString, out targetDateTime))
                 {
-                    if (tdt.TimeOfDay == TimeSpan.Zero)
-                        TargetDateTimeString = tdt.ToString("dd/MM/y");
+                    if (targetDateTime.TimeOfDay == TimeSpan.Zero)
+                        targetDateTimeString = targetDateTime.ToString("dd/MM/y");
                     else
-                        TargetDateTimeString = tdt.ToString("dd/MM/y HH:mm");
+                        targetDateTimeString = targetDateTime.ToString("dd/MM/y HH:mm");
 
-                    evhl.TargetDate = tdt;
+                    eventHorizonLINQ.TargetDate = targetDateTime;
                 }
                 else
-                    Console.WriteLine("Unable to parse TargetDateTimeString '{0}'", TargetDateTimeString);
+                    Console.WriteLine("Unable to parse TargetDateTimeString '{0}'", targetDateTimeString);
 
-                if (!int.TryParse(dr["UserID"].ToString(), out evhl.UserID)) evhl.UserID = 0;
+                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonLINQ.UserID)) eventHorizonLINQ.UserID = 0;
 
-                if (!int.TryParse(dr["TargetUserID"].ToString(), out evhl.TargetUserID)) evhl.TargetUserID = 0;
+                if (!int.TryParse(dataRow["TargetUserID"].ToString(), out eventHorizonLINQ.TargetUserID)) eventHorizonLINQ.TargetUserID = 0;
 
-                if (!int.TryParse(dr["ReadByMeID"].ToString(), out evhl.ReadByMeID)) evhl.ReadByMeID = 0;
+                if (!int.TryParse(dataRow["ReadByMeID"].ToString(), out eventHorizonLINQ.ReadByMeID)) eventHorizonLINQ.ReadByMeID = 0;
 
-                String LastViewedDateTimeString = dr["LastViewedDateTime"].ToString();
-                DateTime lvdt = DateTime.MinValue;
-                if (DateTime.TryParse(LastViewedDateTimeString, out lvdt)) LastViewedDateTimeString = lvdt.ToString("dd/MM/y HH:mm");
-                evhl.LastViewedDate = lvdt;
+                string lastViewedDateTimeString = dataRow["LastViewedDateTime"].ToString();
+                DateTime lastViewedDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(lastViewedDateTimeString, out lastViewedDateTime)) lastViewedDateTimeString = lastViewedDateTime.ToString("dd/MM/y HH:mm");
+                eventHorizonLINQ.LastViewedDate = lastViewedDateTime;
 
-                TimeSpan ts = MainWindow.mw.ReminderListTimeSpan;
+                TimeSpan timeSpan = MainWindow.mw.ReminderListTimeSpan;
 
-                int TotalDays = Convert.ToInt32((tdt.Date - DateTime.Today).Days);
-                Color IconEllipeColor = Colors.Pink;
+                int totalDays = Convert.ToInt32((targetDateTime.Date - DateTime.Today).Days);
+                Color iconEllipeColor = Colors.Pink;
 
-                if ((DateTime.Today + ts) > tdt.Date)
+                if ((DateTime.Today + timeSpan) > targetDateTime.Date)
                 {
-                    switch (TotalDays)
+                    switch (totalDays)
                     {
                         case int n when (n <= 0):
-                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe60000");
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe60000");
                             break;
                         case int n when (n > 0 && n <= 3):
-                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFff7800");
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFff7800");
                             break;
                         case int n when (n > 3 && n <= 7):
-                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF4cbb17");
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF4cbb17");
                             break;
                         case int n when (n > 7 && n <= 14):
-                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF9fee79");
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF9fee79");
                             break;
                         case int n when (n > 14 && n <= 28):
-                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFcff6bb");
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFcff6bb");
                             break;
                         case int n when (n > 28):
-                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe7fadd");
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe7fadd");
                             break;
                     }
                 }
 
-                evhl.Source_ID = evhl.ID;
-                evhl.Source_Mode = EventWindowModes.ViewEvent;
-                evhl.Source_ParentEventID = EventID;
+                eventHorizonLINQ.Source_ID = eventHorizonLINQ.ID;
+                eventHorizonLINQ.Source_Mode = EventWindowModes.ViewEvent;
+                eventHorizonLINQ.Source_ParentEventID = eventID;
 
-                if (!int.TryParse(dr["RemindMeID"].ToString(), out evhl.RemindMeID)) evhl.RemindMeID = 0;
+                if (!int.TryParse(dataRow["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
 
-                String RemindMeDateTimeString = dr["RemindMeDateTime"].ToString();
-                DateTime rmdt = DateTime.MinValue;
-                if (DateTime.TryParse(RemindMeDateTimeString, out rmdt)) RemindMeDateTimeString = rmdt.ToString("dd/MM/y HH:mm");
-                evhl.RemindMeDateTime = rmdt;
+                string remindMeDateTimeString = dataRow["RemindMeDateTime"].ToString();
+                DateTime remindMeDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(remindMeDateTimeString, out remindMeDateTime)) remindMeDateTimeString = remindMeDateTime.ToString("dd/MM/y HH:mm");
+                eventHorizonLINQ.RemindMeDateTime = remindMeDateTime;
 
-                if (!int.TryParse(dr["NotificationAcknowledged"].ToString(), out evhl.NotificationAcknowledged)) evhl.NotificationAcknowledged = 0;
+                if (!int.TryParse(dataRow["NotificationAcknowledged"].ToString(), out eventHorizonLINQ.NotificationAcknowledged)) eventHorizonLINQ.NotificationAcknowledged = 0;
 
-                if (!int.TryParse(dr["EventModeID"].ToString(), out evhl.EventModeID)) evhl.EventModeID = 0;
+                if (!int.TryParse(dataRow["EventModeID"].ToString(), out eventHorizonLINQ.EventModeID)) eventHorizonLINQ.EventModeID = 0;
 
-                evhl.Attributes_TotalDays = TotalDays;
-                evhl.Attributes_TotalDaysEllipseColor = IconEllipeColor;
+                eventHorizonLINQ.Attributes_TotalDays = totalDays;
+                eventHorizonLINQ.Attributes_TotalDaysEllipseColor = iconEllipeColor;
 
-                _EventHorizonLINQReturnList.Add(evhl);
+                _EventHorizonLINQReturnList.Add(eventHorizonLINQ);
             }
 
             return _EventHorizonLINQReturnList;
         }
 
-        private static bool SaveSuccessFull = false;
+        private static bool saveSuccessFull = false;
 
-        public static void SaveEvent(EventWindow ev, EventHorizonLINQ ehl, int EventMode)
+        public static void SaveEvent(EventWindow eventWindow, EventHorizonLINQ eventHorizonLINQ, int eventMode)
         {
-            if (CheckFormFields(ev))
+            if (CheckFormFields(eventWindow))
             {
-                string DetailsSafeString = ev.DetailsTextBox.Text.Replace("'", "''");
+                string detailsSafeString = eventWindow.DetailsTextBox.Text.Replace("'", "''");
 
-                DateTime? cdt = DateTime.Now;
+                DateTime? createdDateTime = DateTime.Now;
 
-                string ttt = string.Empty;
+                string targetTimeString = string.Empty;
 
-                //ttt = TargetTimeTextBox.Text;
-                //ttt += ":00";
+                targetTimeString = eventWindow.TargetTimeHoursPicker.Text;
+                targetTimeString += ":";
+                targetTimeString += eventWindow.TargetTimeMinutesPicker.Text;
+                targetTimeString += ":00";
 
-                ttt = ev.TargetTimeHoursPicker.Text;
-                ttt += ":";
-                ttt += ev.TargetTimeMinutesPicker.Text;
-                ttt += ":00";
+                DateTime ttimedt = DateTime.ParseExact(targetTimeString, "HH:mm:ss", CultureInfo.InvariantCulture);
 
-                DateTime ttimedt = DateTime.ParseExact(ttt, "HH:mm:ss", CultureInfo.InvariantCulture);
+                DateTime targetDateTimeNow = DateTime.Now;
 
-                DateTime tdtnow = DateTime.Now;
+                DateTime? targetDateTime = DateTime.Now;
 
-                DateTime? tdt = DateTime.Now;
-
-                if (ttt == "00:00:00")
-                    tdt = new DateTime(ev.TargetDatePicker.SelectedDate.Value.Year, ev.TargetDatePicker.SelectedDate.Value.Month, ev.TargetDatePicker.SelectedDate.Value.Day, 0, 0, 0);
+                if (targetTimeString == "00:00:00")
+                    targetDateTime = new DateTime(eventWindow.TargetDatePicker.SelectedDate.Value.Year, eventWindow.TargetDatePicker.SelectedDate.Value.Month, eventWindow.TargetDatePicker.SelectedDate.Value.Day, 0, 0, 0);
                 else
-                    tdt = new DateTime(ev.TargetDatePicker.SelectedDate.Value.Year, ev.TargetDatePicker.SelectedDate.Value.Month, ev.TargetDatePicker.SelectedDate.Value.Day, ttimedt.Hour, ttimedt.Minute, ttimedt.Second);
+                    targetDateTime = new DateTime(eventWindow.TargetDatePicker.SelectedDate.Value.Year, eventWindow.TargetDatePicker.SelectedDate.Value.Month, eventWindow.TargetDatePicker.SelectedDate.Value.Day, ttimedt.Hour, ttimedt.Minute, ttimedt.Second);
 
                 string query2 = "Select @@Identity";
                 string query3 = "UPDATE EventLog SET[ParentEventID] = ? WHERE [ID] = ?";
 
-                int ID;
+                int id;
 
                 using (OleDbConnection connection = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
                 {
@@ -499,55 +491,55 @@ namespace The_Oracle
                     {
                         connection.Open();
 
-                        command.Parameters.AddWithValue("@EventTypeID", ev.EventTypeComboBox.SelectedIndex);
-                        command.Parameters.AddWithValue("@SourceID", ev.SourceComboBox.SelectedIndex);
-                        command.Parameters.AddWithValue("@Details", ev.DetailsTextBox.Text);
-                        command.Parameters.AddWithValue("@FrequencyID", ev.FrequencyComboBox.SelectedIndex);
-                        command.Parameters.AddWithValue("@StatusID", ev.StatusComboBox.SelectedIndex);
+                        command.Parameters.AddWithValue("@EventTypeID", eventWindow.EventTypeComboBox.SelectedIndex);
+                        command.Parameters.AddWithValue("@SourceID", eventWindow.SourceComboBox.SelectedIndex);
+                        command.Parameters.AddWithValue("@Details", detailsSafeString);
+                        command.Parameters.AddWithValue("@FrequencyID", eventWindow.FrequencyComboBox.SelectedIndex);
+                        command.Parameters.AddWithValue("@StatusID", eventWindow.StatusComboBox.SelectedIndex);
 
                         command.Parameters.Add("TargetDateTime", OleDbType.Date);
-                        command.Parameters["TargetDateTime"].Value = tdt;
+                        command.Parameters["TargetDateTime"].Value = targetDateTime;
 
-                        command.Parameters.AddWithValue("@TargetUserID", ev.TargetUserIDComboBox.SelectedIndex);
-                        command.Parameters.AddWithValue("@ReadByMeID", ehl.ReadByMeID);
+                        command.Parameters.AddWithValue("@TargetUserID", eventWindow.TargetUserIDComboBox.SelectedIndex);
+                        command.Parameters.AddWithValue("@ReadByMeID", eventHorizonLINQ.ReadByMeID);
 
                         command.Parameters.Add("LastViewedDateTime", OleDbType.Date);
                         command.Parameters["LastViewedDateTime"].Value = DateTime.MinValue;
 
-                        command.Parameters.AddWithValue("@RemindMeID", ehl.RemindMeID);
+                        command.Parameters.AddWithValue("@RemindMeID", eventHorizonLINQ.RemindMeID);
 
                         command.Parameters.Add("RemindMeDateTime", OleDbType.Date);
-                        command.Parameters["RemindMeDateTime"].Value = ehl.RemindMeDateTime;
+                        command.Parameters["RemindMeDateTime"].Value = eventHorizonLINQ.RemindMeDateTime;
 
                         command.Parameters.AddWithValue("@NotificationAcknowledged", 0);
 
-                        command.Parameters.AddWithValue("@ParentEventID", ehl.Source_ParentEventID);
-                        command.Parameters.AddWithValue("@EventModeID", ehl.EventModeID);
+                        command.Parameters.AddWithValue("@ParentEventID", eventHorizonLINQ.Source_ParentEventID);
+                        command.Parameters.AddWithValue("@EventModeID", eventHorizonLINQ.EventModeID);
 
-                        command.Parameters.AddWithValue("@ID", ehl.ID);
+                        command.Parameters.AddWithValue("@ID", eventHorizonLINQ.ID);
 
                         int rowsAffected = 0;
 
-                        if (EventMode == EventWindowModes.EditEvent || EventMode == EventWindowModes.EditReply)
+                        if (eventMode == EventWindowModes.EditEvent || eventMode == EventWindowModes.EditReply)
                             rowsAffected = command.ExecuteNonQuery();
-                        else if (rowsAffected == 0 || EventMode == EventWindowModes.NewEvent || EventMode == EventWindowModes.NewNote || EventMode == EventWindowModes.NewReply)
+                        else if (rowsAffected == 0 || eventMode == EventWindowModes.NewEvent || eventMode == EventWindowModes.NewNote || eventMode == EventWindowModes.NewReply)
                         {
                             command.Parameters.Clear();
                             command.CommandText = "INSERT INTO EventLog (EventTypeID, SourceID, Details, FrequencyID, StatusID, CreatedDateTime, TargetDateTime, UserID, TargetUserID, ReadByMeID, LastViewedDateTime, RemindMeID, RemindMeDateTime, NotificationAcknowledged, ParentEventID, EventModeID) VALUES (@EventTypeID, @SourceID, @Details, @FrequencyID, @StatusID, @CreatedDateTime, @TargetDateTime, @UserID, @TargetUserID, @ReadByMeID, @LastViewedDateTime, @RemindMeID, @RemindMeDateTime, @NotificationAcknowledged, @ParentEventID, @EventModeID);";
-                            command.Parameters.AddWithValue("@EventTypeID", ev.EventTypeComboBox.SelectedIndex);
-                            command.Parameters.AddWithValue("@SourceID", ev.SourceComboBox.SelectedIndex);
-                            command.Parameters.AddWithValue("@Details", ev.DetailsTextBox.Text);
-                            command.Parameters.AddWithValue("@FrequencyID", ev.FrequencyComboBox.SelectedIndex);
-                            command.Parameters.AddWithValue("@StatusID", ev.StatusComboBox.SelectedIndex);
+                            command.Parameters.AddWithValue("@EventTypeID", eventWindow.EventTypeComboBox.SelectedIndex);
+                            command.Parameters.AddWithValue("@SourceID", eventWindow.SourceComboBox.SelectedIndex);
+                            command.Parameters.AddWithValue("@Details", detailsSafeString);
+                            command.Parameters.AddWithValue("@FrequencyID", eventWindow.FrequencyComboBox.SelectedIndex);
+                            command.Parameters.AddWithValue("@StatusID", eventWindow.StatusComboBox.SelectedIndex);
 
                             command.Parameters.Add("CreatedDateTime", OleDbType.Date);
-                            command.Parameters["CreatedDateTime"].Value = cdt;
+                            command.Parameters["CreatedDateTime"].Value = createdDateTime;
 
                             command.Parameters.Add("TargetDateTime", OleDbType.Date);
-                            command.Parameters["TargetDateTime"].Value = tdt;
+                            command.Parameters["TargetDateTime"].Value = targetDateTime;
 
                             command.Parameters.AddWithValue("@UserID", XMLReaderWriter.UserID);
-                            command.Parameters.AddWithValue("@TargetUserID", ev.TargetUserIDComboBox.SelectedIndex);
+                            command.Parameters.AddWithValue("@TargetUserID", eventWindow.TargetUserIDComboBox.SelectedIndex);
                             command.Parameters.AddWithValue("@ReadByMeID", 0);
 
                             command.Parameters.Add("LastViewedDateTime", OleDbType.Date);
@@ -560,18 +552,18 @@ namespace The_Oracle
 
                             command.Parameters.AddWithValue("@NotificationAcknowledged", 0);
 
-                            switch (EventMode)
+                            switch (eventMode)
                             {
                                 case EventWindowModes.NewEvent:
                                     command.Parameters.AddWithValue("@ParentEventID", 0);
                                     command.Parameters.AddWithValue("@EventModeID", EventModes.MainEvent);
                                     break;
                                 case EventWindowModes.NewNote:
-                                    command.Parameters.AddWithValue("@ParentEventID", ehl.Source_ParentEventID);
+                                    command.Parameters.AddWithValue("@ParentEventID", eventHorizonLINQ.Source_ParentEventID);
                                     command.Parameters.AddWithValue("@EventModeID", EventModes.ReplyEvent);
                                     break;
                                 case EventWindowModes.NewReply:
-                                    command.Parameters.AddWithValue("@ParentEventID", ehl.Source_ParentEventID);
+                                    command.Parameters.AddWithValue("@ParentEventID", eventHorizonLINQ.Source_ParentEventID);
                                     command.Parameters.AddWithValue("@EventModeID", EventModes.ReplyEvent);
                                     break;
                                 default:
@@ -582,36 +574,32 @@ namespace The_Oracle
 
                             command.ExecuteNonQuery();
 
-                            if (EventMode == EventWindowModes.NewEvent)
+                            if (eventMode == EventWindowModes.NewEvent)
                             {
                                 command.CommandText = query2;
 
-                                ID = (int)command.ExecuteScalar();
-                                Console.Write("ID = (int)command.ExecuteScalar(); = ");
-                                Console.WriteLine(ID);
+                                id = (int)command.ExecuteScalar();
+                                Console.Write("id = (int)command.ExecuteScalar(); = ");
+                                Console.WriteLine(id);
 
                                 command.Parameters.Clear();
                                 command.CommandText = query3;
-                                command.Parameters.AddWithValue("@ParentEventID", ID);
-                                command.Parameters.AddWithValue("@ID", ID);
+                                command.Parameters.AddWithValue("@ParentEventID", id);
+                                command.Parameters.AddWithValue("@ID", id);
                                 command.ExecuteNonQuery();
                             }
+
+                            saveSuccessFull = true;
 
                             MainWindow.mw.Status.Content = "Successfully added a new reply";
                         }
                     }
                 }
-                
-                SaveSuccessFull = true;
 
-                if (SaveSuccessFull)
+                if (saveSuccessFull)
                 {
-                    //if (mw.DisplayMode == DisplayModes.Reminders)
-                    //    mw.RefreshLog(ListViews.Reminder);
-                    //else
-                    //    mw.RefreshLog(ListViews.Log);
-                    ev.Close();
-                    if (ev.ew != null) ev.ew.Close();
+                    eventWindow.Close();
+                    if (eventWindow.ew != null) eventWindow.ew.Close();
                     MainWindow.mw.ReminderListView.SelectedItem = null;
                 }
             }
@@ -680,7 +668,7 @@ namespace The_Oracle
 
                         command.ExecuteNonQuery();
 
-                        SaveSuccessFull = true;
+                        saveSuccessFull = true;
 
                         MainWindow.mw.EventLogListViewTagged = -1;
 
@@ -706,7 +694,7 @@ namespace The_Oracle
                 }
             }
 
-            if (SaveSuccessFull)
+            if (saveSuccessFull)
             {
                 if (MainWindow.mw.DisplayMode == DisplayModes.Reminders)
                     MainWindow.mw.RefreshLog(ListViews.Reminder);
@@ -1119,7 +1107,7 @@ namespace The_Oracle
 
                         command.ExecuteNonQuery();
 
-                        SaveSuccessFull = true;
+                        saveSuccessFull = true;
 
                         MainWindow.mw.EventLogListViewTagged = -1;
 
@@ -1145,7 +1133,7 @@ namespace The_Oracle
                 }
             }
 
-            if (SaveSuccessFull)
+            if (saveSuccessFull)
             {
                 //if (DisplayMode == DisplayModes.Reminders)
                 //    RefreshLog(ListViews.Reminder);
@@ -1169,7 +1157,7 @@ namespace The_Oracle
 
                         updateCommand.ExecuteNonQuery();
 
-                        SaveSuccessFull = true;
+                        saveSuccessFull = true;
 
                         MainWindow.mw.EventLogListViewTagged = -1;
 
@@ -1195,7 +1183,7 @@ namespace The_Oracle
                 }
             }
 
-            if (SaveSuccessFull)
+            if (saveSuccessFull)
             {
                 //if (DisplayMode == DisplayModes.Reminders)
                 //    RefreshLog(ListViews.Reminder);
@@ -1221,7 +1209,7 @@ namespace The_Oracle
 
                         updateCommand.ExecuteNonQuery();
 
-                        SaveSuccessFull = true;
+                        saveSuccessFull = true;
 
                         MainWindow.mw.EventLogListViewTagged = -1;
 
@@ -1247,7 +1235,7 @@ namespace The_Oracle
                 }
             }
 
-            if (SaveSuccessFull)
+            if (saveSuccessFull)
             {
                 //if (DisplayMode == DisplayModes.Reminders)
                 //    RefreshLog(ListViews.Reminder);
@@ -1256,46 +1244,45 @@ namespace The_Oracle
             }
         }
 
-        private static bool CheckFormFields(EventWindow ew)
+        private static bool CheckFormFields(EventWindow eventWindow)
         {
-            int Result = 0;
+            int result = 0;
 
-            if (ew.EventTypeComboBox.SelectedIndex == 0)
+            if (eventWindow.EventTypeComboBox.SelectedIndex == 0)
             {
-                MessageBox.Show("You can not choose 'All Events' as an event type.", "Oracle Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, OracleMessagesNotificationModes.Custom, new OracleCustomMessage { MessageTitleTextBlock = "CheckFormFields" , InformationTextBlock = "You can not choose 'All Events' as an event type." });
+                msg.ShowDialog();
                 return false;
             }
 
-            if (ew.EventTypeComboBox.SelectedIndex > -1)
+            if (eventWindow.EventTypeComboBox.SelectedIndex > -1)
             {
-                Result++;
+                result++;
             }
-            if (ew.SourceComboBox.SelectedIndex > -1)
+            if (eventWindow.SourceComboBox.SelectedIndex > -1)
             {
-                Result++;
+                result++;
             }
-            if (ew.DetailsTextBox.Text.Length > 0)
+            if (eventWindow.DetailsTextBox.Text.Length > 0)
             {
-                Result++;
+                result++;
             }
-            if (ew.FrequencyComboBox.SelectedIndex > -1)
+            if (eventWindow.FrequencyComboBox.SelectedIndex > -1)
             {
-                Result++;
+                result++;
             }
-            if (ew.StatusComboBox.SelectedIndex > -1)
+            if (eventWindow.StatusComboBox.SelectedIndex > -1)
             {
-                Result++;
+                result++;
             }
 
-            Console.WriteLine(Result);
-
-            if (Result == 5)
+            if (result == 5)
             {
                 return true;
             }
             else
             {
-                ew.StatusLabel.Content = "Please fill in all details!";
+                eventWindow.StatusLabel.Content = "Please fill in all details!";
                 return false;
             }
         }
