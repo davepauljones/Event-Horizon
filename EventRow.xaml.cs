@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using FontAwesome.WPF;
 
 namespace The_Oracle
 {
@@ -21,13 +11,13 @@ namespace The_Oracle
     /// </summary>
     public partial class EventRow : UserControl
     {
-        EventHorizonLINQ oe;
+        EventHorizonLINQ eventHorizonLINQ;
 
-        public EventRow(EventHorizonLINQ oe)
+        public EventRow(EventHorizonLINQ eventHorizonLINQ)
         {
             InitializeComponent();
 
-            this.oe = oe;
+            this.eventHorizonLINQ = eventHorizonLINQ;
         }
 
         private void RepliesButton_Click(object sender, RoutedEventArgs e)
@@ -61,20 +51,20 @@ namespace The_Oracle
             Console.Write("Replies item = ");
             Console.WriteLine(item.Tag);
 
-            Int32 RepliesLogListViewTagged = 0;
-            EventHorizonLINQ oe = (EventHorizonLINQ)item.Tag;
-            RepliesLogListViewTagged = Convert.ToInt32(oe.ID);
+            EventHorizonLINQ eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
 
-            Console.Write("RepliesListView_PreviewMouseDoubleClick  oe.ParentEventID = ");
-            Console.WriteLine(oe.Source_ParentEventID);
+            Int32 repliesLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
+
+            Console.Write("RepliesListView_PreviewMouseDoubleClick  eventHorizonLINQ.ParentEventID = ");
+            Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
 
             Console.Write("RepliesListView_PreviewMouseDoubleClick = ");
-            Console.WriteLine(oe.Details);
+            Console.WriteLine(eventHorizonLINQ.Details);
 
-            if (RepliesLogListViewTagged > 0)
+            if (repliesLogListViewTagged > 0)
             {
-                EventWindow eev = new EventWindow(MainWindow.mw, oe);
-                eev.Show();
+                EventWindow eventWindow = new EventWindow(MainWindow.mw, eventHorizonLINQ);
+                eventWindow.Show();
             }
 
             //prevents parent firing

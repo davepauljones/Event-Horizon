@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
@@ -14,40 +8,38 @@ namespace The_Oracle
 {
     public class EventHorizonSources
     {
-        public static StackPanel GetSourceStackPanel(SourceType s)
+        public static StackPanel GetSourceStackPanel(SourceType sourceType)
         {
-            StackPanel sp = new StackPanel();
+            StackPanel stackPanel = new StackPanel();
 
-            sp.Orientation = Orientation.Horizontal;
+            stackPanel.Orientation = Orientation.Horizontal;
 
-            Grid SourceIconEllipseGrid;
-            Ellipse SourceIconEllipse;
+            Grid sourceIconEllipseGrid;
+            Ellipse sourceIconEllipse;
 
-            Color IconEllipseColor = Colors.White;
+            Color iconEllipseColor = XMLReaderWriter.SourceTypesList[sourceType.ID].Color;
 
-            IconEllipseColor = XMLReaderWriter.SourceTypesList[s.ID].Color;
-
-            if (s.ID > 0)
-                SourceIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(IconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+            if (sourceType.ID > 0)
+                sourceIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
             else
-                SourceIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(IconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                sourceIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
 
-            SourceIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+            sourceIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
 
-            SourceIconEllipseGrid.Children.Add(SourceIconEllipse);
+            sourceIconEllipseGrid.Children.Add(sourceIconEllipse);
 
-            Label SourceIconEllipseLabel;
+            Label sourceIconEllipseLabel;
 
-            if (s.ID > 0)
-                SourceIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(s.Name), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+            if (sourceType.ID > 0)
+                sourceIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(sourceType.Name), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
             else
-                SourceIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
+                sourceIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
 
-            SourceIconEllipseGrid.Children.Add(SourceIconEllipseLabel);
+            sourceIconEllipseGrid.Children.Add(sourceIconEllipseLabel);
 
-            SourceIconEllipseGrid.Opacity = 1;
+            sourceIconEllipseGrid.Opacity = 1;
 
-            SourceIconEllipseGrid.Effect = new DropShadowEffect
+            sourceIconEllipseGrid.Effect = new DropShadowEffect
             {
                 Color = new Color { A = 255, R = 0, G = 0, B = 0 },
                 Direction = 320,
@@ -55,15 +47,14 @@ namespace The_Oracle
                 Opacity = 0.6
             };
 
-            TextBlock SourceName = new TextBlock { Text = s.Name, Foreground = Brushes.Black, FontSize = 18, MaxWidth = 170, Margin = new Thickness(4, 1, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
+            TextBlock sourceName = new TextBlock { Text = sourceType.Name, Foreground = Brushes.Black, FontSize = 18, MaxWidth = 170, Margin = new Thickness(4, 1, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
 
-            sp.Tag = s.Name;
+            stackPanel.Tag = sourceType.Name;
 
-            sp.Children.Add(SourceIconEllipseGrid);
-            sp.Children.Add(SourceName);
+            stackPanel.Children.Add(sourceIconEllipseGrid);
+            stackPanel.Children.Add(sourceName);
 
-            return sp;
+            return stackPanel;
         }
-
     }
 }

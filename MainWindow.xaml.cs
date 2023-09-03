@@ -27,9 +27,9 @@ namespace The_Oracle
 
         public Int32 LastRecordCount = 0;
 
-        private Today t;
-        private Now n;
-        private OracleDatabaseHealth odbh;
+        private Today today;
+        private Now now;
+        private OracleDatabaseHealth oracleDatabaseHealth;
 
         public static MainWindow mw;
         public static DateTime OracleDatabaseLastWriteTime = DateTime.Now;
@@ -40,7 +40,7 @@ namespace The_Oracle
 
         private OracleDatabaseFileWatcher fileWatcher;
 
-        private bool JustLoaded = false;
+        private bool justLoaded = false;
 
         private List<EventHorizonLINQ> EventHorizonLINQList;
 
@@ -84,7 +84,7 @@ namespace The_Oracle
         {
             this.Dispatcher.Invoke((Action)(() =>
             {
-                odbh.UpdateLastWriteDateTime(DateTime.Now);
+                oracleDatabaseHealth.UpdateLastWriteDateTime(DateTime.Now);
 
                  if (ReminderListView.SelectedItems.Count == 0)
                  {
@@ -93,10 +93,10 @@ namespace The_Oracle
                      else
                          RefreshLog(ListViews.Log);
 
-                     GetLastEntry(EventHorizonLINQList, JustLoaded);
+                     GetLastEntry(EventHorizonLINQList, justLoaded);
                  }
 
-                 JustLoaded = true;
+                 justLoaded = true;
             }));
         }
         
@@ -110,8 +110,8 @@ namespace The_Oracle
         
         void timer_Tick(object sender, EventArgs e)
         {
-            t.SyncDate();
-            n.SyncTime();
+            today.SyncDate();
+            now.SyncTime();
 
             //Check Users online every 60 seconds only executes if second is 0
             if (DateTime.Now.Second == XMLReaderWriter.UserID)//use UserID as to offset actual second used to update
@@ -145,7 +145,7 @@ namespace The_Oracle
             {
                 if (XMLReaderWriter.CheckIf_DatabaseSettingsXML_FileExists())
                 {
-                    String swv = System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("dd/MM/yyyy");
+                    //string swv = System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("dd/MM/yyyy");
             
                     HSE_LOG_GlobalMDBConnectionString = string.Empty;
 
@@ -165,14 +165,14 @@ namespace The_Oracle
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
 
-            t = new Today();
-            TodayGrid.Children.Add(t);
+            today = new Today();
+            TodayGrid.Children.Add(today);
 
-            n = new Now();
-            NowGrid.Children.Add(n);
+            now = new Now();
+            NowGrid.Children.Add(now);
 
-            odbh = new OracleDatabaseHealth();
-            OracleDatabaseHealthGrid.Children.Add(odbh);
+            oracleDatabaseHealth = new OracleDatabaseHealth();
+            OracleDatabaseHealthGrid.Children.Add(oracleDatabaseHealth);
 
             DataTableManagement.SetConnectionString(HSE_LOG_GlobalMDBConnectionString);
 
@@ -203,57 +203,57 @@ namespace The_Oracle
         
         private void CheckMyUnreadAndMyReminders()
         {
-            Int32 NotificationsAddedThisCycle = 0;
-            List<EventHorizonLINQ> oel = DataTableManagement.GetMyUnread();
-            Int32 notifications = oel.Count;
+            Int32 notificationsAddedThisCycle = 0;
+            List<EventHorizonLINQ> eventHorizonLINQList = DataTableManagement.GetMyUnread();
+            Int32 notifications = eventHorizonLINQList.Count;
 
-            foreach (EventHorizonLINQ oe in oel)
+            foreach (EventHorizonLINQ eventHorizonLINQ in eventHorizonLINQList)
             {
-                if (!OracleNotification.Notifications.ContainsKey(oe.ID))
+                if (!OracleNotification.Notifications.ContainsKey(eventHorizonLINQ.ID))
                 {
-                    OracleNotification on = new OracleNotification(this, oe.ID, notifications, oel.Count, oe);
+                    OracleNotification on = new OracleNotification(this, eventHorizonLINQ.ID, notifications, eventHorizonLINQList.Count, eventHorizonLINQ);
                     on.Show();
 
                     notifications--;
 
-                    NotificationsAddedThisCycle++;
+                    notificationsAddedThisCycle++;
                 }
             }
 
-            List<EventHorizonLINQ> rmoel = DataTableManagement.GetMyReminders();
-            Int32 rmnotifications = rmoel.Count;
+            List<EventHorizonLINQ> EventHorizonLINQreminders = DataTableManagement.GetMyReminders();
+            Int32 rmnotifications = EventHorizonLINQreminders.Count;
 
-            foreach (EventHorizonLINQ oe in rmoel)
+            foreach (EventHorizonLINQ eventHorizonLINQ in EventHorizonLINQreminders)
             {
-                if (!OracleNotification.Notifications.ContainsKey(oe.ID))
+                if (!OracleNotification.Notifications.ContainsKey(eventHorizonLINQ.ID))
                 {
-                    OracleNotification on = new OracleNotification(this, oe.ID, rmnotifications, rmoel.Count, oe);
+                    OracleNotification on = new OracleNotification(this, eventHorizonLINQ.ID, rmnotifications, EventHorizonLINQreminders.Count, eventHorizonLINQ);
                     on.Show();
 
                     notifications--;
 
-                    NotificationsAddedThisCycle++;
+                    notificationsAddedThisCycle++;
                 }
             }
 
-            if (NotificationsAddedThisCycle > 0) MiscFunctions.PlayFile("Notification.mp3");
+            if (notificationsAddedThisCycle > 0) MiscFunctions.PlayFile("Notification.mp3");
         }
 
         private Int32 LastGetLastEntry = 0;
 
-        public void GetLastEntry(List<EventHorizonLINQ> ehll, bool justLoaded)
+        public void GetLastEntry(List<EventHorizonLINQ> eventHorizonLINQList, bool justLoaded)
         {
             try
             {
-                var maxValue = ehll.Max(x => x.ID);
-                var result = ehll.First(x => x.ID == maxValue);
+                var maxValue = eventHorizonLINQList.Max(x => x.ID);
+                var result = eventHorizonLINQList.First(x => x.ID == maxValue);
 
                 if (LastGetLastEntry < maxValue)
                 {
                     if (justLoaded == true && result.UserID != XMLReaderWriter.UserID)
                     {
-                        OracleBriefNotification n = new OracleBriefNotification(this, maxValue, 1, 1, result);
-                        n.Show();
+                        OracleBriefNotification oracleBriefNotification = new OracleBriefNotification(this, maxValue, 1, 1, result);
+                        oracleBriefNotification.Show();
                     }
 
                     LastGetLastEntry = maxValue;
@@ -267,33 +267,33 @@ namespace The_Oracle
             }
         }
         
-        public void RefreshLog(int ListViewToPopulate)
+        public void RefreshLog(int listViewToPopulate)
         {
             try
             {
                 ReminderListView.Items.Clear();
                 DataTableManagement.EventHorizon_Event.Clear();
 
-                EventHorizonLINQList = DataTableManagement.GetEvents(ListViewToPopulate, EventTypeID, FilterMode, DisplayMode);
+                EventHorizonLINQList = DataTableManagement.GetEvents(listViewToPopulate, EventTypeID, FilterMode, DisplayMode);
 
-                foreach (EventHorizonLINQ _EventHorizonLINQ in EventHorizonLINQList)
+                foreach (EventHorizonLINQ eventHorizonLINQ in EventHorizonLINQList)
                 {
-                    List<EventHorizonLINQ> Replies = DataTableManagement.GetReplies(_EventHorizonLINQ.ID);
+                    List<EventHorizonLINQ> eventHorizonLINQRepliesList = DataTableManagement.GetReplies(eventHorizonLINQ.ID);
 
-                    _EventHorizonLINQ.Attributes_Replies = Replies.Count;
+                    eventHorizonLINQ.Attributes_Replies = eventHorizonLINQRepliesList.Count;
 
-                    EventRow _EventRow = CreateEventLogRow(_EventHorizonLINQ);
+                    EventRow eventRow = CreateEventLogRow(eventHorizonLINQ);
 
-                    if (_EventHorizonLINQ.EventModeID == EventModes.MainEvent)
+                    if (eventHorizonLINQ.EventModeID == EventModes.MainEvent)
                     {
-                        ReminderListView.Items.Add(_EventRow);
+                        ReminderListView.Items.Add(eventRow);
                     }
 
-                    if (_EventHorizonLINQ.Attributes_Replies > 0)
+                    if (eventHorizonLINQ.Attributes_Replies > 0)
                     {
-                        foreach (EventHorizonLINQ roe in Replies)
+                        foreach (EventHorizonLINQ eventHorizonLINQRow in eventHorizonLINQRepliesList)
                         {
-                            _EventRow.RepliesListView.Items.Add(CreateEventLogRow(roe));
+                            eventRow.RepliesListView.Items.Add(CreateEventLogRow(eventHorizonLINQRow));
                         }
                     }
                 }
@@ -308,151 +308,144 @@ namespace The_Oracle
             }
         }
 
-        private EventRow CreateEventLogRow(EventHorizonLINQ _EventHorizonLINQ)
+        private EventRow CreateEventLogRow(EventHorizonLINQ eventHorizonLINQ)
         {
-            EventRow _EventRow = new EventRow(_EventHorizonLINQ);
+            EventRow eventRow = new EventRow(eventHorizonLINQ);
 
-            _EventRow.EventIDTextBlock.Text = _EventHorizonLINQ.ID.ToString("D5");
+            eventRow.EventIDTextBlock.Text = eventHorizonLINQ.ID.ToString("D5");
 
-            if (_EventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
+            if (eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
             {
-                _EventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.LightSeaGreen);
-                _EventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Comment;
-                _EventRow.EventTypeTextBlock.Text = "";
-                _EventRow.BackgroundGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f7f8f9"));
-                _EventRow.SourceIDGrid.Visibility = Visibility.Hidden;
+                eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.LightSeaGreen);
+                eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Comment;
+                eventRow.EventTypeTextBlock.Text = "";
+                eventRow.BackgroundGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f7f8f9"));
+                eventRow.SourceIDGrid.Visibility = Visibility.Hidden;
             }
             else
             {
-                if (_EventHorizonLINQ.EventTypeID < XMLReaderWriter.EventTypesList.Count)
+                if (eventHorizonLINQ.EventTypeID < XMLReaderWriter.EventTypesList.Count)
                 {
-                    _EventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(XMLReaderWriter.EventTypesList[_EventHorizonLINQ.EventTypeID].Color);
-                    _EventRow.EventTypeFontAwesomeIcon.Icon = XMLReaderWriter.EventTypesList[_EventHorizonLINQ.EventTypeID].Icon;
-                    _EventRow.EventTypeTextBlock.Text = XMLReaderWriter.EventTypesList[_EventHorizonLINQ.EventTypeID].Name;
-                    _EventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
-                    _EventRow.SourceIDGrid.Visibility = Visibility.Visible;
+                    eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Color);
+                    eventRow.EventTypeFontAwesomeIcon.Icon = XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Icon;
+                    eventRow.EventTypeTextBlock.Text = XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Name;
+                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
+                    eventRow.SourceIDGrid.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    _EventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.White);
-                    _EventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Question;
-                    _EventRow.EventTypeTextBlock.Text = "Error";
-                    _EventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
-                    _EventRow.SourceIDGrid.Visibility = Visibility.Visible;
+                    eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.White);
+                    eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Question;
+                    eventRow.EventTypeTextBlock.Text = "Error";
+                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
+                    eventRow.SourceIDGrid.Visibility = Visibility.Visible;
                 }
             }
 
-            _EventRow.CreatedDateTimeTextBlock.Text = _EventHorizonLINQ.CreationDate.ToString("dd/MM/y HH:mm");
+            eventRow.CreatedDateTimeTextBlock.Text = eventHorizonLINQ.CreationDate.ToString("dd/MM/y HH:mm");
 
-            if (_EventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
+            if (eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
             {
-                _EventRow.SourceIDTextBlock.Text = "";
+                eventRow.SourceIDTextBlock.Text = "";
             }
             else
             {
-                if (_EventHorizonLINQ.SourceID < XMLReaderWriter.SourceTypesList.Count)
-                    _EventRow.SourceIDTextBlock.Text = XMLReaderWriter.SourceTypesList[_EventHorizonLINQ.SourceID].Name;
+                if (eventHorizonLINQ.SourceID < XMLReaderWriter.SourceTypesList.Count)
+                    eventRow.SourceIDTextBlock.Text = XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Name;
                 else
-                    _EventRow.SourceIDTextBlock.Text = "Error";
+                    eventRow.SourceIDTextBlock.Text = "Error";
             }
 
-            _EventRow.DetailsTextBlock.Text = _EventHorizonLINQ.Details;
+            eventRow.DetailsTextBlock.Text = eventHorizonLINQ.Details;
 
-            if (_EventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
+            if (eventHorizonLINQ.EventModeID != EventModes.ReplyEvent) eventRow.FrequencyGrid.Children.Add(Frequency.GetFrequency(eventHorizonLINQ.FrequencyID));
+
+            eventRow.StatusGrid.Children.Add(StatusIcons.GetStatus(eventHorizonLINQ.StatusID));
+
+            if (eventHorizonLINQ.UserID < XMLReaderWriter.UsersList.Count)
             {
-
-            }
-            else
-            {
-                _EventRow.FrequencyGrid.Children.Add(Frequency.GetFrequency(_EventHorizonLINQ.FrequencyID));
-            }
-
-            _EventRow.StatusGrid.Children.Add(StatusIcons.GetStatus(_EventHorizonLINQ.StatusID));
-
-            if (_EventHorizonLINQ.UserID < XMLReaderWriter.UsersList.Count)
-            {
-                _EventRow.OriginUserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[_EventHorizonLINQ.UserID].Color);
-                _EventRow.OriginUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, _EventHorizonLINQ.UserID);
+                eventRow.OriginUserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
+                eventRow.OriginUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
             }
             else
             {
-                _EventRow.OriginUserEllipse.Fill = new SolidColorBrush(Colors.White);
-                _EventRow.OriginUserLabel.Content = _EventHorizonLINQ.UserID;
+                eventRow.OriginUserEllipse.Fill = new SolidColorBrush(Colors.White);
+                eventRow.OriginUserLabel.Content = eventHorizonLINQ.UserID;
             }
 
-            if (_EventHorizonLINQ.TargetUserID < XMLReaderWriter.UsersList.Count)
+            if (eventHorizonLINQ.TargetUserID < XMLReaderWriter.UsersList.Count)
             {
-                _EventRow.TargetUserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[_EventHorizonLINQ.TargetUserID].Color);
-                _EventRow.TargetUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, _EventHorizonLINQ.TargetUserID);
+                eventRow.TargetUserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.TargetUserID].Color);
+                eventRow.TargetUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.TargetUserID);
             }
             else
             {
-                _EventRow.TargetUserEllipse.Fill = new SolidColorBrush(Colors.White);
-                _EventRow.TargetUserLabel.Content = _EventHorizonLINQ.TargetUserID;
+                eventRow.TargetUserEllipse.Fill = new SolidColorBrush(Colors.White);
+                eventRow.TargetUserLabel.Content = eventHorizonLINQ.TargetUserID;
             }
 
-            if (_EventHorizonLINQ.TargetUserID < XMLReaderWriter.UsersList.Count)
+            if (eventHorizonLINQ.TargetUserID < XMLReaderWriter.UsersList.Count)
             {
-                if (_EventHorizonLINQ.TargetUserID > 0)
-                    _EventRow.TargetUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, _EventHorizonLINQ.TargetUserID);
+                if (eventHorizonLINQ.TargetUserID > 0)
+                    eventRow.TargetUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.TargetUserID);
                 else
                 {
-                    _EventRow.TargetUserLabel.Content = "★";
-                    _EventRow.TargetUserLabel.Margin = new Thickness(0, -3, 0, 0);
-                    _EventRow.TargetUserLabel.FontSize = 14;
+                    eventRow.TargetUserLabel.Content = "★";
+                    eventRow.TargetUserLabel.Margin = new Thickness(0, -3, 0, 0);
+                    eventRow.TargetUserLabel.FontSize = 14;
                 }
             }
             else
             {
-                _EventRow.TargetUserEllipse.Fill = new SolidColorBrush(Colors.White);
-                _EventRow.TargetUserLabel.Content = _EventHorizonLINQ.TargetUserID;
+                eventRow.TargetUserEllipse.Fill = new SolidColorBrush(Colors.White);
+                eventRow.TargetUserLabel.Content = eventHorizonLINQ.TargetUserID;
             }
 
-            String TotalDaysString = string.Empty;
+            string totalDaysString;
 
-            if (_EventHorizonLINQ.Attributes_TotalDays < 0)
+            if (eventHorizonLINQ.Attributes_TotalDays < 0)
             {
-                if (_EventHorizonLINQ.Attributes_TotalDays < -30)
-                    TotalDaysString = "30";
+                if (eventHorizonLINQ.Attributes_TotalDays < -30)
+                    totalDaysString = "30";
                 else
-                    TotalDaysString = Math.Abs(_EventHorizonLINQ.Attributes_TotalDays).ToString();
+                    totalDaysString = Math.Abs(eventHorizonLINQ.Attributes_TotalDays).ToString();
             }
             else
             {
-                if (_EventHorizonLINQ.Attributes_TotalDays > 30)
-                    TotalDaysString = "30";
+                if (eventHorizonLINQ.Attributes_TotalDays > 30)
+                    totalDaysString = "30";
                 else
-                    TotalDaysString = _EventHorizonLINQ.Attributes_TotalDays.ToString();
+                    totalDaysString = eventHorizonLINQ.Attributes_TotalDays.ToString();
             }
 
-            _EventRow.TotalDaysEllipse.Fill = new SolidColorBrush(_EventHorizonLINQ.Attributes_TotalDaysEllipseColor);
-            _EventRow.TotalDaysLabel.Content = TotalDaysString;
+            eventRow.TotalDaysEllipse.Fill = new SolidColorBrush(eventHorizonLINQ.Attributes_TotalDaysEllipseColor);
+            eventRow.TotalDaysLabel.Content = totalDaysString;
 
-            String TargetDateTimeString = _EventHorizonLINQ.TargetDate.ToString("dd/MM/y HH:mm");
-            DateTime tdt = DateTime.MinValue;
-            if (DateTime.TryParse(TargetDateTimeString, out tdt))
+            string targetDateTimeString = eventHorizonLINQ.TargetDate.ToString("dd/MM/y HH:mm");
+            DateTime targetDateTime = DateTime.MinValue;
+            if (DateTime.TryParse(targetDateTimeString, out targetDateTime))
             {
-                if (tdt.TimeOfDay == TimeSpan.Zero)
-                    TargetDateTimeString = tdt.ToString("dd/MM/y");
+                if (targetDateTime.TimeOfDay == TimeSpan.Zero)
+                    targetDateTimeString = targetDateTime.ToString("dd/MM/y");
                 else
-                    TargetDateTimeString = tdt.ToString("dd/MM/y HH:mm");
+                    targetDateTimeString = targetDateTime.ToString("dd/MM/y HH:mm");
             }
             else
-                Console.WriteLine("Unable to parse TargetDateTimeString '{0}'", TargetDateTimeString);
+                Console.WriteLine("Unable to parse TargetDateTimeString '{0}'", targetDateTimeString);
 
-            _EventRow.TargetDateTimeTextBlock.Text = TargetDateTimeString;
+            eventRow.TargetDateTimeTextBlock.Text = targetDateTimeString;
 
-            _EventRow.RepliesLabel.Content = _EventHorizonLINQ.Attributes_Replies;
+            eventRow.RepliesLabel.Content = eventHorizonLINQ.Attributes_Replies;
 
-            if (_EventHorizonLINQ.Attributes_Replies == 0)
+            if (eventHorizonLINQ.Attributes_Replies == 0)
             {
-                _EventRow.RepliesButton.Opacity = 0.1;
-                _EventRow.RepliesButton.IsEnabled = false;
+                eventRow.RepliesButton.Opacity = 0.1;
+                eventRow.RepliesButton.IsEnabled = false;
             }
 
-            _EventRow.Tag = _EventHorizonLINQ;
+            eventRow.Tag = eventHorizonLINQ;
 
-            return _EventRow;
+            return eventRow;
         }
         
         public Dictionary<Int32, Grid> UsersOnlineStatus = new Dictionary<int, Grid>();
@@ -465,36 +458,36 @@ namespace The_Oracle
 
                 if (XMLReaderWriter.UsersList[XMLReaderWriter.UserID] != null)
                 {
-                    User u = XMLReaderWriter.UsersList[XMLReaderWriter.UserID];
+                    User user = XMLReaderWriter.UsersList[XMLReaderWriter.UserID];
 
-                    Grid OriginUserIconEllipseGrid;
-                    Ellipse OriginUserIconEllipse;
+                    Grid originUserIconEllipseGrid;
+                    Ellipse originUserIconEllipse;
 
-                    Color IconEllipseColor = Colors.White;
+                    Color iconEllipseColor = Colors.White;
 
-                    IconEllipseColor = XMLReaderWriter.UsersList[u.ID].Color;
+                    iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
 
-                    if (u.ID > 0)
-                        OriginUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(IconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    if (user.ID > 0)
+                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
                     else
-                        OriginUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(IconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
 
-                    OriginUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
 
-                    OriginUserIconEllipseGrid.Children.Add(OriginUserIconEllipse);
+                    originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
 
-                    Label OriginUserIconEllipseLabel;
+                    Label originUserIconEllipseLabel;
 
-                    if (u.ID > 0)
-                        OriginUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(u.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    if (user.ID > 0)
+                        originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
                     else
-                        OriginUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
+                        originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
 
-                    OriginUserIconEllipseGrid.Children.Add(OriginUserIconEllipseLabel);
+                    originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
 
-                    OriginUserIconEllipseGrid.Opacity = 1;
+                    originUserIconEllipseGrid.Opacity = 1;
 
-                    OriginUserIconEllipseGrid.Effect = new DropShadowEffect
+                    originUserIconEllipseGrid.Effect = new DropShadowEffect
                     {
                         Color = new Color { A = 255, R = 0, G = 0, B = 0 },
                         Direction = 320,
@@ -502,10 +495,10 @@ namespace The_Oracle
                         Opacity = 0.6
                     };
 
-                    TextBlock UsersName = new TextBlock { Text = u.UserName, Foreground = Brushes.Black, FontSize = 11, MaxWidth = 70, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
+                    TextBlock usersName = new TextBlock { Text = user.UserName, Foreground = Brushes.Black, FontSize = 11, MaxWidth = 70, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
                     
-                    UserStackPanel.Children.Add(OriginUserIconEllipseGrid);
-                    UserStackPanel.Children.Add(UsersName);
+                    UserStackPanel.Children.Add(originUserIconEllipseGrid);
+                    UserStackPanel.Children.Add(usersName);
                 }
             }
             catch (Exception e)
@@ -528,37 +521,37 @@ namespace The_Oracle
                 UsersColumn5StackPanel.Children.Clear();
 
                 int i = 1;
-                foreach (User u in XMLReaderWriter.UsersList)
+                foreach (User user in XMLReaderWriter.UsersList)
                 {
-                    Grid OriginUserIconEllipseGrid;
-                    Ellipse OriginUserIconEllipse;
+                    Grid originUserIconEllipseGrid;
+                    Ellipse originUserIconEllipse;
 
-                    Color IconEllipseColor = Colors.White;
+                    Color iconEllipseColor = Colors.White;
 
-                    IconEllipseColor = XMLReaderWriter.UsersList[u.ID].Color;
+                    iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
 
-                    if (u.ID > 0)
-                        OriginUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(IconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    if (user.ID > 0)
+                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
                     else
-                        OriginUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(IconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
 
-                    OriginUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
 
-                    OriginUserIconEllipseGrid.Children.Add(OriginUserIconEllipse);
+                    originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
 
-                    Label OriginUserIconEllipseLabel;
+                    Label originUserIconEllipseLabel;
 
-                    if (u.ID > 0)
-                        OriginUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(u.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    if (user.ID > 0)
+                        originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
                     else
-                        OriginUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
+                        originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
 
-                    OriginUserIconEllipseGrid.Children.Add(OriginUserIconEllipseLabel);
+                    originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
 
-                    OriginUserIconEllipseGrid.Opacity = 0.3;
-                    UsersOnlineStatus.Add(u.ID, OriginUserIconEllipseGrid);
+                    originUserIconEllipseGrid.Opacity = 0.3;
+                    UsersOnlineStatus.Add(user.ID, originUserIconEllipseGrid);
 
-                    OriginUserIconEllipseGrid.Effect = new DropShadowEffect
+                    originUserIconEllipseGrid.Effect = new DropShadowEffect
                     {
                         Color = new Color { A = 255, R = 0, G = 0, B = 0 },
                         Direction = 320,
@@ -567,15 +560,15 @@ namespace The_Oracle
                     };
 
                     if (i < 4)
-                        UsersColumn1StackPanel.Children.Add(OriginUserIconEllipseGrid);
+                        UsersColumn1StackPanel.Children.Add(originUserIconEllipseGrid);
                     else if (i > 3 && i < 7)
-                        UsersColumn2StackPanel.Children.Add(OriginUserIconEllipseGrid);
+                        UsersColumn2StackPanel.Children.Add(originUserIconEllipseGrid);
                     else if (i > 6 && i < 10)
-                        UsersColumn3StackPanel.Children.Add(OriginUserIconEllipseGrid);
+                        UsersColumn3StackPanel.Children.Add(originUserIconEllipseGrid);
                     else if (i > 9 && i < 13)
-                        UsersColumn4StackPanel.Children.Add(OriginUserIconEllipseGrid);
+                        UsersColumn4StackPanel.Children.Add(originUserIconEllipseGrid);
                     else if (i > 12 && i < 16)
-                        UsersColumn5StackPanel.Children.Add(OriginUserIconEllipseGrid);
+                        UsersColumn5StackPanel.Children.Add(originUserIconEllipseGrid);
 
                     i++;
                 }
@@ -593,22 +586,22 @@ namespace The_Oracle
         {
             DataTableManagement.GetUsersLastTimeOnline();
 
-            foreach (User u in XMLReaderWriter.UsersList)
+            foreach (User user in XMLReaderWriter.UsersList)
             {
-                if (UsersOnlineStatus.ContainsKey(u.ID))
+                if (UsersOnlineStatus.ContainsKey(user.ID))
                 {
                     //Check if user was still online a minute ago, if so refresh user icon
-                    if (UsersLastTimeOnlineDictionary.ContainsKey(u.ID))
+                    if (UsersLastTimeOnlineDictionary.ContainsKey(user.ID))
                     {
-                        if (UsersLastTimeOnlineDictionary[u.ID] > (DateTime.Now - TimeSpan.FromMinutes(2)))
+                        if (UsersLastTimeOnlineDictionary[user.ID] > (DateTime.Now - TimeSpan.FromMinutes(2)))
                         {
-                            Grid UsersIconGrid = UsersOnlineStatus[u.ID];
-                            UsersIconGrid.Opacity = 1;
+                            Grid usersIconGrid = UsersOnlineStatus[user.ID];
+                            usersIconGrid.Opacity = 1;
                         }
                         else
                         {
-                            Grid UsersIconGrid = UsersOnlineStatus[u.ID];
-                            UsersIconGrid.Opacity = 0.3;
+                            Grid usersIconGrid = UsersOnlineStatus[user.ID];
+                            usersIconGrid.Opacity = 0.3;
                         }
                     }
                 }
@@ -620,32 +613,32 @@ namespace The_Oracle
             switch (e.Key)
             {
                 case Key.F1:
-                    EventWindow nev = new EventWindow(this, new EventHorizonLINQ
+                    EventWindow newEventWindow = new EventWindow(this, new EventHorizonLINQ
                     {
                         Source_ID = -1,
                         Source_Mode = EventWindowModes.NewEvent,
                         Attributes_TotalDays = 0,
                         ID = -1
-                    }, null); 
-                    nev.Show();
+                    }, null);
+                    newEventWindow.Show();
                     break;
                 case Key.F2:
                     if (EventLogListViewTagged > 0)
                     {
-                        EventWindow eev = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow editEventWindow = new EventWindow(this, new EventHorizonLINQ
                         {
                             Source_ID = EventLogListViewTagged,
                             Source_Mode = EventWindowModes.EditEvent,
                             Attributes_TotalDays = 0,
                             ID = EventLogListViewTagged
                         }, null);
-                        eev.Show();
+                        editEventWindow.Show();
                     }
                     break;
                 case Key.F3:
                     if (XMLReaderWriter.EventTypesList.Count > 1)
                     {
-                        EventWindow noevF3 = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F3NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                         {
                             Source_ID = -1,
                             Source_Mode = EventWindowModes.NewEvent,
@@ -653,13 +646,13 @@ namespace The_Oracle
                             ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[1].ID,
                         }, null);
-                        noevF3.Show();
+                        F3NewEventWindow.Show();
                     }
                     break;
                 case Key.F4:
                     if (XMLReaderWriter.EventTypesList.Count > 2)
                     {
-                        EventWindow noevF4 = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F4NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                         {
                             Source_ID = -1,
                             Source_Mode = EventWindowModes.NewEvent,
@@ -667,13 +660,13 @@ namespace The_Oracle
                             ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[2].ID,
                         }, null);
-                        noevF4.Show();
+                        F4NewEventWindow.Show();
                     }
                     break;
                 case Key.F5:
                     if (XMLReaderWriter.EventTypesList.Count > 3)
                     {
-                        EventWindow noevF5 = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F5NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                         {
                             Source_ID = -1,
                             Source_Mode = EventWindowModes.NewEvent,
@@ -681,13 +674,13 @@ namespace The_Oracle
                             ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[3].ID,
                         }, null);
-                        noevF5.Show();
+                        F5NewEventWindow.Show();
                     }
                     break;
                 case Key.F6:
                     if (XMLReaderWriter.EventTypesList.Count > 4)
                     {
-                        EventWindow noevF6 = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F6NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                         {
                             Source_ID = -1,
                             Source_Mode = EventWindowModes.NewEvent,
@@ -695,13 +688,13 @@ namespace The_Oracle
                             ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[4].ID,
                         }, null);
-                        noevF6.Show();
+                        F6NewEventWindow.Show();
                     }
                     break;
                 case Key.F7:
                     if (XMLReaderWriter.EventTypesList.Count > 5)
                     {
-                        EventWindow noevF7 = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F7NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                         {
                             Source_ID = -1,
                             Source_Mode = EventWindowModes.NewEvent,
@@ -709,13 +702,13 @@ namespace The_Oracle
                             ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[5].ID,
                         }, null);
-                        noevF7.Show();
+                        F7NewEventWindow.Show();
                     }
                     break;
                 case Key.F8:
                     if (XMLReaderWriter.EventTypesList.Count > 6)
                     {
-                        EventWindow noevF8 = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F8NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                         {
                             Source_ID = -1,
                             Source_Mode = EventWindowModes.NewEvent,
@@ -723,13 +716,13 @@ namespace The_Oracle
                             ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[6].ID,
                         }, null);
-                        noevF8.Show();
+                        F8NewEventWindow.Show();
                     }
                     break;
                 case Key.F9:
                     if (XMLReaderWriter.EventTypesList.Count > 7)
                     {
-                        EventWindow noevF9 = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F9NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                         {
                             Source_ID = -1,
                             Source_Mode = EventWindowModes.NewEvent,
@@ -737,7 +730,7 @@ namespace The_Oracle
                             ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[7].ID,
                         }, null);
-                        noevF9.Show();
+                        F9NewEventWindow.Show();
                     }
                     break;
                 case Key.System:
@@ -745,7 +738,7 @@ namespace The_Oracle
                     {
                         if (XMLReaderWriter.EventTypesList.Count > 8)
                         {
-                            EventWindow noevF10 = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F10NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                             {
                                 Source_ID = -1,
                                 Source_Mode = EventWindowModes.NewEvent,
@@ -753,14 +746,14 @@ namespace The_Oracle
                                 ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[8].ID,
                             }, null);
-                            noevF10.Show();
+                            F10NewEventWindow.Show();
                         }
                     }
                     break;
                 case Key.F11:
                     if (XMLReaderWriter.EventTypesList.Count > 9)
                     {
-                        EventWindow noevF11 = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F11NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                         {
                             Source_ID = -1,
                             Source_Mode = EventWindowModes.NewEvent,
@@ -768,13 +761,13 @@ namespace The_Oracle
                             ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[9].ID,
                         }, null);
-                        noevF11.Show();
+                        F11NewEventWindow.Show();
                     }
                     break;
                 case Key.F12:
                     if (XMLReaderWriter.EventTypesList.Count > 10)
                     {
-                        EventWindow noevF12 = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F12NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                         {
                             Source_ID = -1,
                             Source_Mode = EventWindowModes.NewEvent,
@@ -782,14 +775,14 @@ namespace The_Oracle
                             ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[10].ID,
                         }, null);
-                        noevF12.Show();
+                        F12NewEventWindow.Show();
                     }
                     break;
                 case Key.Delete:
                     if (EventLogListViewTagged > 0)
                     {
-                        var Result = MessageBox.Show("Are you sure", "Delete this event", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                        if (Result == MessageBoxResult.Yes)
+                        var result = MessageBox.Show("Are you sure", "Delete this event", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                        if (result == MessageBoxResult.Yes)
                         {
                             if (EventLogListViewTagged > 0) DataTableManagement.DeleteEvent(EventLogListViewTagged);
                         }
@@ -802,17 +795,17 @@ namespace The_Oracle
         {
             Button button = sender as Button;
 
-            int ButtonID = 255;
+            int buttonID = 255;
 
-            bool success = Int32.TryParse(button.Tag.ToString(), out ButtonID);
+            bool success = Int32.TryParse(button.Tag.ToString(), out buttonID);
 
             if (button != null && success)
             {
 
-                switch (ButtonID)
+                switch (buttonID)
                 {
                     case 0:
-                        EventWindow nev = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow newEventWindow = new EventWindow(this, new EventHorizonLINQ
                         {
                             Source_ID = -1,
                             Source_Mode = EventWindowModes.NewEvent,
@@ -820,25 +813,25 @@ namespace The_Oracle
                             ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[0].ID,
                         }, null);
-                        nev.Show();
+                        newEventWindow.Show();
                         break;
                     case 1:
                         if (EventLogListViewTagged > 0)
                         {
-                            EventWindow eev = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow editEventWindow = new EventWindow(this, new EventHorizonLINQ
                             {
                                 Source_ID = EventLogListViewTagged,
                                 Source_Mode = EventWindowModes.EditEvent,
                                 Attributes_TotalDays = 0,
                                 ID = EventLogListViewTagged,
                             }, null);
-                            eev.Show();
+                            editEventWindow.Show();
                         }
                         break;
                     case 2:
                         if (XMLReaderWriter.EventTypesList.Count > 1)
                         {
-                            EventWindow noevF3 = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F3NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                             {
                                 Source_ID = -1,
                                 Source_Mode = EventWindowModes.NewEvent,
@@ -846,13 +839,13 @@ namespace The_Oracle
                                 ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[1].ID,
                             }, null);
-                            noevF3.Show();
+                            F3NewEventWindow.Show();
                         }
                         break;
                     case 3:
                         if (XMLReaderWriter.EventTypesList.Count > 2)
                         {
-                            EventWindow noevF4 = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F4NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                             {
                                 Source_ID = -1,
                                 Source_Mode = EventWindowModes.NewEvent,
@@ -860,13 +853,13 @@ namespace The_Oracle
                                 ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[2].ID,
                             }, null);
-                            noevF4.Show();
+                            F4NewEventWindow.Show();
                         }
                         break;
                     case 4:
                         if (XMLReaderWriter.EventTypesList.Count > 3)
                         {
-                            EventWindow noevF5 = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F5NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                             {
                                 Source_ID = -1,
                                 Source_Mode = EventWindowModes.NewEvent,
@@ -874,13 +867,13 @@ namespace The_Oracle
                                 ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[3].ID,
                             }, null);
-                            noevF5.Show();
+                            F5NewEventWindow.Show();
                         }
                         break;
                     case 5:
                         if (XMLReaderWriter.EventTypesList.Count > 4)
                         {
-                            EventWindow noevF6 = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F6NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                             {
                                 Source_ID = -1,
                                 Source_Mode = EventWindowModes.NewEvent,
@@ -888,13 +881,13 @@ namespace The_Oracle
                                 ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[4].ID,
                             }, null);
-                            noevF6.Show();
+                            F6NewEventWindow.Show();
                         }
                         break;
                     case 6:
                         if (XMLReaderWriter.EventTypesList.Count > 5)
                         {
-                            EventWindow noevF7 = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F7NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                             {
                                 Source_ID = -1,
                                 Source_Mode = EventWindowModes.NewEvent,
@@ -902,13 +895,13 @@ namespace The_Oracle
                                 ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[5].ID,
                             }, null);
-                            noevF7.Show();
+                            F7NewEventWindow.Show();
                         }
                         break;
                     case 7:
                         if (XMLReaderWriter.EventTypesList.Count > 6)
                         {
-                            EventWindow noevF8 = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F8NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                             {
                                 Source_ID = -1,
                                 Source_Mode = EventWindowModes.NewEvent,
@@ -916,13 +909,13 @@ namespace The_Oracle
                                 ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[6].ID,
                             }, null);
-                            noevF8.Show();
+                            F8NewEventWindow.Show();
                         }
                         break;
                     case 8:
                         if (XMLReaderWriter.EventTypesList.Count > 7)
                         {
-                            EventWindow noevF9 = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F9NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                             {
                                 Source_ID = -1,
                                 Source_Mode = EventWindowModes.NewEvent,
@@ -930,13 +923,13 @@ namespace The_Oracle
                                 ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[7].ID,
                             }, null);
-                            noevF9.Show();
+                            F9NewEventWindow.Show();
                         }
                         break;
                     case 9:
                         if (XMLReaderWriter.EventTypesList.Count > 8)
                         {
-                            EventWindow noevF10 = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F10NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                             {
                                 Source_ID = -1,
                                 Source_Mode = EventWindowModes.NewEvent,
@@ -944,13 +937,13 @@ namespace The_Oracle
                                 ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[8].ID,
                             }, null);
-                            noevF10.Show();
+                            F10NewEventWindow.Show();
                         }
                         break;
                     case 10:
                         if (XMLReaderWriter.EventTypesList.Count > 9)
                         {
-                            EventWindow noevF11 = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F11NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                             {
                                 Source_ID = -1,
                                 Source_Mode = EventWindowModes.NewEvent,
@@ -958,13 +951,13 @@ namespace The_Oracle
                                 ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[9].ID,
                             }, null);
-                            noevF11.Show();
+                            F11NewEventWindow.Show();
                         }
                         break;
                     case 11:
                         if (XMLReaderWriter.EventTypesList.Count > 10)
                         {
-                            EventWindow noevF12 = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F12NewEventWindow = new EventWindow(this, new EventHorizonLINQ
                             {
                                 Source_ID = -1,
                                 Source_Mode = EventWindowModes.NewEvent,
@@ -972,10 +965,8 @@ namespace The_Oracle
                                 ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[10].ID,
                             }, null);
-                            noevF12.Show();
+                            F12NewEventWindow.Show();
                         }
-                        //OracleBriefNotification n = new OracleBriefNotification(this, 99, 1, 1 );
-                        //n.Show();
                         break;
                 }
             }
@@ -1027,13 +1018,13 @@ namespace The_Oracle
         {
             RadioButton radioButton = e.OriginalSource as RadioButton;
 
-            int ButtonID = 0;
+            int buttonID = 0;
 
-            bool success = Int32.TryParse(radioButton.Tag.ToString(), out ButtonID);
+            bool success = Int32.TryParse(radioButton.Tag.ToString(), out buttonID);
 
             if (radioButton != null && success)
             {
-                switch (ButtonID)
+                switch (buttonID)
                 {
                     case ReminderListTimeSpans.OverDue:
                         ReminderListTimeSpan = new TimeSpan(0, 0, 0, 0);
@@ -1078,23 +1069,23 @@ namespace The_Oracle
 
             EventRow item = (EventRow)dep;
 
-            EventHorizonLINQ oe = (EventHorizonLINQ)item.Tag;
-            EventLogListViewTagged = Convert.ToInt32(oe.ID);
+            EventHorizonLINQ eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
+            EventLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
 
-            Console.Write("item.Tag oe.ID = ");
-            Console.WriteLine(oe.ID);
+            Console.Write("item.Tag eventHorizonLINQ.ID = ");
+            Console.WriteLine(eventHorizonLINQ.ID);
 
             ReminderListView.SelectedItem = item;
 
             if (EventLogListViewTagged > 0)
             {
-                oe.Source_ID = EventLogListViewTagged;
-                oe.ID = EventLogListViewTagged;
-                oe.Source_Mode = EventWindowModes.EditEvent;
+                eventHorizonLINQ.Source_ID = EventLogListViewTagged;
+                eventHorizonLINQ.ID = EventLogListViewTagged;
+                eventHorizonLINQ.Source_Mode = EventWindowModes.EditEvent;
 
                 //try open event as EditEvent
-                EventWindow eev = new EventWindow(this, oe, null);
-                eev.Show();
+                EventWindow editEventWindow = new EventWindow(this, eventHorizonLINQ, null);
+                editEventWindow.Show();
             }
         }
 
@@ -1119,7 +1110,7 @@ namespace The_Oracle
 
             if (EventLogListViewTagged > 0)
             {
-                EventWindow eev = new EventWindow(this, new EventHorizonLINQ
+                EventWindow editEventWindow = new EventWindow(this, new EventHorizonLINQ
                 {
                     Source_ID = EventLogListViewTagged,
                     Source_Mode = EventWindowModes.EditEvent,
@@ -1127,7 +1118,7 @@ namespace The_Oracle
                     Attributes_TotalDays = 0,
                     ID = EventLogListViewTagged,
                 }, null);
-                eev.Show();
+                editEventWindow.Show();
             }
         }
 
@@ -1137,13 +1128,13 @@ namespace The_Oracle
         {
             RadioButton radioButton = e.OriginalSource as RadioButton;
 
-            int ButtonID = 0;
+            int buttonID = 0;
 
-            bool success = Int32.TryParse(radioButton.Tag.ToString(), out ButtonID);
+            bool success = Int32.TryParse(radioButton.Tag.ToString(), out buttonID);
 
             if (radioButton != null && success)
             {
-                switch (ButtonID)
+                switch (buttonID)
                 {
                     case FilterModes.None:
                         FilterMode = FilterModes.None;
@@ -1182,14 +1173,13 @@ namespace The_Oracle
 
             if (MainWindowIs_Loaded)
             {
+                int buttonID = 0;
 
-                int ButtonID = 0;
-
-                bool success = Int32.TryParse(radioButton.Tag.ToString(), out ButtonID);
+                bool success = Int32.TryParse(radioButton.Tag.ToString(), out buttonID);
 
                 if (radioButton != null && success)
                 {
-                    switch (ButtonID)
+                    switch (buttonID)
                     {
                         case DisplayModes.Normal:
                             DisplayMode = DisplayModes.Normal;
@@ -1263,17 +1253,17 @@ namespace The_Oracle
 
             EventRow item = (EventRow)dep;
 
-            EventHorizonLINQ oe = (EventHorizonLINQ)item.Tag;
-            EventLogListViewTagged = Convert.ToInt32(oe.ID);
+            EventHorizonLINQ eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
+            EventLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
 
-            SelectedParentEventID = Convert.ToInt32(oe.Source_ParentEventID);
+            SelectedParentEventID = Convert.ToInt32(eventHorizonLINQ.Source_ParentEventID);
 
             Console.Write("** ReminderListView.SelectedIndex = ");
             Console.WriteLine(ReminderListView.SelectedIndex);
-            Console.Write("** item.Tag oe.ID = ");
-            Console.WriteLine(oe.ID);
-            Console.Write("** item.Tag oe.Source_ParentEventID = ");
-            Console.WriteLine(oe.Source_ParentEventID);
+            Console.Write("** item.Tag eventHorizonLINQ.ID = ");
+            Console.WriteLine(eventHorizonLINQ.ID);
+            Console.Write("** item.Tag eventHorizonLINQ.Source_ParentEventID = ");
+            Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
         }
     }
 }

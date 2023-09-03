@@ -599,7 +599,7 @@ namespace The_Oracle
                 if (saveSuccessFull)
                 {
                     eventWindow.Close();
-                    if (eventWindow.ew != null) eventWindow.ew.Close();
+                    if (eventWindow.eventWindow != null) eventWindow.eventWindow.Close();
                     MainWindow.mw.ReminderListView.SelectedItem = null;
                 }
             }

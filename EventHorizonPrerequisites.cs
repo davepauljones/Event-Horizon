@@ -37,17 +37,20 @@ namespace The_Oracle
             public const string Missing_EventHorizonLocalSettings_RemoteDatabasePathNotFound = "Event Horizon Local Settings Remote Database Path Not Found!";
         }
 
-            public static void CheckPrerequisites()
+        public static void CheckPrerequisites()
         {
-            int Results = 0;
+            int results = 0;
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\EventHorizonLocalSettings.xml"))
-                Results = PrerequisitesProgress.Passed_EventHorizonLocalSettings;
+                results = PrerequisitesProgress.Passed_EventHorizonLocalSettings;
             else
             {
                 OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, 1);
                 msg.ShowDialog();
+                results = PrerequisitesProgress.Passed_EventHorizonLocalSettings;
             }
+
+            Console.WriteLine(results);
         }
     }
 }
