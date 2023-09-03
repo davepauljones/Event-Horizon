@@ -1,16 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Media.Animation;
 
 namespace The_Oracle
@@ -21,49 +12,49 @@ namespace The_Oracle
     public partial class OracleBriefNotification : Window
     {
         MainWindow mw;
-        Int32 EventID;
-        Int32 NotificationNumber;
-        Int32 TotalNotifications;
-        EventHorizonLINQ oe;
+        Int32 eventID;
+        Int32 notificationNumber;
+        Int32 totalNotifications;
+        EventHorizonLINQ eventHorizonLINQ;
 
         public static Dictionary<Int32, OracleBriefNotification> BriefNotifications = new Dictionary<int, OracleBriefNotification>();
+        Int32 remindMeID = RemindMeDateTimes.OneHour;
 
-        public OracleBriefNotification(MainWindow mw, Int32 EventID, Int32 NotificationNumber, Int32 TotalNotifications, EventHorizonLINQ oe = null)
+        public OracleBriefNotification(MainWindow mw, Int32 eventID, Int32 notificationNumber, Int32 totalNotifications, EventHorizonLINQ eventHorizonLINQ = null)
         {
             InitializeComponent();
             this.Hide();
 
             this.mw = mw;
-            this.EventID = EventID;
-            this.NotificationNumber = NotificationNumber;
-            this.TotalNotifications = TotalNotifications;
-            this.oe = oe;
+            this.eventID = eventID;
+            this.notificationNumber = notificationNumber;
+            this.totalNotifications = totalNotifications;
+            this.eventHorizonLINQ = eventHorizonLINQ;
 
             Init();
         }
 
         private void Init()
         {
-            if (oe != null)
+            if (eventHorizonLINQ != null)
             {
-                NotificationsLabel.Content = NotificationNumber + " of " + TotalNotifications;
-                UserNameTextBlock.Text = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, oe.UserID);
-                TargetUserNameTextBlock.Text = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, oe.TargetUserID);
-                //UserNameTextBlock.Text = oe.TargetUserID.ToString();
-                DetailsTextBlock.Text = oe.Details;
+                NotificationsLabel.Content = notificationNumber + " of " + totalNotifications;
+                UserNameTextBlock.Text = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
+                TargetUserNameTextBlock.Text = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.TargetUserID);
+                DetailsTextBlock.Text = eventHorizonLINQ.Details;
             }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
-            this.Left = desktopWorkingArea.Left+10;
-            this.Top = desktopWorkingArea.Bottom-10 - this.Height;
+            this.Left = desktopWorkingArea.Left + 10;
+            this.Top = desktopWorkingArea.Bottom - 10 - this.Height;
             this.Show();
 
-            if (!BriefNotifications.ContainsKey(EventID))
+            if (!BriefNotifications.ContainsKey(eventID))
             {
-                BriefNotifications.Add(EventID, this);
+                BriefNotifications.Add(eventID, this);
             }
         }
 
@@ -80,66 +71,66 @@ namespace The_Oracle
         {
             Button button = sender as Button;
 
-            int ButtonID = 255;
+            int buttonID = 255;
 
-            bool success = Int32.TryParse(button.Tag.ToString(), out ButtonID);
+            bool success = Int32.TryParse(button.Tag.ToString(), out buttonID);
 
             if (button != null && success)
             {
 
-                switch (ButtonID)
+                switch (buttonID)
                 {
                     case 0:
-                        if (BriefNotifications.ContainsKey(EventID)) BriefNotifications.Remove(EventID);
+                        if (BriefNotifications.ContainsKey(eventID)) BriefNotifications.Remove(eventID);
 
-                        DataTableManagement.UpdateMyReminder(EventID, RemindMeModes.No, DateTime.Now, NotificationAcknowlegedModes.Yes);
+                        DataTableManagement.UpdateMyReminder(eventID, RemindMeModes.No, DateTime.Now, NotificationAcknowlegedModes.Yes);
 
-                        if (oe.TargetUserID == XMLReaderWriter.UserID) DataTableManagement.UpdateStatusID(EventID, Statuses.ActiveNotified);
+                        if (eventHorizonLINQ.TargetUserID == XMLReaderWriter.UserID) DataTableManagement.UpdateStatusID(eventID, Statuses.ActiveNotified);
 
                         Close();
 
-                        EventWindow ve = new EventWindow(MainWindow.mw, oe, null);
-                        ve.Left = ve.Left - 100;
-                        ve.Top = ve.Top - 100;
-                        ve.Show();
+                        EventWindow veiwEventWindow = new EventWindow(MainWindow.mw, eventHorizonLINQ, null);
+                        veiwEventWindow.Left = veiwEventWindow.Left - 100;
+                        veiwEventWindow.Top = veiwEventWindow.Top - 100;
+                        veiwEventWindow.Show();
                         break;
                     case 1:
-                        DateTime RemindMeDateTime = DateTime.Now;
+                        DateTime remindMeDateTime = DateTime.Now;
                         
                         if (RemindMeComboBox.SelectedIndex > -1)
                         {
-                            switch (RemindMeID)
+                            switch (remindMeID)
                             {
                                 case RemindMeDateTimes.FiveMinutes:
-                                    RemindMeDateTime = DateTime.Now + TimeSpan.FromMinutes(5);
+                                    remindMeDateTime = DateTime.Now + TimeSpan.FromMinutes(5);
                                     break;
                                 case RemindMeDateTimes.OneHour:
-                                    RemindMeDateTime = DateTime.Now + TimeSpan.FromHours(1);
+                                    remindMeDateTime = DateTime.Now + TimeSpan.FromHours(1);
                                     break;
                                 case RemindMeDateTimes.OneDay:
-                                    RemindMeDateTime = DateTime.Now + TimeSpan.FromDays(1);
+                                    remindMeDateTime = DateTime.Now + TimeSpan.FromDays(1);
                                     break;
                                 case RemindMeDateTimes.TwoDays:
-                                    RemindMeDateTime = DateTime.Now + TimeSpan.FromDays(2);
+                                    remindMeDateTime = DateTime.Now + TimeSpan.FromDays(2);
                                     break;
                                 case RemindMeDateTimes.NextWeek:
-                                    RemindMeDateTime = DateTime.Now + TimeSpan.FromDays(7);
+                                    remindMeDateTime = DateTime.Now + TimeSpan.FromDays(7);
                                     break;
                                 case RemindMeDateTimes.NextMonth:
-                                    RemindMeDateTime = DateTime.Now + TimeSpan.FromDays(28);
+                                    remindMeDateTime = DateTime.Now + TimeSpan.FromDays(28);
                                     break;
                             }
 
-                            DataTableManagement.UpdateMyReminder(EventID, RemindMeModes.Yes, RemindMeDateTime, NotificationAcknowlegedModes.No);
-                            if (oe.TargetUserID == XMLReaderWriter.UserID) DataTableManagement.UpdateStatusID(EventID, Statuses.ActiveNotified);
+                            DataTableManagement.UpdateMyReminder(eventID, RemindMeModes.Yes, remindMeDateTime, NotificationAcknowlegedModes.No);
+                            if (eventHorizonLINQ.TargetUserID == XMLReaderWriter.UserID) DataTableManagement.UpdateStatusID(eventID, Statuses.ActiveNotified);
                         }
                         else
                         {
-                            DataTableManagement.UpdateMyReminder(EventID, RemindMeModes.No, RemindMeDateTime, NotificationAcknowlegedModes.Yes);
-                            if (oe.TargetUserID == XMLReaderWriter.UserID) DataTableManagement.UpdateStatusID(EventID, Statuses.ActiveNotified);
+                            DataTableManagement.UpdateMyReminder(eventID, RemindMeModes.No, remindMeDateTime, NotificationAcknowlegedModes.Yes);
+                            if (eventHorizonLINQ.TargetUserID == XMLReaderWriter.UserID) DataTableManagement.UpdateStatusID(eventID, Statuses.ActiveNotified);
                         }
 
-                        if (BriefNotifications.ContainsKey(EventID)) BriefNotifications.Remove(EventID);
+                        if (BriefNotifications.ContainsKey(eventID)) BriefNotifications.Remove(eventID);
                         
                         Close();
                         break;
@@ -147,13 +138,12 @@ namespace The_Oracle
             }
         }
 
-        Int32 RemindMeID = RemindMeDateTimes.OneHour;
         private void RemindMeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RemindMeID = RemindMeComboBox.SelectedIndex;
+            remindMeID = RemindMeComboBox.SelectedIndex;
 
-            Console.Write("RemindMeID = ");
-            Console.WriteLine(RemindMeID);
+            Console.Write("remindMeID = ");
+            Console.WriteLine(remindMeID);
         }
 
         private void Storyboard_Completed(object sender, EventArgs e)

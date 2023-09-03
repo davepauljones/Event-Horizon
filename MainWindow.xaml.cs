@@ -781,10 +781,19 @@ namespace The_Oracle
                 case Key.Delete:
                     if (EventLogListViewTagged > 0)
                     {
-                        var result = MessageBox.Show("Are you sure", "Delete this event", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                        if (result == MessageBoxResult.Yes)
+                        if (SelectedReplies > 0)
                         {
-                            if (EventLogListViewTagged > 0) DataTableManagement.DeleteEvent(EventLogListViewTagged);
+                            OracleRequesterNotification rorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, this event has notes or replies", InformationTextBlock = "You won't be able to delete an event if it has notes or replies.\nYou must delete them first." }, RequesterTypes.OK);
+                            rorn.ShowDialog();
+                        }
+                        else
+                        {
+                            OracleRequesterNotification orn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Delete this event, are you sure", InformationTextBlock = "Consider changing the events status to archived instead.\nThat way you use the event as a log." }, RequesterTypes.NoYes);
+                            var result = orn.ShowDialog();
+                            if (result == true)
+                            {
+                                if (EventLogListViewTagged > 0) DataTableManagement.DeleteEvent(EventLogListViewTagged);
+                            }
                         }
                     }
                     break;
@@ -1238,7 +1247,8 @@ namespace The_Oracle
         }
 
         public Int32 SelectedParentEventID = 0;
-        
+        public Int32 SelectedReplies = 0;
+
         private void ReminderListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
@@ -1257,6 +1267,7 @@ namespace The_Oracle
             EventLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
 
             SelectedParentEventID = Convert.ToInt32(eventHorizonLINQ.Source_ParentEventID);
+            SelectedReplies = Convert.ToInt32(eventHorizonLINQ.Attributes_Replies);
 
             Console.Write("** ReminderListView.SelectedIndex = ");
             Console.WriteLine(ReminderListView.SelectedIndex);
@@ -1264,6 +1275,8 @@ namespace The_Oracle
             Console.WriteLine(eventHorizonLINQ.ID);
             Console.Write("** item.Tag eventHorizonLINQ.Source_ParentEventID = ");
             Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
+            Console.Write("** item.Tag eventHorizonLINQ.Attributes_Replies = ");
+            Console.WriteLine(eventHorizonLINQ.Attributes_Replies);
         }
     }
 }

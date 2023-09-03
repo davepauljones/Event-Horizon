@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using FontAwesome.WPF;
 using System.Windows.Media;
 
@@ -210,5 +205,10 @@ namespace The_Oracle
         public const int NewEvent = 4;
         public const int NewNote = 5;
         public const int NewReply = 6;
+    }
+    public struct RequesterTypes
+    {
+        public const int NoYes = 0;
+        public const int OK = 1;
     }
 }

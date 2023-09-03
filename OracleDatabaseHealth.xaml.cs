@@ -1,7 +1,5 @@
 ﻿using System;
-
 using System.Windows.Controls;
-
 using System.IO;
 
 namespace The_Oracle
@@ -16,7 +14,7 @@ namespace The_Oracle
             InitializeComponent();
         }
         
-        public void UpdateLastWriteDateTime(DateTime LastWriteDateTime)
+        public void UpdateLastWriteDateTime(DateTime lastWriteDateTime)
         {
             string fileName = XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb";
             FileInfo fi = new FileInfo(fileName);
@@ -25,7 +23,7 @@ namespace The_Oracle
 
             if (fi.Exists)
             {
-                LastWriteDateTimeLabel.Content = LastWriteDateTime.ToString("dd/MM/y HH:mm:ss");
+                LastWriteDateTimeLabel.Content = lastWriteDateTime.ToString("dd/MM/y HH:mm:ss");
                 SizeLabel.Content = SizeSuffix(fi.Length);
                 CreationTimeLabel.Content = fi.CreationTime.ToString("dd/MM/y HH:mm:ss");
             }

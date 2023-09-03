@@ -131,9 +131,11 @@
     <Compile Include="OracleDatabaseHealth.xaml.cs">
       <DependentUpon>OracleDatabaseHealth.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OracleEventRow.cs" />
     <Compile Include="OracleBriefNotification.xaml.cs">
       <DependentUpon>OracleBriefNotification.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OracleRequesterNotification.xaml.cs">
+      <DependentUpon>OracleRequesterNotification.xaml</DependentUpon>
     </Compile>
     <Compile Include="StatusIcons.cs" />
     <Compile Include="Frequency.cs" />
@@ -180,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OracleDatabaseHealth.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OracleRequesterNotification.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,18 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 using System.Windows.Threading;
 
 namespace The_Oracle
@@ -45,15 +33,15 @@ namespace The_Oracle
             SyncTime();
         }
         
-        private bool _Tick = false;
+        private bool tick = false;
         
         public void SyncTime()
         {
             TimeHourLabel.Content = DateTime.Now.ToString("hh");
 
-            _Tick = !_Tick;
+            tick = !tick;
             
-            if (_Tick)
+            if (tick)
                 TimeColonLabel.Foreground = new SolidColorBrush(Colors.SlateGray);
             else
                 TimeColonLabel.Foreground = new SolidColorBrush(Colors.DarkSlateGray);

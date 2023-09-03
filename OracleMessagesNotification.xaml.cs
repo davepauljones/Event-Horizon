@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.IO;
 using Microsoft.Win32;
 
 namespace The_Oracle
@@ -22,26 +12,26 @@ namespace The_Oracle
     public partial class OracleMessagesNotification : Window
     {
         MainWindow mw;
-        int Mode;
-        OracleCustomMessage ocm;
+        int mode;
+        OracleCustomMessage oracleCustomMessage;
 
-        public OracleMessagesNotification(MainWindow mw, int Mode, OracleCustomMessage ocm = null)
+        public OracleMessagesNotification(MainWindow mw, int mode, OracleCustomMessage oracleCustomMessage = null)
         {
             InitializeComponent();
             this.Hide();
 
             this.mw = mw;
-            this.Mode = Mode;
-            this.ocm = ocm;
+            this.mode = mode;
+            this.oracleCustomMessage = oracleCustomMessage;
 
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
-            SwitchMode(Mode);
+            SwitchMode(mode);
         }
 
-        private void SwitchMode(int Mode)
+        private void SwitchMode(int mode)
         {
-            switch (Mode)
+            switch (mode)
             {
                 case OracleMessagesNotificationModes.Welcome:
                     MessageTitleTextBlock.Text = "Welcome to Event Horizon";
@@ -75,10 +65,10 @@ namespace The_Oracle
                     OptionsComboBox.Items.Clear();
                     break;
                 case OracleMessagesNotificationModes.Custom:
-                    if (ocm != null)
+                    if (oracleCustomMessage != null)
                     {
-                        MessageTitleTextBlock.Text = ocm.MessageTitleTextBlock;
-                        InformationTextBlock.Text = ocm.InformationTextBlock;
+                        MessageTitleTextBlock.Text = oracleCustomMessage.MessageTitleTextBlock;
+                        InformationTextBlock.Text = oracleCustomMessage.InformationTextBlock;
                     }
                     OptionsComboBox.Items.Clear();
                     OptionsComboBox.Items.Add("Browse for Database");
@@ -96,17 +86,17 @@ namespace The_Oracle
         {
             Button button = sender as Button;
 
-            int ButtonID = 255;
+            int buttonID = 255;
 
-            bool success = Int32.TryParse(button.Tag.ToString(), out ButtonID);
+            bool success = Int32.TryParse(button.Tag.ToString(), out buttonID);
 
             if (button != null && success)
             {
 
-                switch (ButtonID)
+                switch (buttonID)
                 {
                     case 0:
-                        switch (Mode)
+                        switch (mode)
                         {
                             case OracleMessagesNotificationModes.Welcome:
                                 switch (OptionsComboBox.SelectedIndex)
@@ -127,8 +117,8 @@ namespace The_Oracle
                                         openFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
                                         if (openFileDialog.ShowDialog() == true)
                                         {
-                                            MainWindow.mw.Status.Content = "Selected " + openFileDialog.FileName + " file";
-                                            String PathString = System.IO.Path.GetDirectoryName(openFileDialog.FileName);
+                                            mw.Status.Content = "Selected " + openFileDialog.FileName + " file";
+                                            string PathString = System.IO.Path.GetDirectoryName(openFileDialog.FileName);
 
                                             XMLReaderWriter.ReadXMLNodesOracleSettingsXMLFile(PathString);
                                             Close();
@@ -136,7 +126,7 @@ namespace The_Oracle
                                         break;
                                     case 1:
                                         OracleDatabaseCreate.CreateNew_EventHorizonLocalSettings();
-                                        MainWindow.mw.Status.Content = "Created and connected to a new Event Horizon settings file";
+                                        mw.Status.Content = "Created and connected to a new Event Horizon settings file";
                                         break;
                                 }
                                 break;
@@ -150,15 +140,15 @@ namespace The_Oracle
                                         openFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
                                         if (openFileDialog.ShowDialog() == true)
                                         {
-                                            MainWindow.mw.Status.Content = "Selected " + openFileDialog.FileName + " file";
-                                            String PathString = System.IO.Path.GetDirectoryName(openFileDialog.FileName);
+                                            mw.Status.Content = "Selected " + openFileDialog.FileName + " file";
+                                            string PathString = System.IO.Path.GetDirectoryName(openFileDialog.FileName);
                                             XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(PathString);
                                             Close();
                                         }
                                         break;
                                     case 1:
                                         OracleDatabaseCreate.CreateNew_EventHorizonRemoteSettings();
-                                        MainWindow.mw.Status.Content = "Created and connected to a new Event Horizon database settings file";
+                                        mw.Status.Content = "Created and connected to a new Event Horizon database settings file";
                                         break;
                                 }
                                 break;
@@ -173,7 +163,7 @@ namespace The_Oracle
                                         if (openFileDialog.ShowDialog() == true)
                                         {
                                             MainWindow.HSE_LOG_GlobalMDBConnectionString = "Provider=Microsoft.Jet.Oledb.4.0; Data Source = " + openFileDialog.FileName;
-                                            MainWindow.mw.Status.Content = "Selected " + openFileDialog.FileName + " database";
+                                            mw.Status.Content = "Selected " + openFileDialog.FileName + " database";
                                             MainWindowTitle.PathString = System.IO.Path.GetDirectoryName(openFileDialog.FileName);
                                             MainWindowTitle.OracleFileName = System.IO.Path.GetFileName(openFileDialog.FileName);
                                             MainWindowTitle.SetMainWindowTitle();
@@ -183,7 +173,7 @@ namespace The_Oracle
                                         break;
                                     case 1:
                                         OracleDatabaseCreate.Create_Oracle();
-                                        MainWindow.mw.Status.Content = "Created and connected to a new Event Horizon database";
+                                        mw.Status.Content = "Created and connected to a new Event Horizon database";
                                         break;
                                 }
                                 break;
@@ -207,7 +197,7 @@ namespace The_Oracle
                                         if (openFileDialog.ShowDialog() == true)
                                         {
                                             MainWindow.HSE_LOG_GlobalMDBConnectionString = "Provider=Microsoft.Jet.Oledb.4.0; Data Source = " + openFileDialog.FileName;
-                                            MainWindow.mw.Status.Content = "Selected " + openFileDialog.FileName + " database";
+                                            mw.Status.Content = "Selected " + openFileDialog.FileName + " database";
                                             MainWindowTitle.PathString = System.IO.Path.GetDirectoryName(openFileDialog.FileName);
                                             MainWindowTitle.OracleFileName = System.IO.Path.GetFileName(openFileDialog.FileName);
                                             MainWindowTitle.SetMainWindowTitle();
@@ -218,7 +208,7 @@ namespace The_Oracle
                                         break;
                                     case 1:
                                         OracleDatabaseCreate.Create_Oracle();
-                                        MainWindow.mw.Status.Content = "Created and connected to a new Event Horizon database";
+                                        mw.Status.Content = "Created and connected to a new Event Horizon database";
                                         break;
                                 }
                                 break;

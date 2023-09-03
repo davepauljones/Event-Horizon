@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Xml;
-using System.Data;
-using System.Data.OleDb;
-using System.Xml.Linq;
 using System.IO;
-using System.Xml.Serialization;
-
 using FontAwesome.WPF;
 using System.Windows.Media;
-using System.Windows;
 using System.Collections;
 
 namespace The_Oracle
@@ -225,7 +215,6 @@ namespace The_Oracle
                 }
                 else
                 {
-                    //MessageBox.Show("Could not connect to Oracle Global Settings File at " + XMLReaderWriter.DatabaseLocationString + "\\OracleDatabaseSettingsXML.xml", "Oracle Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, OracleMessagesNotificationModes.OracleDatabaseSettingsXmlMissing);
                     msg.ShowDialog();
                 }
@@ -281,26 +270,26 @@ namespace The_Oracle
 
         public static bool CheckIf_DatabaseSettingsXML_FileExists()
         {
-            bool Result = false;
+            bool result = false;
 
             if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml"))
             {
                 XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(XMLReaderWriter.DatabaseLocationString);
-                Result = true;
+                result = true;
             }
             else if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\EventHorizonRemoteSettings.xml"))
             {
                 XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(AppDomain.CurrentDomain.BaseDirectory);
-                Result = true;
+                result = true;
             }
             else
             {
                 OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, OracleMessagesNotificationModes.OracleDatabaseSettingsXmlMissing);
                 msg.ShowDialog();
-                Result = false;
+                result = false;
             }
             
-            return Result;
+            return result;
         }
 
         public static bool CheckIf_SettingsXML_FileExists()

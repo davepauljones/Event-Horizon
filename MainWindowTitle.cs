@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace The_Oracle
 {
@@ -16,7 +12,7 @@ namespace The_Oracle
         {
             PathString = XMLReaderWriter.DatabaseLocationString;
 
-            String swv = System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("dd/MM/yyyy");
+            string swv = System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("dd/MM/yyyy");
             TitleString = "Event Horizon - Build ";
             TitleString += swv;
             TitleString += " - User ";

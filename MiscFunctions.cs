@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using System.Windows.Media;
 using System.IO;
-
-using System.Reflection;
 
 namespace The_Oracle
 {
@@ -38,85 +35,84 @@ namespace The_Oracle
             }
         }
 
-        public static String GetFirstCharsOfString(string SourceString)
+        public static string GetFirstCharsOfString(string sourceString)
         {
-            string WorkingString = string.Empty;
-            string ReturnString = string.Empty;
+            string workingString = string.Empty;
+            string returnString = string.Empty;
 
-            SourceString.Split(' ').ToList().ForEach(i => WorkingString += (i[0]));
+            sourceString.Split(' ').ToList().ForEach(i => workingString += (i[0]));
 
-            if (WorkingString.Length > 1)
+            if (workingString.Length > 1)
             {
-                ReturnString = WorkingString.Substring(0, 1);
-                ReturnString += WorkingString.Substring(WorkingString.Length - 1, 1);
+                returnString = workingString.Substring(0, 1);
+                returnString += workingString.Substring(workingString.Length - 1, 1);
             }
-            else if (WorkingString.Length == 1)
+            else if (workingString.Length == 1)
             {
-                ReturnString = WorkingString;
+                returnString = workingString;
             }
 
-            return ReturnString;
+            return returnString;
         }
 
-        public static String GetUsersInitalsFromUserID(List<User> UsersList, Int32 UserID)
+        public static string GetUsersInitalsFromUserID(List<User> usersList, Int32 userID)
         {
-            String ReturnString = string.Empty;
+            string returnString = string.Empty;
 
-            foreach (User u in UsersList)
+            foreach (User user in usersList)
             {
-                if (u.ID == UserID)
+                if (user.ID == userID)
                 {
-                    ReturnString = GetFirstCharsOfString(u.UserName);
+                    returnString = GetFirstCharsOfString(user.UserName);
                 }
             }
 
-            return ReturnString;
+            return returnString;
         }
         
-        public static String GetUsersInitalsFromID(List<User> UsersList, Int32 UserID)
+        public static string GetUsersInitalsFromID(List<User> usersList, Int32 userID)
         {
-            String ReturnString = "★";
+            string returnString = "★";
 
-            foreach (User u in UsersList)
+            foreach (User user in usersList)
             {
-                if (u.ID == UserID)
+                if (user.ID == userID)
                 {
-                    ReturnString = GetFirstCharsOfString(u.UserName);
+                    returnString = GetFirstCharsOfString(user.UserName);
                 }
             }
 
-            return ReturnString;
+            return returnString;
         }
         
-        public static String GetUserNameFromUserID(List<User> UsersList, Int32 UserID)
+        public static string GetUserNameFromUserID(List<User> usersList, Int32 userID)
         {
-            String ReturnString = string.Empty;
+            string returnString = string.Empty;
 
-            foreach (User u in UsersList)
+            foreach (User user in usersList)
             {
-                if (u.ID == UserID)
+                if (user.ID == userID)
                 {
-                    ReturnString = u.UserName;
+                    returnString = user.UserName;
                 }
             }
 
-            return ReturnString;
+            return returnString;
         }
         
-        public static String GetUserNameFromTargetUserID(List<User> UsersList, Int32 TargetUserID)
+        public static string GetUserNameFromTargetUserID(List<User> usersList, Int32 targetUserID)
         {
-            String ReturnUserName = string.Empty;
+            string returnUserName = string.Empty;
 
-            foreach (User u in UsersList)
+            foreach (User user in usersList)
             {
-                if (u.ID == TargetUserID)
+                if (user.ID == targetUserID)
                 {
-                    ReturnUserName = u.UserName;
+                    returnUserName = user.UserName;
                 }
             }
 
-            return ReturnUserName;
+            return returnUserName;
         }
-
     }
 }
