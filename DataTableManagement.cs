@@ -652,7 +652,8 @@ namespace The_Oracle
         {
             if (GetUserID(EventID) != XMLReaderWriter.UserID)
             {
-                var Result = MessageBox.Show("You can only delete your own events.", "Delete this event", MessageBoxButton.OK, MessageBoxImage.Information);
+                OracleRequesterNotification rorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, you can only delete your own events.", InformationTextBlock = "You could ask the user who created it, to delete it." }, RequesterTypes.OK);
+                rorn.ShowDialog();
                 return;
             }
 
