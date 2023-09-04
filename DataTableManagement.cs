@@ -462,9 +462,7 @@ namespace The_Oracle
 
                 DateTime? createdDateTime = DateTime.Now;
 
-                string targetTimeString = string.Empty;
-
-                targetTimeString = eventWindow.TargetTimeHoursPicker.Text;
+                string targetTimeString = eventWindow.TargetTimeHoursPicker.Text;
                 targetTimeString += ":";
                 targetTimeString += eventWindow.TargetTimeMinutesPicker.Text;
                 targetTimeString += ":00";
@@ -487,6 +485,7 @@ namespace The_Oracle
 
                 using (OleDbConnection connection = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
                 {
+                    int rowsAffected = 0;
                     using (var command = new OleDbCommand("UPDATE EventLog SET[EventTypeID] = ?, [SourceID] = ?, [Details] = ?, [FrequencyID] = ?, [StatusID] = ?, [TargetDateTime] = ?, [TargetUserID] = ?, [ReadByMeID] = ?, [LastViewedDateTime] = ?, [RemindMeID] = ?, [RemindMeDateTime] = ?, [NotificationAcknowledged] = ?, [ParentEventID] = ?, [EventModeID] = ? WHERE [ID] = ?", connection))
                     {
                         connection.Open();
@@ -517,8 +516,6 @@ namespace The_Oracle
                         command.Parameters.AddWithValue("@EventModeID", eventHorizonLINQ.EventModeID);
 
                         command.Parameters.AddWithValue("@ID", eventHorizonLINQ.ID);
-
-                        int rowsAffected = 0;
 
                         if (eventMode == EventWindowModes.EditEvent || eventMode == EventWindowModes.EditReply)
                             rowsAffected = command.ExecuteNonQuery();
@@ -588,12 +585,11 @@ namespace The_Oracle
                                 command.Parameters.AddWithValue("@ID", id);
                                 command.ExecuteNonQuery();
                             }
-
-                            saveSuccessFull = true;
-
-                            MainWindow.mw.Status.Content = "Successfully added a new reply";
+                            MainWindow.mw.Status.Content = "Successfully added a new event";
                         }
                     }
+                    saveSuccessFull = true;
+                    if (rowsAffected > 0 ) MainWindow.mw.Status.Content = "Successfully updated an event";
                 }
 
                 if (saveSuccessFull)
