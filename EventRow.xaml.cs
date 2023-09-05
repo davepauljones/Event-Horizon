@@ -55,11 +55,16 @@ namespace The_Oracle
 
             Int32 repliesLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
 
+            Console.Write("RepliesListView_PreviewMouseDoubleClick  eventHorizonLINQ.Source_Mode = ");
+            Console.WriteLine(eventHorizonLINQ.Source_Mode);
+
             Console.Write("RepliesListView_PreviewMouseDoubleClick  eventHorizonLINQ.ParentEventID = ");
             Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
 
             Console.Write("RepliesListView_PreviewMouseDoubleClick = ");
             Console.WriteLine(eventHorizonLINQ.Details);
+
+            MiscFunctions.ConsoleWriteEventHorizonLINQ(eventHorizonLINQ);
 
             if (repliesLogListViewTagged > 0)
             {

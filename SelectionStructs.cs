@@ -198,10 +198,10 @@ namespace The_Oracle
     }
     public struct EventWindowModes
     {
-        public const int ViewEvent = 0;
-        public const int ViewReply = 1;
-        public const int EditEvent = 2;
-        public const int EditReply = 3;
+        public const int ViewMainEvent = 0;
+        public const int ViewReplyNote = 1;
+        public const int EditMainEvent = 2;
+        public const int EditReplyNote = 3;
         public const int NewEvent = 4;
         public const int NewNote = 5;
         public const int NewReply = 6;

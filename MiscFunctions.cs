@@ -114,5 +114,60 @@ namespace The_Oracle
 
             return returnUserName;
         }
+
+        public static void ConsoleWriteEventHorizonLINQ(EventHorizonLINQ eventHorizonLINQ)
+        {
+            Console.WriteLine("**ConsoleWriteEventHorizonLINQ**");
+            Console.Write("Source_ID = ");
+            Console.WriteLine(eventHorizonLINQ.Source_ID);
+            Console.Write("Source_UserID = ");
+            Console.WriteLine(eventHorizonLINQ.Source_UserID);
+            Console.Write("Source_Mode = ");
+            Console.WriteLine(eventHorizonLINQ.Source_Mode);
+            Console.Write("Source_ParentEventID = ");
+            Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
+            Console.Write("ID = ");
+            Console.WriteLine(eventHorizonLINQ.ID);
+            Console.Write("CreationDate = ");
+            Console.WriteLine(eventHorizonLINQ.CreationDate);
+            Console.Write("CreationTime = ");
+            Console.WriteLine(eventHorizonLINQ.CreationTime);
+            Console.Write("EventTypeID = ");
+            Console.WriteLine(eventHorizonLINQ.EventTypeID);
+            Console.Write("SourceID = ");
+            Console.WriteLine(eventHorizonLINQ.SourceID);
+            Console.Write("Details = ");
+            Console.WriteLine(eventHorizonLINQ.Details);
+            Console.Write("FrequencyID = ");
+            Console.WriteLine(eventHorizonLINQ.FrequencyID);
+            Console.Write("StatusID = ");
+            Console.WriteLine(eventHorizonLINQ.StatusID);
+            Console.Write("TargetDate = ");
+            Console.WriteLine(eventHorizonLINQ.TargetDate);
+            Console.Write("TargetTime = ");
+            Console.WriteLine(eventHorizonLINQ.TargetTime);
+            Console.Write("UserID = ");
+            Console.WriteLine(eventHorizonLINQ.UserID);
+            Console.Write("TargetUserID = ");
+            Console.WriteLine(eventHorizonLINQ.TargetUserID);
+            Console.Write("ReadByMeID = ");
+            Console.WriteLine(eventHorizonLINQ.ReadByMeID);
+            Console.Write("LastViewedDate = ");
+            Console.WriteLine(eventHorizonLINQ.LastViewedDate);
+            Console.Write("RemindMeID = ");
+            Console.WriteLine(eventHorizonLINQ.RemindMeID);
+            Console.Write("RemindMeDateTime = ");
+            Console.WriteLine(eventHorizonLINQ.RemindMeDateTime);
+            Console.Write("NotificationAcknowledged = ");
+            Console.WriteLine(eventHorizonLINQ.NotificationAcknowledged);
+            Console.Write("EventModeID = ");
+            Console.WriteLine(eventHorizonLINQ.EventModeID);
+            Console.Write("Attributes_TotalDays = ");
+            Console.WriteLine(eventHorizonLINQ.Attributes_TotalDays);
+            Console.Write("Attributes_TotalDaysEllipseColor = ");
+            Console.WriteLine(eventHorizonLINQ.Attributes_TotalDaysEllipseColor);
+            Console.Write("Attributes_Replies = ");
+            Console.WriteLine(eventHorizonLINQ.Attributes_Replies);
+        }
     }
 }

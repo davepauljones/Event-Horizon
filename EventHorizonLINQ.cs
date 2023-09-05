@@ -7,7 +7,7 @@ namespace The_Oracle
     {
         public Int32 Source_ID = 0;
         public Int32 Source_UserID = 0;
-        public Int32 Source_Mode = EventWindowModes.ViewEvent;
+        public Int32 Source_Mode = EventWindowModes.ViewMainEvent;
         public Int32 Source_ParentEventID = 0;
 
         public Int32 ID = 0;

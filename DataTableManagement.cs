@@ -314,7 +314,7 @@ namespace The_Oracle
                 }
 
                 eventHorizonLINQ.Source_ID = eventHorizonLINQ.ID;
-                eventHorizonLINQ.Source_Mode = EventWindowModes.ViewEvent;
+                eventHorizonLINQ.Source_Mode = EventWindowModes.ViewMainEvent;
 
                 if (!int.TryParse(dataRow["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
 
@@ -429,7 +429,7 @@ namespace The_Oracle
                 }
 
                 eventHorizonLINQ.Source_ID = eventHorizonLINQ.ID;
-                eventHorizonLINQ.Source_Mode = EventWindowModes.ViewEvent;
+                eventHorizonLINQ.Source_Mode = EventWindowModes.ViewReplyNote;
                 eventHorizonLINQ.Source_ParentEventID = eventID;
 
                 if (!int.TryParse(dataRow["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
@@ -517,7 +517,7 @@ namespace The_Oracle
 
                         command.Parameters.AddWithValue("@ID", eventHorizonLINQ.ID);
 
-                        if (eventMode == EventWindowModes.EditEvent || eventMode == EventWindowModes.EditReply)
+                        if (eventMode == EventWindowModes.EditMainEvent || eventMode == EventWindowModes.EditReplyNote)
                             rowsAffected = command.ExecuteNonQuery();
                         else if (rowsAffected == 0 || eventMode == EventWindowModes.NewEvent || eventMode == EventWindowModes.NewNote || eventMode == EventWindowModes.NewReply)
                         {
@@ -571,6 +571,7 @@ namespace The_Oracle
 
                             command.ExecuteNonQuery();
 
+                            //gets the new ID number and makes ID & ParentEventID the same new ID
                             if (eventMode == EventWindowModes.NewEvent)
                             {
                                 command.CommandText = query2;
@@ -845,7 +846,7 @@ namespace The_Oracle
         public static List<EventHorizonLINQ> GetMyUnread()
         {
             List<EventHorizonLINQ> ReturnUnread = new List<EventHorizonLINQ>();
-            EventHorizonLINQ _OracleEvent;
+            EventHorizonLINQ eventHorizonLINQ;
 
             String SqlString = "SELECT * FROM EventLog WHERE StatusID=" + Statuses.Active + " AND TargetUserID=" + XMLReaderWriter.UserID + " ORDER BY LastViewedDateTime DESC;";
 
@@ -863,22 +864,22 @@ namespace The_Oracle
                         {
                             while (reader.Read())
                             {
-                                _OracleEvent = new EventHorizonLINQ();
+                                eventHorizonLINQ = new EventHorizonLINQ();
 
 
-                                if (!int.TryParse(reader["ID"].ToString(), out _OracleEvent.ID)) _OracleEvent.ID = 0;
-                                if (!int.TryParse(reader["EventTypeID"].ToString(), out _OracleEvent.EventTypeID)) _OracleEvent.EventTypeID = 0;
-                                if (!int.TryParse(reader["SourceID"].ToString(), out _OracleEvent.SourceID)) _OracleEvent.SourceID = 0;
+                                if (!int.TryParse(reader["ID"].ToString(), out eventHorizonLINQ.ID)) eventHorizonLINQ.ID = 0;
+                                if (!int.TryParse(reader["EventTypeID"].ToString(), out eventHorizonLINQ.EventTypeID)) eventHorizonLINQ.EventTypeID = 0;
+                                if (!int.TryParse(reader["SourceID"].ToString(), out eventHorizonLINQ.SourceID)) eventHorizonLINQ.SourceID = 0;
 
-                                _OracleEvent.Details = reader["Details"].ToString();
+                                eventHorizonLINQ.Details = reader["Details"].ToString();
 
-                                if (!int.TryParse(reader["FrequencyID"].ToString(), out _OracleEvent.FrequencyID)) _OracleEvent.FrequencyID = 0;
-                                if (!int.TryParse(reader["StatusID"].ToString(), out _OracleEvent.StatusID)) _OracleEvent.StatusID = 0;
+                                if (!int.TryParse(reader["FrequencyID"].ToString(), out eventHorizonLINQ.FrequencyID)) eventHorizonLINQ.FrequencyID = 0;
+                                if (!int.TryParse(reader["StatusID"].ToString(), out eventHorizonLINQ.StatusID)) eventHorizonLINQ.StatusID = 0;
 
                                 String CreatedDateTimeString = reader[EventLogFields.CreatedDateTime].ToString();
                                 DateTime cdt = DateTime.MinValue;
                                 if (DateTime.TryParse(CreatedDateTimeString, out cdt)) CreatedDateTimeString = cdt.ToString("dd/MM/y HH:mm");
-                                _OracleEvent.CreationDate = cdt;
+                                eventHorizonLINQ.CreationDate = cdt;
 
                                 String TargetDateTimeString = reader[EventLogFields.TargetDateTime].ToString();
                                 DateTime tdt = DateTime.MinValue;
@@ -889,21 +890,21 @@ namespace The_Oracle
                                     else
                                         TargetDateTimeString = tdt.ToString("dd/MM/y HH:mm");
 
-                                    _OracleEvent.TargetDate = tdt;
+                                    eventHorizonLINQ.TargetDate = tdt;
                                 }
                                 else
                                     Console.WriteLine("Unable to parse TargetDateTimeString '{0}'", TargetDateTimeString);
 
-                                if (!int.TryParse(reader["UserID"].ToString(), out _OracleEvent.UserID)) _OracleEvent.UserID = 0;
+                                if (!int.TryParse(reader["UserID"].ToString(), out eventHorizonLINQ.UserID)) eventHorizonLINQ.UserID = 0;
 
-                                if (!int.TryParse(reader["TargetUserID"].ToString(), out _OracleEvent.TargetUserID)) _OracleEvent.TargetUserID = 0;
+                                if (!int.TryParse(reader["TargetUserID"].ToString(), out eventHorizonLINQ.TargetUserID)) eventHorizonLINQ.TargetUserID = 0;
 
-                                if (!int.TryParse(reader["ReadByMeID"].ToString(), out _OracleEvent.ReadByMeID)) _OracleEvent.ReadByMeID = 0;
+                                if (!int.TryParse(reader["ReadByMeID"].ToString(), out eventHorizonLINQ.ReadByMeID)) eventHorizonLINQ.ReadByMeID = 0;
 
                                 String LastViewedDateTimeString = reader[EventLogFields.LastViewedDateTime].ToString();
                                 DateTime lvdt = DateTime.MinValue;
                                 if (DateTime.TryParse(LastViewedDateTimeString, out lvdt)) LastViewedDateTimeString = lvdt.ToString("dd/MM/y HH:mm");
-                                _OracleEvent.LastViewedDate = lvdt;
+                                eventHorizonLINQ.LastViewedDate = lvdt;
 
                                 TimeSpan ts = MainWindow.mw.ReminderListTimeSpan;
 
@@ -935,35 +936,33 @@ namespace The_Oracle
                                     }
                                 }
 
-                                //_OracleEvent.Attributes = new OracleEvent.AttributesHeader();
-                                _OracleEvent.Attributes_TotalDays = TotalDays;
-                                _OracleEvent.Attributes_TotalDaysEllipseColor = IconEllipeColor;
+                                eventHorizonLINQ.Attributes_TotalDays = TotalDays;
+                                eventHorizonLINQ.Attributes_TotalDaysEllipseColor = IconEllipeColor;
 
-                                if (!int.TryParse(reader["RemindMeID"].ToString(), out _OracleEvent.RemindMeID)) _OracleEvent.RemindMeID = 0;
+                                if (!int.TryParse(reader["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
 
                                 String RemindMeDateTimeString = reader[EventLogFields.RemindMeDateTime].ToString();
                                 DateTime rmdt = DateTime.MinValue;
                                 if (DateTime.TryParse(RemindMeDateTimeString, out rmdt)) RemindMeDateTimeString = rmdt.ToString("dd/MM/y HH:mm");
-                                _OracleEvent.RemindMeDateTime = rmdt;
+                                eventHorizonLINQ.RemindMeDateTime = rmdt;
 
-                                if (!int.TryParse(reader["NotificationAcknowledged"].ToString(), out _OracleEvent.NotificationAcknowledged)) _OracleEvent.NotificationAcknowledged = 0;
+                                if (!int.TryParse(reader["NotificationAcknowledged"].ToString(), out eventHorizonLINQ.NotificationAcknowledged)) eventHorizonLINQ.NotificationAcknowledged = 0;
 
-                                //_OracleEvent.Source = new OracleEvent.SourceHeader();
-                                _OracleEvent.Source_Mode = EventWindowModes.ViewReply;
+                                eventHorizonLINQ.Source_Mode = EventWindowModes.ViewReplyNote;
 
-                                if (!int.TryParse(reader["ParentEventID"].ToString(), out _OracleEvent.Source_ParentEventID)) _OracleEvent.Source_ParentEventID = 0;
+                                if (!int.TryParse(reader["ParentEventID"].ToString(), out eventHorizonLINQ.Source_ParentEventID)) eventHorizonLINQ.Source_ParentEventID = 0;
 
                                 //Test to see if user has already viewed the notification
-                                if (_OracleEvent.RemindMeID == RemindMeModes.No && _OracleEvent.NotificationAcknowledged == NotificationAcknowlegedModes.No) ReturnUnread.Add(_OracleEvent);
+                                if (eventHorizonLINQ.RemindMeID == RemindMeModes.No && eventHorizonLINQ.NotificationAcknowledged == NotificationAcknowlegedModes.No) ReturnUnread.Add(eventHorizonLINQ);
 
-                                Console.Write("_OracleEvent.ID = ");
-                                Console.WriteLine(_OracleEvent.ID);
-                                Console.Write("_OracleEvent.UserID = ");
-                                Console.WriteLine(_OracleEvent.UserID);
-                                Console.Write("_OracleEvent.Details = ");
-                                Console.WriteLine(_OracleEvent.Details);
-                                Console.Write("_OracleEvent.TargetUserID = ");
-                                Console.WriteLine(_OracleEvent.TargetUserID);
+                                Console.Write("eventHorizonLINQ.ID = ");
+                                Console.WriteLine(eventHorizonLINQ.ID);
+                                Console.Write("eventHorizonLINQ.UserID = ");
+                                Console.WriteLine(eventHorizonLINQ.UserID);
+                                Console.Write("eventHorizonLINQ.Details = ");
+                                Console.WriteLine(eventHorizonLINQ.Details);
+                                Console.Write("eventHorizonLINQ.TargetUserID = ");
+                                Console.WriteLine(eventHorizonLINQ.TargetUserID);
                             }
                         }
                     }

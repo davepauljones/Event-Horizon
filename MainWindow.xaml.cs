@@ -628,7 +628,7 @@ namespace The_Oracle
                         EventWindow editEventWindow = new EventWindow(this, new EventHorizonLINQ
                         {
                             Source_ID = EventLogListViewTagged,
-                            Source_Mode = EventWindowModes.EditEvent,
+                            Source_Mode = EventWindowModes.EditMainEvent,
                             Attributes_TotalDays = 0,
                             ID = EventLogListViewTagged
                         }, null);
@@ -830,7 +830,7 @@ namespace The_Oracle
                             EventWindow editEventWindow = new EventWindow(this, new EventHorizonLINQ
                             {
                                 Source_ID = EventLogListViewTagged,
-                                Source_Mode = EventWindowModes.EditEvent,
+                                Source_Mode = EventWindowModes.EditMainEvent,
                                 Attributes_TotalDays = 0,
                                 ID = EventLogListViewTagged,
                             }, null);
@@ -1090,7 +1090,7 @@ namespace The_Oracle
             {
                 eventHorizonLINQ.Source_ID = EventLogListViewTagged;
                 eventHorizonLINQ.ID = EventLogListViewTagged;
-                eventHorizonLINQ.Source_Mode = EventWindowModes.EditEvent;
+                eventHorizonLINQ.Source_Mode = EventWindowModes.EditMainEvent;
 
                 //try open event as EditEvent
                 EventWindow editEventWindow = new EventWindow(this, eventHorizonLINQ, null);
@@ -1122,7 +1122,7 @@ namespace The_Oracle
                 EventWindow editEventWindow = new EventWindow(this, new EventHorizonLINQ
                 {
                     Source_ID = EventLogListViewTagged,
-                    Source_Mode = EventWindowModes.EditEvent,
+                    Source_Mode = EventWindowModes.EditMainEvent,
                     Source_ParentEventID = SelectedParentEventID,
                     Attributes_TotalDays = 0,
                     ID = EventLogListViewTagged,
