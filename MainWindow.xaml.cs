@@ -799,7 +799,59 @@ namespace The_Oracle
                     break;
             }
         }
-        
+
+        private void TreeView_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Button button = sender as Button;
+
+            int buttonID = 255;
+
+            bool success = Int32.TryParse(button.Tag.ToString(), out buttonID);
+
+            if (button != null && success)
+            {
+                switch (buttonID)
+                {
+                    case 0:
+                        EventTypeComboBox.SelectedIndex = 0;
+                        break;
+                    case 1:
+                        EventTypeComboBox.SelectedIndex = 0;
+                        break;
+                    case 2:
+                        EventTypeComboBox.SelectedIndex = 1;
+                        break;
+                    case 3:
+                        EventTypeComboBox.SelectedIndex = 2;
+                        break;
+                    case 4:
+                        EventTypeComboBox.SelectedIndex = 3;
+                        break;
+                    case 5:
+                        EventTypeComboBox.SelectedIndex = 4;
+                        break;
+                    case 6:
+                        EventTypeComboBox.SelectedIndex = 5;
+                        break;
+                    case 7:
+                        EventTypeComboBox.SelectedIndex = 6;
+                        break;
+                    case 8:
+                        EventTypeComboBox.SelectedIndex = 7;
+                        break;
+                    case 9:
+                        EventTypeComboBox.SelectedIndex = 8;
+                        break;
+                    case 10:
+                        EventTypeComboBox.SelectedIndex = 9;
+                        break;
+                    case 11:
+                        EventTypeComboBox.SelectedIndex = 10;
+                        break;
+                }
+            }
+        }
+
         private void TreeView_ButtonClick(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;

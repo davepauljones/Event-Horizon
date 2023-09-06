@@ -37,7 +37,7 @@
                         </StackPanel.Effect>
                         <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
                             <StackPanel x:Name="EventStackPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                                <Button Tag="0" ToolTip="Create A New Event" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="10,0,8.9,0" Click="TreeView_ButtonClick">
+                                <Button Tag="0" ToolTip="Create A New Event" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="10,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F1" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -51,7 +51,7 @@
                                         <Label Content="New Event" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="1" ToolTip="Edit A Event" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick">
+                                <Button Tag="1" ToolTip="Edit A Event" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F2" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -65,7 +65,7 @@
                                         <Label Content="Edit Event" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="2" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick">
+                                <Button Tag="2" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F3" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -79,7 +79,7 @@
                                         <Label x:Name="F3ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="3" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick">
+                                <Button Tag="3" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F4" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -93,7 +93,7 @@
                                         <Label x:Name="F4ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="4" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick">
+                                <Button Tag="4" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F5" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -107,7 +107,7 @@
                                         <Label x:Name="F5ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="5" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick">
+                                <Button Tag="5" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F6" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -121,7 +121,7 @@
                                         <Label x:Name="F6ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="6" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick">
+                                <Button Tag="6" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F7" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -135,7 +135,7 @@
                                         <Label x:Name="F7ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="7" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick">
+                                <Button Tag="7" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F8" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -149,7 +149,7 @@
                                         <Label x:Name="F8ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="8" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick">
+                                <Button Tag="8" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F9" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -163,7 +163,7 @@
                                         <Label x:Name="F9ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="9" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick">
+                                <Button Tag="9" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F10" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -177,7 +177,7 @@
                                         <Label x:Name="F10ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="10" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick">
+                                <Button Tag="10" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F11" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -191,7 +191,7 @@
                                         <Label x:Name="F11ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="11" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick">
+                                <Button Tag="11" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F12" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
