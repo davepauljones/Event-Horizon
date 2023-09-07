@@ -189,6 +189,9 @@ namespace The_Oracle
 
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
                 UpdateUsersOnline();
+
+                Welcome welcome = new Welcome();
+                welcome.ShowDialog();
             }
 
             MainWindowIs_Loaded = true;
@@ -509,7 +512,138 @@ namespace The_Oracle
                 msg.ShowDialog();
             }
         }
+        public void LoadUsersIntoWelcome(Grid grid)
+        {
+            StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
 
+            int i = 1;
+            foreach (User user in XMLReaderWriter.UsersList)
+            {
+                if (i > 1)
+                {
+                    Grid originUserIconEllipseGrid;
+                    Ellipse originUserIconEllipse;
+
+                    Color iconEllipseColor = Colors.White;
+
+                    iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
+
+                    if (user.ID > 0)
+                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    else
+                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+
+                    originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+
+                    originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
+
+                    Label originUserIconEllipseLabel;
+
+                    if (user.ID > 0)
+                        originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    else
+                        originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
+
+                    originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
+
+                    originUserIconEllipseGrid.Opacity = 1;
+
+                    originUserIconEllipseGrid.Effect = new DropShadowEffect
+                    {
+                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
+                        Direction = 320,
+                        ShadowDepth = 1,
+                        Opacity = 0.6
+                    };
+
+                    stackPanel.Children.Add(originUserIconEllipseGrid);
+                }
+
+                i++;
+            }
+            grid.Children.Add(stackPanel);
+        }
+        public void LoadEventTypesIntoWelcome(Grid grid)
+        {
+            StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
+
+            int i = 1;
+            foreach (EventType eventType in XMLReaderWriter.EventTypesList)
+            {
+                if (i > 1)
+                {
+                    Border border = new Border { Width = 28, Height = 28, Background = new SolidColorBrush(eventType.Color), BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 2.3, 0), Padding = new Thickness(0) };
+
+                    border.Effect = new DropShadowEffect
+                    {
+                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
+                        Direction = 320,
+                        ShadowDepth = 1,
+                        Opacity = 0.6
+                    };
+
+                    FontAwesome.WPF.FontAwesome fai = new FontAwesome.WPF.FontAwesome { Icon = eventType.Icon, Width = 28, Height = 28, FontSize = 17, Foreground = new SolidColorBrush(Colors.White), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(0, 5, 0, 0) };
+
+                    border.Child = fai;
+
+                    stackPanel.Children.Add(border);
+                }
+                
+                i++;
+            }
+            grid.Children.Add(stackPanel);
+        }
+        public void LoadSourceTypesIntoWelcome(Grid grid)
+        {
+            StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
+
+            int i = 1;
+            foreach (SourceType sourceType in XMLReaderWriter.SourceTypesList)
+            {
+                if (i > 1)
+                {
+                    Grid originUserIconEllipseGrid;
+                    Ellipse originUserIconEllipse;
+
+                    Color iconEllipseColor = Colors.White;
+
+                    iconEllipseColor = sourceType.Color;
+
+                    if (sourceType.ID > 0)
+                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    else
+                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+
+                    originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+
+                    originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
+
+                    Label originUserIconEllipseLabel;
+
+                    if (sourceType.ID > 0)
+                        originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(sourceType.Name), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    else
+                        originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
+
+                    originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
+
+                    originUserIconEllipseGrid.Opacity = 1;
+
+                    originUserIconEllipseGrid.Effect = new DropShadowEffect
+                    {
+                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
+                        Direction = 320,
+                        ShadowDepth = 1,
+                        Opacity = 0.6
+                    };
+
+                    stackPanel.Children.Add(originUserIconEllipseGrid);
+                }
+
+                i++;
+            }
+            grid.Children.Add(stackPanel);
+        }
         private void LoadUsersIntoUsersStackPanel()
         {
             try
@@ -813,7 +947,7 @@ namespace The_Oracle
                 switch (buttonID)
                 {
                     case 0:
-                        EventTypeComboBox.SelectedIndex = 0;
+                        EventTypeComboBox.SelectedIndex = 0;                     
                         break;
                     case 1:
                         EventTypeComboBox.SelectedIndex = 0;

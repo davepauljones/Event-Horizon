@@ -25,7 +25,7 @@ namespace The_Oracle
             if (!File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb"))
             { 
                 File.WriteAllBytes("EventHorizonRemoteDatabase.mdb", Properties.Resources.EventHorizonRemoteDatabase);
-
+                
                 CreateEventLogTable();
                 CreateUsersTable();
             }

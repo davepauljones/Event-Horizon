@@ -50,6 +50,24 @@ namespace The_Oracle
                 results = PrerequisitesProgress.Passed_EventHorizonLocalSettings;
             }
 
+            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml"))
+                results = PrerequisitesProgress.Passed_EventHorizonLocalSettings_EventHorizonRemoteSettings;
+            else
+            {
+                OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, 1);
+                msg.ShowDialog();
+                results = PrerequisitesProgress.Passed_EventHorizonLocalSettings_EventHorizonRemoteSettings;
+            }
+
+            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb"))
+                results = PrerequisitesProgress.Passed_EventHorizonLocalSettings_EventHorizonRemoteSettings_EventHorizonRemoteDatabase;
+            else
+            {
+                OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, 1);
+                msg.ShowDialog();
+                results = PrerequisitesProgress.Passed_EventHorizonLocalSettings_EventHorizonRemoteSettings_EventHorizonRemoteDatabase;
+            }
+
             Console.WriteLine(results);
         }
     }
