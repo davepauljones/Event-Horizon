@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:The_Oracle"
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d" Name="WelcomeWindow" 
-        AllowsTransparency = "True" WindowStyle = "None" WindowStartupLocation="CenterScreen" Background="Transparent"
+        AllowsTransparency = "True" WindowStyle = "None" WindowStartupLocation="CenterScreen" Background="Transparent" MouseDown="Welcome_MouseDown"
         Height="620" Width="720" MaxHeight="620" MaxWidth="720">
     
     <Window.Triggers>

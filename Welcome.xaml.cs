@@ -3,6 +3,7 @@ using System.Windows;
 using FontAwesome.WPF;
 using System.Windows.Media;
 using System.IO;
+using System.Windows.Input;
 
 namespace The_Oracle
 {
@@ -20,6 +21,12 @@ namespace The_Oracle
         private void Init()
         {
             SetPrerequisites();
+        }
+
+        private void Welcome_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
 
         public void SetPrerequisites()
