@@ -33,7 +33,7 @@ namespace The_Oracle
             if (sourceType.ID > 0)
                 sourceIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(sourceType.Name), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
             else
-                sourceIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
+                sourceIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(1, -2, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
 
             sourceIconEllipseGrid.Children.Add(sourceIconEllipseLabel);
 

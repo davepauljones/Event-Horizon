@@ -123,33 +123,43 @@
                         <Label Grid.Row="6" Grid.Column="4" Content="Nodes" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
                         <Label Grid.Row="6" Grid.Column="5" Content="Change" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-                        <Label Grid.Row="7" Content="Users" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
+                        <Label Grid.Row="7" Content="Current User" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
                         <Grid Grid.Row="7" Grid.Column="1">
-                            <fa:FontAwesome x:Name="InstalledUsersIcon" Icon="Check" Width="26" Height="26" FontSize="25" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,1,0,0" Padding="0"/>
+                            <fa:FontAwesome x:Name="InstalledCurrentUserIcon" Icon="Check" Width="26" Height="26" FontSize="25" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,1,0,0" Padding="0"/>
                         </Grid>
-                        <Grid Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledUsersGrid" Margin="10,4,0,0"/>
-                        <Label Grid.Row="7" Grid.Column="4" x:Name="InstalledUsersNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                        <Grid Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledCurrentUserGrid" Margin="10,4,0,0"/>
+                        <Label Grid.Row="7" Grid.Column="4" x:Name="InstalledCurrentUserNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
                         <Button Grid.Row="7" Grid.Column="5" Tag="4" Style="{DynamicResource DefaultButtonStyle }" Click="WelcomeButton_Click">
                             <fa:FontAwesome Icon="FolderOpen" FontSize="17" Foreground="White"/>
                         </Button>
-
-                        <Label Grid.Row="8" Content="Event Types" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
+                        
+                        <Label Grid.Row="8" Content="Users" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
                         <Grid Grid.Row="8" Grid.Column="1">
-                            <fa:FontAwesome x:Name="InstalledEventTypesIcon" Icon="Check" Width="26" Height="26" FontSize="25" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,1,0,0" Padding="0"/>
+                            <fa:FontAwesome x:Name="InstalledUsersIcon" Icon="Check" Width="26" Height="26" FontSize="25" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,1,0,0" Padding="0"/>
                         </Grid>
-                        <Grid Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledEventTypesGrid" Margin="10,0,0,0"/>
-                        <Label Grid.Row="8" Grid.Column="4" x:Name="InstalledEventTypesNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                        <Grid Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledUsersGrid" Margin="10,4,0,0"/>
+                        <Label Grid.Row="8" Grid.Column="4" x:Name="InstalledUsersNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
                         <Button Grid.Row="8" Grid.Column="5" Tag="5" Style="{DynamicResource DefaultButtonStyle }" Click="WelcomeButton_Click">
                             <fa:FontAwesome Icon="FolderOpen" FontSize="17" Foreground="White"/>
                         </Button>
 
-                        <Label Grid.Row="9" Content="Source Types" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
+                        <Label Grid.Row="9" Content="Event Types" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
                         <Grid Grid.Row="9" Grid.Column="1">
+                            <fa:FontAwesome x:Name="InstalledEventTypesIcon" Icon="Check" Width="26" Height="26" FontSize="25" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,1,0,0" Padding="0"/>
+                        </Grid>
+                        <Grid Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledEventTypesGrid" Margin="10,0,0,0"/>
+                        <Label Grid.Row="9" Grid.Column="4" x:Name="InstalledEventTypesNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                        <Button Grid.Row="9" Grid.Column="5" Tag="6" Style="{DynamicResource DefaultButtonStyle }" Click="WelcomeButton_Click">
+                            <fa:FontAwesome Icon="FolderOpen" FontSize="17" Foreground="White"/>
+                        </Button>
+
+                        <Label Grid.Row="10" Content="Source Types" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
+                        <Grid Grid.Row="10" Grid.Column="1">
                             <fa:FontAwesome x:Name="InstalledSourceTypesIcon" Icon="Check" Width="26" Height="26" FontSize="25" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,1,0,0" Padding="0"/>
                         </Grid>
-                        <Grid Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledSourceTypesGrid" Margin="10,4,0,0"/>
-                        <Label Grid.Row="9" Grid.Column="4" x:Name="InstalledSourceTypesNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
-                        <Button Grid.Row="9" Grid.Column="5" Tag="6" Style="{DynamicResource DefaultButtonStyle }" Click="WelcomeButton_Click">
+                        <Grid Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledSourceTypesGrid" Margin="10,4,0,0"/>
+                        <Label Grid.Row="10" Grid.Column="4" x:Name="InstalledSourceTypesNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                        <Button Grid.Row="10" Grid.Column="5" Tag="7" Style="{DynamicResource DefaultButtonStyle }" Click="WelcomeButton_Click">
                             <fa:FontAwesome Icon="FolderOpen" FontSize="17" Foreground="White"/>
                         </Button>
 

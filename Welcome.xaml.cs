@@ -102,6 +102,7 @@ namespace The_Oracle
             RemoteSettingsLabel.Content = XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml";
             RemoteDatabaseLabel.Content = XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb";
 
+            MainWindow.mw.LoadCurrentUserIntoGrid(InstalledCurrentUserGrid);
             MainWindow.mw.LoadUsersIntoWelcome(InstalledUsersGrid);
             MainWindow.mw.LoadEventTypesIntoWelcome(InstalledEventTypesGrid);
             MainWindow.mw.LoadSourceTypesIntoWelcome(InstalledSourceTypesGrid);
@@ -120,6 +121,7 @@ namespace The_Oracle
             RemoteDatabaseSizeLabel.Content = RemoteDatabaseFileModified.Size;
 
 
+            InstalledCurrentUserNodesLabel.Content = 1;
             InstalledUsersNodesLabel.Content = XMLReaderWriter.UsersList.Count-1;
             InstalledEventTypesNodesLabel.Content = XMLReaderWriter.EventTypesList.Count-1;
             InstalledSourceTypesNodesLabel.Content = XMLReaderWriter.SourceTypesList.Count-1;
@@ -151,13 +153,16 @@ namespace The_Oracle
                     case 3:
                         
                         break;
-                    case 4:                       
-                        MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                    case 4:
+                        MiscFunctions.OpenFileInNotepad(AppDomain.CurrentDomain.BaseDirectory + "EventHorizonLocalSettings.xml");
                         break;
-                    case 5:
+                    case 5:                       
                         MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
                         break;
                     case 6:
+                        MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                        break;
+                    case 7:
                         MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
                         break;
                 }

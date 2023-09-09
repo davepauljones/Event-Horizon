@@ -228,7 +228,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="110" MaxWidth="110">
                                             <Label Content="Current User" Margin="3,0,0,0"/>
-                                            <StackPanel x:Name="UserStackPanel" Orientation="Horizontal" HorizontalAlignment="Left"/>
+                                            <Grid x:Name="CurrentUserGrid" HorizontalAlignment="Left"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="110">
                                             <Label Content="Other Users" Margin="3,0,0,0"/>
@@ -255,7 +255,7 @@
                                             <RadioButton Tag="2" GroupName="FilterModeRadioButton" Content = "Origin or Target is Me" Margin="10,0,0,0" Checked="FilterModeRadioButton_Checked"/>
                                             <RadioButton Tag="3" GroupName="FilterModeRadioButton" Content = "Origin and Target is Me" Margin="10,0,0,0" Checked="FilterModeRadioButton_Checked"/>
                                         </StackPanel>
-                                        <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="300">
+                                        <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="260">
                                             <Label Content="Display Mode" Margin="7,0,0,0"/>
                                             <RadioButton Tag="1" GroupName="DisplayModeRadioButton" Content = "Reminders" Margin="10,0,0,0" IsChecked="True" Checked="DisplayModeRadioButton_Checked"/>
                                             <RadioButton Tag="0" GroupName="DisplayModeRadioButton" Content = "By New" Margin="10,0,0,0" Checked="DisplayModeRadioButton_Checked"/>
@@ -266,7 +266,7 @@
                                                 <StackPanel.Effect>
                                                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                                                 </StackPanel.Effect>
-                                                <ComboBox x:Name="EventTypeComboBox" Style="{DynamicResource FrequencyComboBoxStyle}" ItemContainerStyle="{DynamicResource theComboBoxItem}" Width="280" Height="40" IsEditable="False" DisplayMemberPath="Name" SelectedValuePath="Name" SelectionChanged="EventTypeComboBox_SelectionChanged"/>
+                                                <ComboBox x:Name="EventTypeComboBox" Style="{DynamicResource FrequencyComboBoxStyle}" ItemContainerStyle="{DynamicResource theComboBoxItem}" Width="280" Height="40" IsEditable="False" SelectionChanged="EventTypeComboBox_SelectionChanged"/>
                                                 <Button Content="ALL" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,0,0,0" Click="All_ButtonClick"/>
                                             </StackPanel>
                                         </StackPanel>

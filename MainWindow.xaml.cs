@@ -199,7 +199,7 @@ namespace The_Oracle
         
         public void RefreshXML()
         {
-            LoadCurrentUserIntoUserStackPanel();
+            LoadCurrentUserIntoGrid(CurrentUserGrid);
             LoadUsersIntoUsersStackPanel();
             AddItemsToEventTypeComboBox();
         }
@@ -453,11 +453,11 @@ namespace The_Oracle
         
         public Dictionary<Int32, Grid> UsersOnlineStatus = new Dictionary<int, Grid>();
 
-        private void LoadCurrentUserIntoUserStackPanel()
+        public void LoadCurrentUserIntoGrid(Grid grid)
         {
             try
             {
-                UserStackPanel.Children.Clear();
+                StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
 
                 if (XMLReaderWriter.UsersList[XMLReaderWriter.UserID] != null)
                 {
@@ -499,10 +499,11 @@ namespace The_Oracle
                     };
 
                     TextBlock usersName = new TextBlock { Text = user.UserName, Foreground = Brushes.Black, FontSize = 11, MaxWidth = 70, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
-                    
-                    UserStackPanel.Children.Add(originUserIconEllipseGrid);
-                    UserStackPanel.Children.Add(usersName);
+
+                    stackPanel.Children.Add(originUserIconEllipseGrid);
+                    stackPanel.Children.Add(usersName);
                 }
+                grid.Children.Add(stackPanel);
             }
             catch (Exception e)
             {
@@ -1191,20 +1192,17 @@ namespace The_Oracle
 
         private void AddItemsToEventTypeComboBox()
         {
-            try
+            foreach (EventType eventType in XMLReaderWriter.EventTypesList)
             {
-                EventTypeComboBox.ItemsSource = (from c in XMLReaderWriter.EventTypesList select new { c.Name }).Distinct().ToList();
-                EventTypeComboBox.DisplayMemberPath = "Name";
-
-                EventTypeComboBox.SelectedIndex = 0;
+                EventTypeComboBox.Items.Add(EventHorizonEventTypes.GetEventTypeStackPanel(eventType));
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("----------------------------------------");
 
-                OracleMessagesNotification msg = new OracleMessagesNotification(MainWindow.mw, OracleMessagesNotificationModes.Custom, new OracleCustomMessage { MessageTitleTextBlock = "AddItemsToEventTypeComboBox - " + e.Source, InformationTextBlock = e.Message });
-                msg.ShowDialog();
-            }
+            EventTypeComboBox.SelectedIndex = 0;
+
+            //EventTypeComboBox.ItemsSource = (from c in XMLReaderWriter.EventTypesList select new { c.Name }).Distinct().ToList();
+            //EventTypeComboBox.DisplayMemberPath = "Name";
+
+            //EventTypeComboBox.SelectedIndex = 0;
         }
 
         public TimeSpan ReminderListTimeSpan = new TimeSpan(1, 0, 0, 0);

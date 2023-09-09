@@ -80,7 +80,7 @@ namespace The_Oracle
 
                     UsersList.Clear();
                     
-                    UsersList.Add(new User { ID = 0, UserName = "None", Color = Colors.White });
+                    UsersList.Add(new User { ID = 0, UserName = "None", Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
 
                     int id = 1;
 
@@ -107,7 +107,7 @@ namespace The_Oracle
 
                     EventTypesList.Clear();
 
-                    EventTypesList.Add(new EventType { ID = 0, Name = "All Events", Icon = FontAwesomeIcon.File, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
+                    EventTypesList.Add(new EventType { ID = 0, Name = "All Events", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
 
                     id = 1;
                     foreach (XmlNode node in EventTypesNodes)
@@ -191,7 +191,7 @@ namespace The_Oracle
                     
                     SourceTypesList.Clear();
 
-                    SourceTypesList.Add(new SourceType { ID = 0, Name = "None", Icon = FontAwesomeIcon.StarOutline, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
+                    SourceTypesList.Add(new SourceType { ID = 0, Name = "None", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
 
                     id = 1;
                     foreach (XmlNode node in SourceTypesNodes)
