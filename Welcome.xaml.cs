@@ -4,6 +4,7 @@ using FontAwesome.WPF;
 using System.Windows.Media;
 using System.IO;
 using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace The_Oracle
 {
@@ -104,11 +105,64 @@ namespace The_Oracle
             MainWindow.mw.LoadUsersIntoWelcome(InstalledUsersGrid);
             MainWindow.mw.LoadEventTypesIntoWelcome(InstalledEventTypesGrid);
             MainWindow.mw.LoadSourceTypesIntoWelcome(InstalledSourceTypesGrid);
+
+            FileModified localSettingsFileModified = MiscFunctions.GetFileModifiedDateTime(AppDomain.CurrentDomain.BaseDirectory + "EventHorizonLocalSettings.xml");
+            LocalSettingsModifiedLabel.Content = localSettingsFileModified.LastWriteTime;
+
+            FileModified RemoteSettingsFileModified = MiscFunctions.GetFileModifiedDateTime(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+            RemoteSettingsModifiedLabel.Content = RemoteSettingsFileModified.LastWriteTime;
+
+            FileModified RemoteDatabaseFileModified = MiscFunctions.GetFileModifiedDateTime(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb");
+            RemoteDatabaseModifiedLabel.Content = RemoteDatabaseFileModified.LastWriteTime;
+
+            LocalSettingsSizeLabel.Content = localSettingsFileModified.Size;
+            RemoteSettingsSizeLabel.Content = RemoteSettingsFileModified.Size;
+            RemoteDatabaseSizeLabel.Content = RemoteDatabaseFileModified.Size;
+
+
+            InstalledUsersNodesLabel.Content = XMLReaderWriter.UsersList.Count-1;
+            InstalledEventTypesNodesLabel.Content = XMLReaderWriter.EventTypesList.Count-1;
+            InstalledSourceTypesNodesLabel.Content = XMLReaderWriter.SourceTypesList.Count-1;
+
         }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private void WelcomeButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Button button = sender as Button;
+
+            int buttonID = 255;
+
+            bool success = Int32.TryParse(button.Tag.ToString(), out buttonID);
+
+            if (button != null && success)
+            {
+
+                switch (buttonID)
+                {
+                    case 0:
+                        Close();
+                        break;
+                    case 1:
+                        MiscFunctions.OpenFileInNotepad(AppDomain.CurrentDomain.BaseDirectory + "EventHorizonLocalSettings.xml");
+                        break;
+                    case 2:
+                        MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                        break;
+                    case 3:
+                        
+                        break;
+                    case 4:                       
+                        MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                        break;
+                    case 5:
+                        MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                        break;
+                    case 6:
+                        MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                        break;
+                }
+            }
         }
+
     }
 }

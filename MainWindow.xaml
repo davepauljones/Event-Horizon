@@ -43,7 +43,7 @@
                                             <Label Content="F1" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
                                             <Border x:Name="F1FontAwesomeIconBorder" Width="28" Height="28" BorderThickness="0" CornerRadius="3" Background="DodgerBlue" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,2,0,0" Padding="0">
                                                 <Border.Effect>
-                                                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                                                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
                                                 </Border.Effect>
                                                 <fa:FontAwesome x:Name="F1FontAwesomeIcon" Icon="File" Width="28" Height="28" FontSize="17" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0"/>
                                             </Border>

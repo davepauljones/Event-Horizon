@@ -1282,5 +1282,20 @@ namespace The_Oracle
                 return false;
             }
         }
+        
+        public static Int32 GetTotalRows()
+        {
+            int count = 0;
+            string cmdstr = "SELECT COUNT(*) FROM EventLog";
+
+            using (OleDbConnection conn = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
+            using (OleDbCommand command = new OleDbCommand(cmdstr, conn))
+            {
+                conn.Open();
+                count = (int)command.ExecuteScalar();
+            }
+
+            return count;
+        }
     }
 }

@@ -49,6 +49,11 @@ namespace The_Oracle
         public String MessageTitleTextBlock = string.Empty;
         public String InformationTextBlock = string.Empty;
     }
+    public class FileModified
+    {
+        public string Size;
+        public string LastWriteTime;
+    }
     public struct OracleMessagesNotificationModes
     {
         public const int Welcome = 0;

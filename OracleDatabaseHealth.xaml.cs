@@ -24,26 +24,9 @@ namespace The_Oracle
             if (fi.Exists)
             {
                 LastWriteDateTimeLabel.Content = lastWriteDateTime.ToString("dd/MM/y HH:mm:ss");
-                SizeLabel.Content = SizeSuffix(fi.Length);
+                SizeLabel.Content = MiscFunctions.SizeSuffix(fi.Length);
                 CreationTimeLabel.Content = fi.CreationTime.ToString("dd/MM/y HH:mm:ss");
             }
-        }
-        
-        static readonly string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
-
-        static string SizeSuffix(Int64 value)
-        {
-            if (value < 0) { return "-" + SizeSuffix(-value); }
-
-            int i = 0;
-            decimal dValue = (decimal)value;
-            while (Math.Round(dValue / 1024) >= 1)
-            {
-                dValue /= 1024;
-                i++;
-            }
-
-            return string.Format("{0:n1} {1}", dValue, SizeSuffixes[i]);
         }
     }
 }

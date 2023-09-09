@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
 using System.IO;
+using System.Diagnostics;
 
 namespace The_Oracle
 {
@@ -33,6 +34,45 @@ namespace The_Oracle
             {
                 Console.WriteLine("Filename does not exists, specify a file that exists!");
             }
+        }
+
+        public static FileModified GetFileModifiedDateTime(string PathfileName)
+        {
+            FileModified fileModified = new FileModified();
+
+            FileInfo fi = new FileInfo(PathfileName);
+
+            bool exists = fi.Exists;
+
+            if (fi.Exists)
+            {
+                fileModified.Size = SizeSuffix(fi.Length);
+                fileModified.LastWriteTime = fi.LastWriteTime.ToString("dd/MM/y HH:mm:ss");
+            }
+
+            return fileModified;
+        }
+
+        static readonly string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+
+        public static string SizeSuffix(Int64 value)
+        {
+            if (value < 0) { return "-" + SizeSuffix(-value); }
+
+            int i = 0;
+            decimal dValue = (decimal)value;
+            while (Math.Round(dValue / 1024) >= 1)
+            {
+                dValue /= 1024;
+                i++;
+            }
+
+            return string.Format("{0:n1} {1}", dValue, SizeSuffixes[i]);
+        }
+
+        public static void OpenFileInNotepad(string PathFileName)
+        {
+            Process.Start("notepad.exe", PathFileName);
         }
 
         public static string GetFirstCharsOfString(string sourceString)
