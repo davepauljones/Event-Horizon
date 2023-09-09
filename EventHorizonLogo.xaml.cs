@@ -12,6 +12,10 @@ namespace The_Oracle
         public EventHorizonLogo()
         {
             InitializeComponent();
+
+            LicenceLabel.Content = "David Paul Jones GPL V3 ( 2023 - " + System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("yyyy") + " )";
+            string swv = System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("dd/MM/yyyy HH:mm:ss");
+            BuildTextBlock.Text = "Nightly Build " + swv;
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

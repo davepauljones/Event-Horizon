@@ -5,16 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:The_Oracle"
              mc:Ignorable="d" x:Name="EventHorizonlogoUserControl"
-             d:DesignHeight="100" d:DesignWidth="250">
+             d:DesignHeight="102" d:DesignWidth="230">
     <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
         <StackPanel Orientation="Vertical">
             <Image Source="pack://application:,,/EventHorizonLogoNewSmall.png" Stretch="UniformToFill" Width="189" Height="34"/>
-            <Label Content="By David Paul Jones GPLv3 2023" FontSize="10" HorizontalAlignment="Center" Margin="0,10,0,0"/>
-            <TextBlock TextAlignment="Center" Margin="0,10,0,0">           
-                <Hyperlink NavigateUri="https://www.patreon.com/davepauljones" RequestNavigate="Hyperlink_RequestNavigate">
-                    buy me a coffee on Patreon
-                </Hyperlink>
+            <Label x:Name="LicenceLabel" Content="By David Paul Jones GPL V3 ( 2023-2023 )" FontSize="10" HorizontalAlignment="Center"/>
+            <TextBlock TextAlignment="Center" Margin="0,2,0,0">
+                    <Hyperlink NavigateUri="https://github.com/davepauljones/Event-Horizon" RequestNavigate="Hyperlink_RequestNavigate">
+                        <TextBlock x:Name="BuildTextBlock" Text="Nightly Build 09/09/2023 14:48:12"/>
+                    </Hyperlink>
             </TextBlock>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0">
+                <Label Content="240 Man Hours" FontSize="10"/>
+                <TextBlock TextAlignment="Center" Margin="0,3,0,0">
+                    <Hyperlink NavigateUri="https://www.patreon.com/davepauljones" RequestNavigate="Hyperlink_RequestNavigate">
+                        buy me a coffee on Patreon
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+            
 
         </StackPanel>
     </Grid>

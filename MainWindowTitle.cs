@@ -13,16 +13,13 @@ namespace The_Oracle
             PathString = XMLReaderWriter.DatabaseLocationString;
 
             string swv = System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("dd/MM/yyyy");
-            TitleString = "Event Horizon - Build ";
-            TitleString += swv;
+            TitleString = "Event Horizon";
             TitleString += " - User ";
             TitleString += XMLReaderWriter.UserID + " ";
             TitleString += XMLReaderWriter.UserNameString;
-            TitleString += " - Connected to database ";
-            TitleString += PathString;
-            TitleString += "\\";
-            TitleString += OracleFileName;
-            TitleString += " - GPLv3(2023)davepauljones";
+            TitleString += " - GPL V3 (2023 - ";
+            TitleString += System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("yyyy");
+            TitleString += ") davepauljones";
 
             MainWindow.HSE_LOG_GlobalMDBConnectionString = "Provider=Microsoft.Jet.Oledb.4.0; Data Source = " + XMLReaderWriter.DatabaseLocationString + "\\" + OracleFileName;
 
