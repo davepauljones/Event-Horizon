@@ -21,12 +21,12 @@
         </EventTrigger>
     </Window.Triggers>
 
-    <Border CornerRadius="6" Background="White" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Margin="10">
+    <Border x:Name="MainBorder" CornerRadius="6" Background="WhiteSmoke" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Margin="10">
         <Border.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="3" Opacity="0.6" />
         </Border.Effect>
-        <Border CornerRadius="6" Background="White" BorderThickness="3" BorderBrush="Firebrick" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Margin="20">
-            <Border CornerRadius="6" Background="White" BorderThickness="3" BorderBrush="#3b71ca" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Margin="10">
+        <Border CornerRadius="6" Background="Transparent" Opacity="1" BorderThickness="3" BorderBrush="Firebrick" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Margin="20">
+            <Border CornerRadius="6" Background="Transparent" Opacity="1" BorderThickness="3" BorderBrush="#3b71ca" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Margin="10">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="120"/>

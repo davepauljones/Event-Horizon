@@ -5,6 +5,7 @@ using System.Windows.Media;
 using System.IO;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace The_Oracle
 {
@@ -21,6 +22,14 @@ namespace The_Oracle
         }
         private void Init()
         {
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\wormhole-5319067_1280.png"))
+            {
+                ImageBrush myBrush = new ImageBrush();
+                myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\wormhole-5319067_1280.png", UriKind.Absolute));
+
+                MainBorder.Background = myBrush;
+                MainBorder.Background.Opacity = 1;
+            }
             SetPrerequisites();
         }
 
