@@ -4,7 +4,7 @@
 
 Up coming Events odbc mdb database, single or multi-user, primary use is to get organized, XML Event Types &amp; XML Users List
 
-![Alt Text](./EventHorizonImageWelcome.png){width=1000px height=678px}
+<img src="./EventHorizonImageWelcome.png" alt="Image Description" width="1000" height="678">
 ![Alt Text](./EventHorizonImage.png)
 
 ## Table of Contents
