@@ -517,7 +517,7 @@ namespace The_Oracle
 
                         command.Parameters.AddWithValue("@ID", eventHorizonLINQ.ID);
 
-                        if (eventMode == EventWindowModes.EditMainEvent || eventMode == EventWindowModes.EditReplyNote)
+                        if (eventMode == EventWindowModes.ViewMainEvent || eventMode == EventWindowModes.ViewReplyNote || eventMode == EventWindowModes.EditMainEvent || eventMode == EventWindowModes.EditReplyNote)
                             rowsAffected = command.ExecuteNonQuery();
                         else if (rowsAffected == 0 || eventMode == EventWindowModes.NewEvent || eventMode == EventWindowModes.NewNote || eventMode == EventWindowModes.NewReply)
                         {

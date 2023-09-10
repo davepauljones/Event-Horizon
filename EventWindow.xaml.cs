@@ -159,7 +159,7 @@ namespace The_Oracle
             }
             else if (eventHorizonLINQ.Source_Mode == EventWindowModes.EditReplyNote)
             {
-                EventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
+                EventIDLabel.Content = eventHorizonLINQ.Source_ID.ToString("D5");
                 ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "Edit Reply Note";
@@ -393,8 +393,34 @@ namespace The_Oracle
             eventHorizonLINQ.FrequencyID = FrequencyComboBox.SelectedIndex;
             eventHorizonLINQ.StatusID = StatusComboBox.SelectedIndex;
             eventHorizonLINQ.TargetDate = targetDateTime;
-            eventHorizonLINQ.TargetUserID = eventHorizonLINQ.UserID;
-            eventHorizonLINQ.UserID = XMLReaderWriter.UserID;
+
+            switch (eventHorizonLINQ.Source_Mode)
+            {
+                case EventWindowModes.ViewMainEvent:                    
+                    break;
+                case EventWindowModes.ViewReplyNote:                   
+                    break;
+                case EventWindowModes.EditMainEvent:
+                    eventHorizonLINQ.TargetUserID = TargetUserIDComboBox.SelectedIndex;                    
+                    break;
+                case EventWindowModes.EditReplyNote:
+                    eventHorizonLINQ.TargetUserID = TargetUserIDComboBox.SelectedIndex;
+                    break;
+                case EventWindowModes.NewEvent:
+                    eventHorizonLINQ.TargetUserID = TargetUserIDComboBox.SelectedIndex;
+                    eventHorizonLINQ.UserID = XMLReaderWriter.UserID;
+                    break;
+                case EventWindowModes.NewNote:
+                    eventHorizonLINQ.TargetUserID = TargetUserIDComboBox.SelectedIndex;
+                    eventHorizonLINQ.UserID = XMLReaderWriter.UserID;
+                    break;
+                case EventWindowModes.NewReply:
+                    eventHorizonLINQ.TargetUserID = eventHorizonLINQ.UserID;
+                    eventHorizonLINQ.UserID = XMLReaderWriter.UserID;
+                    break;
+                default:                   
+                    break;
+            }
 
             Console.Write("eventHorizonLINQ.TargetUserID = ");
             Console.WriteLine(eventHorizonLINQ.TargetUserID);
@@ -482,7 +508,15 @@ namespace The_Oracle
                         break;
                     case EventFormCloseButtons.Save:
                         switch (eventHorizonLINQ.Source_Mode)
-                        {                          
+                        {
+                            case EventWindowModes.ViewMainEvent:
+                                SetOracleEvent();
+                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewMainEvent);
+                                break;
+                            case EventWindowModes.ViewReplyNote:
+                                SetOracleEvent();
+                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewReplyNote);
+                                break;
                             case EventWindowModes.EditMainEvent:
                                 SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditMainEvent);
@@ -494,11 +528,11 @@ namespace The_Oracle
                             case EventWindowModes.NewEvent:
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.NewEvent);
                                 break;
-                            case EventWindowModes.NewReply:
-                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.NewReply);
-                                break;
                             case EventWindowModes.NewNote:
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.NewNote);
+                                break;
+                            case EventWindowModes.NewReply:
+                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.NewReply);
                                 break;
                         }
                         break;

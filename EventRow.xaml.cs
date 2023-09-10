@@ -48,23 +48,23 @@ namespace The_Oracle
 
             EventRow item = (EventRow)dep;
 
-            Console.Write("Replies item = ");
-            Console.WriteLine(item.Tag);
-
             EventHorizonLINQ eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
 
             Int32 repliesLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
 
-            Console.Write("RepliesListView_PreviewMouseDoubleClick  eventHorizonLINQ.Source_Mode = ");
+            Console.Write("EventRow_RepliesListView_PreviewMouseDoubleClick_eventHorizonLINQ.ID = ");
+            Console.WriteLine(eventHorizonLINQ.ID);
+
+            Console.Write("EventRow_RepliesListView_PreviewMouseDoubleClick_eventHorizonLINQ.Source_Mode = ");
             Console.WriteLine(eventHorizonLINQ.Source_Mode);
 
-            Console.Write("RepliesListView_PreviewMouseDoubleClick  eventHorizonLINQ.ParentEventID = ");
+            Console.Write("EventRow_RepliesListView_PreviewMouseDoubleClick_eventHorizonLINQ.ParentEventID = ");
             Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
 
-            Console.Write("RepliesListView_PreviewMouseDoubleClick = ");
+            Console.Write("EventRow_RepliesListView_PreviewMouseDoubleClick_eventHorizonLINQ.Details = ");
             Console.WriteLine(eventHorizonLINQ.Details);
 
-            MiscFunctions.ConsoleWriteEventHorizonLINQ(eventHorizonLINQ);
+            //MiscFunctions.ConsoleWriteEventHorizonLINQ(eventHorizonLINQ);
 
             if (repliesLogListViewTagged > 0)
             {
