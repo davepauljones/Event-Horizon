@@ -128,33 +128,28 @@ namespace The_Oracle
 
             mw = this;
 
-            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg"))
-            {
-                ImageBrush myBrush = new ImageBrush();
-                myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg", UriKind.Absolute));
-
-                this.Background = myBrush;
-                this.Background.Opacity = 0.3;
-            }
-
-            this.WindowState = WindowState.Maximized;
-
-            EventStackPanel.Visibility = Visibility.Visible;
-
-            if (XMLReaderWriter.CheckIf_SettingsXML_FileExists())
-            {
-                if (XMLReaderWriter.CheckIf_DatabaseSettingsXML_FileExists())
-                {
-                    //string swv = System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("dd/MM/yyyy");
+            Welcome welcome = new Welcome();
             
-                    HSE_LOG_GlobalMDBConnectionString = string.Empty;
+            if (welcome.ShowDialog() == true)
+            {
+                if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg"))
+                {
+                    ImageBrush myBrush = new ImageBrush();
+                    myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg", UriKind.Absolute));
 
-                    MainWindowTitle.SetMainWindowTitle();
-
-                    Loaded += MainWindow_Loaded;
+                    this.Background = myBrush;
+                    this.Background.Opacity = 0.3;
                 }
-                else
-                    Close();
+
+                this.WindowState = WindowState.Maximized;
+
+                EventStackPanel.Visibility = Visibility.Visible;
+
+                HSE_LOG_GlobalMDBConnectionString = string.Empty;
+
+                MainWindowTitle.SetMainWindowTitle();
+
+                Loaded += MainWindow_Loaded;
             }
             else
                 Close();
@@ -189,9 +184,6 @@ namespace The_Oracle
 
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
                 UpdateUsersOnline();
-
-                Welcome welcome = new Welcome();
-                welcome.ShowDialog();
             }
 
             MainWindowIs_Loaded = true;

@@ -142,7 +142,7 @@ namespace The_Oracle
                                         {
                                             mw.Status.Content = "Selected " + openFileDialog.FileName + " file";
                                             string PathString = System.IO.Path.GetDirectoryName(openFileDialog.FileName);
-                                            XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(PathString);
+                                            //XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(PathString);
                                             Close();
                                         }
                                         break;
@@ -167,7 +167,7 @@ namespace The_Oracle
                                             MainWindowTitle.PathString = System.IO.Path.GetDirectoryName(openFileDialog.FileName);
                                             MainWindowTitle.OracleFileName = System.IO.Path.GetFileName(openFileDialog.FileName);
                                             MainWindowTitle.SetMainWindowTitle();
-                                            XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(MainWindowTitle.PathString);
+                                            //XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(MainWindowTitle.PathString);
                                             Close();
                                         }
                                         break;
@@ -201,8 +201,8 @@ namespace The_Oracle
                                             MainWindowTitle.PathString = System.IO.Path.GetDirectoryName(openFileDialog.FileName);
                                             MainWindowTitle.OracleFileName = System.IO.Path.GetFileName(openFileDialog.FileName);
                                             MainWindowTitle.SetMainWindowTitle();
-                                            XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(MainWindowTitle.PathString);
-                                            XMLReaderWriter.WriteSettingsXmlFile(new OracleSettings { UserID = 15, UserName = "David Jones", DatabaseLocation = System.IO.Path.GetDirectoryName(openFileDialog.FileName) });
+                                            //XMLReaderWriter.ReadXMLNodesFromOracleDatabaseXMLFile(MainWindowTitle.PathString);
+                                            //XMLReaderWriter.WriteSettingsXmlFile(new OracleSettings { UserID = 15, UserName = "David Jones", DatabaseLocation = System.IO.Path.GetDirectoryName(openFileDialog.FileName) });
                                             Close();
                                         }
                                         break;
