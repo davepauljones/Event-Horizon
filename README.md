@@ -4,6 +4,7 @@
 
 Up coming Events odbc mdb database, single or multi-user, primary use is to get organized, XML Event Types &amp; XML Users List
 
+![Alt Text](./EventHorizonImageWelcome.png)
 ![Alt Text](./EventHorizonImage.png)
 
 ## Table of Contents
