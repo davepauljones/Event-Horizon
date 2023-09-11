@@ -48,27 +48,35 @@ namespace The_Oracle
 
             EventRow item = (EventRow)dep;
 
-            EventHorizonLINQ eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
+            MainWindow.mw.eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
 
-            Int32 repliesLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
+            //Int32 repliesLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
 
-            Console.Write("EventRow_RepliesListView_PreviewMouseDoubleClick_eventHorizonLINQ.ID = ");
-            Console.WriteLine(eventHorizonLINQ.ID);
+            Console.WriteLine();
+            Console.WriteLine(">S>>EventRow RepliesListView_PreviewMouseDoubleClick<<<<");
+            Console.WriteLine();
 
-            Console.Write("EventRow_RepliesListView_PreviewMouseDoubleClick_eventHorizonLINQ.Source_Mode = ");
-            Console.WriteLine(eventHorizonLINQ.Source_Mode);
+            Console.Write("item.Tag MainWindow.mw.eventHorizonLINQ.Source_Mode = ");
+            Console.WriteLine(MainWindow.mw.eventHorizonLINQ.Source_Mode);
 
-            Console.Write("EventRow_RepliesListView_PreviewMouseDoubleClick_eventHorizonLINQ.ParentEventID = ");
-            Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
+            Console.Write("item.Tag MainWindow.mw.eventHorizonLINQ.ID = ");
+            Console.WriteLine(MainWindow.mw.eventHorizonLINQ.ID);
 
-            Console.Write("EventRow_RepliesListView_PreviewMouseDoubleClick_eventHorizonLINQ.Details = ");
-            Console.WriteLine(eventHorizonLINQ.Details);
+            Console.Write("item.Tag MainWindow.mw.eventHorizonLINQ.ParentEventID = ");
+            Console.WriteLine(MainWindow.mw.eventHorizonLINQ.Source_ParentEventID);
+
+            Console.Write("item.Tag MainWindow.mw.eventHorizonLINQ.Details = ");
+            Console.WriteLine(MainWindow.mw.eventHorizonLINQ.Details);
+
+            Console.WriteLine();
+            Console.WriteLine(">F>>EventRow RepliesListView_PreviewMouseDoubleClick<<<<");
+            Console.WriteLine();
 
             //MiscFunctions.ConsoleWriteEventHorizonLINQ(eventHorizonLINQ);
 
-            if (repliesLogListViewTagged > 0)
+            if (MainWindow.mw.eventHorizonLINQ != null)
             {
-                EventWindow eventWindow = new EventWindow(MainWindow.mw, eventHorizonLINQ);
+                EventWindow eventWindow = new EventWindow(MainWindow.mw, MainWindow.mw.eventHorizonLINQ);
                 eventWindow.Show();
             }
 

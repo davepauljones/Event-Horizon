@@ -44,8 +44,8 @@ namespace The_Oracle
 
             stackPanel.Tag = eventType.Name;
 
-            Console.Write("*******TAG = ");
-            Console.WriteLine(stackPanel.Tag);
+            //Console.Write("*******TAG = ");
+            //Console.WriteLine(stackPanel.Tag);
 
             stackPanel.Children.Add(eventTypeIconEllipseGrid);
             stackPanel.Children.Add(eventTypeName);

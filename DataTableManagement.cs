@@ -668,7 +668,7 @@ namespace The_Oracle
 
                         saveSuccessFull = true;
 
-                        MainWindow.mw.EventLogListViewTagged = -1;
+                        //MainWindow.mw.EventLogListViewTagged = -1;
 
                         MainWindow.mw.Status.Content = "Successfully deleted event.";
                     }
@@ -732,8 +732,8 @@ namespace The_Oracle
                                     else
                                         LastTimeOnlineString = LastTimeOnlineDateTime.ToString("dd/MM/y HH:mm");
 
-                                    Console.Write("LastTimeOnline = ");
-                                    Console.WriteLine(LastTimeOnlineString);
+                                    //Console.Write("LastTimeOnline = ");
+                                    //Console.WriteLine(LastTimeOnlineString);
 
                                     if (!MainWindow.UsersLastTimeOnlineDictionary.ContainsKey(UserID))
                                     {
@@ -850,8 +850,8 @@ namespace The_Oracle
 
             String SqlString = "SELECT * FROM EventLog WHERE StatusID=" + Statuses.Active + " AND TargetUserID=" + XMLReaderWriter.UserID + " ORDER BY LastViewedDateTime DESC;";
 
-            Console.Write("SqlString = ");
-            Console.WriteLine(SqlString);
+            //Console.Write("SqlString = ");
+            //Console.WriteLine(SqlString);
 
             try
             {
@@ -948,21 +948,26 @@ namespace The_Oracle
 
                                 if (!int.TryParse(reader["NotificationAcknowledged"].ToString(), out eventHorizonLINQ.NotificationAcknowledged)) eventHorizonLINQ.NotificationAcknowledged = 0;
 
-                                eventHorizonLINQ.Source_Mode = EventWindowModes.ViewReplyNote;
-
                                 if (!int.TryParse(reader["ParentEventID"].ToString(), out eventHorizonLINQ.Source_ParentEventID)) eventHorizonLINQ.Source_ParentEventID = 0;
+
+                                if (!int.TryParse(reader["EventModeID"].ToString(), out eventHorizonLINQ.EventModeID)) eventHorizonLINQ.EventModeID = 0;
+
+                                if (eventHorizonLINQ.EventModeID == EventModes.MainEvent)
+                                    eventHorizonLINQ.Source_Mode = EventWindowModes.ViewMainEvent;
+                                else if (eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
+                                    eventHorizonLINQ.Source_Mode = EventWindowModes.ViewReplyNote;
 
                                 //Test to see if user has already viewed the notification
                                 if (eventHorizonLINQ.RemindMeID == RemindMeModes.No && eventHorizonLINQ.NotificationAcknowledged == NotificationAcknowlegedModes.No) ReturnUnread.Add(eventHorizonLINQ);
 
-                                Console.Write("eventHorizonLINQ.ID = ");
-                                Console.WriteLine(eventHorizonLINQ.ID);
-                                Console.Write("eventHorizonLINQ.UserID = ");
-                                Console.WriteLine(eventHorizonLINQ.UserID);
-                                Console.Write("eventHorizonLINQ.Details = ");
-                                Console.WriteLine(eventHorizonLINQ.Details);
-                                Console.Write("eventHorizonLINQ.TargetUserID = ");
-                                Console.WriteLine(eventHorizonLINQ.TargetUserID);
+                                //Console.Write("eventHorizonLINQ.ID = ");
+                                //Console.WriteLine(eventHorizonLINQ.ID);
+                                //Console.Write("eventHorizonLINQ.UserID = ");
+                                //Console.WriteLine(eventHorizonLINQ.UserID);
+                                //Console.Write("eventHorizonLINQ.Details = ");
+                                //Console.WriteLine(eventHorizonLINQ.Details);
+                                //Console.Write("eventHorizonLINQ.TargetUserID = ");
+                                //Console.WriteLine(eventHorizonLINQ.TargetUserID);
                             }
                         }
                     }
@@ -990,12 +995,12 @@ namespace The_Oracle
         public static  List<EventHorizonLINQ> GetMyReminders()
         {
             List<EventHorizonLINQ> ReturnReminders = new List<EventHorizonLINQ>();
-            EventHorizonLINQ oe;
+            EventHorizonLINQ eventHorizonLINQ;
 
             String SqlString = "SELECT * FROM EventLog WHERE StatusID=" + Statuses.Active + " AND TargetUserID=" + XMLReaderWriter.UserID + " ORDER BY RemindMeDateTime DESC;";
 
-            Console.Write("SqlString = ");
-            Console.WriteLine(SqlString);
+            //Console.Write("SqlString = ");
+            //Console.WriteLine(SqlString);
 
             try
             {
@@ -1008,11 +1013,11 @@ namespace The_Oracle
                         {
                             while (reader.Read())
                             {
-                                oe = new EventHorizonLINQ();
-                                oe.ID = int.Parse(reader["ID"].ToString());
-                                oe.UserID = int.Parse(reader["UserID"].ToString());
-                                oe.Details = reader["Details"].ToString();
-                                oe.TargetUserID = int.Parse(reader["TargetUserID"].ToString());
+                                eventHorizonLINQ = new EventHorizonLINQ();
+                                eventHorizonLINQ.ID = int.Parse(reader["ID"].ToString());
+                                eventHorizonLINQ.UserID = int.Parse(reader["UserID"].ToString());
+                                eventHorizonLINQ.Details = reader["Details"].ToString();
+                                eventHorizonLINQ.TargetUserID = int.Parse(reader["TargetUserID"].ToString());
 
                                 Int32 RemindMe;
 
@@ -1029,7 +1034,7 @@ namespace The_Oracle
 
                                 if (DateTime.TryParse(rmdtString, out rmdt))
                                 {
-                                    Console.WriteLine(rmdt);
+                                    //Console.WriteLine(rmdt);
 
                                     if (rmdt.TimeOfDay == TimeSpan.Zero)
                                     {
@@ -1047,17 +1052,17 @@ namespace The_Oracle
 
                                 if (DateTime.Now >= rmdt && RemindMe == RemindMeModes.Yes)
                                 {
-                                    if (NotificationAcknowleged == NotificationAcknowlegedModes.No) ReturnReminders.Add(oe);
+                                    if (NotificationAcknowleged == NotificationAcknowlegedModes.No) ReturnReminders.Add(eventHorizonLINQ);
                                 }
 
-                                Console.Write("oe.ID = ");
-                                Console.WriteLine(oe.ID);
-                                Console.Write("oe.UserID = ");
-                                Console.WriteLine(oe.UserID);
-                                Console.Write("oe.Details = ");
-                                Console.WriteLine(oe.Details);
-                                Console.Write("oe.TargetUserID = ");
-                                Console.WriteLine(oe.TargetUserID);
+                                //Console.Write("eventHorizonLINQ.ID = ");
+                                //Console.WriteLine(eventHorizonLINQ.ID);
+                                //Console.Write("eventHorizonLINQ.UserID = ");
+                                //Console.WriteLine(eventHorizonLINQ.UserID);
+                                //Console.Write("eventHorizonLINQ.Details = ");
+                                //Console.WriteLine(eventHorizonLINQ.Details);
+                                //Console.Write("eventHorizonLINQ.TargetUserID = ");
+                                //Console.WriteLine(eventHorizonLINQ.TargetUserID);
                             }
                         }
                     }
@@ -1105,7 +1110,7 @@ namespace The_Oracle
 
                         saveSuccessFull = true;
 
-                        MainWindow.mw.EventLogListViewTagged = -1;
+                        //MainWindow.mw.EventLogListViewTagged = -1;
 
                         MainWindow.mw.Status.Content = "Successfully set event status.";
                     }
@@ -1155,7 +1160,7 @@ namespace The_Oracle
 
                         saveSuccessFull = true;
 
-                        MainWindow.mw.EventLogListViewTagged = -1;
+                        //MainWindow.mw.EventLogListViewTagged = -1;
 
                         MainWindow.mw.Status.Content = "Successfully set event status.";
                     }
@@ -1207,7 +1212,7 @@ namespace The_Oracle
 
                         saveSuccessFull = true;
 
-                        MainWindow.mw.EventLogListViewTagged = -1;
+                        //MainWindow.mw.EventLogListViewTagged = -1;
 
                         MainWindow.mw.Status.Content = "Successfully set event read status.";
                     }

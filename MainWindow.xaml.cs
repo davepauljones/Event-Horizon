@@ -490,7 +490,7 @@ namespace The_Oracle
                         Opacity = 0.6
                     };
 
-                    TextBlock usersName = new TextBlock { Text = user.UserName, Foreground = Brushes.Black, FontSize = 11, MaxWidth = 70, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
+                    TextBlock usersName = new TextBlock { Text = user.UserName, Foreground = Brushes.Black, FontSize = 11, MaxWidth = 120, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
 
                     stackPanel.Children.Add(originUserIconEllipseGrid);
                     stackPanel.Children.Add(usersName);
@@ -750,15 +750,9 @@ namespace The_Oracle
                     newEventWindow.Show();
                     break;
                 case Key.F2:
-                    if (EventLogListViewTagged > 0)
+                    if (eventHorizonLINQ != null)
                     {
-                        EventWindow editEventWindow = new EventWindow(this, new EventHorizonLINQ
-                        {
-                            Source_ID = EventLogListViewTagged,
-                            Source_Mode = EventWindowModes.EditMainEvent,
-                            Attributes_TotalDays = 0,
-                            ID = EventLogListViewTagged
-                        }, null);
+                        EventWindow editEventWindow = new EventWindow(this, eventHorizonLINQ, null);
                         editEventWindow.Show();
                     }
                     break;
@@ -906,7 +900,7 @@ namespace The_Oracle
                     }
                     break;
                 case Key.Delete:
-                    if (EventLogListViewTagged > 0)
+                    if (eventHorizonLINQ != null)
                     {
                         if (SelectedReplies > 0)
                         {
@@ -919,7 +913,7 @@ namespace The_Oracle
                             var result = orn.ShowDialog();
                             if (result == true)
                             {
-                                if (EventLogListViewTagged > 0) DataTableManagement.DeleteEvent(EventLogListViewTagged);
+                                if (eventHorizonLINQ.ID > 0) DataTableManagement.DeleteEvent(eventHorizonLINQ.ID);
                             }
                         }
                     }
@@ -1004,15 +998,9 @@ namespace The_Oracle
                         newEventWindow.Show();
                         break;
                     case 1:
-                        if (EventLogListViewTagged > 0)
+                        if (eventHorizonLINQ != null)
                         {
-                            EventWindow editEventWindow = new EventWindow(this, new EventHorizonLINQ
-                            {
-                                Source_ID = EventLogListViewTagged,
-                                Source_Mode = EventWindowModes.EditMainEvent,
-                                Attributes_TotalDays = 0,
-                                ID = EventLogListViewTagged,
-                            }, null);
+                            EventWindow editEventWindow = new EventWindow(this, eventHorizonLINQ, null);
                             editEventWindow.Show();
                         }
                         break;
@@ -1160,7 +1148,7 @@ namespace The_Oracle
             }
         }
 
-        public Int32 EventLogListViewTagged = -1;
+        public EventHorizonLINQ eventHorizonLINQ;
         
         //private void EventLogListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         //{
@@ -1405,20 +1393,33 @@ namespace The_Oracle
 
             EventRow item = (EventRow)dep;
 
-            EventHorizonLINQ eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
-            EventLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
+            eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
+            
+            //EventLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
 
-            SelectedParentEventID = Convert.ToInt32(eventHorizonLINQ.Source_ParentEventID);
-            SelectedReplies = Convert.ToInt32(eventHorizonLINQ.Attributes_Replies);
+            //SelectedParentEventID = Convert.ToInt32(eventHorizonLINQ.Source_ParentEventID);
+            
+            //SelectedReplies = Convert.ToInt32(eventHorizonLINQ.Attributes_Replies);
 
-            Console.Write("** ReminderListView.SelectedIndex = ");
-            Console.WriteLine(ReminderListView.SelectedIndex);
-            Console.Write("** item.Tag eventHorizonLINQ.ID = ");
+            Console.WriteLine();
+            Console.WriteLine(">S>>MainWindow ReminderListView_PreviewMouseLeftButtonDown<<<<");
+            Console.WriteLine();
+
+            Console.Write("item.Tag eventHorizonLINQ.Source_Mode = ");
+            Console.WriteLine(eventHorizonLINQ.Source_Mode);
+            
+            Console.Write("item.Tag eventHorizonLINQ.ID = ");
             Console.WriteLine(eventHorizonLINQ.ID);
-            Console.Write("** item.Tag eventHorizonLINQ.Source_ParentEventID = ");
+            
+            Console.Write("item.Tag eventHorizonLINQ.Source_ParentEventID = ");
             Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
-            Console.Write("** item.Tag eventHorizonLINQ.Attributes_Replies = ");
+            
+            Console.Write("item.Tag eventHorizonLINQ.Attributes_Replies = ");
             Console.WriteLine(eventHorizonLINQ.Attributes_Replies);
+            
+            Console.WriteLine();
+            Console.WriteLine(">F>>MainWindow ReminderListView_PreviewMouseLeftButtonDown<<<<");
+            Console.WriteLine();
         }
 
         private void ReminderListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -1435,19 +1436,36 @@ namespace The_Oracle
 
             EventRow item = (EventRow)dep;
 
-            EventHorizonLINQ eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
-            EventLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
+            eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
+            //EventLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
+
+            Console.WriteLine();
+            Console.WriteLine(">S>>MainWindow ReminderListView_MouseDoubleClick<<<<");
+            Console.WriteLine();
+
+            Console.Write("item.Tag eventHorizonLINQ.Source_Mode = ");
+            Console.WriteLine(eventHorizonLINQ.Source_Mode);
 
             Console.Write("item.Tag eventHorizonLINQ.ID = ");
             Console.WriteLine(eventHorizonLINQ.ID);
 
+            Console.Write("item.Tag eventHorizonLINQ.Source_ParentEventID = ");
+            Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
+
+            Console.Write("item.Tag eventHorizonLINQ.Attributes_Replies = ");
+            Console.WriteLine(eventHorizonLINQ.Attributes_Replies);
+
+            Console.WriteLine();
+            Console.WriteLine(">F>>MainWindow ReminderListView_MouseDoubleClick<<<<");
+            Console.WriteLine();
+            
             ReminderListView.SelectedItem = item;
 
-            if (EventLogListViewTagged > 0)
+            if (eventHorizonLINQ != null)
             {
-                eventHorizonLINQ.Source_ID = EventLogListViewTagged;
-                eventHorizonLINQ.ID = EventLogListViewTagged;
-                eventHorizonLINQ.Source_Mode = EventWindowModes.EditMainEvent;
+                //eventHorizonLINQ.Source_ID = EventLogListViewTagged;
+                //eventHorizonLINQ.ID = EventLogListViewTagged;
+                //eventHorizonLINQ.Source_Mode = EventWindowModes.EditMainEvent;
 
                 //try open event as EditEvent
                 EventWindow editEventWindow = new EventWindow(this, eventHorizonLINQ, null);

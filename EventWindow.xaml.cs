@@ -201,7 +201,7 @@ namespace The_Oracle
                 FrequencyComboBox.IsEnabled = true;
                 TargetUserIDComboBox.SelectedIndex = eventHorizonLINQ.TargetUserID;
                 TargetUserIDComboBox.IsEnabled = true;
-                StatusComboBox.SelectedIndex = eventHorizonLINQ.StatusID;
+                StatusComboBox.SelectedIndex = Statuses.Active;
                 StatusComboBox.IsEnabled = true;
                 TargetDatePicker.IsEnabled = true;
                 TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
@@ -232,7 +232,7 @@ namespace The_Oracle
                 FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.SelectedIndex = 0;
                 TargetUserIDComboBox.IsEnabled = true;
-                StatusComboBox.SelectedIndex = eventHorizonLINQ.StatusID;
+                StatusComboBox.SelectedIndex = Statuses.Active;
                 StatusComboBox.IsEnabled = true;
                 TargetDatePicker.IsEnabled = true;
                 TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
@@ -263,7 +263,7 @@ namespace The_Oracle
                 FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.SelectedIndex = eventHorizonLINQ.TargetUserID;
                 TargetUserIDComboBox.IsEnabled = false;
-                StatusComboBox.SelectedIndex = eventHorizonLINQ.StatusID;
+                StatusComboBox.SelectedIndex = Statuses.Active;
                 StatusComboBox.IsEnabled = true;
                 TargetDatePicker.IsEnabled = true;
                 TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
