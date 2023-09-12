@@ -78,7 +78,7 @@ namespace The_Oracle
 
                         Close();
 
-                        EventWindow eventWindow = new EventWindow(MainWindow.mw, eventHorizonLINQ, null);
+                        EventWindow eventWindow = new EventWindow(MainWindow.mw, EventWindowModes.ViewMainEvent, eventHorizonLINQ, null);
                         eventWindow.Left = eventWindow.Left - 100;
                         eventWindow.Top = eventWindow.Top - 100;
                         eventWindow.Show();

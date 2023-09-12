@@ -14,6 +14,7 @@ namespace The_Oracle
     public partial class EventWindow : Window
     {
         MainWindow mainWindow;
+        int eventWindowMode;
         int userID;
         EventHorizonLINQ eventHorizonLINQ;
         public EventWindow eventWindow;
@@ -23,11 +24,12 @@ namespace The_Oracle
 
         public Int32 ParentEventID;
 
-        public EventWindow(MainWindow mainWindow, EventHorizonLINQ eventHorizonLINQ, EventWindow eventWindow = null)
+        public EventWindow(MainWindow mainWindow, int eventWindowMode, EventHorizonLINQ eventHorizonLINQ, EventWindow eventWindow = null)
         {
             InitializeComponent();
 
             this.mainWindow = mainWindow;
+            this.eventWindowMode = eventWindowMode;
             this.eventHorizonLINQ = (EventHorizonLINQ)eventHorizonLINQ.Clone();
             this.eventWindow = eventWindow;
             this.userID = eventHorizonLINQ.UserID;
@@ -492,16 +494,14 @@ namespace The_Oracle
                         break;
                     case EventFormCloseButtons.Note:
                         SetOracleEvent();
-                        eventHorizonLINQ.Source_Mode = EventWindowModes.NewNote;
-                        EventWindow nevn = new EventWindow(mainWindow, eventHorizonLINQ, this);
+                        EventWindow nevn = new EventWindow(mainWindow, EventWindowModes.NewNote, eventHorizonLINQ, this);
                         nevn.Show();
                         nevn.Left += 30;
                         nevn.Top += 30;
                         break;
                     case EventFormCloseButtons.Reply:
                         SetOracleEvent();
-                        eventHorizonLINQ.Source_Mode = EventWindowModes.NewReply;
-                        EventWindow nev = new EventWindow(mainWindow, eventHorizonLINQ, this);
+                        EventWindow nev = new EventWindow(mainWindow, EventWindowModes.NewReply, eventHorizonLINQ, this);
                         nev.Show();
                         nev.Left += 30;
                         nev.Top += 30;

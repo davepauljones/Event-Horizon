@@ -76,7 +76,7 @@ namespace The_Oracle
 
             if (MainWindow.mw.eventHorizonLINQ != null)
             {
-                EventWindow eventWindow = new EventWindow(MainWindow.mw, MainWindow.mw.eventHorizonLINQ);
+                EventWindow eventWindow = new EventWindow(MainWindow.mw, EventWindowModes.ViewReplyNote, MainWindow.mw.eventHorizonLINQ);
                 eventWindow.Show();
             }
 

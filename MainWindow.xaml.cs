@@ -740,31 +740,21 @@ namespace The_Oracle
             switch (e.Key)
             {
                 case Key.F1:
-                    EventWindow newEventWindow = new EventWindow(this, new EventHorizonLINQ
-                    {
-                        Source_ID = -1,
-                        Source_Mode = EventWindowModes.NewEvent,
-                        Attributes_TotalDays = 0,
-                        ID = -1
-                    }, null);
+                    EventWindow newEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ(), null);
                     newEventWindow.Show();
                     break;
                 case Key.F2:
                     if (eventHorizonLINQ != null)
                     {
-                        EventWindow editEventWindow = new EventWindow(this, eventHorizonLINQ, null);
+                        EventWindow editEventWindow = new EventWindow(this, EventWindowModes.NewNote, eventHorizonLINQ, null);
                         editEventWindow.Show();
                     }
                     break;
                 case Key.F3:
                     if (XMLReaderWriter.EventTypesList.Count > 1)
                     {
-                        EventWindow F3NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F3NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                         {
-                            Source_ID = -1,
-                            Source_Mode = EventWindowModes.NewEvent,
-                            Attributes_TotalDays = 0,
-                            ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[1].ID,
                         }, null);
                         F3NewEventWindow.Show();
@@ -773,12 +763,8 @@ namespace The_Oracle
                 case Key.F4:
                     if (XMLReaderWriter.EventTypesList.Count > 2)
                     {
-                        EventWindow F4NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F4NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                         {
-                            Source_ID = -1,
-                            Source_Mode = EventWindowModes.NewEvent,
-                            Attributes_TotalDays = 0,
-                            ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[2].ID,
                         }, null);
                         F4NewEventWindow.Show();
@@ -787,12 +773,8 @@ namespace The_Oracle
                 case Key.F5:
                     if (XMLReaderWriter.EventTypesList.Count > 3)
                     {
-                        EventWindow F5NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F5NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                         {
-                            Source_ID = -1,
-                            Source_Mode = EventWindowModes.NewEvent,
-                            Attributes_TotalDays = 0,
-                            ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[3].ID,
                         }, null);
                         F5NewEventWindow.Show();
@@ -801,12 +783,8 @@ namespace The_Oracle
                 case Key.F6:
                     if (XMLReaderWriter.EventTypesList.Count > 4)
                     {
-                        EventWindow F6NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F6NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                         {
-                            Source_ID = -1,
-                            Source_Mode = EventWindowModes.NewEvent,
-                            Attributes_TotalDays = 0,
-                            ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[4].ID,
                         }, null);
                         F6NewEventWindow.Show();
@@ -815,12 +793,8 @@ namespace The_Oracle
                 case Key.F7:
                     if (XMLReaderWriter.EventTypesList.Count > 5)
                     {
-                        EventWindow F7NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F7NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                         {
-                            Source_ID = -1,
-                            Source_Mode = EventWindowModes.NewEvent,
-                            Attributes_TotalDays = 0,
-                            ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[5].ID,
                         }, null);
                         F7NewEventWindow.Show();
@@ -829,12 +803,8 @@ namespace The_Oracle
                 case Key.F8:
                     if (XMLReaderWriter.EventTypesList.Count > 6)
                     {
-                        EventWindow F8NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F8NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                         {
-                            Source_ID = -1,
-                            Source_Mode = EventWindowModes.NewEvent,
-                            Attributes_TotalDays = 0,
-                            ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[6].ID,
                         }, null);
                         F8NewEventWindow.Show();
@@ -843,12 +813,8 @@ namespace The_Oracle
                 case Key.F9:
                     if (XMLReaderWriter.EventTypesList.Count > 7)
                     {
-                        EventWindow F9NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F9NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                         {
-                            Source_ID = -1,
-                            Source_Mode = EventWindowModes.NewEvent,
-                            Attributes_TotalDays = 0,
-                            ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[7].ID,
                         }, null);
                         F9NewEventWindow.Show();
@@ -859,12 +825,8 @@ namespace The_Oracle
                     {
                         if (XMLReaderWriter.EventTypesList.Count > 8)
                         {
-                            EventWindow F10NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F10NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                             {
-                                Source_ID = -1,
-                                Source_Mode = EventWindowModes.NewEvent,
-                                Attributes_TotalDays = 0,
-                                ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[8].ID,
                             }, null);
                             F10NewEventWindow.Show();
@@ -874,12 +836,8 @@ namespace The_Oracle
                 case Key.F11:
                     if (XMLReaderWriter.EventTypesList.Count > 9)
                     {
-                        EventWindow F11NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F11NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                         {
-                            Source_ID = -1,
-                            Source_Mode = EventWindowModes.NewEvent,
-                            Attributes_TotalDays = 0,
-                            ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[9].ID,
                         }, null);
                         F11NewEventWindow.Show();
@@ -888,12 +846,8 @@ namespace The_Oracle
                 case Key.F12:
                     if (XMLReaderWriter.EventTypesList.Count > 10)
                     {
-                        EventWindow F12NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow F12NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                         {
-                            Source_ID = -1,
-                            Source_Mode = EventWindowModes.NewEvent,
-                            Attributes_TotalDays = 0,
-                            ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[10].ID,
                         }, null);
                         F12NewEventWindow.Show();
@@ -987,12 +941,8 @@ namespace The_Oracle
                 switch (buttonID)
                 {
                     case 0:
-                        EventWindow newEventWindow = new EventWindow(this, new EventHorizonLINQ
+                        EventWindow newEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                         {
-                            Source_ID = -1,
-                            Source_Mode = EventWindowModes.NewEvent,
-                            Attributes_TotalDays = 0,
-                            ID = -1,
                             EventTypeID = XMLReaderWriter.EventTypesList[0].ID,
                         }, null);
                         newEventWindow.Show();
@@ -1000,19 +950,15 @@ namespace The_Oracle
                     case 1:
                         if (eventHorizonLINQ != null)
                         {
-                            EventWindow editEventWindow = new EventWindow(this, eventHorizonLINQ, null);
+                            EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ, null);
                             editEventWindow.Show();
                         }
                         break;
                     case 2:
                         if (XMLReaderWriter.EventTypesList.Count > 1)
                         {
-                            EventWindow F3NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F3NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                             {
-                                Source_ID = -1,
-                                Source_Mode = EventWindowModes.NewEvent,
-                                Attributes_TotalDays = 0,
-                                ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[1].ID,
                             }, null);
                             F3NewEventWindow.Show();
@@ -1021,12 +967,8 @@ namespace The_Oracle
                     case 3:
                         if (XMLReaderWriter.EventTypesList.Count > 2)
                         {
-                            EventWindow F4NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F4NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                             {
-                                Source_ID = -1,
-                                Source_Mode = EventWindowModes.NewEvent,
-                                Attributes_TotalDays = 0,
-                                ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[2].ID,
                             }, null);
                             F4NewEventWindow.Show();
@@ -1035,12 +977,8 @@ namespace The_Oracle
                     case 4:
                         if (XMLReaderWriter.EventTypesList.Count > 3)
                         {
-                            EventWindow F5NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F5NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                             {
-                                Source_ID = -1,
-                                Source_Mode = EventWindowModes.NewEvent,
-                                Attributes_TotalDays = 0,
-                                ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[3].ID,
                             }, null);
                             F5NewEventWindow.Show();
@@ -1049,12 +987,8 @@ namespace The_Oracle
                     case 5:
                         if (XMLReaderWriter.EventTypesList.Count > 4)
                         {
-                            EventWindow F6NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F6NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                             {
-                                Source_ID = -1,
-                                Source_Mode = EventWindowModes.NewEvent,
-                                Attributes_TotalDays = 0,
-                                ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[4].ID,
                             }, null);
                             F6NewEventWindow.Show();
@@ -1063,12 +997,8 @@ namespace The_Oracle
                     case 6:
                         if (XMLReaderWriter.EventTypesList.Count > 5)
                         {
-                            EventWindow F7NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F7NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                             {
-                                Source_ID = -1,
-                                Source_Mode = EventWindowModes.NewEvent,
-                                Attributes_TotalDays = 0,
-                                ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[5].ID,
                             }, null);
                             F7NewEventWindow.Show();
@@ -1077,12 +1007,8 @@ namespace The_Oracle
                     case 7:
                         if (XMLReaderWriter.EventTypesList.Count > 6)
                         {
-                            EventWindow F8NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F8NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                             {
-                                Source_ID = -1,
-                                Source_Mode = EventWindowModes.NewEvent,
-                                Attributes_TotalDays = 0,
-                                ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[6].ID,
                             }, null);
                             F8NewEventWindow.Show();
@@ -1091,12 +1017,8 @@ namespace The_Oracle
                     case 8:
                         if (XMLReaderWriter.EventTypesList.Count > 7)
                         {
-                            EventWindow F9NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F9NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                             {
-                                Source_ID = -1,
-                                Source_Mode = EventWindowModes.NewEvent,
-                                Attributes_TotalDays = 0,
-                                ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[7].ID,
                             }, null);
                             F9NewEventWindow.Show();
@@ -1105,12 +1027,8 @@ namespace The_Oracle
                     case 9:
                         if (XMLReaderWriter.EventTypesList.Count > 8)
                         {
-                            EventWindow F10NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F10NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                             {
-                                Source_ID = -1,
-                                Source_Mode = EventWindowModes.NewEvent,
-                                Attributes_TotalDays = 0,
-                                ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[8].ID,
                             }, null);
                             F10NewEventWindow.Show();
@@ -1119,12 +1037,8 @@ namespace The_Oracle
                     case 10:
                         if (XMLReaderWriter.EventTypesList.Count > 9)
                         {
-                            EventWindow F11NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F11NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                             {
-                                Source_ID = -1,
-                                Source_Mode = EventWindowModes.NewEvent,
-                                Attributes_TotalDays = 0,
-                                ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[9].ID,
                             }, null);
                             F11NewEventWindow.Show();
@@ -1133,12 +1047,8 @@ namespace The_Oracle
                     case 11:
                         if (XMLReaderWriter.EventTypesList.Count > 10)
                         {
-                            EventWindow F12NewEventWindow = new EventWindow(this, new EventHorizonLINQ
+                            EventWindow F12NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
                             {
-                                Source_ID = -1,
-                                Source_Mode = EventWindowModes.NewEvent,
-                                Attributes_TotalDays = 0,
-                                ID = -1,
                                 EventTypeID = XMLReaderWriter.EventTypesList[10].ID,
                             }, null);
                             F12NewEventWindow.Show();
@@ -1468,7 +1378,7 @@ namespace The_Oracle
                 //eventHorizonLINQ.Source_Mode = EventWindowModes.EditMainEvent;
 
                 //try open event as EditEvent
-                EventWindow editEventWindow = new EventWindow(this, eventHorizonLINQ, null);
+                EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ, null);
                 editEventWindow.Show();
             }
         }
