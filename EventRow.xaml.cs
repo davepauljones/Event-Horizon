@@ -50,8 +50,6 @@ namespace The_Oracle
 
             MainWindow.mw.eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
 
-            //Int32 repliesLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
-
             Console.WriteLine();
             Console.WriteLine(">S>>EventRow RepliesListView_PreviewMouseDoubleClick<<<<");
             Console.WriteLine();
@@ -76,8 +74,16 @@ namespace The_Oracle
 
             if (MainWindow.mw.eventHorizonLINQ != null)
             {
-                EventWindow eventWindow = new EventWindow(MainWindow.mw, EventWindowModes.ViewReplyNote, MainWindow.mw.eventHorizonLINQ);
-                eventWindow.Show();
+                if (MainWindow.mw.eventHorizonLINQ.EventModeID == EventModes.NoteEvent)
+                {
+                    EventWindow eventWindow = new EventWindow(MainWindow.mw, EventWindowModes.ViewNote, MainWindow.mw.eventHorizonLINQ);
+                    eventWindow.Show();
+                }
+                else if (MainWindow.mw.eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
+                {
+                    EventWindow eventWindow = new EventWindow(MainWindow.mw, EventWindowModes.ViewReply, MainWindow.mw.eventHorizonLINQ);
+                    eventWindow.Show();
+                }
             }
 
             //prevents parent firing

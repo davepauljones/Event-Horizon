@@ -314,7 +314,7 @@ namespace The_Oracle
                 }
 
                 eventHorizonLINQ.Source_ID = eventHorizonLINQ.ID;
-                eventHorizonLINQ.Source_Mode = EventWindowModes.ViewMainEvent;
+                //eventHorizonLINQ.Source_Mode = EventWindowModes.ViewMainEvent;
 
                 if (!int.TryParse(dataRow["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
 
@@ -349,7 +349,7 @@ namespace The_Oracle
 
             query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                     where eventHorizonEvent.Field<Int32>("ParentEventID") == eventID
-                    where eventHorizonEvent.Field<Int32>("EventModeID") == EventModes.ReplyEvent
+                    where eventHorizonEvent.Field<Int32>("EventModeID") == EventModes.NoteEvent || eventHorizonEvent.Field<Int32>("EventModeID") == EventModes.ReplyEvent
                     orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") ascending
                     select eventHorizonEvent;
 
@@ -429,7 +429,7 @@ namespace The_Oracle
                 }
 
                 eventHorizonLINQ.Source_ID = eventHorizonLINQ.ID;
-                eventHorizonLINQ.Source_Mode = EventWindowModes.ViewReplyNote;
+                //eventHorizonLINQ.Source_Mode = EventWindowModes.ViewReplyNote;
                 eventHorizonLINQ.Source_ParentEventID = eventID;
 
                 if (!int.TryParse(dataRow["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
@@ -517,7 +517,7 @@ namespace The_Oracle
 
                         command.Parameters.AddWithValue("@ID", eventHorizonLINQ.ID);
 
-                        if (eventMode == EventWindowModes.ViewMainEvent || eventMode == EventWindowModes.ViewReplyNote || eventMode == EventWindowModes.EditMainEvent || eventMode == EventWindowModes.EditReplyNote)
+                        if (eventMode == EventWindowModes.ViewMainEvent || eventMode == EventWindowModes.ViewNote || eventMode == EventWindowModes.ViewReply || eventMode == EventWindowModes.EditMainEvent || eventMode == EventWindowModes.EditNote || eventMode == EventWindowModes.EditReply)
                             rowsAffected = command.ExecuteNonQuery();
                         else if (rowsAffected == 0 || eventMode == EventWindowModes.NewEvent || eventMode == EventWindowModes.NewNote || eventMode == EventWindowModes.NewReply)
                         {
@@ -557,7 +557,7 @@ namespace The_Oracle
                                     break;
                                 case EventWindowModes.NewNote:
                                     command.Parameters.AddWithValue("@ParentEventID", eventHorizonLINQ.Source_ParentEventID);
-                                    command.Parameters.AddWithValue("@EventModeID", EventModes.ReplyEvent);
+                                    command.Parameters.AddWithValue("@EventModeID", EventModes.NoteEvent);
                                     break;
                                 case EventWindowModes.NewReply:
                                     command.Parameters.AddWithValue("@ParentEventID", eventHorizonLINQ.Source_ParentEventID);
@@ -842,249 +842,173 @@ namespace The_Oracle
                 }
             }
         }
-
         public static List<EventHorizonLINQ> GetMyUnread()
         {
-            List<EventHorizonLINQ> ReturnUnread = new List<EventHorizonLINQ>();
-            EventHorizonLINQ eventHorizonLINQ;
+            List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();
 
-            String SqlString = "SELECT * FROM EventLog WHERE StatusID=" + Statuses.Active + " AND TargetUserID=" + XMLReaderWriter.UserID + " ORDER BY LastViewedDateTime DESC;";
+            EnumerableRowCollection<DataRow> query;
 
-            //Console.Write("SqlString = ");
-            //Console.WriteLine(SqlString);
+            query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                    where eventHorizonEvent.Field<Int32>("StatusID") == Statuses.Active && eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                    orderby eventHorizonEvent.Field<DateTime>("LastViewedDateTime") descending
+                    select eventHorizonEvent;
 
-            try
+            DataView dataView = query.AsDataView();
+
+            foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                using (OleDbConnection conn = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
+                EventHorizonLINQ eventHorizonLINQ = new EventHorizonLINQ();
+
+                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonLINQ.ID)) eventHorizonLINQ.ID = 0;
+                if (!int.TryParse(dataRow["EventTypeID"].ToString(), out eventHorizonLINQ.EventTypeID)) eventHorizonLINQ.EventTypeID = 0;
+                if (!int.TryParse(dataRow["SourceID"].ToString(), out eventHorizonLINQ.SourceID)) eventHorizonLINQ.SourceID = 0;
+
+                eventHorizonLINQ.Details = dataRow["Details"].ToString();
+
+                if (!int.TryParse(dataRow["FrequencyID"].ToString(), out eventHorizonLINQ.FrequencyID)) eventHorizonLINQ.FrequencyID = 0;
+                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonLINQ.StatusID)) eventHorizonLINQ.StatusID = 0;
+
+                string createdDateTimeString = dataRow["CreatedDateTime"].ToString();
+                DateTime createdDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
+                eventHorizonLINQ.CreationDate = createdDateTime;
+
+                string targetDateTimeString = dataRow["TargetDateTime"].ToString();
+                DateTime targetDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(targetDateTimeString, out targetDateTime))
                 {
-                    using (OleDbCommand cmd = new OleDbCommand(SqlString, conn))
+                    if (targetDateTime.TimeOfDay == TimeSpan.Zero)
+                        targetDateTimeString = targetDateTime.ToString("dd/MM/y");
+                    else
+                        targetDateTimeString = targetDateTime.ToString("dd/MM/y HH:mm");
+
+                    eventHorizonLINQ.TargetDate = targetDateTime;
+                }
+                else
+                    Console.WriteLine("Unable to parse TargetDateTimeString '{0}'", targetDateTimeString);
+
+                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonLINQ.UserID)) eventHorizonLINQ.UserID = 0;
+
+                if (!int.TryParse(dataRow["TargetUserID"].ToString(), out eventHorizonLINQ.TargetUserID)) eventHorizonLINQ.TargetUserID = 0;
+
+                if (!int.TryParse(dataRow["ReadByMeID"].ToString(), out eventHorizonLINQ.ReadByMeID)) eventHorizonLINQ.ReadByMeID = 0;
+
+                string lastViewedDateTimeString = dataRow["LastViewedDateTime"].ToString();
+                DateTime lastViewedDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(lastViewedDateTimeString, out lastViewedDateTime)) lastViewedDateTimeString = lastViewedDateTime.ToString("dd/MM/y HH:mm");
+                eventHorizonLINQ.LastViewedDate = lastViewedDateTime;
+
+                TimeSpan timeSpan = MainWindow.mw.ReminderListTimeSpan;
+
+                int totalDays = Convert.ToInt32((targetDateTime.Date - DateTime.Today).Days);
+                Color iconEllipeColor = Colors.Pink;
+
+                if ((DateTime.Today + timeSpan) > targetDateTime.Date)
+                {
+                    switch (totalDays)
                     {
-                        conn.Open();
-                        using (OleDbDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                eventHorizonLINQ = new EventHorizonLINQ();
-
-
-                                if (!int.TryParse(reader["ID"].ToString(), out eventHorizonLINQ.ID)) eventHorizonLINQ.ID = 0;
-                                if (!int.TryParse(reader["EventTypeID"].ToString(), out eventHorizonLINQ.EventTypeID)) eventHorizonLINQ.EventTypeID = 0;
-                                if (!int.TryParse(reader["SourceID"].ToString(), out eventHorizonLINQ.SourceID)) eventHorizonLINQ.SourceID = 0;
-
-                                eventHorizonLINQ.Details = reader["Details"].ToString();
-
-                                if (!int.TryParse(reader["FrequencyID"].ToString(), out eventHorizonLINQ.FrequencyID)) eventHorizonLINQ.FrequencyID = 0;
-                                if (!int.TryParse(reader["StatusID"].ToString(), out eventHorizonLINQ.StatusID)) eventHorizonLINQ.StatusID = 0;
-
-                                String CreatedDateTimeString = reader[EventLogFields.CreatedDateTime].ToString();
-                                DateTime cdt = DateTime.MinValue;
-                                if (DateTime.TryParse(CreatedDateTimeString, out cdt)) CreatedDateTimeString = cdt.ToString("dd/MM/y HH:mm");
-                                eventHorizonLINQ.CreationDate = cdt;
-
-                                String TargetDateTimeString = reader[EventLogFields.TargetDateTime].ToString();
-                                DateTime tdt = DateTime.MinValue;
-                                if (DateTime.TryParse(TargetDateTimeString, out tdt))
-                                {
-                                    if (tdt.TimeOfDay == TimeSpan.Zero)
-                                        TargetDateTimeString = tdt.ToString("dd/MM/y");
-                                    else
-                                        TargetDateTimeString = tdt.ToString("dd/MM/y HH:mm");
-
-                                    eventHorizonLINQ.TargetDate = tdt;
-                                }
-                                else
-                                    Console.WriteLine("Unable to parse TargetDateTimeString '{0}'", TargetDateTimeString);
-
-                                if (!int.TryParse(reader["UserID"].ToString(), out eventHorizonLINQ.UserID)) eventHorizonLINQ.UserID = 0;
-
-                                if (!int.TryParse(reader["TargetUserID"].ToString(), out eventHorizonLINQ.TargetUserID)) eventHorizonLINQ.TargetUserID = 0;
-
-                                if (!int.TryParse(reader["ReadByMeID"].ToString(), out eventHorizonLINQ.ReadByMeID)) eventHorizonLINQ.ReadByMeID = 0;
-
-                                String LastViewedDateTimeString = reader[EventLogFields.LastViewedDateTime].ToString();
-                                DateTime lvdt = DateTime.MinValue;
-                                if (DateTime.TryParse(LastViewedDateTimeString, out lvdt)) LastViewedDateTimeString = lvdt.ToString("dd/MM/y HH:mm");
-                                eventHorizonLINQ.LastViewedDate = lvdt;
-
-                                TimeSpan ts = MainWindow.mw.ReminderListTimeSpan;
-
-                                int TotalDays = Convert.ToInt32((tdt.Date - DateTime.Today).Days);
-                                Color IconEllipeColor = Colors.Pink;
-
-                                if ((DateTime.Today + ts) > tdt.Date)
-                                {
-                                    switch (TotalDays)
-                                    {
-                                        case int n when (n <= 0):
-                                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe60000");
-                                            break;
-                                        case int n when (n > 0 && n <= 3):
-                                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFff7800");
-                                            break;
-                                        case int n when (n > 3 && n <= 7):
-                                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF4cbb17");
-                                            break;
-                                        case int n when (n > 7 && n <= 14):
-                                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF9fee79");
-                                            break;
-                                        case int n when (n > 14 && n <= 28):
-                                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFcff6bb");
-                                            break;
-                                        case int n when (n > 28):
-                                            IconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe7fadd");
-                                            break;
-                                    }
-                                }
-
-                                eventHorizonLINQ.Attributes_TotalDays = TotalDays;
-                                eventHorizonLINQ.Attributes_TotalDaysEllipseColor = IconEllipeColor;
-
-                                if (!int.TryParse(reader["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
-
-                                String RemindMeDateTimeString = reader[EventLogFields.RemindMeDateTime].ToString();
-                                DateTime rmdt = DateTime.MinValue;
-                                if (DateTime.TryParse(RemindMeDateTimeString, out rmdt)) RemindMeDateTimeString = rmdt.ToString("dd/MM/y HH:mm");
-                                eventHorizonLINQ.RemindMeDateTime = rmdt;
-
-                                if (!int.TryParse(reader["NotificationAcknowledged"].ToString(), out eventHorizonLINQ.NotificationAcknowledged)) eventHorizonLINQ.NotificationAcknowledged = 0;
-
-                                if (!int.TryParse(reader["ParentEventID"].ToString(), out eventHorizonLINQ.Source_ParentEventID)) eventHorizonLINQ.Source_ParentEventID = 0;
-
-                                if (!int.TryParse(reader["EventModeID"].ToString(), out eventHorizonLINQ.EventModeID)) eventHorizonLINQ.EventModeID = 0;
-
-                                if (eventHorizonLINQ.EventModeID == EventModes.MainEvent)
-                                    eventHorizonLINQ.Source_Mode = EventWindowModes.ViewMainEvent;
-                                else if (eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
-                                    eventHorizonLINQ.Source_Mode = EventWindowModes.ViewReplyNote;
-
-                                //Test to see if user has already viewed the notification
-                                if (eventHorizonLINQ.RemindMeID == RemindMeModes.No && eventHorizonLINQ.NotificationAcknowledged == NotificationAcknowlegedModes.No) ReturnUnread.Add(eventHorizonLINQ);
-
-                                //Console.Write("eventHorizonLINQ.ID = ");
-                                //Console.WriteLine(eventHorizonLINQ.ID);
-                                //Console.Write("eventHorizonLINQ.UserID = ");
-                                //Console.WriteLine(eventHorizonLINQ.UserID);
-                                //Console.Write("eventHorizonLINQ.Details = ");
-                                //Console.WriteLine(eventHorizonLINQ.Details);
-                                //Console.Write("eventHorizonLINQ.TargetUserID = ");
-                                //Console.WriteLine(eventHorizonLINQ.TargetUserID);
-                            }
-                        }
+                        case int n when (n <= 0):
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe60000");
+                            break;
+                        case int n when (n > 0 && n <= 3):
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFff7800");
+                            break;
+                        case int n when (n > 3 && n <= 7):
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF4cbb17");
+                            break;
+                        case int n when (n > 7 && n <= 14):
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF9fee79");
+                            break;
+                        case int n when (n > 14 && n <= 28):
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFcff6bb");
+                            break;
+                        case int n when (n > 28):
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe7fadd");
+                            break;
                     }
                 }
-            }
-            catch (OleDbException myOLEDBException)
-            {
-                Console.WriteLine("----------------------------------------");
-                for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
-                {
-                    Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
-                    Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
-                    Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
-                    Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
-                    Console.WriteLine("----------------------------------------");
 
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetMyUnread - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
-                    msg.ShowDialog();
-                }
+                if (!int.TryParse(dataRow["ParentEventID"].ToString(), out eventHorizonLINQ.Source_ParentEventID)) eventHorizonLINQ.Source_ParentEventID = 0;
+
+                if (!int.TryParse(dataRow["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
+
+                string remindMeDateTimeString = dataRow["RemindMeDateTime"].ToString();
+                DateTime remindMeDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(remindMeDateTimeString, out remindMeDateTime)) remindMeDateTimeString = remindMeDateTime.ToString("dd/MM/y HH:mm");
+                eventHorizonLINQ.RemindMeDateTime = remindMeDateTime;
+
+                if (!int.TryParse(dataRow["NotificationAcknowledged"].ToString(), out eventHorizonLINQ.NotificationAcknowledged)) eventHorizonLINQ.NotificationAcknowledged = 0;
+
+                if (!int.TryParse(dataRow["EventModeID"].ToString(), out eventHorizonLINQ.EventModeID)) eventHorizonLINQ.EventModeID = 0;
+
+                eventHorizonLINQ.Attributes_TotalDays = totalDays;
+                eventHorizonLINQ.Attributes_TotalDaysEllipseColor = iconEllipeColor;
+
+                if (eventHorizonLINQ.RemindMeID == RemindMeModes.No && eventHorizonLINQ.NotificationAcknowledged == NotificationAcknowlegedModes.No) _EventHorizonLINQReturnList.Add(eventHorizonLINQ);
             }
 
-            return ReturnUnread;
+            return _EventHorizonLINQReturnList;
         }
         
-        public static  List<EventHorizonLINQ> GetMyReminders()
+        public static List<EventHorizonLINQ> GetMyReminders()
         {
-            List<EventHorizonLINQ> ReturnReminders = new List<EventHorizonLINQ>();
-            EventHorizonLINQ eventHorizonLINQ;
+            List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();
 
-            String SqlString = "SELECT * FROM EventLog WHERE StatusID=" + Statuses.Active + " AND TargetUserID=" + XMLReaderWriter.UserID + " ORDER BY RemindMeDateTime DESC;";
+            EnumerableRowCollection<DataRow> query;
 
-            //Console.Write("SqlString = ");
-            //Console.WriteLine(SqlString);
+            query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                    where eventHorizonEvent.Field<Int32>("StatusID") == Statuses.Active && eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                    orderby eventHorizonEvent.Field<DateTime>("RemindMeDateTime") descending
+                    select eventHorizonEvent;
 
-            try
+            DataView dataView = query.AsDataView();
+
+            foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                using (OleDbConnection connection = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
+                EventHorizonLINQ eventHorizonLINQ = new EventHorizonLINQ();
+
+                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonLINQ.ID)) eventHorizonLINQ.ID = 0;
+
+                eventHorizonLINQ.Details = dataRow["Details"].ToString();
+
+                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonLINQ.UserID)) eventHorizonLINQ.UserID = 0;
+
+                if (!int.TryParse(dataRow["TargetUserID"].ToString(), out eventHorizonLINQ.TargetUserID)) eventHorizonLINQ.TargetUserID = 0;
+
+                if (!int.TryParse(dataRow["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
+
+                string remindMeDateTimeString = dataRow["RemindMeDateTime"].ToString();
+                DateTime remindMeDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(remindMeDateTimeString, out remindMeDateTime)) remindMeDateTimeString = remindMeDateTime.ToString("dd/MM/y HH:mm");
+                eventHorizonLINQ.RemindMeDateTime = remindMeDateTime;
+
+                if (!int.TryParse(dataRow["NotificationAcknowledged"].ToString(), out eventHorizonLINQ.NotificationAcknowledged)) eventHorizonLINQ.NotificationAcknowledged = 0;
+
+                if (DateTime.TryParse(remindMeDateTimeString, out remindMeDateTime))
                 {
-                    using (OleDbCommand cmd = new OleDbCommand(SqlString, connection))
+                    //Console.WriteLine(rmdt);
+
+                    if (remindMeDateTime.TimeOfDay == TimeSpan.Zero)
                     {
-                        connection.Open();
-                        using (OleDbDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                eventHorizonLINQ = new EventHorizonLINQ();
-                                eventHorizonLINQ.ID = int.Parse(reader["ID"].ToString());
-                                eventHorizonLINQ.UserID = int.Parse(reader["UserID"].ToString());
-                                eventHorizonLINQ.Details = reader["Details"].ToString();
-                                eventHorizonLINQ.TargetUserID = int.Parse(reader["TargetUserID"].ToString());
-
-                                Int32 RemindMe;
-
-                                bool success = int.TryParse(reader["RemindMeID"].ToString(), out RemindMe);
-                                if (!success) RemindMe = 0;
-
-                                DateTime rmdt = DateTime.MinValue;
-                                String rmdtString = reader["RemindMeDateTime"].ToString();
-
-                                Int32 NotificationAcknowleged;
-
-                                bool success2 = int.TryParse(reader["NotificationAcknowledged"].ToString(), out NotificationAcknowleged);
-                                if (!success2) NotificationAcknowleged = 0;
-
-                                if (DateTime.TryParse(rmdtString, out rmdt))
-                                {
-                                    //Console.WriteLine(rmdt);
-
-                                    if (rmdt.TimeOfDay == TimeSpan.Zero)
-                                    {
-                                        rmdtString = rmdt.ToString("dd/MM/y");
-                                    }
-                                    else
-                                    {
-                                        rmdtString = rmdt.ToString("dd/MM/y HH:mm");
-                                    }
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Unable to parse rmdtString '{0}'", rmdtString);
-                                }
-
-                                if (DateTime.Now >= rmdt && RemindMe == RemindMeModes.Yes)
-                                {
-                                    if (NotificationAcknowleged == NotificationAcknowlegedModes.No) ReturnReminders.Add(eventHorizonLINQ);
-                                }
-
-                                //Console.Write("eventHorizonLINQ.ID = ");
-                                //Console.WriteLine(eventHorizonLINQ.ID);
-                                //Console.Write("eventHorizonLINQ.UserID = ");
-                                //Console.WriteLine(eventHorizonLINQ.UserID);
-                                //Console.Write("eventHorizonLINQ.Details = ");
-                                //Console.WriteLine(eventHorizonLINQ.Details);
-                                //Console.Write("eventHorizonLINQ.TargetUserID = ");
-                                //Console.WriteLine(eventHorizonLINQ.TargetUserID);
-                            }
-                        }
+                        remindMeDateTimeString = remindMeDateTime.ToString("dd/MM/y");
+                    }
+                    else
+                    {
+                        remindMeDateTimeString = remindMeDateTime.ToString("dd/MM/y HH:mm");
                     }
                 }
-            }
-            catch (OleDbException myOLEDBException)
-            {
-                Console.WriteLine("----------------------------------------");
-                for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
+                else
                 {
-                    Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
-                    Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
-                    Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
-                    Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
-                    Console.WriteLine("----------------------------------------");
+                    Console.WriteLine("Unable to parse rmdtString '{0}'", remindMeDateTimeString);
+                }
 
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetMyReminders - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
-                    msg.ShowDialog();
+                if (DateTime.Now >= remindMeDateTime && eventHorizonLINQ.RemindMeID == RemindMeModes.Yes)
+                {
+                    if (eventHorizonLINQ.NotificationAcknowledged == NotificationAcknowlegedModes.No) _EventHorizonLINQReturnList.Add(eventHorizonLINQ);
                 }
             }
 
-            return ReturnReminders;
+            return _EventHorizonLINQReturnList;
         }
 
         public static void UpdateMyReminder(Int32 EventID, int ReminderMeID, DateTime RemindMeDateTime, int NotificationAcknowledged)

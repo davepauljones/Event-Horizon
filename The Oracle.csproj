@@ -294,5 +294,8 @@
   <ItemGroup>
     <Resource Include="gplv3-216x110.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="wormhole1000x600.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -309,11 +309,19 @@ namespace The_Oracle
 
             eventRow.EventIDTextBlock.Text = eventHorizonLINQ.ID.ToString("D5");
 
-            if (eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
+            if (eventHorizonLINQ.EventModeID == EventModes.NoteEvent)
             {
-                eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.LightSeaGreen);
-                eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Comment;
-                eventRow.EventTypeTextBlock.Text = "";
+                eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.LightSlateGray);
+                eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.StickyNote;
+                eventRow.EventTypeTextBlock.Text = "Note";
+                eventRow.BackgroundGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f7f8f9"));
+                eventRow.SourceIDGrid.Visibility = Visibility.Hidden;
+            }
+            else if (eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
+            {
+                eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.LightSlateGray);
+                eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Exchange;
+                eventRow.EventTypeTextBlock.Text = "Reply";
                 eventRow.BackgroundGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f7f8f9"));
                 eventRow.SourceIDGrid.Visibility = Visibility.Hidden;
             }
@@ -339,7 +347,7 @@ namespace The_Oracle
 
             eventRow.CreatedDateTimeTextBlock.Text = eventHorizonLINQ.CreationDate.ToString("dd/MM/y HH:mm");
 
-            if (eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
+            if (eventHorizonLINQ.EventModeID == EventModes.NoteEvent || eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
             {
                 eventRow.SourceIDTextBlock.Text = "";
             }
@@ -353,7 +361,7 @@ namespace The_Oracle
 
             eventRow.DetailsTextBlock.Text = eventHorizonLINQ.Details;
 
-            if (eventHorizonLINQ.EventModeID != EventModes.ReplyEvent) eventRow.FrequencyGrid.Children.Add(Frequency.GetFrequency(eventHorizonLINQ.FrequencyID));
+            if (eventHorizonLINQ.EventModeID != EventModes.NoteEvent && eventHorizonLINQ.EventModeID != EventModes.ReplyEvent) eventRow.FrequencyGrid.Children.Add(Frequency.GetFrequency(eventHorizonLINQ.FrequencyID));
 
             eventRow.StatusGrid.Children.Add(StatusIcons.GetStatus(eventHorizonLINQ.StatusID));
 

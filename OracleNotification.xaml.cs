@@ -74,14 +74,35 @@ namespace The_Oracle
 
                         DataTableManagement.UpdateMyReminder(eventID, RemindMeModes.No, DateTime.Now, NotificationAcknowlegedModes.Yes);
 
-                        if (eventHorizonLINQ.TargetUserID == XMLReaderWriter.UserID) DataTableManagement.UpdateStatusID(eventID, Statuses.ActiveNotified);
+                        if (eventHorizonLINQ.TargetUserID == XMLReaderWriter.UserID)
+                        {
+                            DataTableManagement.UpdateStatusID(eventID, Statuses.ActiveNotified);
+                            eventHorizonLINQ.StatusID = Statuses.ActiveNotified;
+                        }
 
                         Close();
 
-                        EventWindow eventWindow = new EventWindow(MainWindow.mw, EventWindowModes.ViewMainEvent, eventHorizonLINQ, null);
-                        eventWindow.Left = eventWindow.Left - 100;
-                        eventWindow.Top = eventWindow.Top - 100;
-                        eventWindow.Show();
+                        if (eventHorizonLINQ.EventModeID == EventModes.MainEvent)
+                        {
+                            EventWindow veiwEventWindow = new EventWindow(MainWindow.mw, EventWindowModes.ViewMainEvent, eventHorizonLINQ, null);
+                            veiwEventWindow.Left = veiwEventWindow.Left - 100;
+                            veiwEventWindow.Top = veiwEventWindow.Top - 100;
+                            veiwEventWindow.Show();
+                        }
+                        else if (eventHorizonLINQ.EventModeID == EventModes.NoteEvent)
+                        {
+                            EventWindow veiwEventWindow = new EventWindow(MainWindow.mw, EventWindowModes.ViewNote, eventHorizonLINQ, null);
+                            veiwEventWindow.Left = veiwEventWindow.Left - 100;
+                            veiwEventWindow.Top = veiwEventWindow.Top - 100;
+                            veiwEventWindow.Show();
+                        }
+                        else if (eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
+                        {
+                            EventWindow veiwEventWindow = new EventWindow(MainWindow.mw, EventWindowModes.ViewReply, eventHorizonLINQ, null);
+                            veiwEventWindow.Left = veiwEventWindow.Left - 100;
+                            veiwEventWindow.Top = veiwEventWindow.Top - 100;
+                            veiwEventWindow.Show();
+                        }
                         break;
                     case 1:
                         DateTime remindMeDateTime = DateTime.Now;

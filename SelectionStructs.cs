@@ -199,17 +199,20 @@ namespace The_Oracle
     public struct EventModes
     {
         public const int MainEvent = 0;
-        public const int ReplyEvent = 1;
+        public const int NoteEvent = 1;
+        public const int ReplyEvent = 2;
     }
     public struct EventWindowModes
     {
         public const int ViewMainEvent = 0;
-        public const int ViewReplyNote = 1;
-        public const int EditMainEvent = 2;
-        public const int EditReplyNote = 3;
-        public const int NewEvent = 4;
-        public const int NewNote = 5;
-        public const int NewReply = 6;
+        public const int ViewNote = 1;
+        public const int ViewReply = 2;
+        public const int EditMainEvent = 3;
+        public const int EditNote = 4;
+        public const int EditReply = 5;
+        public const int NewEvent = 6;
+        public const int NewNote = 7;
+        public const int NewReply = 8;
     }
     public struct RequesterTypes
     {

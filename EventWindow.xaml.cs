@@ -40,51 +40,71 @@ namespace The_Oracle
 
             formOpenStartTime = DateTime.Now;
 
-            switch (eventHorizonLINQ.Source_Mode)
+            switch (eventWindowMode)
             {
                 case EventWindowModes.ViewMainEvent:
                     GetOracleEvent();
 
                     if (userID == XMLReaderWriter.UserID)
-                        eventHorizonLINQ.Source_Mode = EventWindowModes.EditMainEvent;
+                        eventWindowMode = EventWindowModes.EditMainEvent;
                     else
-                        eventHorizonLINQ.Source_Mode = EventWindowModes.ViewMainEvent;
+                        eventWindowMode = EventWindowModes.ViewMainEvent;
 
                     break;
-                case EventWindowModes.ViewReplyNote:
+                case EventWindowModes.ViewNote:
                     GetOracleEvent();
 
                     if (userID == XMLReaderWriter.UserID)
-                        eventHorizonLINQ.Source_Mode = EventWindowModes.EditReplyNote;
+                        eventWindowMode = EventWindowModes.EditNote;
                     else
-                        eventHorizonLINQ.Source_Mode = EventWindowModes.ViewReplyNote;
+                        eventWindowMode = EventWindowModes.ViewNote;
+
+                    break;
+                case EventWindowModes.ViewReply:
+                    GetOracleEvent();
+
+                    if (userID == XMLReaderWriter.UserID)
+                        eventWindowMode = EventWindowModes.EditReply;
+                    else
+                        eventWindowMode = EventWindowModes.ViewReply;
 
                     break;
                 case EventWindowModes.EditMainEvent:
                     GetOracleEvent();
 
                     if (userID == XMLReaderWriter.UserID)
-                        eventHorizonLINQ.Source_Mode = EventWindowModes.EditMainEvent;
+                        eventWindowMode = EventWindowModes.EditMainEvent;
                     else
-                        eventHorizonLINQ.Source_Mode = EventWindowModes.ViewMainEvent;
+                        eventWindowMode = EventWindowModes.ViewMainEvent;
 
                     break;
-                case EventWindowModes.EditReplyNote:
+                case EventWindowModes.EditNote:
                     GetOracleEvent();
 
                     if (userID == XMLReaderWriter.UserID)
-                        eventHorizonLINQ.Source_Mode = EventWindowModes.EditReplyNote;
+                        eventWindowMode = EventWindowModes.EditNote;
                     else
-                        eventHorizonLINQ.Source_Mode = EventWindowModes.ViewReplyNote;
+                        eventWindowMode = EventWindowModes.ViewNote;
+
+                    break;
+                case EventWindowModes.EditReply:
+                    GetOracleEvent();
+
+                    if (userID == XMLReaderWriter.UserID)
+                        eventWindowMode = EventWindowModes.EditReply;
+                    else
+                        eventWindowMode = EventWindowModes.ViewReply;
 
                     break;
                 case EventWindowModes.NewEvent:
                 case EventWindowModes.NewNote:
                 case EventWindowModes.NewReply:
+                    eventHorizonLINQ.TargetUserID = eventHorizonLINQ.UserID;
+                    eventHorizonLINQ.UserID = XMLReaderWriter.UserID;
                     break;
             }
 
-            if (eventHorizonLINQ.Source_Mode == EventWindowModes.ViewMainEvent)
+            if (eventWindowMode == EventWindowModes.ViewMainEvent)
             {
                 EventIDLabel.Content = eventHorizonLINQ.ID.ToString("D5");
                 ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
@@ -109,12 +129,12 @@ namespace The_Oracle
                 ReplyButton.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Collapsed;
             }
-            else if (eventHorizonLINQ.Source_Mode == EventWindowModes.ViewReplyNote)
+            else if (eventWindowMode == EventWindowModes.ViewNote)
             {
                 EventIDLabel.Content = eventHorizonLINQ.ID.ToString("D5");
                 ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "View Reply Note";
+                EventTitleLabel.Content = "View Note";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
@@ -134,7 +154,32 @@ namespace The_Oracle
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Collapsed;
             }
-            else if (eventHorizonLINQ.Source_Mode == EventWindowModes.EditMainEvent)
+            else if (eventWindowMode == EventWindowModes.ViewReply)
+            {
+                EventIDLabel.Content = eventHorizonLINQ.ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventTitleLabel.Content = "View Reply";
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
+                EventTypeComboBox.IsEnabled = false;
+                SourceComboBox.IsEnabled = false;
+                GenButton.Visibility = Visibility.Collapsed;
+                DetailsTextBox.IsEnabled = false;
+                FrequencyComboBox.IsEnabled = false;
+                TargetUserIDComboBox.IsEnabled = false;
+                StatusComboBox.IsEnabled = false;
+                TargetDatePicker.IsEnabled = false;
+                TargetTimeHoursPicker.IsEnabled = false;
+                TargetTimeMinutesPicker.IsEnabled = false;
+                TargetDayButtonsStackPanel.Visibility = Visibility.Collapsed;
+                TargetTimeButtonsStackPanel.Visibility = Visibility.Collapsed;
+                AddNoteButton.Visibility = Visibility.Collapsed;
+                ReplyButton.Visibility = Visibility.Collapsed;
+                SaveButton.Visibility = Visibility.Collapsed;
+            }
+            else if (eventWindowMode == EventWindowModes.EditMainEvent)
             {
                 EventIDLabel.Content = eventHorizonLINQ.ID.ToString("D5");
                 ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
@@ -159,12 +204,12 @@ namespace The_Oracle
                 ReplyButton.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Visible;
             }
-            else if (eventHorizonLINQ.Source_Mode == EventWindowModes.EditReplyNote)
+            else if (eventWindowMode == EventWindowModes.EditNote)
             {
                 EventIDLabel.Content = eventHorizonLINQ.Source_ID.ToString("D5");
                 ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "Edit Reply Note";
+                EventTitleLabel.Content = "Edit Note";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
@@ -184,7 +229,32 @@ namespace The_Oracle
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
             }
-            else if (eventHorizonLINQ.Source_Mode == EventWindowModes.NewEvent)
+            else if (eventWindowMode == EventWindowModes.EditReply)
+            {
+                EventIDLabel.Content = eventHorizonLINQ.Source_ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventTitleLabel.Content = "Edit Reply";
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
+                EventTypeComboBox.IsEnabled = true;
+                SourceComboBox.IsEnabled = true;
+                GenButton.Visibility = Visibility.Visible;
+                DetailsTextBox.IsEnabled = true;
+                FrequencyComboBox.IsEnabled = true;
+                TargetUserIDComboBox.IsEnabled = true;
+                StatusComboBox.IsEnabled = true;
+                TargetDatePicker.IsEnabled = true;
+                TargetTimeHoursPicker.IsEnabled = true;
+                TargetTimeMinutesPicker.IsEnabled = true;
+                TargetDayButtonsStackPanel.Visibility = Visibility.Visible;
+                TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
+                AddNoteButton.Visibility = Visibility.Collapsed;
+                ReplyButton.Visibility = Visibility.Collapsed;
+                SaveButton.Visibility = Visibility.Visible;
+            }
+            else if (eventWindowMode == EventWindowModes.NewEvent)
             {
                 EventIDLabel.Content = "-1";
                 ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
@@ -215,7 +285,7 @@ namespace The_Oracle
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
             }
-            else if (eventHorizonLINQ.Source_Mode == EventWindowModes.NewNote)
+            else if (eventWindowMode == EventWindowModes.NewNote)
             {
                 EventIDLabel.Content = "-1";
                 ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
@@ -246,15 +316,15 @@ namespace The_Oracle
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
             }
-            else if (eventHorizonLINQ.Source_Mode == EventWindowModes.NewReply)
+            else if (eventWindowMode == EventWindowModes.NewReply)
             {
                 EventIDLabel.Content = "-1";
                 ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "New Reply";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
                 EventTypeComboBox.SelectedIndex = eventHorizonLINQ.EventTypeID;
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.SelectedIndex = eventHorizonLINQ.SourceID;
@@ -291,7 +361,7 @@ namespace The_Oracle
                 EventTypeComboBox.Items.Add(EventHorizonEventTypes.GetEventTypeStackPanel(eventType));
             }
 
-            if (eventHorizonLINQ.Source_Mode != EventWindowModes.EditMainEvent || eventHorizonLINQ.Source_Mode != EventWindowModes.EditReplyNote) EventTypeComboBox.SelectedIndex = 0;
+            if (eventWindowMode != EventWindowModes.EditMainEvent || eventWindowMode != EventWindowModes.EditNote || eventWindowMode != EventWindowModes.EditReply) EventTypeComboBox.SelectedIndex = 0;
         }
         
         private void AddItemsToSourceComboBox()
@@ -301,7 +371,7 @@ namespace The_Oracle
                 SourceComboBox.Items.Add(EventHorizonSources.GetSourceStackPanel(sourceType));
             }
             
-            if (eventHorizonLINQ.Source_Mode != EventWindowModes.EditMainEvent || eventHorizonLINQ.Source_Mode != EventWindowModes.EditReplyNote) SourceComboBox.SelectedIndex = 0;
+            if (eventWindowMode != EventWindowModes.EditMainEvent || eventWindowMode != EventWindowModes.EditNote || eventWindowMode != EventWindowModes.EditReply) SourceComboBox.SelectedIndex = 0;
         }
 
         private void AddItemsToFrequencyComboBox()
@@ -332,7 +402,7 @@ namespace The_Oracle
             FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Months_03, false));
             FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Months_09, false));
 
-            if (eventHorizonLINQ.Source_Mode != EventWindowModes.EditMainEvent || eventHorizonLINQ.Source_Mode != EventWindowModes.EditReplyNote) FrequencyComboBox.SelectedIndex = 0;
+            if (eventWindowMode != EventWindowModes.EditMainEvent || eventWindowMode != EventWindowModes.EditNote || eventWindowMode != EventWindowModes.EditReply) FrequencyComboBox.SelectedIndex = 0;
         }
 
         private void AddUsersToTargetUsersComboBox()
@@ -396,34 +466,6 @@ namespace The_Oracle
             eventHorizonLINQ.StatusID = StatusComboBox.SelectedIndex;
             eventHorizonLINQ.TargetDate = targetDateTime;
 
-            switch (eventHorizonLINQ.Source_Mode)
-            {
-                case EventWindowModes.ViewMainEvent:                    
-                    break;
-                case EventWindowModes.ViewReplyNote:                   
-                    break;
-                case EventWindowModes.EditMainEvent:
-                    eventHorizonLINQ.TargetUserID = TargetUserIDComboBox.SelectedIndex;                    
-                    break;
-                case EventWindowModes.EditReplyNote:
-                    eventHorizonLINQ.TargetUserID = TargetUserIDComboBox.SelectedIndex;
-                    break;
-                case EventWindowModes.NewEvent:
-                    eventHorizonLINQ.TargetUserID = TargetUserIDComboBox.SelectedIndex;
-                    eventHorizonLINQ.UserID = XMLReaderWriter.UserID;
-                    break;
-                case EventWindowModes.NewNote:
-                    eventHorizonLINQ.TargetUserID = TargetUserIDComboBox.SelectedIndex;
-                    eventHorizonLINQ.UserID = XMLReaderWriter.UserID;
-                    break;
-                case EventWindowModes.NewReply:
-                    eventHorizonLINQ.TargetUserID = eventHorizonLINQ.UserID;
-                    eventHorizonLINQ.UserID = XMLReaderWriter.UserID;
-                    break;
-                default:                   
-                    break;
-            }
-
             Console.Write("eventHorizonLINQ.TargetUserID = ");
             Console.WriteLine(eventHorizonLINQ.TargetUserID);
         }
@@ -465,7 +507,7 @@ namespace The_Oracle
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (formOpenStartTime + eventIsReadAfterTimeSpan < DateTime.Now && eventHorizonLINQ.Source_Mode != EventWindowModes.NewEvent)
+            if (formOpenStartTime + eventIsReadAfterTimeSpan < DateTime.Now && eventWindowMode != EventWindowModes.NewEvent)
             {
                 if (eventHorizonLINQ.TargetUserID == XMLReaderWriter.UserID)
                 {
@@ -507,23 +549,31 @@ namespace The_Oracle
                         nev.Top += 30;
                         break;
                     case EventFormCloseButtons.Save:
-                        switch (eventHorizonLINQ.Source_Mode)
+                        switch (eventWindowMode)
                         {
                             case EventWindowModes.ViewMainEvent:
                                 SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewMainEvent);
                                 break;
-                            case EventWindowModes.ViewReplyNote:
+                            case EventWindowModes.ViewNote:
                                 SetOracleEvent();
-                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewReplyNote);
+                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewNote);
+                                break;
+                            case EventWindowModes.ViewReply:
+                                SetOracleEvent();
+                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewReply);
                                 break;
                             case EventWindowModes.EditMainEvent:
                                 SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditMainEvent);
                                 break;
-                            case EventWindowModes.EditReplyNote:
+                            case EventWindowModes.EditNote:
                                 SetOracleEvent();
-                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditReplyNote);
+                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditNote);
+                                break;
+                            case EventWindowModes.EditReply:
+                                SetOracleEvent();
+                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditReply);
                                 break;
                             case EventWindowModes.NewEvent:
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.NewEvent);
@@ -537,8 +587,8 @@ namespace The_Oracle
                         }
                         break;
                 }
-                Console.Write("eventHorizonLINQ.Source_Mode = ");
-                Console.WriteLine(eventHorizonLINQ.Source_Mode);
+                //Console.Write("eventHorizonLINQ.Source_Mode = ");
+                //Console.WriteLine(eventHorizonLINQ.Source_Mode);
             }
         }
 
