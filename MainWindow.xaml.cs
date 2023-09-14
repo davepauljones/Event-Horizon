@@ -269,7 +269,7 @@ namespace The_Oracle
                 ReminderListView.Items.Clear();
                 DataTableManagement.EventHorizon_Event.Clear();
 
-                EventHorizonLINQList = DataTableManagement.GetEvents(listViewToPopulate, EventTypeID, FilterMode, DisplayMode);
+                EventHorizonLINQList = DataTableManagement.GetEvents(listViewToPopulate, EventTypeID, FilterMode, DisplayMode, SearchTextBox.Text);
 
                 foreach (EventHorizonLINQ eventHorizonLINQ in EventHorizonLINQList)
                 {
@@ -1388,6 +1388,17 @@ namespace The_Oracle
                 //try open event as EditEvent
                 EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ, null);
                 editEventWindow.Show();
+            }
+        }
+
+        private void SearchTextBox_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                if (DisplayMode == DisplayModes.Reminders)
+                    RefreshLog(ListViews.Reminder);
+                else
+                    RefreshLog(ListViews.Log);
             }
         }
     }

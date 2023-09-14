@@ -20,7 +20,7 @@ namespace The_Oracle
             ConnectionString = connectionString;
         }
 
-        public static List<EventHorizonLINQ> GetEvents(int listViewToPopulate, Int32 eventTypeID, Int32 filterMode, Int32 displayMode)
+        public static List<EventHorizonLINQ> GetEvents(int listViewToPopulate, Int32 eventTypeID, Int32 filterMode, Int32 displayMode, string searchString)
         {
             List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();
 
@@ -66,6 +66,7 @@ namespace The_Oracle
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
                                         select eventHorizonEvent;
                                 break;
@@ -74,6 +75,7 @@ namespace The_Oracle
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
                                         select eventHorizonEvent;
                                 break;
@@ -82,6 +84,7 @@ namespace The_Oracle
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID || eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
                                         select eventHorizonEvent;
                                 break;
@@ -91,6 +94,7 @@ namespace The_Oracle
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
                                         where eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
                                         select eventHorizonEvent;
                                 break;
@@ -98,6 +102,7 @@ namespace The_Oracle
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
                                         select eventHorizonEvent;
                                 break;
@@ -109,6 +114,7 @@ namespace The_Oracle
                             case FilterModes.None:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
@@ -116,6 +122,7 @@ namespace The_Oracle
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
@@ -123,6 +130,7 @@ namespace The_Oracle
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID || eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
@@ -131,12 +139,14 @@ namespace The_Oracle
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
                                         where eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
                             default:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
@@ -146,6 +156,7 @@ namespace The_Oracle
                         query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                 where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                 where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
+                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                 orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") descending
                                 select eventHorizonEvent;
                         break;
@@ -161,6 +172,7 @@ namespace The_Oracle
                             case FilterModes.None:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
                                         select eventHorizonEvent;
                                 break;
@@ -168,6 +180,7 @@ namespace The_Oracle
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
                                         select eventHorizonEvent;
                                 break;
@@ -175,6 +188,7 @@ namespace The_Oracle
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID || eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
                                         select eventHorizonEvent;
                                 break;
@@ -183,12 +197,14 @@ namespace The_Oracle
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
                                         where eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
                                         select eventHorizonEvent;
                                 break;
                             default:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("TargetDateTime") ascending
                                         select eventHorizonEvent;
                                 break;
@@ -199,18 +215,21 @@ namespace The_Oracle
                         {
                             case FilterModes.None:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
                             case FilterModes.OriginIsMe:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
                             case FilterModes.OriginOrTargetIsMe:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID || eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
@@ -218,11 +237,13 @@ namespace The_Oracle
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
                                         where eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
                             default:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
                                 break;
@@ -230,6 +251,7 @@ namespace The_Oracle
                         break;
                     default:
                         query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                 orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                 select eventHorizonEvent;
                         break;
