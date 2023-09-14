@@ -354,9 +354,34 @@ namespace The_Oracle
             else
             {
                 if (eventHorizonLINQ.SourceID < XMLReaderWriter.SourceTypesList.Count)
+                {
+                    eventRow.SourceIDEllipse.Fill = new SolidColorBrush(XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Color);
+                    eventRow.SourceIDLabel.Content = MiscFunctions.GetFirstCharsOfString(XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Name);
                     eventRow.SourceIDTextBlock.Text = XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Name;
+                }
                 else
+                {
+                    eventRow.SourceIDEllipse.Fill = new SolidColorBrush(Colors.White);
+                    eventRow.SourceIDLabel.Content = "EE";
                     eventRow.SourceIDTextBlock.Text = "Error";
+                }
+            }
+           
+            if (eventHorizonLINQ.SourceID < XMLReaderWriter.SourceTypesList.Count)
+            {
+                if (eventHorizonLINQ.SourceID > 0)
+                    eventRow.SourceIDLabel.Content = MiscFunctions.GetFirstCharsOfString(XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Name);
+                else
+                {
+                    eventRow.SourceIDLabel.Content = "★";
+                    eventRow.SourceIDLabel.Margin = new Thickness(0, -3, 0, 0);
+                    eventRow.SourceIDLabel.FontSize = 14;
+                }
+            }
+            else
+            {
+                eventRow.SourceIDEllipse.Fill = new SolidColorBrush(Colors.White);
+                eventRow.SourceIDLabel.Content = MiscFunctions.GetFirstCharsOfString(XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Name);
             }
 
             eventRow.DetailsTextBlock.Text = eventHorizonLINQ.Details;
@@ -1280,8 +1305,26 @@ namespace The_Oracle
 
         private void All_ButtonClick(object sender, RoutedEventArgs e)
         {
-            EventTypeComboBox.SelectedIndex = 0;
-            EventTypeID = EventTypeComboBox.SelectedIndex;
+            Button button = e.OriginalSource as Button;
+
+            int buttonID = 0;
+
+            bool success = Int32.TryParse(button.Tag.ToString(), out buttonID);
+
+            if (button != null && success)
+            {
+                switch (buttonID)
+                {
+                    case 0:
+                        EventTypeComboBox.SelectedIndex = 0;
+                        EventTypeID = EventTypeComboBox.SelectedIndex;
+                        SearchTextBox.Text = string.Empty;
+                        break;
+                    case 1:
+                        SearchTextBox.Text = string.Empty;
+                        break;
+                }
+            }
 
             if (MainWindowIs_Loaded)
             {

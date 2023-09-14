@@ -17,8 +17,9 @@
             <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
             <ColumnDefinition Width="Auto" MinWidth="98" MaxWidth="98"/>
             <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
-            <ColumnDefinition Width="Auto" MinWidth="410" MaxWidth="410"/>
-            <ColumnDefinition Width="Auto" MinWidth="123" MaxWidth="123"/>
+            <ColumnDefinition Width="Auto" MinWidth="399" MaxWidth="399"/>
+            <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
+            <ColumnDefinition Width="Auto" MinWidth="108" MaxWidth="108"/>
             <ColumnDefinition Width="Auto" MinWidth="110" MaxWidth="110"/>
             <ColumnDefinition Width="Auto" MinWidth="122" MaxWidth="122"/>
             <ColumnDefinition Width="Auto" MinWidth="60" MaxWidth="60"/>
@@ -72,20 +73,29 @@
             <Label x:Name="TotalDaysLabel" Content="30" Foreground="Black" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
         </Grid>
 
-        <TextBlock Grid.Column="8" Grid.Row="0" x:Name="DetailsTextBlock" Text="Mary had a little lamb" Foreground="Black" FontSize="13" Margin="5,5,5,0" Width="390" TextWrapping="Wrap"/>
+        <TextBlock Grid.Column="8" Grid.Row="0" x:Name="DetailsTextBlock" Text="Mary had a little lamb" Foreground="Black" FontSize="13" Margin="10,5,5,0" Width="384" HorizontalAlignment="Left" TextWrapping="Wrap"/>
 
-        <Grid x:Name="SourceIDGrid" Grid.Column="9" Grid.Row="0" Background="#f7f8f9" Height="18" VerticalAlignment="Top" Margin="5,5,5,0">
+        <!--<Grid x:Name="SourceIDGrid" Grid.Column="9" Grid.Row="0" Background="#f7f8f9" Height="18" VerticalAlignment="Top" Margin="5,5,5,0">
             <Grid.Effect>
                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.2" />
             </Grid.Effect>
             <TextBlock x:Name="SourceIDTextBlock" Text="None" Foreground="Black" FontSize="13" Margin="2,0,2,0" Padding="0" TextAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"/>
+        </Grid>-->
+        <Grid x:Name="SourceIDGrid" Grid.Column="9" Grid.Row="0" Margin="5,1,5,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid.Effect>
+                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+            </Grid.Effect>
+            <Ellipse x:Name="SourceIDEllipse" Width="26" Height="26" Fill="Pink" VerticalAlignment="Bottom"/>
+            <Label x:Name="SourceIDLabel" Content="DJ" Foreground="Black" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
         </Grid>
 
-        <Grid Grid.Column="10" Grid.Row="0" x:Name="FrequencyGrid" Margin="10,2,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <TextBlock Grid.Column="10" Grid.Row="0" x:Name="SourceIDTextBlock" Text="David Jones" Foreground="Black" FontSize="13" Margin="0,5,10,0"/>
 
-        <Grid Grid.Column="11" Grid.Row="0" x:Name="StatusGrid" Margin="10,2,5,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <Grid Grid.Column="11" Grid.Row="0" x:Name="FrequencyGrid" Margin="10,2,0,0" VerticalAlignment="Top" IsEnabled="False"/>
 
-        <Grid Grid.Column="12" Grid.Row="0" Margin="0,0,0,0">
+        <Grid Grid.Column="12" Grid.Row="0" x:Name="StatusGrid" Margin="10,2,5,0" VerticalAlignment="Top" IsEnabled="False"/>
+
+        <Grid Grid.Column="13" Grid.Row="0" Margin="0,0,0,0">
             <Grid.Effect>
                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
             </Grid.Effect>
@@ -94,7 +104,7 @@
             </Button>
         </Grid>
 
-        <ListView Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="12" x:Name="RepliesListView" SelectionMode="Single" Margin="-5,0,0,0" MaxWidth="1272" HorizontalAlignment="Left" BorderThickness="0" Visibility="Collapsed" PreviewMouseDoubleClick="RepliesListView_PreviewMouseDoubleClick">
+        <ListView Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="13" x:Name="RepliesListView" SelectionMode="Single" Margin="-5,0,0,0" MaxWidth="1286" HorizontalAlignment="Left" BorderThickness="0" Visibility="Collapsed" PreviewMouseDoubleClick="RepliesListView_PreviewMouseDoubleClick">
             <ListView.Template>
                 <ControlTemplate>
                     <ItemsPresenter></ItemsPresenter>
