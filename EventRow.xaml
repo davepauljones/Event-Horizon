@@ -75,12 +75,6 @@
 
         <TextBlock Grid.Column="8" Grid.Row="0" x:Name="DetailsTextBlock" Text="Mary had a little lamb" Foreground="Black" FontSize="13" Margin="10,5,5,0" Width="384" HorizontalAlignment="Left" TextWrapping="Wrap"/>
 
-        <!--<Grid x:Name="SourceIDGrid" Grid.Column="9" Grid.Row="0" Background="#f7f8f9" Height="18" VerticalAlignment="Top" Margin="5,5,5,0">
-            <Grid.Effect>
-                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.2" />
-            </Grid.Effect>
-            <TextBlock x:Name="SourceIDTextBlock" Text="None" Foreground="Black" FontSize="13" Margin="2,0,2,0" Padding="0" TextAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"/>
-        </Grid>-->
         <Grid x:Name="SourceIDGrid" Grid.Column="9" Grid.Row="0" Margin="5,1,5,0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Grid.Effect>
                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
