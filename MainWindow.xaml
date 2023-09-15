@@ -250,9 +250,9 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                                             <Label Content="User Filter Mode" Margin="7,0,0,0"/>
-                                            <RadioButton Tag="0" GroupName="FilterModeRadioButton" Content = "None" Margin="10,0,0,0" IsChecked="True" Checked="FilterModeRadioButton_Checked"/>
+                                            <RadioButton Tag="0" GroupName="FilterModeRadioButton" Content = "None" Margin="10,0,0,0" Checked="FilterModeRadioButton_Checked"/>
                                             <RadioButton Tag="1" GroupName="FilterModeRadioButton" Content = "Origin is Me" Margin="10,0,0,0" Checked="FilterModeRadioButton_Checked"/>
-                                            <RadioButton Tag="2" GroupName="FilterModeRadioButton" Content = "Origin or Target is Me" Margin="10,0,0,0" Checked="FilterModeRadioButton_Checked"/>
+                                            <RadioButton Tag="2" GroupName="FilterModeRadioButton" Content = "Origin or Target is Me" Margin="10,0,0,0" IsChecked="True" Checked="FilterModeRadioButton_Checked"/>
                                             <RadioButton Tag="3" GroupName="FilterModeRadioButton" Content = "Origin and Target is Me" Margin="10,0,0,0" Checked="FilterModeRadioButton_Checked"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="180">
