@@ -88,12 +88,12 @@ namespace The_Oracle
 
                  if (ReminderListView.SelectedItems.Count == 0)
                  {
-                     if (DisplayMode == DisplayModes.Reminders)
-                         RefreshLog(ListViews.Reminder);
-                     else
-                         RefreshLog(ListViews.Log);
+                    if (DisplayMode == DisplayModes.Reminders)
+                        RefreshLog(ListViews.Reminder);
+                    else
+                        RefreshLog(ListViews.Log);
 
-                     GetLastEntry(EventHorizonLINQList, justLoaded);
+                    GetLastEntry(EventHorizonLINQList, justLoaded);
                  }
 
                  justLoaded = true;
@@ -114,7 +114,7 @@ namespace The_Oracle
             now.SyncTime();
 
             //Check Users online every 60 seconds only executes if second is 0
-            if (DateTime.Now.Second == XMLReaderWriter.UserID)//use UserID as to offset actual second used to update
+            if (DateTime.Now.Second == XMLReaderWriter.UserID * 6)//use UserID as to offset actual second used to update
             {
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
                 UpdateUsersOnline();
@@ -159,7 +159,6 @@ namespace The_Oracle
         
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-
             today = new Today();
             TodayGrid.Children.Add(today);
 

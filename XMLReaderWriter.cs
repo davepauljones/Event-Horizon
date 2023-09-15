@@ -37,7 +37,7 @@ namespace The_Oracle
                         UserNameString = node.SelectSingleNode("UserName").InnerText;
                         DatabaseLocationString = node.SelectSingleNode("DatabaseLocation").InnerText;
 
-                        UsersRefreshTimeSpan = TimeSpan.FromMilliseconds(UserID * 250);
+                        UsersRefreshTimeSpan = TimeSpan.FromMilliseconds(UserID * 50);
 
                         Console.Write("UserID = ");
                         Console.Write(UserID);

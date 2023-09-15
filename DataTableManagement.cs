@@ -6,6 +6,7 @@ using System.Data.OleDb;
 using System.Windows.Media;
 using System.Windows;
 using System.Globalization;
+using System.Data.SQLite;
 
 namespace The_Oracle
 {
@@ -24,6 +25,28 @@ namespace The_Oracle
         {
             List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();
 
+            MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\claves.wav");
+
+            //string connectionString = "Data Source=D:\\EventHorizonRemoteDatabase\\EventHorizonRemoteDatabase.db;";
+
+            //try
+            //{
+            //    using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            //    {
+            //        SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM EventLog", conn);
+
+            //        conn.Open();
+
+            //        SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+
+            //        adapter.Fill(EventHorizon_Event);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    // Handle exceptions here
+            //    Console.WriteLine("Error: " + ex.Message);
+            //}
             try
             {
                 using (OleDbConnection conn = new OleDbConnection(ConnectionString))
