@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.OleDb;
 using System.IO;
+using System.Data.SQLite;
 
 namespace The_Oracle
 {
@@ -50,6 +51,11 @@ namespace The_Oracle
                 MainWindow.mw.RefreshXML();
             }
         }
+
+        internal static void CreateSQLiteDatabaseFile()
+        {
+            System.Data.SQLite.SQLiteConnection.CreateFile("databaseFile.db3");        // Create the file which will be hosting our database
+        }
         
         internal static void CreateEventLogTable()
         {
@@ -64,11 +70,11 @@ namespace The_Oracle
                     {
                         using (OleDbConnection connection = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            using (OleDbCommand updateCommand = new OleDbCommand(sqlquery, connection))
+                            using (OleDbCommand command = new OleDbCommand(sqlquery, connection))
                             {
                                 connection.Open();
 
-                                updateCommand.ExecuteNonQuery();
+                                command.ExecuteNonQuery();
 
                                 MainWindow.mw.Status.Content = "Created Tables";
                             }
@@ -88,6 +94,29 @@ namespace The_Oracle
                     }
                     break;
                 case DatabaseSystems.SQLite:
+                    try
+                    {
+                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (SQLiteCommand command = new SQLiteCommand("CREATE TABLE EventLog (ID INTEGER PRIMARY KEY, EventTypeID INTEGER, SourceID INTEGER, Details MEMO, FrequencyID INTEGER, StatusID INTEGER, CreatedDateTime DATETIME, TargetDateTime DATETIME, UserID INTEGER, TargetUserID INTEGER, ReadByMeID INTEGER, LastViewedDateTime DATETIME, RemindMeID INTEGER, RemindMeDateTime DATETIME, NotificationAcknowledged INTEGER, ParentEventID INTEGER, EventModeID INTEGER);", connection))
+                            {
+                                connection.Open();
+
+                                command.ExecuteNonQuery();
+
+                                MainWindow.mw.Status.Content = "Created Tables";
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("Error: " + ex.Message);
+                        Console.WriteLine("-------------------*---------------------");
+
+                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CreateEventLogTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        msg.ShowDialog();
+                    }
                     break;
             }
         }
@@ -129,6 +158,29 @@ namespace The_Oracle
                     }
                     break;
                 case DatabaseSystems.SQLite:
+                    try
+                    {
+                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (SQLiteCommand command = new SQLiteCommand("CREATE TABLE Users (ID INTEGER, LastTimeOnline DATETIME);", connection))
+                            {
+                                connection.Open();
+
+                                command.ExecuteNonQuery();
+
+                                MainWindow.mw.Status.Content = "Created Tables";
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("Error: " + ex.Message);
+                        Console.WriteLine("-------------------*---------------------");
+
+                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CreateUsersTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        msg.ShowDialog();
+                    }
                     break;
             }
         }
