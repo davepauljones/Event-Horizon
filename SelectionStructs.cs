@@ -219,4 +219,9 @@ namespace The_Oracle
         public const int NoYes = 0;
         public const int OK = 1;
     }
+    public struct DatabaseSystems
+    {
+        public const int AccessMDB = 0;
+        public const int SQLite = 1;
+    }
 }

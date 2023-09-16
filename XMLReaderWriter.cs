@@ -18,7 +18,21 @@ namespace The_Oracle
         public static List<FunctionKeyEventType> FunctionKeyEventTypesList = new List<FunctionKeyEventType>();
         public static List<SourceType> SourceTypesList = new List<SourceType>();
         public static TimeSpan UsersRefreshTimeSpan = TimeSpan.FromMilliseconds(100);
+        public static int DatabaseSystem = DatabaseSystems.AccessMDB;
+        public static string GlobalConnectionString = string.Empty;
 
+        public static void SetDatabaseConnectionString()
+        {
+            switch (DatabaseSystem)
+            {
+                case DatabaseSystems.AccessMDB:
+                    GlobalConnectionString = "Provider=Microsoft.Jet.Oledb.4.0; Data Source = " + DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb";
+                    break;
+                case DatabaseSystems.SQLite:
+                    GlobalConnectionString = "Data Source=" + DatabaseLocationString + "\\EventHorizonRemoteDatabase.sqlite;";
+                    break;
+            }
+        }
         public static bool TryReadNodesFrom_EventHorizonSettingsXMLFile(String PathFileName)
         {
             bool result = false;

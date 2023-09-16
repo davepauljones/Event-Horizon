@@ -12,14 +12,7 @@ namespace The_Oracle
 {
     public class DataTableManagement
     {
-        public static string ConnectionString = string.Empty;
-
         public static EventHorizonEvent EventHorizon_Event = new EventHorizonEvent();
-
-        public static void SetConnectionString(string connectionString)
-        {
-            ConnectionString = connectionString;
-        }
 
         public static List<EventHorizonLINQ> GetEvents(int listViewToPopulate, Int32 eventTypeID, Int32 filterMode, Int32 displayMode, string searchString)
         {
@@ -27,53 +20,62 @@ namespace The_Oracle
 
             MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\claves.wav");
 
-            //string connectionString = "Data Source=D:\\EventHorizonRemoteDatabase\\EventHorizonRemoteDatabase.db;";
-
-            //try
-            //{
-            //    using (SQLiteConnection conn = new SQLiteConnection(connectionString))
-            //    {
-            //        SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM EventLog", conn);
-
-            //        conn.Open();
-
-            //        SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-
-            //        adapter.Fill(EventHorizon_Event);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    // Handle exceptions here
-            //    Console.WriteLine("Error: " + ex.Message);
-            //}
-            try
+            switch (XMLReaderWriter.DatabaseSystem)
             {
-                using (OleDbConnection conn = new OleDbConnection(ConnectionString))
-                {
-                    OleDbCommand cmd = new OleDbCommand($"SELECT * FROM EventLog", conn);
+                case DatabaseSystems.AccessMDB:
+                    try
+                    {
+                        using (OleDbConnection conn = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            OleDbCommand cmd = new OleDbCommand($"SELECT * FROM EventLog", conn);
 
-                    conn.Open();
+                            conn.Open();
 
-                    OleDbDataAdapter adapter = new OleDbDataAdapter(cmd);
+                            OleDbDataAdapter adapter = new OleDbDataAdapter(cmd);
 
-                    adapter.Fill(EventHorizon_Event);
-                }
-            }
-            catch (OleDbException myOLEDBException)
-            {
-                Console.WriteLine("-------------------*---------------------");
-                for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
-                {
-                    Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
-                    Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
-                    Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
-                    Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
-                    Console.WriteLine("----------------------------------------");
+                            adapter.Fill(EventHorizon_Event);
+                        }
+                    }
+                    catch (OleDbException myOLEDBException)
+                    {
+                        Console.WriteLine("-------------------*---------------------");
+                        for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
+                        {
+                            Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
+                            Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
+                            Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
+                            Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
+                            Console.WriteLine("----------------------------------------");
 
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetEvents - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
-                    msg.ShowDialog();
-                }
+                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetEvents - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            msg.ShowDialog();
+                        }
+                    }
+                    break;
+                case DatabaseSystems.SQLite:
+                    try
+                    {
+                        using (SQLiteConnection conn = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM EventLog", conn);
+
+                            conn.Open();
+
+                            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+
+                            adapter.Fill(EventHorizon_Event);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("Error: " + ex.Message);
+                        Console.WriteLine("-------------------*---------------------");
+
+                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetEvents - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        msg.ShowDialog();
+                    }
+                    break;
             }
 
             EnumerableRowCollection<DataRow> query;
@@ -527,116 +529,224 @@ namespace The_Oracle
                 string query3 = "UPDATE EventLog SET[ParentEventID] = ? WHERE [ID] = ?";
 
                 int id;
+                int rowsAffected = 0;
 
-                using (OleDbConnection connection = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
+                switch (XMLReaderWriter.DatabaseSystem)
                 {
-                    int rowsAffected = 0;
-                    using (var command = new OleDbCommand("UPDATE EventLog SET[EventTypeID] = ?, [SourceID] = ?, [Details] = ?, [FrequencyID] = ?, [StatusID] = ?, [TargetDateTime] = ?, [TargetUserID] = ?, [ReadByMeID] = ?, [LastViewedDateTime] = ?, [RemindMeID] = ?, [RemindMeDateTime] = ?, [NotificationAcknowledged] = ?, [ParentEventID] = ?, [EventModeID] = ? WHERE [ID] = ?", connection))
-                    {
-                        connection.Open();
-
-                        command.Parameters.AddWithValue("@EventTypeID", eventWindow.EventTypeComboBox.SelectedIndex);
-                        command.Parameters.AddWithValue("@SourceID", eventWindow.SourceComboBox.SelectedIndex);
-                        command.Parameters.AddWithValue("@Details", detailsSafeString);
-                        command.Parameters.AddWithValue("@FrequencyID", eventWindow.FrequencyComboBox.SelectedIndex);
-                        command.Parameters.AddWithValue("@StatusID", eventWindow.StatusComboBox.SelectedIndex);
-
-                        command.Parameters.Add("TargetDateTime", OleDbType.Date);
-                        command.Parameters["TargetDateTime"].Value = targetDateTime;
-
-                        command.Parameters.AddWithValue("@TargetUserID", eventWindow.TargetUserIDComboBox.SelectedIndex);
-                        command.Parameters.AddWithValue("@ReadByMeID", eventHorizonLINQ.ReadByMeID);
-
-                        command.Parameters.Add("LastViewedDateTime", OleDbType.Date);
-                        command.Parameters["LastViewedDateTime"].Value = DateTime.MinValue;
-
-                        command.Parameters.AddWithValue("@RemindMeID", eventHorizonLINQ.RemindMeID);
-
-                        command.Parameters.Add("RemindMeDateTime", OleDbType.Date);
-                        command.Parameters["RemindMeDateTime"].Value = eventHorizonLINQ.RemindMeDateTime;
-
-                        command.Parameters.AddWithValue("@NotificationAcknowledged", 0);
-
-                        command.Parameters.AddWithValue("@ParentEventID", eventHorizonLINQ.Source_ParentEventID);
-                        command.Parameters.AddWithValue("@EventModeID", eventHorizonLINQ.EventModeID);
-
-                        command.Parameters.AddWithValue("@ID", eventHorizonLINQ.ID);
-
-                        if (eventMode == EventWindowModes.ViewMainEvent || eventMode == EventWindowModes.ViewNote || eventMode == EventWindowModes.ViewReply || eventMode == EventWindowModes.EditMainEvent || eventMode == EventWindowModes.EditNote || eventMode == EventWindowModes.EditReply)
-                            rowsAffected = command.ExecuteNonQuery();
-                        else if (rowsAffected == 0 || eventMode == EventWindowModes.NewEvent || eventMode == EventWindowModes.NewNote || eventMode == EventWindowModes.NewReply)
+                    case DatabaseSystems.AccessMDB:
+                        using (OleDbConnection connection = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            command.Parameters.Clear();
-                            command.CommandText = "INSERT INTO EventLog (EventTypeID, SourceID, Details, FrequencyID, StatusID, CreatedDateTime, TargetDateTime, UserID, TargetUserID, ReadByMeID, LastViewedDateTime, RemindMeID, RemindMeDateTime, NotificationAcknowledged, ParentEventID, EventModeID) VALUES (@EventTypeID, @SourceID, @Details, @FrequencyID, @StatusID, @CreatedDateTime, @TargetDateTime, @UserID, @TargetUserID, @ReadByMeID, @LastViewedDateTime, @RemindMeID, @RemindMeDateTime, @NotificationAcknowledged, @ParentEventID, @EventModeID);";
-                            command.Parameters.AddWithValue("@EventTypeID", eventWindow.EventTypeComboBox.SelectedIndex);
-                            command.Parameters.AddWithValue("@SourceID", eventWindow.SourceComboBox.SelectedIndex);
-                            command.Parameters.AddWithValue("@Details", detailsSafeString);
-                            command.Parameters.AddWithValue("@FrequencyID", eventWindow.FrequencyComboBox.SelectedIndex);
-                            command.Parameters.AddWithValue("@StatusID", eventWindow.StatusComboBox.SelectedIndex);
-
-                            command.Parameters.Add("CreatedDateTime", OleDbType.Date);
-                            command.Parameters["CreatedDateTime"].Value = createdDateTime;
-
-                            command.Parameters.Add("TargetDateTime", OleDbType.Date);
-                            command.Parameters["TargetDateTime"].Value = targetDateTime;
-
-                            command.Parameters.AddWithValue("@UserID", XMLReaderWriter.UserID);
-                            command.Parameters.AddWithValue("@TargetUserID", eventWindow.TargetUserIDComboBox.SelectedIndex);
-                            command.Parameters.AddWithValue("@ReadByMeID", 0);
-
-                            command.Parameters.Add("LastViewedDateTime", OleDbType.Date);
-                            command.Parameters["LastViewedDateTime"].Value = DateTime.MinValue;
-
-                            command.Parameters.AddWithValue("@RemindMeID", 0);
-
-                            command.Parameters.Add("RemindMeDateTime", OleDbType.Date);
-                            command.Parameters["RemindMeDateTime"].Value = DateTime.MinValue;
-
-                            command.Parameters.AddWithValue("@NotificationAcknowledged", 0);
-
-                            switch (eventMode)
+                            using (var command = new OleDbCommand("UPDATE EventLog SET[EventTypeID] = ?, [SourceID] = ?, [Details] = ?, [FrequencyID] = ?, [StatusID] = ?, [TargetDateTime] = ?, [TargetUserID] = ?, [ReadByMeID] = ?, [LastViewedDateTime] = ?, [RemindMeID] = ?, [RemindMeDateTime] = ?, [NotificationAcknowledged] = ?, [ParentEventID] = ?, [EventModeID] = ? WHERE [ID] = ?", connection))
                             {
-                                case EventWindowModes.NewEvent:
-                                    command.Parameters.AddWithValue("@ParentEventID", 0);
-                                    command.Parameters.AddWithValue("@EventModeID", EventModes.MainEvent);
-                                    break;
-                                case EventWindowModes.NewNote:
-                                    command.Parameters.AddWithValue("@ParentEventID", eventHorizonLINQ.Source_ParentEventID);
-                                    command.Parameters.AddWithValue("@EventModeID", EventModes.NoteEvent);
-                                    break;
-                                case EventWindowModes.NewReply:
-                                    command.Parameters.AddWithValue("@ParentEventID", eventHorizonLINQ.Source_ParentEventID);
-                                    command.Parameters.AddWithValue("@EventModeID", EventModes.ReplyEvent);
-                                    break;
-                                default:
-                                    command.Parameters.AddWithValue("@ParentEventID", 0);
-                                    command.Parameters.AddWithValue("@EventModeID", EventModes.MainEvent);
-                                    break;
+                                connection.Open();
+
+                                command.Parameters.AddWithValue("@EventTypeID", eventWindow.EventTypeComboBox.SelectedIndex);
+                                command.Parameters.AddWithValue("@SourceID", eventWindow.SourceComboBox.SelectedIndex);
+                                command.Parameters.AddWithValue("@Details", detailsSafeString);
+                                command.Parameters.AddWithValue("@FrequencyID", eventWindow.FrequencyComboBox.SelectedIndex);
+                                command.Parameters.AddWithValue("@StatusID", eventWindow.StatusComboBox.SelectedIndex);
+
+                                command.Parameters.Add("TargetDateTime", OleDbType.Date);
+                                command.Parameters["TargetDateTime"].Value = targetDateTime;
+
+                                command.Parameters.AddWithValue("@TargetUserID", eventWindow.TargetUserIDComboBox.SelectedIndex);
+                                command.Parameters.AddWithValue("@ReadByMeID", eventHorizonLINQ.ReadByMeID);
+
+                                command.Parameters.Add("LastViewedDateTime", OleDbType.Date);
+                                command.Parameters["LastViewedDateTime"].Value = DateTime.MinValue;
+
+                                command.Parameters.AddWithValue("@RemindMeID", eventHorizonLINQ.RemindMeID);
+
+                                command.Parameters.Add("RemindMeDateTime", OleDbType.Date);
+                                command.Parameters["RemindMeDateTime"].Value = eventHorizonLINQ.RemindMeDateTime;
+
+                                command.Parameters.AddWithValue("@NotificationAcknowledged", 0);
+
+                                command.Parameters.AddWithValue("@ParentEventID", eventHorizonLINQ.Source_ParentEventID);
+                                command.Parameters.AddWithValue("@EventModeID", eventHorizonLINQ.EventModeID);
+
+                                command.Parameters.AddWithValue("@ID", eventHorizonLINQ.ID);
+
+                                if (eventMode == EventWindowModes.ViewMainEvent || eventMode == EventWindowModes.ViewNote || eventMode == EventWindowModes.ViewReply || eventMode == EventWindowModes.EditMainEvent || eventMode == EventWindowModes.EditNote || eventMode == EventWindowModes.EditReply)
+                                    rowsAffected = command.ExecuteNonQuery();
+                                else if (rowsAffected == 0 || eventMode == EventWindowModes.NewEvent || eventMode == EventWindowModes.NewNote || eventMode == EventWindowModes.NewReply)
+                                {
+                                    command.Parameters.Clear();
+                                    command.CommandText = "INSERT INTO EventLog (EventTypeID, SourceID, Details, FrequencyID, StatusID, CreatedDateTime, TargetDateTime, UserID, TargetUserID, ReadByMeID, LastViewedDateTime, RemindMeID, RemindMeDateTime, NotificationAcknowledged, ParentEventID, EventModeID) VALUES (@EventTypeID, @SourceID, @Details, @FrequencyID, @StatusID, @CreatedDateTime, @TargetDateTime, @UserID, @TargetUserID, @ReadByMeID, @LastViewedDateTime, @RemindMeID, @RemindMeDateTime, @NotificationAcknowledged, @ParentEventID, @EventModeID);";
+                                    command.Parameters.AddWithValue("@EventTypeID", eventWindow.EventTypeComboBox.SelectedIndex);
+                                    command.Parameters.AddWithValue("@SourceID", eventWindow.SourceComboBox.SelectedIndex);
+                                    command.Parameters.AddWithValue("@Details", detailsSafeString);
+                                    command.Parameters.AddWithValue("@FrequencyID", eventWindow.FrequencyComboBox.SelectedIndex);
+                                    command.Parameters.AddWithValue("@StatusID", eventWindow.StatusComboBox.SelectedIndex);
+
+                                    command.Parameters.Add("CreatedDateTime", OleDbType.Date);
+                                    command.Parameters["CreatedDateTime"].Value = createdDateTime;
+
+                                    command.Parameters.Add("TargetDateTime", OleDbType.Date);
+                                    command.Parameters["TargetDateTime"].Value = targetDateTime;
+
+                                    command.Parameters.AddWithValue("@UserID", XMLReaderWriter.UserID);
+                                    command.Parameters.AddWithValue("@TargetUserID", eventWindow.TargetUserIDComboBox.SelectedIndex);
+                                    command.Parameters.AddWithValue("@ReadByMeID", 0);
+
+                                    command.Parameters.Add("LastViewedDateTime", OleDbType.Date);
+                                    command.Parameters["LastViewedDateTime"].Value = DateTime.MinValue;
+
+                                    command.Parameters.AddWithValue("@RemindMeID", 0);
+
+                                    command.Parameters.Add("RemindMeDateTime", OleDbType.Date);
+                                    command.Parameters["RemindMeDateTime"].Value = DateTime.MinValue;
+
+                                    command.Parameters.AddWithValue("@NotificationAcknowledged", 0);
+
+                                    switch (eventMode)
+                                    {
+                                        case EventWindowModes.NewEvent:
+                                            command.Parameters.AddWithValue("@ParentEventID", 0);
+                                            command.Parameters.AddWithValue("@EventModeID", EventModes.MainEvent);
+                                            break;
+                                        case EventWindowModes.NewNote:
+                                            command.Parameters.AddWithValue("@ParentEventID", eventHorizonLINQ.Source_ParentEventID);
+                                            command.Parameters.AddWithValue("@EventModeID", EventModes.NoteEvent);
+                                            break;
+                                        case EventWindowModes.NewReply:
+                                            command.Parameters.AddWithValue("@ParentEventID", eventHorizonLINQ.Source_ParentEventID);
+                                            command.Parameters.AddWithValue("@EventModeID", EventModes.ReplyEvent);
+                                            break;
+                                        default:
+                                            command.Parameters.AddWithValue("@ParentEventID", 0);
+                                            command.Parameters.AddWithValue("@EventModeID", EventModes.MainEvent);
+                                            break;
+                                    }
+
+                                    command.ExecuteNonQuery();
+
+                                    //gets the new ID number and makes ID & ParentEventID the same new ID
+                                    if (eventMode == EventWindowModes.NewEvent)
+                                    {
+                                        command.CommandText = query2;
+
+                                        id = (int)command.ExecuteScalar();
+                                        Console.Write("id = (int)command.ExecuteScalar(); = ");
+                                        Console.WriteLine(id);
+
+                                        command.Parameters.Clear();
+                                        command.CommandText = query3;
+                                        command.Parameters.AddWithValue("@ParentEventID", id);
+                                        command.Parameters.AddWithValue("@ID", id);
+                                        command.ExecuteNonQuery();
+                                    }
+                                    MainWindow.mw.Status.Content = "Successfully added a new event";
+                                }
                             }
-
-                            command.ExecuteNonQuery();
-
-                            //gets the new ID number and makes ID & ParentEventID the same new ID
-                            if (eventMode == EventWindowModes.NewEvent)
-                            {
-                                command.CommandText = query2;
-
-                                id = (int)command.ExecuteScalar();
-                                Console.Write("id = (int)command.ExecuteScalar(); = ");
-                                Console.WriteLine(id);
-
-                                command.Parameters.Clear();
-                                command.CommandText = query3;
-                                command.Parameters.AddWithValue("@ParentEventID", id);
-                                command.Parameters.AddWithValue("@ID", id);
-                                command.ExecuteNonQuery();
-                            }
-                            MainWindow.mw.Status.Content = "Successfully added a new event";
                         }
-                    }
-                    saveSuccessFull = true;
-                    if (rowsAffected > 0 ) MainWindow.mw.Status.Content = "Successfully updated an event";
+                        break;
+                    case DatabaseSystems.SQLite:
+                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (SQLiteCommand command = new SQLiteCommand("UPDATE EventLog SET EventTypeID = ?, SourceID = ?, Details = ?, FrequencyID = ?, StatusID = ?, TargetDateTime = ?, TargetUserID = ?, ReadByMeID = ?, LastViewedDateTime = ?, RemindMeID = ?, RemindMeDateTime = ?, NotificationAcknowledged = ?, ParentEventID = ?, EventModeID = ? WHERE ID = ?", connection))
+                            {
+                                connection.Open();
+
+                                command.Parameters.Add("@EventTypeID", DbType.Int32).Value = eventWindow.EventTypeComboBox.SelectedIndex;
+                                command.Parameters.Add("@SourceID", DbType.Int32).Value = eventWindow.SourceComboBox.SelectedIndex;
+                                command.Parameters.Add("@Details", DbType.String).Value = detailsSafeString;
+
+                                command.Parameters.Add("@FrequencyID", DbType.Int32).Value = eventWindow.FrequencyComboBox.SelectedIndex;
+                                command.Parameters.Add("@StatusID", DbType.Int32).Value = eventWindow.StatusComboBox.SelectedIndex;
+
+                                command.Parameters.Add("@TargetDateTime", DbType.DateTime).Value = targetDateTime;
+
+                                command.Parameters.Add("@TargetUserID", DbType.Int32).Value = eventWindow.TargetUserIDComboBox.SelectedIndex;
+                                command.Parameters.Add("@ReadByMeID", DbType.Int32).Value = eventHorizonLINQ.ReadByMeID;
+
+                                command.Parameters.Add("@LastViewedDateTime", DbType.DateTime).Value = DateTime.MinValue;
+
+                                command.Parameters.Add("@RemindMeID", DbType.Int32).Value = eventHorizonLINQ.RemindMeID;
+
+                                command.Parameters.Add("@RemindMeDateTime", DbType.DateTime).Value = eventHorizonLINQ.RemindMeDateTime;
+
+                                command.Parameters.Add("@NotificationAcknowledged", DbType.Int32).Value = 0;
+
+                                command.Parameters.Add("@ParentEventID", DbType.Int32).Value = eventHorizonLINQ.Source_ParentEventID;
+                                command.Parameters.Add("@EventModeID", DbType.Int32).Value = eventHorizonLINQ.EventModeID;
+
+                                command.Parameters.Add("@ID", DbType.Int32).Value = eventHorizonLINQ.ID;
+
+                                if (eventMode == EventWindowModes.ViewMainEvent || eventMode == EventWindowModes.ViewNote || eventMode == EventWindowModes.ViewReply || eventMode == EventWindowModes.EditMainEvent || eventMode == EventWindowModes.EditNote || eventMode == EventWindowModes.EditReply)
+                                    rowsAffected = command.ExecuteNonQuery();
+                                else if (rowsAffected == 0 || eventMode == EventWindowModes.NewEvent || eventMode == EventWindowModes.NewNote || eventMode == EventWindowModes.NewReply)
+                                {
+                                    command.Parameters.Clear();
+                                    command.CommandText = "INSERT INTO EventLog (EventTypeID, SourceID, Details, FrequencyID, StatusID, CreatedDateTime, TargetDateTime, UserID, TargetUserID, ReadByMeID, LastViewedDateTime, RemindMeID, RemindMeDateTime, NotificationAcknowledged, ParentEventID, EventModeID) VALUES (@EventTypeID, @SourceID, @Details, @FrequencyID, @StatusID, @CreatedDateTime, @TargetDateTime, @UserID, @TargetUserID, @ReadByMeID, @LastViewedDateTime, @RemindMeID, @RemindMeDateTime, @NotificationAcknowledged, @ParentEventID, @EventModeID);";
+
+                                    command.Parameters.Add("@EventTypeID", DbType.Int32).Value = eventWindow.EventTypeComboBox.SelectedIndex;
+                                    command.Parameters.Add("@SourceID", DbType.Int32).Value = eventWindow.SourceComboBox.SelectedIndex;
+                                    command.Parameters.Add("@Details", DbType.String).Value = detailsSafeString;
+
+                                    command.Parameters.Add("@FrequencyID", DbType.Int32).Value = eventWindow.FrequencyComboBox.SelectedIndex;
+                                    command.Parameters.Add("@StatusID", DbType.Int32).Value = eventWindow.StatusComboBox.SelectedIndex;
+
+                                    command.Parameters.Add("@CreatedDateTime", DbType.DateTime).Value = createdDateTime;
+                                    command.Parameters.Add("@TargetDateTime", DbType.DateTime).Value = targetDateTime;
+
+                                    command.Parameters.Add("@UserID", DbType.Int32).Value = XMLReaderWriter.UserID;
+                                    command.Parameters.Add("@TargetUserID", DbType.Int32).Value = eventWindow.TargetUserIDComboBox.SelectedIndex;
+                                    command.Parameters.Add("@ReadByMeID", DbType.Int32).Value = 0;
+
+                                    command.Parameters.Add("@LastViewedDateTime", DbType.DateTime).Value = DateTime.MinValue;
+
+                                    command.Parameters.Add("@RemindMeID", DbType.Int32).Value = 0;
+
+                                    command.Parameters.Add("@RemindMeDateTime", DbType.DateTime).Value = DateTime.MinValue;
+
+                                    command.Parameters.Add("@NotificationAcknowledged", DbType.Int32).Value = 0;
+
+                                    switch (eventMode)
+                                    {
+                                        case EventWindowModes.NewEvent:
+                                            command.Parameters.Add("@ParentEventID", DbType.Int32).Value = 0;
+                                            command.Parameters.Add("@EventModeID", DbType.Int32).Value = EventModes.MainEvent;
+                                            break;
+                                        case EventWindowModes.NewNote:
+                                            command.Parameters.Add("@ParentEventID", DbType.Int32).Value = eventHorizonLINQ.Source_ParentEventID;
+                                            command.Parameters.Add("@EventModeID", DbType.Int32).Value = EventModes.NoteEvent;
+                                            break;
+                                        case EventWindowModes.NewReply:
+                                            command.Parameters.Add("@ParentEventID", DbType.Int32).Value = eventHorizonLINQ.Source_ParentEventID;
+                                            command.Parameters.Add("@EventModeID", DbType.Int32).Value = EventModes.ReplyEvent;
+                                            break;
+                                        default:
+                                            command.Parameters.Add("@ParentEventID", DbType.Int32).Value = 0;
+                                            command.Parameters.Add("@EventModeID", DbType.Int32).Value = EventModes.MainEvent;
+                                            break;
+                                    }
+
+                                    command.ExecuteNonQuery();
+
+                                    //gets the new ID number and makes ID & ParentEventID the same new ID
+                                    if (eventMode == EventWindowModes.NewEvent)
+                                    {
+                                        command.CommandText = query2;
+
+                                        id = (int)command.ExecuteScalar();
+                                        Console.Write("id = (int)command.ExecuteScalar(); = ");
+                                        Console.WriteLine(id);
+
+                                        command.Parameters.Clear();
+                                        command.CommandText = query3;
+                                        command.Parameters.Add("@ParentEventID", DbType.Int32).Value = id;
+                                        command.Parameters.Add("@ID", DbType.Int32).Value = id;
+                                        command.ExecuteNonQuery();
+                                    }
+                                    MainWindow.mw.Status.Content = "Successfully added a new event";
+                                }
+                            }
+                        }
+                        break;
                 }
+                
+                if (rowsAffected > 0 ) MainWindow.mw.Status.Content = "Successfully updated an event";
 
                 if (saveSuccessFull)
                 {
@@ -651,42 +761,77 @@ namespace The_Oracle
         {
             Int32 ReturnUserID = 0;
 
-            try
+            switch (XMLReaderWriter.DatabaseSystem)
             {
-                using (OleDbConnection connection = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
-                {
-                    using (OleDbCommand command = new OleDbCommand("SELECT UserID FROM EventLog WHERE ID = ?", connection))
+                case DatabaseSystems.AccessMDB:
+                    try
                     {
-                        connection.Open();
-
-                        command.Parameters.AddWithValue("@ID", EventID);
-
-                        using (OleDbDataReader reader = command.ExecuteReader())
+                        using (OleDbConnection connection = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            while (reader.Read())
+                            using (OleDbCommand command = new OleDbCommand("SELECT UserID FROM EventLog WHERE ID = ?", connection))
                             {
-                                ReturnUserID = int.Parse(reader["UserID"].ToString());
+                                connection.Open();
+
+                                command.Parameters.AddWithValue("@ID", EventID);
+
+                                using (OleDbDataReader reader = command.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        ReturnUserID = int.Parse(reader["UserID"].ToString());
+                                    }
+                                }
                             }
                         }
                     }
-                }
-            }
-            catch (OleDbException myOLEDBException)
-            {
-                Console.WriteLine("----------------------------------------");
-                for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
-                {
-                    Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
-                    Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
-                    Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
-                    Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
-                    Console.WriteLine("----------------------------------------");
+                    catch (OleDbException myOLEDBException)
+                    {
+                        Console.WriteLine("----------------------------------------");
+                        for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
+                        {
+                            Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
+                            Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
+                            Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
+                            Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
+                            Console.WriteLine("----------------------------------------");
 
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUserID - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
-                    msg.ShowDialog();
-                }
-            }
+                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUserID - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            msg.ShowDialog();
+                        }
+                    }
+                    break;
+                case DatabaseSystems.SQLite:
+                    try
+                    {
+                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (SQLiteCommand command = new SQLiteCommand("SELECT UserID FROM EventLog WHERE ID = ?", connection))
+                            {
+                                connection.Open();
 
+                                command.Parameters.Add("@ID", DbType.Int32).Value = EventID;
+
+                                using (SQLiteDataReader reader = command.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        ReturnUserID = int.Parse(reader["UserID"].ToString());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("Error: " + ex.Message);
+                        Console.WriteLine("-------------------*---------------------");
+
+                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUserID - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        msg.ShowDialog();
+                    }
+                    break;
+            }
             return ReturnUserID;
         }
         
@@ -699,42 +844,74 @@ namespace The_Oracle
                 return;
             }
 
-            try
+            switch (XMLReaderWriter.DatabaseSystem)
             {
-                using (OleDbConnection connection = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
-                {
-                    using (OleDbCommand command = new OleDbCommand("DELETE FROM EventLog WHERE ID = ?", connection))
+                case DatabaseSystems.AccessMDB:
+                    try
                     {
-                        connection.Open();
+                        using (OleDbConnection connection = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (OleDbCommand command = new OleDbCommand("DELETE FROM EventLog WHERE ID = ?", connection))
+                            {
+                                connection.Open();
 
-                        command.Parameters.AddWithValue("@ID", EventID);
+                                command.Parameters.AddWithValue("@ID", EventID);
 
-                        command.ExecuteNonQuery();
+                                command.ExecuteNonQuery();
 
-                        saveSuccessFull = true;
+                                saveSuccessFull = true;
 
-                        //MainWindow.mw.EventLogListViewTagged = -1;
-
-                        MainWindow.mw.Status.Content = "Successfully deleted event.";
+                                MainWindow.mw.Status.Content = "Successfully deleted event.";
+                            }
+                        }
                     }
-                }
-            }
-            catch (OleDbException myOLEDBException)
-            {
-                MainWindow.mw.Status.Content = "Problem deleting event from log.";
+                    catch (OleDbException myOLEDBException)
+                    {
+                        MainWindow.mw.Status.Content = "Problem deleting event from log.";
 
-                Console.WriteLine("----------------------------------------");
-                for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
-                {
-                    Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
-                    Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
-                    Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
-                    Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
-                    Console.WriteLine("----------------------------------------");
+                        Console.WriteLine("----------------------------------------");
+                        for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
+                        {
+                            Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
+                            Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
+                            Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
+                            Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
+                            Console.WriteLine("----------------------------------------");
 
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "DeleteEvent - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
-                    msg.ShowDialog();
-                }
+                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "DeleteEvent - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            msg.ShowDialog();
+                        }
+                    }
+                    break;
+                case DatabaseSystems.SQLite:
+                    try
+                    {
+                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (SQLiteCommand command = new SQLiteCommand("DELETE FROM EventLog WHERE ID = ?", connection))
+                            {
+                                connection.Open();
+
+                                command.Parameters.Add("@ID", DbType.Int32).Value = EventID;
+
+                                command.ExecuteNonQuery();
+
+                                saveSuccessFull = true;
+
+                                MainWindow.mw.Status.Content = "Successfully deleted event.";
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("Error: " + ex.Message);
+                        Console.WriteLine("-------------------*---------------------");
+
+                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "DeleteEvent - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        msg.ShowDialog();
+                    }
+                    break;
             }
 
             if (saveSuccessFull)
@@ -753,138 +930,159 @@ namespace The_Oracle
             //String SqlString = "SELECT * FROM Users WHERE ID IN(SELECT ID FROM Users WHERE LastTimeOnline = (SELECT MAX(LastTimeOnline) FROM Users)) AND ID = " + UsersID + " ORDER BY LastTimeOnline DESC;";
             String SqlString = "SELECT * FROM Users;";
 
-            try
+            switch (XMLReaderWriter.DatabaseSystem)
             {
-                using (OleDbConnection conn = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
-                {
-                    using (OleDbCommand cmd = new OleDbCommand(SqlString, conn))
+                case DatabaseSystems.AccessMDB:
+                    try
                     {
-                        conn.Open();
-                        using (OleDbDataReader reader = cmd.ExecuteReader())
+                        using (OleDbConnection conn = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            MainWindow.UsersLastTimeOnlineDictionary.Clear();
-
-                            while (reader.Read())
+                            using (OleDbCommand cmd = new OleDbCommand(SqlString, conn))
                             {
-                                Int32 UserID = int.Parse(reader["ID"].ToString());
-
-                                String LastTimeOnlineString = reader["LastTimeOnline"].ToString();
-
-                                if (DateTime.TryParse(LastTimeOnlineString, out LastTimeOnlineDateTime))
+                                conn.Open();
+                                using (OleDbDataReader reader = cmd.ExecuteReader())
                                 {
-                                    if (LastTimeOnlineDateTime.TimeOfDay == TimeSpan.Zero)
-                                        LastTimeOnlineString = LastTimeOnlineDateTime.ToString("dd/MM/y");
-                                    else
-                                        LastTimeOnlineString = LastTimeOnlineDateTime.ToString("dd/MM/y HH:mm");
+                                    MainWindow.UsersLastTimeOnlineDictionary.Clear();
 
-                                    //Console.Write("LastTimeOnline = ");
-                                    //Console.WriteLine(LastTimeOnlineString);
-
-                                    if (!MainWindow.UsersLastTimeOnlineDictionary.ContainsKey(UserID))
+                                    while (reader.Read())
                                     {
-                                        MainWindow.UsersLastTimeOnlineDictionary.Add(UserID, LastTimeOnlineDateTime);
+                                        Int32 UserID = int.Parse(reader["ID"].ToString());
+
+                                        String LastTimeOnlineString = reader["LastTimeOnline"].ToString();
+
+                                        if (DateTime.TryParse(LastTimeOnlineString, out LastTimeOnlineDateTime))
+                                        {
+                                            if (LastTimeOnlineDateTime.TimeOfDay == TimeSpan.Zero)
+                                                LastTimeOnlineString = LastTimeOnlineDateTime.ToString("dd/MM/y");
+                                            else
+                                                LastTimeOnlineString = LastTimeOnlineDateTime.ToString("dd/MM/y HH:mm");
+
+                                            //Console.Write("LastTimeOnline = ");
+                                            //Console.WriteLine(LastTimeOnlineString);
+
+                                            if (!MainWindow.UsersLastTimeOnlineDictionary.ContainsKey(UserID))
+                                            {
+                                                MainWindow.UsersLastTimeOnlineDictionary.Add(UserID, LastTimeOnlineDateTime);
+                                            }
+                                        }
+                                        else
+                                            Console.WriteLine("Unable to parse LastTimeOnlineString '{0}'", LastTimeOnlineString);
                                     }
                                 }
-                                else
-                                    Console.WriteLine("Unable to parse LastTimeOnlineString '{0}'", LastTimeOnlineString);
                             }
                         }
                     }
-                }
-            }
-            catch (OleDbException myOLEDBException)
-            {
-                Console.WriteLine("----------------------------------------");
-                for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
-                {
-                    Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
-                    Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
-                    Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
-                    Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
-                    Console.WriteLine("----------------------------------------");
+                    catch (OleDbException myOLEDBException)
+                    {
+                        Console.WriteLine("----------------------------------------");
+                        for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
+                        {
+                            Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
+                            Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
+                            Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
+                            Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
+                            Console.WriteLine("----------------------------------------");
 
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUsersLastTimeOnline - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
-                    msg.ShowDialog();
-                }
+                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUsersLastTimeOnline - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            msg.ShowDialog();
+                        }
+                    }
+                    break;
+                case DatabaseSystems.SQLite:
+                    break;
             }
         }
         
         public static void InsertOrUpdateLastTimeOnline(Int32 UserID)
         {
-            try
+            switch (XMLReaderWriter.DatabaseSystem)
             {
-                using (OleDbConnection connection = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
-                {
-                    using (var command = new OleDbCommand("UPDATE Users SET [LastTimeOnline] = ? WHERE [ID] = ?", connection))
+                case DatabaseSystems.AccessMDB:
+                    try
                     {
-                        connection.Open();
-
-                        command.Parameters.Add("LastTimeOnline", OleDbType.Date);
-                        command.Parameters["LastTimeOnline"].Value = DateTime.Now;
-                        command.Parameters.AddWithValue("@ID", UserID);
-
-                        int rowsAffected = command.ExecuteNonQuery();
-                        if (rowsAffected == 0)
+                        using (OleDbConnection connection = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            command.Parameters.Clear();
-                            command.CommandText = "INSERT INTO Users (ID, LastTimeOnline) VALUES (@ID, @LastTimeOnline)";
-                            command.Parameters.AddWithValue("@ID", UserID);
-                            command.Parameters.Add("LastTimeOnline", OleDbType.Date);
-                            command.Parameters["LastTimeOnline"].Value = DateTime.Now;
-                            command.ExecuteNonQuery();
+                            using (var command = new OleDbCommand("UPDATE Users SET [LastTimeOnline] = ? WHERE [ID] = ?", connection))
+                            {
+                                connection.Open();
+
+                                command.Parameters.Add("LastTimeOnline", OleDbType.Date);
+                                command.Parameters["LastTimeOnline"].Value = DateTime.Now;
+                                command.Parameters.AddWithValue("@ID", UserID);
+
+                                int rowsAffected = command.ExecuteNonQuery();
+                                if (rowsAffected == 0)
+                                {
+                                    command.Parameters.Clear();
+                                    command.CommandText = "INSERT INTO Users (ID, LastTimeOnline) VALUES (@ID, @LastTimeOnline)";
+                                    command.Parameters.AddWithValue("@ID", UserID);
+                                    command.Parameters.Add("LastTimeOnline", OleDbType.Date);
+                                    command.Parameters["LastTimeOnline"].Value = DateTime.Now;
+                                    command.ExecuteNonQuery();
+                                }
+                            }
                         }
                     }
-                }
-            }
-            catch (OleDbException myOLEDBException)
-            {
-                Console.WriteLine("----------------------------------------");
-                for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
-                {
-                    Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
-                    Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
-                    Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
-                    Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
-                    Console.WriteLine("----------------------------------------");
+                    catch (OleDbException myOLEDBException)
+                    {
+                        Console.WriteLine("----------------------------------------");
+                        for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
+                        {
+                            Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
+                            Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
+                            Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
+                            Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
+                            Console.WriteLine("----------------------------------------");
 
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "InsertOrUpdateLastTimeOnline - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
-                    msg.ShowDialog();
-                }
+                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "InsertOrUpdateLastTimeOnline - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            msg.ShowDialog();
+                        }
+                    }
+                    break;
+                case DatabaseSystems.SQLite:
+                    break;
             }
         }
         
         public static void UpdateLastTimeOnline(Int32 UserID)
         {
-            try
+            switch (XMLReaderWriter.DatabaseSystem)
             {
-                using (OleDbConnection connection = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
-                {
-                    using (OleDbCommand updateCommand = new OleDbCommand("UPDATE Users SET [LastTimeOnline] = ? WHERE [ID] = ?", connection))
+                case DatabaseSystems.AccessMDB:
+                    try
                     {
-                        connection.Open();
+                        using (OleDbConnection connection = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (OleDbCommand updateCommand = new OleDbCommand("UPDATE Users SET [LastTimeOnline] = ? WHERE [ID] = ?", connection))
+                            {
+                                connection.Open();
 
-                        updateCommand.Parameters.Add("LastTimeOnline", OleDbType.Date);
-                        updateCommand.Parameters["LastTimeOnline"].Value = DateTime.Now;
-                        updateCommand.Parameters.AddWithValue("@ID", UserID);
+                                updateCommand.Parameters.Add("LastTimeOnline", OleDbType.Date);
+                                updateCommand.Parameters["LastTimeOnline"].Value = DateTime.Now;
+                                updateCommand.Parameters.AddWithValue("@ID", UserID);
 
-                        updateCommand.ExecuteNonQuery();
+                                updateCommand.ExecuteNonQuery();
+                            }
+                        }
                     }
-                }
-            }
-            catch (OleDbException myOLEDBException)
-            {
-                Console.WriteLine("----------------------------------------");
-                for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
-                {
-                    Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
-                    Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
-                    Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
-                    Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
-                    Console.WriteLine("----------------------------------------");
+                    catch (OleDbException myOLEDBException)
+                    {
+                        Console.WriteLine("----------------------------------------");
+                        for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
+                        {
+                            Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
+                            Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
+                            Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
+                            Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
+                            Console.WriteLine("----------------------------------------");
 
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateLastTimeOnline - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
-                    msg.ShowDialog();
-                }
+                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateLastTimeOnline - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            msg.ShowDialog();
+                        }
+                    }
+                    break;
+                case DatabaseSystems.SQLite:
+                    break;
             }
         }
         public static List<EventHorizonLINQ> GetMyUnread()
@@ -1058,159 +1256,144 @@ namespace The_Oracle
 
         public static void UpdateMyReminder(Int32 EventID, int ReminderMeID, DateTime RemindMeDateTime, int NotificationAcknowledged)
         {
-            try
+            switch (XMLReaderWriter.DatabaseSystem)
             {
-                using (OleDbConnection connection = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
-                {
-                    using (OleDbCommand command = new OleDbCommand("UPDATE EventLog SET[RemindMeID] = ?, [RemindMeDateTime] = ?, [NotificationAcknowledged] = ? WHERE [ID] = ?", connection))
+                case DatabaseSystems.AccessMDB:
+                    try
                     {
-                        connection.Open();
+                        using (OleDbConnection connection = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (OleDbCommand command = new OleDbCommand("UPDATE EventLog SET[RemindMeID] = ?, [RemindMeDateTime] = ?, [NotificationAcknowledged] = ? WHERE [ID] = ?", connection))
+                            {
+                                connection.Open();
 
-                        command.Parameters.AddWithValue("@RemindMeID", ReminderMeID);
+                                command.Parameters.AddWithValue("@RemindMeID", ReminderMeID);
 
-                        command.Parameters.Add("RemindMeDateTime", OleDbType.Date);
-                        command.Parameters["RemindMeDateTime"].Value = RemindMeDateTime;
+                                command.Parameters.Add("RemindMeDateTime", OleDbType.Date);
+                                command.Parameters["RemindMeDateTime"].Value = RemindMeDateTime;
 
-                        command.Parameters.AddWithValue("@NotificationAcknowledged", NotificationAcknowledged);
+                                command.Parameters.AddWithValue("@NotificationAcknowledged", NotificationAcknowledged);
 
-                        command.Parameters.AddWithValue("@ID", EventID);
+                                command.Parameters.AddWithValue("@ID", EventID);
 
-                        command.ExecuteNonQuery();
+                                command.ExecuteNonQuery();
 
-                        saveSuccessFull = true;
-
-                        //MainWindow.mw.EventLogListViewTagged = -1;
-
-                        MainWindow.mw.Status.Content = "Successfully set event status.";
+                                MainWindow.mw.Status.Content = "Successfully set event status.";
+                            }
+                        }
                     }
-                }
-            }
-            catch (OleDbException myOLEDBException)
-            {
-                MainWindow.mw.Status.Content = "Problem deleting event from log.";
+                    catch (OleDbException myOLEDBException)
+                    {
+                        MainWindow.mw.Status.Content = "Problem deleting event from log.";
 
-                Console.WriteLine("----------------------------------------");
-                for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
-                {
-                    Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
-                    Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
-                    Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
-                    Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
-                    Console.WriteLine("----------------------------------------");
+                        Console.WriteLine("----------------------------------------");
+                        for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
+                        {
+                            Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
+                            Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
+                            Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
+                            Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
+                            Console.WriteLine("----------------------------------------");
 
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateMyReminder - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
-                    msg.ShowDialog();
-                }
-            }
-
-            if (saveSuccessFull)
-            {
-                //if (DisplayMode == DisplayModes.Reminders)
-                //    RefreshLog(ListViews.Reminder);
-                //else
-                //    RefreshLog(ListViews.Log);
+                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateMyReminder - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            msg.ShowDialog();
+                        }
+                    }
+                    break;
+                case DatabaseSystems.SQLite:
+                    break;
             }
         }
         
         public static void UpdateStatusID(Int32 EventID, int StatusID)
         {
-            try
+            switch (XMLReaderWriter.DatabaseSystem)
             {
-                using (OleDbConnection connection = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
-                {
-                    using (OleDbCommand updateCommand = new OleDbCommand("UPDATE EventLog SET [StatusID] = ? WHERE [ID] = ?", connection))
+                case DatabaseSystems.AccessMDB:
+                    try
                     {
-                        connection.Open();
+                        using (OleDbConnection connection = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (OleDbCommand updateCommand = new OleDbCommand("UPDATE EventLog SET [StatusID] = ? WHERE [ID] = ?", connection))
+                            {
+                                connection.Open();
 
-                        updateCommand.Parameters.AddWithValue("@StatusID", StatusID);
-                        updateCommand.Parameters.AddWithValue("@ID", EventID);
+                                updateCommand.Parameters.AddWithValue("@StatusID", StatusID);
+                                updateCommand.Parameters.AddWithValue("@ID", EventID);
 
-                        updateCommand.ExecuteNonQuery();
+                                updateCommand.ExecuteNonQuery();
 
-                        saveSuccessFull = true;
-
-                        //MainWindow.mw.EventLogListViewTagged = -1;
-
-                        MainWindow.mw.Status.Content = "Successfully set event status.";
+                                MainWindow.mw.Status.Content = "Successfully set event status.";
+                            }
+                        }
                     }
-                }
-            }
-            catch (OleDbException myOLEDBException)
-            {
-                MainWindow.mw.Status.Content = "Problem setting event status.";
+                    catch (OleDbException myOLEDBException)
+                    {
+                        MainWindow.mw.Status.Content = "Problem setting event status.";
 
-                Console.WriteLine("----------------------------------------");
-                for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
-                {
-                    Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
-                    Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
-                    Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
-                    Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
-                    Console.WriteLine("----------------------------------------");
+                        Console.WriteLine("----------------------------------------");
+                        for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
+                        {
+                            Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
+                            Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
+                            Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
+                            Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
+                            Console.WriteLine("----------------------------------------");
 
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateStatusID - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
-                    msg.ShowDialog();
-                }
-            }
-
-            if (saveSuccessFull)
-            {
-                //if (DisplayMode == DisplayModes.Reminders)
-                //    RefreshLog(ListViews.Reminder);
-                //else
-                //    RefreshLog(ListViews.Log);
+                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateStatusID - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            msg.ShowDialog();
+                        }
+                    }
+                    break;
+                case DatabaseSystems.SQLite:
+                    break;
             }
         }
         
         public static void UpdateReadByMeID(Int32 EventID, int ReadByMeID)
         {
-            try
+            switch (XMLReaderWriter.DatabaseSystem)
             {
-                using (OleDbConnection connection = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
-                {
-                    using (OleDbCommand updateCommand = new OleDbCommand("UPDATE EventLog SET [ReadByMeID] = ?, [LastViewedDateTime] = ? WHERE [ID] = ?", connection))
+                case DatabaseSystems.AccessMDB:
+                    try
                     {
-                        connection.Open();
+                        using (OleDbConnection connection = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (OleDbCommand updateCommand = new OleDbCommand("UPDATE EventLog SET [ReadByMeID] = ?, [LastViewedDateTime] = ? WHERE [ID] = ?", connection))
+                            {
+                                connection.Open();
 
-                        updateCommand.Parameters.AddWithValue("@ReadByMeID", ReadByMeID);
-                        updateCommand.Parameters.Add("LastViewedDateTime", OleDbType.Date);
-                        updateCommand.Parameters["LastViewedDateTime"].Value = DateTime.Now;
-                        updateCommand.Parameters.AddWithValue("@ID", EventID);
+                                updateCommand.Parameters.AddWithValue("@ReadByMeID", ReadByMeID);
+                                updateCommand.Parameters.Add("LastViewedDateTime", OleDbType.Date);
+                                updateCommand.Parameters["LastViewedDateTime"].Value = DateTime.Now;
+                                updateCommand.Parameters.AddWithValue("@ID", EventID);
 
-                        updateCommand.ExecuteNonQuery();
+                                updateCommand.ExecuteNonQuery();
 
-                        saveSuccessFull = true;
-
-                        //MainWindow.mw.EventLogListViewTagged = -1;
-
-                        MainWindow.mw.Status.Content = "Successfully set event read status.";
+                                MainWindow.mw.Status.Content = "Successfully set event read status.";
+                            }
+                        }
                     }
-                }
-            }
-            catch (OleDbException myOLEDBException)
-            {
-                MainWindow.mw.Status.Content = "Problem setting event read status.";
+                    catch (OleDbException myOLEDBException)
+                    {
+                        MainWindow.mw.Status.Content = "Problem setting event read status.";
 
-                Console.WriteLine("----------------------------------------");
-                for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
-                {
-                    Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
-                    Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
-                    Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
-                    Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
-                    Console.WriteLine("----------------------------------------");
+                        Console.WriteLine("----------------------------------------");
+                        for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
+                        {
+                            Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
+                            Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
+                            Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
+                            Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
+                            Console.WriteLine("----------------------------------------");
 
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateReadByMeID - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
-                    msg.ShowDialog();
-                }
-            }
-
-            if (saveSuccessFull)
-            {
-                //if (DisplayMode == DisplayModes.Reminders)
-                //    RefreshLog(ListViews.Reminder);
-                //else
-                //    RefreshLog(ListViews.Log);
+                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateReadByMeID - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            msg.ShowDialog();
+                        }
+                    }
+                    break;
+                case DatabaseSystems.SQLite:
+                    break;
             }
         }
 
@@ -1262,11 +1445,18 @@ namespace The_Oracle
             int count = 0;
             string cmdstr = "SELECT COUNT(*) FROM EventLog";
 
-            using (OleDbConnection conn = new OleDbConnection(MainWindow.HSE_LOG_GlobalMDBConnectionString))
-            using (OleDbCommand command = new OleDbCommand(cmdstr, conn))
+            switch (XMLReaderWriter.DatabaseSystem)
             {
-                conn.Open();
-                count = (int)command.ExecuteScalar();
+                case DatabaseSystems.AccessMDB:
+                    using (OleDbConnection conn = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
+                    using (OleDbCommand command = new OleDbCommand(cmdstr, conn))
+                    {
+                        conn.Open();
+                        count = (int)command.ExecuteScalar();
+                    }
+                    break;
+                case DatabaseSystems.SQLite:
+                    break;
             }
 
             return count;

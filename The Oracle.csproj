@@ -158,9 +158,6 @@
     <Compile Include="StatusIcons.cs" />
     <Compile Include="Frequency.cs" />
     <Compile Include="MiscFunctions.cs" />
-    <Compile Include="OracleMessagesNotification.xaml.cs">
-      <DependentUpon>OracleMessagesNotification.xaml</DependentUpon>
-    </Compile>
     <Compile Include="OracleNotification.xaml.cs">
       <DependentUpon>OracleNotification.xaml</DependentUpon>
     </Compile>
@@ -207,10 +204,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="OracleRequesterNotification.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="OracleMessagesNotification.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

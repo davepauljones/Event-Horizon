@@ -34,8 +34,6 @@ namespace The_Oracle
         public static MainWindow mw;
         public static DateTime OracleDatabaseLastWriteTime = DateTime.Now;
 
-        public static string HSE_LOG_GlobalMDBConnectionString = string.Empty;
-
         public delegate void OnOracleDatabaseChanged(object source, FileSystemEventArgs e);
 
         private OracleDatabaseFileWatcher fileWatcher;
@@ -145,7 +143,7 @@ namespace The_Oracle
 
                 EventStackPanel.Visibility = Visibility.Visible;
 
-                HSE_LOG_GlobalMDBConnectionString = string.Empty;
+                XMLReaderWriter.GlobalConnectionString = string.Empty;
 
                 MainWindowTitle.SetMainWindowTitle();
 
@@ -168,7 +166,7 @@ namespace The_Oracle
             oracleDatabaseHealth = new OracleDatabaseHealth();
             OracleDatabaseHealthGrid.Children.Add(oracleDatabaseHealth);
 
-            DataTableManagement.SetConnectionString(HSE_LOG_GlobalMDBConnectionString);
+            XMLReaderWriter.SetDatabaseConnectionString();
 
             if (OracleDatabaseCreate.CheckIfDatabaseExists())
             {
