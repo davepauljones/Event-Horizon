@@ -18,7 +18,8 @@ namespace The_Oracle
         {
             List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();
 
-            MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\claves.wav");
+            //MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\claves.wav");
+            MainWindow.mw.oracleDatabaseHealth.UpdateLastWriteLabel(true);
 
             switch (XMLReaderWriter.DatabaseSystem)
             {
@@ -384,7 +385,6 @@ namespace The_Oracle
                 else if ((DateTime.Today + timeSpan) > targetDateTime.Date)
                     _EventHorizonLINQReturnList.Add(eventHorizonLINQ);
             }
-
             return _EventHorizonLINQReturnList;
         }
 
@@ -499,12 +499,14 @@ namespace The_Oracle
             return _EventHorizonLINQReturnList;
         }
 
-        private static bool saveSuccessFull = false;
+        
 
         public static void SaveEvent(EventWindow eventWindow, EventHorizonLINQ eventHorizonLINQ, int eventMode)
         {
             if (CheckFormFields(eventWindow))
             {
+                bool saveSuccessFull = false;
+
                 string detailsSafeString = eventWindow.DetailsTextBox.Text.Replace("'", "''");
 
                 DateTime? createdDateTime = DateTime.Now;
@@ -528,7 +530,7 @@ namespace The_Oracle
                 string query2 = "Select @@Identity";
                 string query3 = "UPDATE EventLog SET[ParentEventID] = ? WHERE [ID] = ?";
 
-                int id;
+                Int32 id;
                 int rowsAffected = 0;
 
                 switch (XMLReaderWriter.DatabaseSystem)
@@ -637,6 +639,7 @@ namespace The_Oracle
                                         command.ExecuteNonQuery();
                                     }
                                     MainWindow.mw.Status.Content = "Successfully added a new event";
+                                    saveSuccessFull = true;
                                 }
                             }
                         }
@@ -727,19 +730,22 @@ namespace The_Oracle
                                     //gets the new ID number and makes ID & ParentEventID the same new ID
                                     if (eventMode == EventWindowModes.NewEvent)
                                     {
+                                        query2 = "SELECT last_insert_rowid()";
                                         command.CommandText = query2;
 
-                                        id = (int)command.ExecuteScalar();
+                                        id = Convert.ToInt32(command.ExecuteScalar());
                                         Console.Write("id = (int)command.ExecuteScalar(); = ");
                                         Console.WriteLine(id);
 
                                         command.Parameters.Clear();
+                                        query3 = "UPDATE EventLog SET ParentEventID = ? WHERE ID = ?";
                                         command.CommandText = query3;
                                         command.Parameters.Add("@ParentEventID", DbType.Int32).Value = id;
                                         command.Parameters.Add("@ID", DbType.Int32).Value = id;
                                         command.ExecuteNonQuery();
                                     }
                                     MainWindow.mw.Status.Content = "Successfully added a new event";
+                                    saveSuccessFull = true;
                                 }
                             }
                         }
@@ -837,6 +843,8 @@ namespace The_Oracle
         
         public static void DeleteEvent(Int32 EventID)
         {
+            bool saveSuccessFull = false;
+
             if (GetUserID(EventID) != XMLReaderWriter.UserID)
             {
                 OracleRequesterNotification rorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, you can only delete your own events.", InformationTextBlock = "You could ask the user who created it, to delete it." }, RequesterTypes.OK);
@@ -1095,9 +1103,9 @@ namespace The_Oracle
                             using (SQLiteCommand command = new SQLiteCommand("UPDATE Users SET LastTimeOnline = ? WHERE ID = ?", connection))
                             {
                                 connection.Open();
-
-                                command.Parameters.Add("@ID", DbType.Int32).Value = UserID;
+  
                                 command.Parameters.Add("@LastTimeOnline", DbType.DateTime).Value = DateTime.Now;
+                                command.Parameters.Add("@ID", DbType.Int32).Value = UserID;
 
                                 int rowsAffected = command.ExecuteNonQuery();
                                 if (rowsAffected == 0)

@@ -54,7 +54,11 @@ namespace The_Oracle
 
         internal static void CreateSQLiteDatabaseFile()
         {
-            System.Data.SQLite.SQLiteConnection.CreateFile("databaseFile.db3");        // Create the file which will be hosting our database
+            XMLReaderWriter.DatabaseSystem = DatabaseSystems.SQLite;
+            System.Data.SQLite.SQLiteConnection.CreateFile(AppDomain.CurrentDomain.BaseDirectory + "\\databaseFile.db3");        // Create the file which will be hosting our database
+            XMLReaderWriter.GlobalConnectionString = "Data Source=" + AppDomain.CurrentDomain.BaseDirectory + "\\databaseFile.db3;";
+            CreateEventLogTable();
+            CreateUsersTable();
         }
         
         internal static void CreateEventLogTable()
@@ -162,7 +166,7 @@ namespace The_Oracle
                     {
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            using (SQLiteCommand command = new SQLiteCommand("CREATE TABLE Users (ID INTEGER, LastTimeOnline DATETIME);", connection))
+                            using (SQLiteCommand command = new SQLiteCommand("CREATE TABLE Users (ID INTEGER PRIMARY KEY, LastTimeOnline DATETIME, CONSTRAINT unique_id UNIQUE (ID));", connection))
                             {
                                 connection.Open();
 

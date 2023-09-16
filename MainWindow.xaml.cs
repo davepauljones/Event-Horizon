@@ -29,7 +29,7 @@ namespace The_Oracle
 
         private Today today;
         private Now now;
-        private OracleDatabaseHealth oracleDatabaseHealth;
+        public OracleDatabaseHealth oracleDatabaseHealth;
 
         public static MainWindow mw;
         public static DateTime OracleDatabaseLastWriteTime = DateTime.Now;
@@ -46,9 +46,20 @@ namespace The_Oracle
 
         private void Init_OracleDatabaseFileWatcher()
         {
-            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb"))
+            switch (XMLReaderWriter.DatabaseSystem)
             {
-                fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
+                case DatabaseSystems.AccessMDB:
+                    if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb"))
+                    {
+                        fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
+                    }
+                    break;
+                case DatabaseSystems.SQLite:
+                    if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.db3"))
+                    {
+                        fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
+                    }
+                    break;
             }
         }
         
@@ -118,6 +129,7 @@ namespace The_Oracle
                 UpdateUsersOnline();
                 CheckMyUnreadAndMyReminders();
             }
+            MainWindow.mw.oracleDatabaseHealth.UpdateLastWriteLabel(false);
         }
        
         public MainWindow()

@@ -115,7 +115,7 @@ namespace The_Oracle
                         MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
                         break;
                     case 4:
-                        
+                        OracleDatabaseCreate.CreateSQLiteDatabaseFile();
                         break;
                     case 5:
                         MiscFunctions.OpenFileInNotepad(AppDomain.CurrentDomain.BaseDirectory + "EventHorizonLocalSettings.xml");

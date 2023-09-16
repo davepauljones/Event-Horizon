@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.IO;
+using System.Windows.Media;
 
 namespace The_Oracle
 {
@@ -27,6 +28,14 @@ namespace The_Oracle
                 SizeLabel.Content = MiscFunctions.SizeSuffix(fi.Length);
                 CreationTimeLabel.Content = fi.CreationTime.ToString("dd/MM/y HH:mm:ss");
             }
+        }
+
+        public void UpdateLastWriteLabel(bool highlightLabel)
+        {
+            if (highlightLabel)
+                LastWriteLabel.Foreground = new SolidColorBrush(Colors.Firebrick);
+            else
+                LastWriteLabel.Foreground = new SolidColorBrush(Colors.DarkSlateGray);
         }
     }
 }
