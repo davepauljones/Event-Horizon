@@ -16,7 +16,7 @@ namespace The_Oracle
     public partial class Welcome : Window
     {
         bool PrerequisitesPassed = false;
-        TimeSpan AwaitDelayTimeSpan = TimeSpan.FromMilliseconds(100);
+        TimeSpan AwaitDelayTimeSpan = TimeSpan.FromMilliseconds(10);
 
         public Welcome()
         {
@@ -227,7 +227,7 @@ namespace The_Oracle
 
             StatusLabel.Content = "Checking Event Horizon Prerequisites .";
 
-            await Task.Delay(2000); // Simulated delay
+            await Task.Delay(1200); // Simulated delay
             return result;
         }
 

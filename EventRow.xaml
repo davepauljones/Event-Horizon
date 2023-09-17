@@ -18,7 +18,7 @@
             <ColumnDefinition Width="Auto" MinWidth="98" MaxWidth="98"/>
             <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
             <ColumnDefinition Width="Auto" MinWidth="399" MaxWidth="399"/>
-            <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
+            <ColumnDefinition Width="Auto" MinWidth="38" MaxWidth="38"/>
             <ColumnDefinition Width="Auto" MinWidth="108" MaxWidth="108"/>
             <ColumnDefinition Width="Auto" MinWidth="110" MaxWidth="110"/>
             <ColumnDefinition Width="Auto" MinWidth="122" MaxWidth="122"/>
