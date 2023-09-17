@@ -97,7 +97,7 @@
             </Button>
         </Grid>
 
-        <ListView Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="13" x:Name="RepliesListView" SelectionMode="Single" Margin="-5,0,0,0" MaxWidth="1286" HorizontalAlignment="Left" BorderThickness="0" Visibility="Collapsed" PreviewMouseDoubleClick="RepliesListView_PreviewMouseDoubleClick">
+        <ListView Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="13" x:Name="RepliesListView" SelectionMode="Single" Margin="-5,0,0,0" MaxWidth="1288" HorizontalAlignment="Left" BorderThickness="0" Visibility="Collapsed" PreviewMouseDoubleClick="RepliesListView_PreviewMouseDoubleClick">
             <ListView.Template>
                 <ControlTemplate>
                     <ItemsPresenter></ItemsPresenter>
