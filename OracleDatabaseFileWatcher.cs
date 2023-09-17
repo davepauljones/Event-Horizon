@@ -18,15 +18,17 @@ namespace The_Oracle
             watcher.NotifyFilter = NotifyFilters.LastAccess;
             // Only watch text files.
 
-            switch (XMLReaderWriter.DatabaseSystem)
-            {
-                case DatabaseSystems.AccessMDB:
-                    watcher.Filter = "*.mdb";
-                    break;
-                case DatabaseSystems.SQLite:
-                    watcher.Filter = "*.db3";
-                    break;
-            }
+            //switch (XMLReaderWriter.DatabaseSystem)
+            //{
+            //    case DatabaseSystems.AccessMDB:
+            //        watcher.Filter = "*.mdb";
+            //        break;
+            //    case DatabaseSystems.SQLite:
+            //        watcher.Filter = "*.db3";
+            //        break;
+            //}
+
+            watcher.Filter = XMLReaderWriter.GlobalDatabaseString + XMLReaderWriter.GlobalDatabaseFileExtensionString;
 
             // Add event handlers.
             watcher.Changed += new FileSystemEventHandler(OnChanged);

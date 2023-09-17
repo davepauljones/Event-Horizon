@@ -22,7 +22,7 @@ namespace The_Oracle
                 {
                     mediaPlayer = new MediaPlayer();
                     mediaPlayer.Open(new Uri(filePath));
-                    mediaPlayer.Volume = 0.5;
+                    mediaPlayer.Volume = 0.1;
                     mediaPlayer.Play();
                 }
                 catch (IOException iox)

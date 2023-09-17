@@ -18,7 +18,7 @@ namespace The_Oracle
         {
             List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();
 
-            //MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\claves.wav");
+            MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\claves.wav");
             MainWindow.mw.oracleDatabaseHealth.UpdateLastWriteLabel(true);
 
             switch (XMLReaderWriter.DatabaseSystem)

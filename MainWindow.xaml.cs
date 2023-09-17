@@ -46,20 +46,24 @@ namespace The_Oracle
 
         private void Init_OracleDatabaseFileWatcher()
         {
-            switch (XMLReaderWriter.DatabaseSystem)
+            //switch (XMLReaderWriter.DatabaseSystem)
+            //{
+            //    case DatabaseSystems.AccessMDB:
+            //        if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.GlobalDatabaseString + XMLReaderWriter.GlobalDatabaseFileExtensionString))
+            //        {
+            //            fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
+            //        }
+            //        break;
+            //    case DatabaseSystems.SQLite:
+            //        if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.db3"))
+            //        {
+            //            fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
+            //        }
+            //        break;
+            //}
+            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.GlobalDatabaseString + XMLReaderWriter.GlobalDatabaseFileExtensionString))
             {
-                case DatabaseSystems.AccessMDB:
-                    if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb"))
-                    {
-                        fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
-                    }
-                    break;
-                case DatabaseSystems.SQLite:
-                    if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.db3"))
-                    {
-                        fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
-                    }
-                    break;
+                fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
             }
         }
         
@@ -155,8 +159,6 @@ namespace The_Oracle
 
                 EventStackPanel.Visibility = Visibility.Visible;
 
-                XMLReaderWriter.GlobalConnectionString = string.Empty;
-
                 MainWindowTitle.SetMainWindowTitle();
 
                 Loaded += MainWindow_Loaded;
@@ -178,8 +180,6 @@ namespace The_Oracle
             oracleDatabaseHealth = new OracleDatabaseHealth();
             OracleDatabaseHealthGrid.Children.Add(oracleDatabaseHealth);
 
-            XMLReaderWriter.SetDatabaseConnectionString();
-
             if (OracleDatabaseCreate.CheckIfDatabaseExists())
             {
                 Init_RefreshTimer();//for clock n calander
@@ -189,7 +189,7 @@ namespace The_Oracle
 
                 CheckMyUnreadAndMyReminders();
 
-                OracleDatabaseCreate.Create_Oracle();
+                //OracleDatabaseCreate.Create_Oracle();
 
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
                 UpdateUsersOnline();

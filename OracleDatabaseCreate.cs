@@ -9,7 +9,7 @@ namespace The_Oracle
     {
         internal static bool CheckIfDatabaseExists()
         {
-            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb"))
+            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.GlobalDatabaseString + XMLReaderWriter.GlobalDatabaseFileExtensionString))
             {
                 return true;
             }

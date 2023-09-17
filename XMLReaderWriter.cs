@@ -20,18 +20,25 @@ namespace The_Oracle
         public static TimeSpan UsersRefreshTimeSpan = TimeSpan.FromMilliseconds(100);
         public static int DatabaseSystem = DatabaseSystems.SQLite;
         public static string GlobalConnectionString = string.Empty;
+        public static string GlobalDatabaseString = "EventHorizonRemoteDatabase";
+        public static string GlobalDatabaseFileExtensionString = ".mdb";
 
         public static void SetDatabaseConnectionString()
         {
             switch (DatabaseSystem)
             {
                 case DatabaseSystems.AccessMDB:
-                    GlobalConnectionString = "Provider=Microsoft.Jet.Oledb.4.0; Data Source = " + DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb";
+                    GlobalDatabaseFileExtensionString = ".mdb";
+                    GlobalConnectionString = "Provider=Microsoft.Jet.Oledb.4.0; Data Source = " + DatabaseLocationString + "\\" + GlobalDatabaseString + GlobalDatabaseFileExtensionString;
                     break;
                 case DatabaseSystems.SQLite:
-                    GlobalConnectionString = "Data Source=" + DatabaseLocationString + "\\EventHorizonRemoteDatabase.db3;";
+                    GlobalDatabaseFileExtensionString = ".db3";
+                    GlobalConnectionString = "Data Source=" + DatabaseLocationString + "\\" + GlobalDatabaseString + GlobalDatabaseFileExtensionString + ";";
                     break;
             }
+
+            Console.Write("SetDatabaseConnectionString - GlobalConnectionString = ");
+            Console.WriteLine(GlobalConnectionString);
         }
         public static bool TryReadNodesFrom_EventHorizonSettingsXMLFile(String PathFileName)
         {

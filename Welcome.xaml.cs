@@ -253,6 +253,8 @@ namespace The_Oracle
                     FileModified localSettingsFileModified = MiscFunctions.GetFileModifiedDateTime(EventHorizonLocalSettingsPathFileName);
                     LocalSettingsModifiedLabel.Content = localSettingsFileModified.LastWriteTime;
                     LocalSettingsSizeLabel.Content = localSettingsFileModified.Size;
+
+                    XMLReaderWriter.SetDatabaseConnectionString();
                 }
             }
             else
@@ -309,7 +311,8 @@ namespace The_Oracle
 
             StatusLabel.Content = "Checking Event Horizon Prerequisites ....";
 
-            string EventHorizonRemoteDatabasePathFileName = XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb";
+            string EventHorizonRemoteDatabasePathFileName = XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.GlobalDatabaseString + XMLReaderWriter.GlobalDatabaseFileExtensionString;
+            
             Console.Write("Remote Folder Database is ");
             Console.WriteLine(EventHorizonRemoteDatabasePathFileName);
 

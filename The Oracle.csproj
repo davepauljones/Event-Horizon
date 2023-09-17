@@ -299,9 +299,7 @@
     <None Include="EventHorizonRemoteSettings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\EventHorizonRemoteDatabase.mdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\EventHorizonRemoteDatabase.mdb" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="gplv3-216x110.png" />
