@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](LICENSE)
 
-Up coming Events odbc mdb database, single or multi-user, primary use is to get organized, XML Event Types &amp; XML Users List
+Up coming Events odbc mdb & now SQLite database, single or multi-user, primary use is to get organized, XML Event Types &amp; XML Users List
 
 ![Event Horizon Welcome](./EventHorizonImageWelcome.png)
 
