@@ -744,15 +744,20 @@ namespace The_Oracle
                                         command.Parameters.Add("@ID", DbType.Int32).Value = id;
                                         command.ExecuteNonQuery();
                                     }
-                                    MainWindow.mw.Status.Content = "Successfully added a new event";
-                                    saveSuccessFull = true;
+                                    MainWindow.mw.Status.Content = "Successfully added a new event"; 
                                 }
                             }
                         }
+                        saveSuccessFull = true;
                         break;
                 }
-                
-                if (rowsAffected > 0 ) MainWindow.mw.Status.Content = "Successfully updated an event";
+
+                if (rowsAffected > 0)
+                {
+                    MainWindow.mw.Status.Content = "Successfully updated an event";
+                    MainWindow.mw.ReminderListView.SelectedItem = null;
+                    MainWindow.mw.RunningTask();
+                }
 
                 if (saveSuccessFull)
                 {

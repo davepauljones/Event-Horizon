@@ -75,15 +75,14 @@
 
         <TextBlock Grid.Column="8" Grid.Row="0" x:Name="DetailsTextBlock" Text="Mary had a little lamb" Foreground="Black" FontSize="13" Margin="10,5,5,0" Width="384" HorizontalAlignment="Left" TextWrapping="Wrap"/>
 
-        <Grid x:Name="SourceIDGrid" Grid.Column="9" Grid.Row="0" Margin="5,1,5,0" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Grid.Effect>
+        <Border x:Name="SourceTypeFontAwesomeIconBorder" Grid.Column="9" Grid.Row="0" Width="28" Height="28" Margin="10,0,0,0" BorderThickness="0" CornerRadius="3" Background="DodgerBlue" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="0">
+            <Border.Effect>
                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
-            </Grid.Effect>
-            <Ellipse x:Name="SourceIDEllipse" Width="26" Height="26" Fill="Pink" VerticalAlignment="Bottom"/>
-            <Label x:Name="SourceIDLabel" Content="DJ" Foreground="Black" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
-        </Grid>
+            </Border.Effect>
+            <fa:FontAwesome x:Name="SourceTypeFontAwesomeIcon" Icon="User" Width="28" Height="28" FontSize="17" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0"/>
+        </Border>
 
-        <TextBlock Grid.Column="10" Grid.Row="0" x:Name="SourceIDTextBlock" Text="David Jones" Foreground="Black" FontSize="13" Margin="0,5,10,0"/>
+        <TextBlock Grid.Column="10" Grid.Row="0" x:Name="SourceIDTextBlock" Text="David Jones" Foreground="Black" FontSize="13" Margin="5,5,10,0"/>
 
         <Grid Grid.Column="11" Grid.Row="0" x:Name="FrequencyGrid" Margin="10,2,0,0" VerticalAlignment="Top" IsEnabled="False"/>
 

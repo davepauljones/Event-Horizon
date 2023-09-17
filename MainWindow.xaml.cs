@@ -36,7 +36,7 @@ namespace The_Oracle
 
         public delegate void OnOracleDatabaseChanged(object source, FileSystemEventArgs e);
 
-        private OracleDatabaseFileWatcher fileWatcher;
+        //private OracleDatabaseFileWatcher fileWatcher;
 
         private bool justLoaded = false;
 
@@ -58,7 +58,7 @@ namespace The_Oracle
         
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (fileWatcher != null) fileWatcher.watcher.Dispose(); //Your FileSystemWatcher object
+            //if (fileWatcher != null) fileWatcher.watcher.Dispose(); //Your FileSystemWatcher object
         }
         
         private void OnChanged(object source, FileSystemEventArgs e)
@@ -89,16 +89,16 @@ namespace The_Oracle
                 oracleDatabaseHealth.UpdateLastWriteDateTime(DateTime.Now);
 
                 if (ReminderListView.SelectedItems.Count == 0)
-                 {
+                {
                     if (DisplayMode == DisplayModes.Reminders)
                         RefreshLog(ListViews.Reminder);
                     else
                         RefreshLog(ListViews.Log);
 
                     GetLastEntry(EventHorizonLINQList, justLoaded);
-                 }
+                }
 
-                 justLoaded = true;
+                justLoaded = true;
             }));
         }
 
@@ -328,7 +328,7 @@ namespace The_Oracle
                 eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.StickyNote;
                 eventRow.EventTypeTextBlock.Text = "Note";
                 eventRow.BackgroundGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f7f8f9"));
-                eventRow.SourceIDGrid.Visibility = Visibility.Hidden;
+                eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Hidden;
             }
             else if (eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
             {
@@ -336,7 +336,7 @@ namespace The_Oracle
                 eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Exchange;
                 eventRow.EventTypeTextBlock.Text = "Reply";
                 eventRow.BackgroundGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f7f8f9"));
-                eventRow.SourceIDGrid.Visibility = Visibility.Hidden;
+                eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -346,7 +346,7 @@ namespace The_Oracle
                     eventRow.EventTypeFontAwesomeIcon.Icon = XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Icon;
                     eventRow.EventTypeTextBlock.Text = XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Name;
                     eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
-                    eventRow.SourceIDGrid.Visibility = Visibility.Visible;
+                    eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -354,7 +354,7 @@ namespace The_Oracle
                     eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Question;
                     eventRow.EventTypeTextBlock.Text = "Error";
                     eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
-                    eventRow.SourceIDGrid.Visibility = Visibility.Visible;
+                    eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
                 }
             }
 
@@ -368,33 +368,20 @@ namespace The_Oracle
             {
                 if (eventHorizonLINQ.SourceID < XMLReaderWriter.SourceTypesList.Count)
                 {
-                    eventRow.SourceIDEllipse.Fill = new SolidColorBrush(XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Color);
-                    eventRow.SourceIDLabel.Content = MiscFunctions.GetFirstCharsOfString(XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Name);
+                    eventRow.SourceTypeFontAwesomeIconBorder.Background = new SolidColorBrush(XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Color);
+                    eventRow.SourceTypeFontAwesomeIcon.Icon = XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Icon;
                     eventRow.SourceIDTextBlock.Text = XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Name;
+                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
+                    eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    eventRow.SourceIDEllipse.Fill = new SolidColorBrush(Colors.White);
-                    eventRow.SourceIDLabel.Content = "EE";
+                    eventRow.SourceTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.White);
+                    eventRow.SourceTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Question;
                     eventRow.SourceIDTextBlock.Text = "Error";
+                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
+                    eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
                 }
-            }
-           
-            if (eventHorizonLINQ.SourceID < XMLReaderWriter.SourceTypesList.Count)
-            {
-                if (eventHorizonLINQ.SourceID > 0)
-                    eventRow.SourceIDLabel.Content = MiscFunctions.GetFirstCharsOfString(XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Name);
-                else
-                {
-                    eventRow.SourceIDLabel.Content = "★";
-                    eventRow.SourceIDLabel.Margin = new Thickness(0, -3, 0, 0);
-                    eventRow.SourceIDLabel.FontSize = 14;
-                }
-            }
-            else
-            {
-                eventRow.SourceIDEllipse.Fill = new SolidColorBrush(Colors.White);
-                eventRow.SourceIDLabel.Content = MiscFunctions.GetFirstCharsOfString(XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Name);
             }
 
             eventRow.DetailsTextBlock.Text = eventHorizonLINQ.Details;
@@ -641,34 +628,9 @@ namespace The_Oracle
             {
                 if (i > 1)
                 {
-                    Grid originUserIconEllipseGrid;
-                    Ellipse originUserIconEllipse;
+                    Border border = new Border { Width = 28, Height = 28, Background = new SolidColorBrush(sourceType.Color), BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 2.3, 0), Padding = new Thickness(0) };
 
-                    Color iconEllipseColor = Colors.White;
-
-                    iconEllipseColor = sourceType.Color;
-
-                    if (sourceType.ID > 0)
-                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                    else
-                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                    originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                    originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
-
-                    Label originUserIconEllipseLabel;
-
-                    if (sourceType.ID > 0)
-                        originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(sourceType.Name), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                    else
-                        originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
-
-                    originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
-
-                    originUserIconEllipseGrid.Opacity = 1;
-
-                    originUserIconEllipseGrid.Effect = new DropShadowEffect
+                    border.Effect = new DropShadowEffect
                     {
                         Color = new Color { A = 255, R = 0, G = 0, B = 0 },
                         Direction = 320,
@@ -676,7 +638,11 @@ namespace The_Oracle
                         Opacity = 0.6
                     };
 
-                    stackPanel.Children.Add(originUserIconEllipseGrid);
+                    FontAwesome.WPF.FontAwesome fai = new FontAwesome.WPF.FontAwesome { Icon = sourceType.Icon, Width = 28, Height = 28, FontSize = 17, Foreground = new SolidColorBrush(Colors.White), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(0, 5, 0, 0) };
+
+                    border.Child = fai;
+
+                    stackPanel.Children.Add(border);
                 }
 
                 i++;
