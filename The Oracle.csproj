@@ -129,6 +129,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ConverterFunctions.cs" />
+    <Compile Include="DatabasePoller.cs" />
     <Compile Include="DataTableManagement.cs" />
     <Compile Include="EventHorizonLINQ.cs" />
     <Compile Include="EventHorizonLogo.xaml.cs">

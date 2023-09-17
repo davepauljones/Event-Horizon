@@ -44,27 +44,16 @@ namespace The_Oracle
 
         public static Dictionary<Int32, DateTime> UsersLastTimeOnlineDictionary = new Dictionary<int, DateTime>();
 
+        private static DatabasePoller databasePoller;
+
         private void Init_OracleDatabaseFileWatcher()
         {
-            //switch (XMLReaderWriter.DatabaseSystem)
+            //if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.GlobalDatabaseString + XMLReaderWriter.GlobalDatabaseFileExtensionString))
             //{
-            //    case DatabaseSystems.AccessMDB:
-            //        if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.GlobalDatabaseString + XMLReaderWriter.GlobalDatabaseFileExtensionString))
-            //        {
-            //            fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
-            //        }
-            //        break;
-            //    case DatabaseSystems.SQLite:
-            //        if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.db3"))
-            //        {
-            //            fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
-            //        }
-            //        break;
+            //    fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
             //}
-            if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.GlobalDatabaseString + XMLReaderWriter.GlobalDatabaseFileExtensionString))
-            {
-                fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
-            }
+            databasePoller = new DatabasePoller(XMLReaderWriter.GlobalConnectionString);
+            databasePoller.StartPolling();
         }
         
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -127,7 +116,7 @@ namespace The_Oracle
             now.SyncTime();
 
             //Check Users online every 60 seconds only executes if second is 0
-            if (DateTime.Now.Second == XMLReaderWriter.UserID * 6)//use UserID as to offset actual second used to update
+                if (DateTime.Now.Second == XMLReaderWriter.UserID * 6)//use UserID as to offset actual second used to update
             {
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
                 UpdateUsersOnline();
