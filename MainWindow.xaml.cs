@@ -82,13 +82,13 @@ namespace The_Oracle
             });
         }
         
-        private void RunningTask()
+        public void RunningTask()
         {
             this.Dispatcher.Invoke((Action)(() =>
             {
                 oracleDatabaseHealth.UpdateLastWriteDateTime(DateTime.Now);
 
-                 if (ReminderListView.SelectedItems.Count == 0)
+                if (ReminderListView.SelectedItems.Count == 0)
                  {
                     if (DisplayMode == DisplayModes.Reminders)
                         RefreshLog(ListViews.Reminder);
@@ -101,22 +101,14 @@ namespace The_Oracle
                  justLoaded = true;
             }));
         }
-        
-        private void Init_RefreshTimer()
-        {
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += timer_Tick;
-            timer.Start();
-        }
-        
-        void timer_Tick(object sender, EventArgs e)
+
+        public void RunCycle()
         {
             today.SyncDate();
             now.SyncTime();
 
             //Check Users online every 60 seconds only executes if second is 0
-                if (DateTime.Now.Second == XMLReaderWriter.UserID * 6)//use UserID as to offset actual second used to update
+            if (DateTime.Now.Second == XMLReaderWriter.UserID * 6)//use UserID as to offset actual second used to update
             {
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
                 UpdateUsersOnline();
@@ -124,6 +116,29 @@ namespace The_Oracle
             }
             MainWindow.mw.oracleDatabaseHealth.UpdateLastWriteLabel(false);
         }
+        
+        //private void Init_RefreshTimer()
+        //{
+        //    DispatcherTimer timer = new DispatcherTimer();
+        //    timer.Interval = TimeSpan.FromSeconds(1);
+        //    timer.Tick += timer_Tick;
+        //    timer.Start();
+        //}
+        
+        //void timer_Tick(object sender, EventArgs e)
+        //{
+        //    today.SyncDate();
+        //    now.SyncTime();
+
+        //    //Check Users online every 60 seconds only executes if second is 0
+        //    if (DateTime.Now.Second == XMLReaderWriter.UserID * 6)//use UserID as to offset actual second used to update
+        //    {
+        //        DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
+        //        UpdateUsersOnline();
+        //        CheckMyUnreadAndMyReminders();
+        //    }
+        //    MainWindow.mw.oracleDatabaseHealth.UpdateLastWriteLabel(false);
+        //}
        
         public MainWindow()
         {
@@ -171,7 +186,7 @@ namespace The_Oracle
 
             if (OracleDatabaseCreate.CheckIfDatabaseExists())
             {
-                Init_RefreshTimer();//for clock n calander
+                //Init_RefreshTimer();//for clock n calander
                 Init_OracleDatabaseFileWatcher();
 
                 RefreshXML();

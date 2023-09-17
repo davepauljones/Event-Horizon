@@ -51,13 +51,7 @@ namespace The_Oracle
                             Console.WriteLine("Changes detected in the database.");
                             // Handle the changes here (e.g., update UI, trigger actions)
 
-                            if (MainWindow.mw.ReminderListView.SelectedItems.Count == 0)
-                            {
-                                if (MainWindow.mw.DisplayMode == DisplayModes.Reminders)
-                                    MainWindow.mw.RefreshLog(ListViews.Reminder);
-                                else
-                                    MainWindow.mw.RefreshLog(ListViews.Log);
-                            }
+                            MainWindow.mw.RunningTask();
 
                             previousRowCount = rowCount;
                         }
@@ -68,6 +62,8 @@ namespace The_Oracle
             {
                 Console.WriteLine("Error while polling the database: " + ex.Message);
             }
+
+            MainWindow.mw.RunCycle();
         }
 
         public int previousRowCount = -1; // Store the previous row count to compare changes
