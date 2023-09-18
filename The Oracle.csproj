@@ -138,6 +138,9 @@
     <Compile Include="EventHorizonEventTypes.cs" />
     <Compile Include="EventHorizonSources.cs" />
     <Compile Include="EventHorizonUsers.cs" />
+    <Compile Include="EventRowStatusBar.xaml.cs">
+      <DependentUpon>EventRowStatusBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EventRow.xaml.cs">
       <DependentUpon>EventRow.xaml</DependentUpon>
     </Compile>
@@ -179,6 +182,10 @@
     <Page Include="EventHorizonLogo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventRowStatusBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="EventRow.xaml">
       <SubType>Designer</SubType>

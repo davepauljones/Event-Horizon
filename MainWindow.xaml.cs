@@ -301,8 +301,19 @@ namespace The_Oracle
                     {
                         foreach (EventHorizonLINQ eventHorizonLINQRow in eventHorizonLINQRepliesList)
                         {
-                            eventRow.RepliesListView.Items.Add(CreateEventLogRow(eventHorizonLINQRow));
+                            EventRow er = CreateEventLogRow(eventHorizonLINQRow);
+                            
+                            eventRow.RepliesListView.Items.Add(er);
+
+                            if (eventHorizonLINQRow == eventHorizonLINQRepliesList.Last()) // Check if it's the last item
+                            {
+                                EventRowStatusBar ersb = new EventRowStatusBar(new EventHorizonLINQ());
+                                ersb.SourceIDTextBlock.Text = eventHorizonLINQ.Attributes_Replies.ToString();
+                                er.StatusBarGrid.Children.Add(ersb);
+                                er.StatusBarGrid.Visibility = Visibility.Visible;
+                            }
                         }
+
                     }
                 }
                 Status.Content = "Reminders needing attention " + ReminderListView.Items.Count;
