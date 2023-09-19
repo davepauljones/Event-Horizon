@@ -37,6 +37,7 @@ namespace The_Oracle
         {
             if (eventHorizonLINQ != null)
             {
+                EventIDLabel.Content = eventID;
                 NotificationsLabel.Content = notificationNumber + " of " + totalNotifications;
                 UserNameTextBlock.Text = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
                 DetailsTextBlock.Text = eventHorizonLINQ.Details;
@@ -78,6 +79,11 @@ namespace The_Oracle
                         {
                             DataTableManagement.UpdateStatusID(eventID, Statuses.ActiveNotified);
                             eventHorizonLINQ.StatusID = Statuses.ActiveNotified;
+                            
+                            if (mw.DisplayMode == DisplayModes.Reminders)
+                                mw.RefreshLog(ListViews.Reminder);
+                            else
+                                mw.RefreshLog(ListViews.Log);
                         }
 
                         Close();
@@ -131,7 +137,7 @@ namespace The_Oracle
                                     break;
                             }
 
-                            DataTableManagement.UpdateMyReminder(eventID, RemindMeModes.Yes, remindMeDateTime, NotificationAcknowlegedModes.No);
+                            DataTableManagement.UpdateMyReminder(eventID, RemindMeModes.Yes, remindMeDateTime, NotificationAcknowlegedModes.Yes);
                             if (eventHorizonLINQ.TargetUserID == XMLReaderWriter.UserID) DataTableManagement.UpdateStatusID(eventID, Statuses.ActiveNotified);
                         }
                         else
@@ -141,7 +147,12 @@ namespace The_Oracle
                         }
 
                         if (Notifications.ContainsKey(eventID)) Notifications.Remove(eventID);
-                        
+
+                        if (mw.DisplayMode == DisplayModes.Reminders)
+                            mw.RefreshLog(ListViews.Reminder);
+                        else
+                            mw.RefreshLog(ListViews.Log);
+
                         Close();
                         break;
                 }

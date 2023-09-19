@@ -112,8 +112,8 @@ namespace The_Oracle
             {
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
                 UpdateUsersOnline();
-                CheckMyUnreadAndMyReminders();
             }
+            CheckMyUnreadAndMyReminders();
             MainWindow.mw.oracleDatabaseHealth.UpdateLastWriteLabel(false);
         }
         
@@ -212,7 +212,7 @@ namespace The_Oracle
         private void CheckMyUnreadAndMyReminders()
         {
             Int32 notificationsAddedThisCycle = 0;
-            List<EventHorizonLINQ> eventHorizonLINQList = DataTableManagement.GetMyUnread();
+            List<EventHorizonLINQ> eventHorizonLINQList = DataTableManagement.GetMyUnreadAndMyReminders();
             Int32 notifications = eventHorizonLINQList.Count;
 
             foreach (EventHorizonLINQ eventHorizonLINQ in eventHorizonLINQList)
@@ -228,21 +228,21 @@ namespace The_Oracle
                 }
             }
 
-            List<EventHorizonLINQ> EventHorizonLINQreminders = DataTableManagement.GetMyReminders();
-            Int32 rmnotifications = EventHorizonLINQreminders.Count;
+            //List<EventHorizonLINQ> EventHorizonLINQreminders = DataTableManagement.GetMyReminders();
+            //Int32 rmnotifications = EventHorizonLINQreminders.Count;
 
-            foreach (EventHorizonLINQ eventHorizonLINQ in EventHorizonLINQreminders)
-            {
-                if (!OracleNotification.Notifications.ContainsKey(eventHorizonLINQ.ID))
-                {
-                    OracleNotification on = new OracleNotification(this, eventHorizonLINQ.ID, rmnotifications, EventHorizonLINQreminders.Count, eventHorizonLINQ);
-                    on.Show();
+            //foreach (EventHorizonLINQ eventHorizonLINQ in EventHorizonLINQreminders)
+            //{
+            //    if (!OracleNotification.Notifications.ContainsKey(eventHorizonLINQ.ID))
+            //    {
+            //        OracleNotification on = new OracleNotification(this, eventHorizonLINQ.ID, rmnotifications, EventHorizonLINQreminders.Count, eventHorizonLINQ);
+            //        on.Show();
 
-                    notifications--;
+            //        notifications--;
 
-                    notificationsAddedThisCycle++;
-                }
-            }
+            //        notificationsAddedThisCycle++;
+            //    }
+            //}
 
             if (notificationsAddedThisCycle > 0) MiscFunctions.PlayFile("Notification.mp3");
         }
@@ -308,7 +308,7 @@ namespace The_Oracle
                             if (eventHorizonLINQRow == eventHorizonLINQRepliesList.Last()) // Check if it's the last item
                             {
                                 EventRowStatusBar ersb = new EventRowStatusBar(new EventHorizonLINQ());
-                                ersb.SourceIDTextBlock.Text = eventHorizonLINQ.Attributes_Replies.ToString();
+                                //ersb.SourceIDTextBlock.Text = eventHorizonLINQ.Attributes_Replies.ToString();
                                 er.StatusBarGrid.Children.Add(ersb);
                                 er.StatusBarGrid.Visibility = Visibility.Visible;
                             }

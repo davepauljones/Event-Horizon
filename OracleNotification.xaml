@@ -31,6 +31,7 @@
                 RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled"/>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label x:Name="EventIDLabel" Content="00000" FontSize="14" Foreground="LightSlateGray" HorizontalContentAlignment="Right" Margin="0,3,12,0" Padding="0"/>
             <Label x:Name="NotificationsLabel" Content="1 of 2" FontSize="14" Foreground="LightSlateGray" HorizontalContentAlignment="Right" Margin="0,3,12,0" Padding="0"/>
             <Button Tag="1" Content="✕" Style="{DynamicResource CloseButtonStyle }" VerticalAlignment="Top" Click="TreeView_ButtonClick"/>
         </StackPanel>

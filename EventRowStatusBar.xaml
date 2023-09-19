@@ -81,9 +81,10 @@
             <fa:FontAwesome x:Name="SourceTypeFontAwesomeIcon" Icon="User" Width="28" Height="28" FontSize="17" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0"/>
         </Border>
 
-        <TextBlock Grid.Column="10" Grid.Row="0" x:Name="SourceIDTextBlock" Text="1" Foreground="Black" FontSize="13" Margin="5,5,10,0"/>
+        <TextBlock Grid.Column="10" Grid.Row="0" x:Name="TotalTextBlock" Text="10.28" Foreground="Black" FontSize="13" Margin="5,5,10,0" HorizontalAlignment="Right"/>
 
-        <Grid Grid.Column="11" Grid.Row="0" x:Name="FrequencyGrid" Margin="10,2,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <TextBlock Grid.Column="11" Grid.Row="0" x:Name="GrandTotalTextBlock" Text="£102.79" Foreground="Black" FontSize="13" Margin="5,5,10,0" HorizontalAlignment="Right"/>
+        <!--<Grid Grid.Column="11" Grid.Row="0" x:Name="FrequencyGrid" Margin="10,2,0,0" VerticalAlignment="Top" IsEnabled="False"/>-->
 
         <Grid Grid.Column="12" Grid.Row="0" x:Name="StatusGrid" Margin="10,2,5,0" VerticalAlignment="Top" IsEnabled="False"/>
 
