@@ -38,9 +38,9 @@ namespace The_Oracle
 
         //private OracleDatabaseFileWatcher fileWatcher;
 
-        private bool justLoaded = false;
+        public bool justLoaded = false;
 
-        private List<EventHorizonLINQ> EventHorizonLINQList;
+        public List<EventHorizonLINQ> EventHorizonLINQList;
 
         public static Dictionary<Int32, DateTime> UsersLastTimeOnlineDictionary = new Dictionary<int, DateTime>();
 
@@ -61,15 +61,15 @@ namespace The_Oracle
             //if (fileWatcher != null) fileWatcher.watcher.Dispose(); //Your FileSystemWatcher object
         }
         
-        private void OnChanged(object source, FileSystemEventArgs e)
-        {
-            RunTask();
+        //private void OnChanged(object source, FileSystemEventArgs e)
+        //{
+        //    RunTask();
 
-            // Specify what is done when a file is changed, created, or deleted.
-            Console.WriteLine("*************************************************************");
-            Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
-            Console.WriteLine("*************************************************************");
-        }
+        //    // Specify what is done when a file is changed, created, or deleted.
+        //    Console.WriteLine("*************************************************************");
+        //    Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
+        //    Console.WriteLine("*************************************************************");
+        //}
         
         private async void RunTask()
         {
@@ -88,15 +88,15 @@ namespace The_Oracle
             {
                 oracleDatabaseHealth.UpdateLastWriteDateTime(DateTime.Now);
 
-                if (ReminderListView.SelectedItems.Count == 0)
-                {
+                //if (ReminderListView.SelectedItems.Count == 0)
+                //{
                     if (DisplayMode == DisplayModes.Reminders)
                         RefreshLog(ListViews.Reminder);
                     else
                         RefreshLog(ListViews.Log);
 
-                    GetLastEntry(EventHorizonLINQList, justLoaded);
-                }
+                    //GetLastEntry(EventHorizonLINQList, justLoaded);
+                //}
 
                 justLoaded = true;
             }));

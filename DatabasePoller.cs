@@ -53,6 +53,8 @@ namespace The_Oracle
 
                             MainWindow.mw.RunningTask();
 
+                            MainWindow.mw.GetLastEntry(MainWindow.mw.EventHorizonLINQList, MainWindow.mw.justLoaded);
+
                             previousRowCount = rowCount;
                         }
                     }
