@@ -36,8 +36,6 @@ namespace The_Oracle
 
         public delegate void OnOracleDatabaseChanged(object source, FileSystemEventArgs e);
 
-        //private OracleDatabaseFileWatcher fileWatcher;
-
         public bool justLoaded = false;
 
         public List<EventHorizonLINQ> EventHorizonLINQList;
@@ -48,28 +46,14 @@ namespace The_Oracle
 
         private void Init_OracleDatabaseFileWatcher()
         {
-            //if (File.Exists(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.GlobalDatabaseString + XMLReaderWriter.GlobalDatabaseFileExtensionString))
-            //{
-            //    fileWatcher = new OracleDatabaseFileWatcher(XMLReaderWriter.DatabaseLocationString, OnChanged);
-            //}
             databasePoller = new DatabasePoller(XMLReaderWriter.GlobalConnectionString);
             databasePoller.StartPolling();
         }
         
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //if (fileWatcher != null) fileWatcher.watcher.Dispose(); //Your FileSystemWatcher object
+            
         }
-        
-        //private void OnChanged(object source, FileSystemEventArgs e)
-        //{
-        //    RunTask();
-
-        //    // Specify what is done when a file is changed, created, or deleted.
-        //    Console.WriteLine("*************************************************************");
-        //    Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
-        //    Console.WriteLine("*************************************************************");
-        //}
         
         private async void RunTask()
         {
@@ -88,15 +72,10 @@ namespace The_Oracle
             {
                 oracleDatabaseHealth.UpdateLastWriteDateTime(DateTime.Now);
 
-                //if (ReminderListView.SelectedItems.Count == 0)
-                //{
-                    if (DisplayMode == DisplayModes.Reminders)
-                        RefreshLog(ListViews.Reminder);
-                    else
-                        RefreshLog(ListViews.Log);
-
-                    //GetLastEntry(EventHorizonLINQList, justLoaded);
-                //}
+                if (DisplayMode == DisplayModes.Reminders)
+                    RefreshLog(ListViews.Reminder);
+                else
+                    RefreshLog(ListViews.Log);
 
                 justLoaded = true;
             }));
@@ -116,29 +95,6 @@ namespace The_Oracle
             CheckMyUnreadAndMyReminders();
             MainWindow.mw.oracleDatabaseHealth.UpdateLastWriteLabel(false);
         }
-        
-        //private void Init_RefreshTimer()
-        //{
-        //    DispatcherTimer timer = new DispatcherTimer();
-        //    timer.Interval = TimeSpan.FromSeconds(1);
-        //    timer.Tick += timer_Tick;
-        //    timer.Start();
-        //}
-        
-        //void timer_Tick(object sender, EventArgs e)
-        //{
-        //    today.SyncDate();
-        //    now.SyncTime();
-
-        //    //Check Users online every 60 seconds only executes if second is 0
-        //    if (DateTime.Now.Second == XMLReaderWriter.UserID * 6)//use UserID as to offset actual second used to update
-        //    {
-        //        DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
-        //        UpdateUsersOnline();
-        //        CheckMyUnreadAndMyReminders();
-        //    }
-        //    MainWindow.mw.oracleDatabaseHealth.UpdateLastWriteLabel(false);
-        //}
        
         public MainWindow()
         {
@@ -186,14 +142,11 @@ namespace The_Oracle
 
             if (OracleDatabaseCreate.CheckIfDatabaseExists())
             {
-                //Init_RefreshTimer();//for clock n calander
                 Init_OracleDatabaseFileWatcher();
 
                 RefreshXML();
 
                 CheckMyUnreadAndMyReminders();
-
-                //OracleDatabaseCreate.Create_Oracle();
 
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
                 UpdateUsersOnline();
@@ -227,22 +180,6 @@ namespace The_Oracle
                     notificationsAddedThisCycle++;
                 }
             }
-
-            //List<EventHorizonLINQ> EventHorizonLINQreminders = DataTableManagement.GetMyReminders();
-            //Int32 rmnotifications = EventHorizonLINQreminders.Count;
-
-            //foreach (EventHorizonLINQ eventHorizonLINQ in EventHorizonLINQreminders)
-            //{
-            //    if (!OracleNotification.Notifications.ContainsKey(eventHorizonLINQ.ID))
-            //    {
-            //        OracleNotification on = new OracleNotification(this, eventHorizonLINQ.ID, rmnotifications, EventHorizonLINQreminders.Count, eventHorizonLINQ);
-            //        on.Show();
-
-            //        notifications--;
-
-            //        notificationsAddedThisCycle++;
-            //    }
-            //}
 
             if (notificationsAddedThisCycle > 0) MiscFunctions.PlayFile("Notification.mp3");
         }
@@ -1082,26 +1019,6 @@ namespace The_Oracle
         }
 
         public EventHorizonLINQ eventHorizonLINQ;
-        
-        //private void EventLogListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    DependencyObject dep = (DependencyObject)e.OriginalSource;
-
-        //    while ((dep != null) && !(dep is StackPanel))
-        //    {
-        //        dep = VisualTreeHelper.GetParent(dep);
-        //    }
-
-        //    if (dep == null)
-        //        return;
-
-        //    StackPanel item = (StackPanel)dep;
-
-        //    Console.Write("item = ");
-        //    Console.WriteLine(item.Tag);
-
-        //    EventLogListViewTagged = Convert.ToInt32(item.Tag);
-        //}
 
         private void AddItemsToEventTypeComboBox()
         {
@@ -1111,11 +1028,6 @@ namespace The_Oracle
             }
 
             EventTypeComboBox.SelectedIndex = 0;
-
-            //EventTypeComboBox.ItemsSource = (from c in XMLReaderWriter.EventTypesList select new { c.Name }).Distinct().ToList();
-            //EventTypeComboBox.DisplayMemberPath = "Name";
-
-            //EventTypeComboBox.SelectedIndex = 0;
         }
 
         public TimeSpan ReminderListTimeSpan = new TimeSpan(1, 0, 0, 0);
@@ -1160,39 +1072,6 @@ namespace The_Oracle
                 ReminderListScrollViewer.ScrollToTop();
             }
         }
-
-        //private void EventLogListView_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //    DependencyObject dep = (DependencyObject)e.OriginalSource;
-
-        //    while ((dep != null) && !(dep is StackPanel))
-        //    {
-        //        dep = VisualTreeHelper.GetParent(dep);
-        //    }
-
-        //    if (dep == null)
-        //        return;
-
-        //    StackPanel item = (StackPanel)dep;
-
-        //    Console.Write("item = ");
-        //    Console.WriteLine(item.Tag);
-
-        //    EventLogListViewTagged = Convert.ToInt32(item.Tag);
-
-        //    if (EventLogListViewTagged > 0)
-        //    {
-        //        EventWindow editEventWindow = new EventWindow(this, new EventHorizonLINQ
-        //        {
-        //            Source_ID = EventLogListViewTagged,
-        //            Source_Mode = EventWindowModes.EditMainEvent,
-        //            Source_ParentEventID = SelectedParentEventID,
-        //            Attributes_TotalDays = 0,
-        //            ID = EventLogListViewTagged,
-        //        }, null);
-        //        editEventWindow.Show();
-        //    }
-        //}
 
         public int FilterMode = FilterModes.None;
         
@@ -1345,12 +1224,6 @@ namespace The_Oracle
             EventRow item = (EventRow)dep;
 
             eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
-            
-            //EventLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
-
-            //SelectedParentEventID = Convert.ToInt32(eventHorizonLINQ.Source_ParentEventID);
-            
-            //SelectedReplies = Convert.ToInt32(eventHorizonLINQ.Attributes_Replies);
 
             Console.WriteLine();
             Console.WriteLine(">S>>MainWindow ReminderListView_PreviewMouseLeftButtonDown<<<<");
@@ -1388,7 +1261,6 @@ namespace The_Oracle
             EventRow item = (EventRow)dep;
 
             eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
-            //EventLogListViewTagged = Convert.ToInt32(eventHorizonLINQ.ID);
 
             Console.WriteLine();
             Console.WriteLine(">S>>MainWindow ReminderListView_MouseDoubleClick<<<<");
@@ -1414,10 +1286,6 @@ namespace The_Oracle
 
             if (eventHorizonLINQ != null)
             {
-                //eventHorizonLINQ.Source_ID = EventLogListViewTagged;
-                //eventHorizonLINQ.ID = EventLogListViewTagged;
-                //eventHorizonLINQ.Source_Mode = EventWindowModes.EditMainEvent;
-
                 //try open event as EditEvent
                 EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ, null);
                 editEventWindow.Show();

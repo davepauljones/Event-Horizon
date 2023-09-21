@@ -362,7 +362,6 @@ namespace The_Oracle
                 }
 
                 eventHorizonLINQ.Source_ID = eventHorizonLINQ.ID;
-                //eventHorizonLINQ.Source_Mode = EventWindowModes.ViewMainEvent;
 
                 if (!int.TryParse(dataRow["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
 
@@ -476,7 +475,6 @@ namespace The_Oracle
                 }
 
                 eventHorizonLINQ.Source_ID = eventHorizonLINQ.ID;
-                //eventHorizonLINQ.Source_Mode = EventWindowModes.ViewReplyNote;
                 eventHorizonLINQ.Source_ParentEventID = eventID;
 
                 if (!int.TryParse(dataRow["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
@@ -940,7 +938,6 @@ namespace The_Oracle
         {
             DateTime LastTimeOnlineDateTime = DateTime.MinValue;
 
-            //String SqlString = "SELECT * FROM Users WHERE ID IN(SELECT ID FROM Users WHERE LastTimeOnline = (SELECT MAX(LastTimeOnline) FROM Users)) AND ID = " + UsersID + " ORDER BY LastTimeOnline DESC;";
             String SqlString = "SELECT * FROM Users;";
 
             switch (XMLReaderWriter.DatabaseSystem)
@@ -1259,64 +1256,6 @@ namespace The_Oracle
 
             return _EventHorizonLINQReturnList;
         }
-        
-        //public static List<EventHorizonLINQ> GetMyReminders()
-        //{
-        //    List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();
-
-        //    EnumerableRowCollection<DataRow> query;
-
-        //    query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-        //            where eventHorizonEvent.Field<Int32>("StatusID") == Statuses.Active || eventHorizonEvent.Field<Int32>("StatusID") == Statuses.Active && eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID && eventHorizonEvent.Field<Int32>("RemindMeID") == RemindMeModes.Yes && eventHorizonEvent.Field<Int32>("NotificationAcknowledged") == NotificationAcknowlegedModes.No
-        //            orderby eventHorizonEvent.Field<DateTime>("RemindMeDateTime") descending
-        //            select eventHorizonEvent;
-
-        //    DataView dataView = query.AsDataView();
-
-        //    foreach (DataRow dataRow in dataView.ToTable().Rows)
-        //    {
-        //        EventHorizonLINQ eventHorizonLINQ = new EventHorizonLINQ();
-
-        //        if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonLINQ.ID)) eventHorizonLINQ.ID = 0;
-
-        //        eventHorizonLINQ.Details = dataRow["Details"].ToString();
-
-        //        if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonLINQ.UserID)) eventHorizonLINQ.UserID = 0;
-
-        //        if (!int.TryParse(dataRow["TargetUserID"].ToString(), out eventHorizonLINQ.TargetUserID)) eventHorizonLINQ.TargetUserID = 0;
-
-        //        if (!int.TryParse(dataRow["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
-
-        //        string remindMeDateTimeString = dataRow["RemindMeDateTime"].ToString();
-        //        DateTime remindMeDateTime = DateTime.MinValue;
-        //        if (DateTime.TryParse(remindMeDateTimeString, out remindMeDateTime)) remindMeDateTimeString = remindMeDateTime.ToString("dd/MM/y HH:mm");
-        //        eventHorizonLINQ.RemindMeDateTime = remindMeDateTime;
-
-        //        if (!int.TryParse(dataRow["NotificationAcknowledged"].ToString(), out eventHorizonLINQ.NotificationAcknowledged)) eventHorizonLINQ.NotificationAcknowledged = 0;
-
-        //        if (DateTime.TryParse(remindMeDateTimeString, out remindMeDateTime))
-        //        {
-        //            Console.WriteLine(remindMeDateTimeString);
-
-        //            if (remindMeDateTime.TimeOfDay == TimeSpan.Zero)
-        //            {
-        //                remindMeDateTimeString = remindMeDateTime.ToString("dd/MM/y");
-        //            }
-        //            else
-        //            {
-        //                remindMeDateTimeString = remindMeDateTime.ToString("dd/MM/y HH:mm");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine("Unable to parse rmdtString '{0}'", remindMeDateTimeString);
-        //        }
-
-        //        if (DateTime.Now >= remindMeDateTime) _EventHorizonLINQReturnList.Add(eventHorizonLINQ);
-        //    }
-
-        //    return _EventHorizonLINQReturnList;
-        //}
 
         public static void UpdateMyReminder(Int32 EventID, int ReminderMeID, DateTime RemindMeDateTime, int NotificationAcknowledged)
         {
