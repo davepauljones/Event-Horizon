@@ -488,7 +488,7 @@ namespace The_Oracle
         }
         public void LoadUsersIntoWelcome(Grid grid)
         {
-            StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
+            WrapPanel stackPanel = new WrapPanel { Orientation = Orientation.Horizontal };
 
             int i = 1;
             foreach (User user in XMLReaderWriter.UsersList)
@@ -539,14 +539,14 @@ namespace The_Oracle
         }
         public void LoadEventTypesIntoWelcome(Grid grid)
         {
-            StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
+            WrapPanel stackPanel = new WrapPanel { Orientation = Orientation.Horizontal };
 
             int i = 1;
             foreach (EventType eventType in XMLReaderWriter.EventTypesList)
             {
                 if (i > 1)
                 {
-                    Border border = new Border { Width = 28, Height = 28, Background = new SolidColorBrush(eventType.Color), BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 2.3, 0), Padding = new Thickness(0) };
+                    Border border = new Border { Width = 28, Height = 28, Background = new SolidColorBrush(eventType.Color), BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 2.3, 2.3), Padding = new Thickness(0) };
 
                     border.Effect = new DropShadowEffect
                     {
@@ -569,14 +569,14 @@ namespace The_Oracle
         }
         public void LoadSourceTypesIntoWelcome(Grid grid)
         {
-            StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
+            WrapPanel stackPanel = new WrapPanel { Orientation = Orientation.Horizontal };
 
             int i = 1;
             foreach (SourceType sourceType in XMLReaderWriter.SourceTypesList)
             {
                 if (i > 1)
                 {
-                    Border border = new Border { Width = 28, Height = 28, Background = new SolidColorBrush(sourceType.Color), BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 2.3, 0), Padding = new Thickness(0) };
+                    Border border = new Border { Width = 28, Height = 28, Background = new SolidColorBrush(sourceType.Color), BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 2.3, 2.3), Padding = new Thickness(0) };
 
                     border.Effect = new DropShadowEffect
                     {

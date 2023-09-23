@@ -26,16 +26,32 @@ namespace The_Oracle
         }
         private void Init()
         {
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\wormhole1000x600.png"))
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\wormhole1020x1000.png"))
             {
                 ImageBrush myBrush = new ImageBrush();
-                myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\wormhole1000x600.png", UriKind.Absolute));
+                myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\wormhole1020x1000.png", UriKind.Absolute));
+                //myBrush.Stretch = Stretch.Uniform;
 
                 MainBorder.Background = myBrush;
                 MainBorder.Background.Opacity = 1;
+
+                //myBrush.Freeze(); // Freeze the brush (make it unmodifiable) for performance benefits.
             }
 
             CheckPrerequisites();
+        }
+
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            base.OnRenderSizeChanged(sizeInfo);
+
+            //Calculate half of the offset to move the form
+
+            if (sizeInfo.HeightChanged)
+                this.Top += (sizeInfo.PreviousSize.Height - sizeInfo.NewSize.Height) / 2;
+
+            if (sizeInfo.WidthChanged)
+                this.Left += (sizeInfo.PreviousSize.Width - sizeInfo.NewSize.Width) / 2;
         }
 
         private void Welcome_MouseDown(object sender, MouseButtonEventArgs e)
