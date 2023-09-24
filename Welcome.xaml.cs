@@ -15,6 +15,26 @@ namespace The_Oracle
     /// </summary>
     public partial class Welcome : Window
     {
+        public struct WelcomeButtons
+        {
+            public const int Logon = 0;
+            public const int Retry = 1;
+            public const int New_LocalSettingsXML = 2;
+            public const int Edit_LocalSettingsXML = 3;
+            public const int New_RemoteSettingsXML = 4;
+            public const int Edit_RemoteSettingsXML = 5;
+            public const int New_RemoteDatabase = 6;
+            public const int Select_RemoteDatabase = 7;
+            public const int New_User_RemoteSettings = 8;
+            public const int Edit_Users_RemoteSettings = 9;
+            public const int Select_CurrentUser_RemoteSettings = 10;
+            public const int Edit_CurrentUser_LocalSettings = 11;
+            public const int New_EventType_RemoteSettings = 12;
+            public const int Edit_EventTypes_RemoteSettings = 13;
+            public const int New_SourceType_RemoteSettings = 14;
+            public const int Edit_SourceTypes_RemoteSettings = 15;
+        }
+
         bool PrerequisitesPassed = false;
         TimeSpan AwaitDelayTimeSpan = TimeSpan.FromMilliseconds(10);
 
@@ -111,36 +131,138 @@ namespace The_Oracle
 
                 switch (buttonID)
                 {
-                    case 0:
+                    case WelcomeButtons.Logon:
                         if (PrerequisitesPassed)
                             DialogResult = true;
                         else
                             DialogResult = false;
                         Close();
                         break;
-                    case 1:
+                    case WelcomeButtons.Retry:
                         CheckPrerequisites();
                         break;
-                    case 2:
-                        MiscFunctions.OpenFileInNotepad(AppDomain.CurrentDomain.BaseDirectory + "EventHorizonLocalSettings.xml");
+                    case WelcomeButtons.New_LocalSettingsXML:
+                        OracleRequesterNotification norn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Create a New Local Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (norn.ShowDialog() == true)
+                        {
+
+                        }
                         break;
-                    case 3:
-                        MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                    case WelcomeButtons.Edit_LocalSettingsXML:
+                        OracleRequesterNotification eorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit an existing Local Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (eorn.ShowDialog() == true)
+                        {
+                            MiscFunctions.OpenFileInNotepad(AppDomain.CurrentDomain.BaseDirectory + "EventHorizonLocalSettings.xml");
+                        }
                         break;
-                    case 4:
-                        OracleDatabaseCreate.CreateSQLiteDatabaseFile();
+                    case WelcomeButtons.New_RemoteSettingsXML:
+                        OracleRequesterNotification nrorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Create a New Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (nrorn.ShowDialog() == true)
+                        {
+
+                        }
                         break;
-                    case 5:
-                        MiscFunctions.OpenFileInNotepad(AppDomain.CurrentDomain.BaseDirectory + "EventHorizonLocalSettings.xml");
+                    case WelcomeButtons.Edit_RemoteSettingsXML:
+                        OracleRequesterNotification srsborn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Select an existing Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (srsborn.ShowDialog() == true)
+                        {
+                            string pathFileName = OracleDatabaseCreate.OpenLocalSettingsXMLFile();
+
+                            Console.Write("Selected Remote Settings File = ");
+                            Console.WriteLine(pathFileName);
+
+                            Console.Write("Path.GetFileNameWithoutExtension(pathFileName) = ");
+                            Console.WriteLine(Path.GetFileNameWithoutExtension(pathFileName));
+
+                            RemoteSettingsLabel.Content = pathFileName;
+
+                            CheckPrerequisites();
+                        }
+                        //OracleRequesterNotification erorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit an existing Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        //if (erorn.ShowDialog() == true)
+                        //{
+                        //    MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                        //}
                         break;
-                    case 6:                       
-                        MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                    case WelcomeButtons.New_RemoteDatabase:
+                        OracleRequesterNotification nrdborn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Create a New Remote Database File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (nrdborn.ShowDialog() == true)
+                        {
+                            OracleDatabaseCreate.CreateSQLiteDatabaseFile();
+                        }   
                         break;
-                    case 7:
-                        MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                    case WelcomeButtons.Select_RemoteDatabase:
+                        OracleRequesterNotification srdborn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Select an existing Remote Database File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (srdborn.ShowDialog() == true)
+                        {
+                            string pathFileName = OracleDatabaseCreate.OpenSQLiteDatabaseFile();
+
+                            Console.Write("Selected Database = ");
+                            Console.WriteLine(pathFileName);
+
+                            Console.Write("Path.GetFileNameWithoutExtension(pathFileName) = ");
+                            Console.WriteLine(Path.GetFileNameWithoutExtension(pathFileName));
+
+                            RemoteDatabaseLabel.Content = pathFileName;
+
+                            CheckPrerequisites();
+                        }
                         break;
-                    case 8:
-                        MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                    case WelcomeButtons.New_User_RemoteSettings:
+                        OracleRequesterNotification nuorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Add a New User to Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (nuorn.ShowDialog() == true)
+                        {
+                            
+                        }
+                        break;
+                    case WelcomeButtons.Edit_Users_RemoteSettings:
+                        OracleRequesterNotification eurorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit existing Users in Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (eurorn.ShowDialog() == true)
+                        {
+                            MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                        }
+                        break;
+                    case WelcomeButtons.Select_CurrentUser_RemoteSettings:
+                        OracleRequesterNotification scuorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Select the Current User", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (scuorn.ShowDialog() == true)
+                        {
+
+                        }
+                        break;
+                    case WelcomeButtons.Edit_CurrentUser_LocalSettings:
+                        OracleRequesterNotification ecurorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit Current User in Local Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (ecurorn.ShowDialog() == true)
+                        {
+                            MiscFunctions.OpenFileInNotepad(AppDomain.CurrentDomain.BaseDirectory + "EventHorizonLocalSettings.xml");
+                        }
+                        break;
+                    case WelcomeButtons.New_EventType_RemoteSettings:
+                        OracleRequesterNotification netorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Add a New Event Type to Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (netorn.ShowDialog() == true)
+                        {
+
+                        }
+                        break;
+                    case WelcomeButtons.Edit_EventTypes_RemoteSettings:
+                        OracleRequesterNotification eetrorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit Event Types in Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (eetrorn.ShowDialog() == true)
+                        {
+                            MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                        }
+                        break;
+                    case WelcomeButtons.New_SourceType_RemoteSettings:
+                        OracleRequesterNotification nstorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Add a New Source Type to Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (nstorn.ShowDialog() == true)
+                        {
+
+                        }
+                        break;
+                    case WelcomeButtons.Edit_SourceTypes_RemoteSettings:
+                        OracleRequesterNotification estrorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit Source Types in Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        if (estrorn.ShowDialog() == true)
+                        {
+                            MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                        }
                         break;
                 }
             }
@@ -251,7 +373,7 @@ namespace The_Oracle
             StatusLabel.Content = "Checking Event Horizon Prerequisites ..";
 
             string EventHorizonLocalSettingsPathFileName = AppDomain.CurrentDomain.BaseDirectory + "EventHorizonLocalSettings.xml";
-            Console.Write("Local Folder is ");
+            Console.Write("Execute_LocalSettings_Async - Local Folder is ");
             Console.WriteLine(EventHorizonLocalSettingsPathFileName);
             if (File.Exists(EventHorizonLocalSettingsPathFileName))
             {
@@ -289,8 +411,8 @@ namespace The_Oracle
 
             StatusLabel.Content = "Checking Event Horizon Prerequisites ...";
 
-            string EventHorizonRemoteSettingsPathFileName = XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml";
-            Console.Write("Remote Folder is ");
+            string EventHorizonRemoteSettingsPathFileName = XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName;
+            Console.Write("Execute_RemoteSettings_Async - Remote Folder is ");
             Console.WriteLine(EventHorizonRemoteSettingsPathFileName);
 
             if (File.Exists(EventHorizonRemoteSettingsPathFileName))
@@ -326,7 +448,7 @@ namespace The_Oracle
 
             string EventHorizonRemoteDatabasePathFileName = XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.GlobalDatabaseString + XMLReaderWriter.GlobalDatabaseFileExtensionString;
             
-            Console.Write("Remote Folder Database is ");
+            Console.Write("Execute_RemoteDatabase_Async - Remote Folder Database is ");
             Console.WriteLine(EventHorizonRemoteDatabasePathFileName);
 
             if (File.Exists(EventHorizonRemoteDatabasePathFileName))
@@ -360,8 +482,8 @@ namespace The_Oracle
 
             StatusLabel.Content = "Checking Event Horizon Prerequisites .....";
 
-            string EventHorizonRemoteSettingsPathFileName = XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml";
-            Console.Write("Remote Folder is ");
+            string EventHorizonRemoteSettingsPathFileName = XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName;
+            Console.Write("Execute_LocalUser_Async - Remote Folder is ");
             Console.WriteLine(EventHorizonRemoteSettingsPathFileName);
 
             if (File.Exists(EventHorizonRemoteSettingsPathFileName))
@@ -399,8 +521,8 @@ namespace The_Oracle
 
             StatusLabel.Content = "Checking Event Horizon Prerequisites ......";
 
-            string EventHorizonRemoteSettingsPathFileName = XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml";
-            Console.Write("Remote Folder is ");
+            string EventHorizonRemoteSettingsPathFileName = XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName;
+            Console.Write("Execute_RemoteUsers_Async - Remote Folder is ");
             Console.WriteLine(EventHorizonRemoteSettingsPathFileName);
 
             if (File.Exists(EventHorizonRemoteSettingsPathFileName))
@@ -438,7 +560,7 @@ namespace The_Oracle
 
             StatusLabel.Content = "Checking Event Horizon Prerequisites .......";
 
-            string EventHorizonRemoteSettingsPathFileName = XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml";
+            string EventHorizonRemoteSettingsPathFileName = XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName;
             Console.Write("Remote Folder is ");
             Console.WriteLine(EventHorizonRemoteSettingsPathFileName);
 
@@ -477,7 +599,7 @@ namespace The_Oracle
 
             StatusLabel.Content = "Checking Event Horizon Prerequisites ........";
 
-            string EventHorizonRemoteSettingsPathFileName = XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml";
+            string EventHorizonRemoteSettingsPathFileName = XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName;
             Console.Write("Remote Folder is ");
             Console.WriteLine(EventHorizonRemoteSettingsPathFileName);
 

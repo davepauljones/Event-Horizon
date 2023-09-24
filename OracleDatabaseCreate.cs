@@ -2,6 +2,7 @@
 using System.Data.OleDb;
 using System.IO;
 using System.Data.SQLite;
+using Microsoft.Win32;
 
 namespace The_Oracle
 {
@@ -54,11 +55,94 @@ namespace The_Oracle
 
         internal static void CreateSQLiteDatabaseFile()
         {
-            XMLReaderWriter.DatabaseSystem = DatabaseSystems.SQLite;
-            System.Data.SQLite.SQLiteConnection.CreateFile(AppDomain.CurrentDomain.BaseDirectory + "\\databaseFile.db3");        // Create the file which will be hosting our database
-            XMLReaderWriter.GlobalConnectionString = "Data Source=" + AppDomain.CurrentDomain.BaseDirectory + "\\databaseFile.db3;";
-            CreateEventLogTable();
-            CreateUsersTable();
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.FileName = "EventHorizonRemoteDatabase"; // Default file name
+            saveFileDialog.DefaultExt = ".db3"; // Default file extension
+            saveFileDialog.Filter = "SQLite databases (.db3)|*.db3"; // Filter files by extension
+            saveFileDialog.InitialDirectory = XMLReaderWriter.DatabaseLocationString;
+            saveFileDialog.OverwritePrompt = false;
+
+            // Show open file dialog box
+            bool? result = saveFileDialog.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                string filename = saveFileDialog.FileName;
+
+                if (!File.Exists(filename))
+                {
+                    XMLReaderWriter.DatabaseSystem = DatabaseSystems.SQLite;
+                    System.Data.SQLite.SQLiteConnection.CreateFile(filename);// Create the file which will be hosting our database
+                    XMLReaderWriter.GlobalConnectionString = "Data Source=" + filename;
+                    CreateEventLogTable();
+                    CreateUsersTable();
+                    OracleRequesterNotification fileCreated = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = ReusableMessages.SuccessfullyCreatedFile, InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility }, RequesterTypes.OK);
+                    fileCreated.ShowDialog();
+                }
+                else
+                {
+                    OracleRequesterNotification fileExistWarning = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = ReusableMessages.ThatFileAlreadyExists, InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility }, RequesterTypes.OK);
+                    fileExistWarning.ShowDialog();
+                }
+            }   
+        }
+
+        internal static string OpenLocalSettingsXMLFile()
+        {
+            string pathFileName = string.Empty;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            //openFileDialog.FileName = "EventHorizonRemoteDatabase"; // Default file name
+            openFileDialog.DefaultExt = ".xml"; // Default file extension
+            openFileDialog.Filter = "XML file (.xml)|*.xml"; // Filter files by extension
+            openFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            // Show open file dialog box
+            bool? result = openFileDialog.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                pathFileName = openFileDialog.FileName;
+
+                XMLReaderWriter.SetGlobalRemoteSettingsPathFileName(Path.GetFileNameWithoutExtension(openFileDialog.FileName));
+
+                Console.Write("OpenLocalSettingsXMLFile - Path.GetFileNameWithoutExtension(openFileDialog.FileName) = ");
+                Console.WriteLine(Path.GetFileNameWithoutExtension(openFileDialog.FileName));
+            }
+
+            return pathFileName;
+        }
+
+        internal static string OpenSQLiteDatabaseFile()
+        {
+            string pathFileName = string.Empty;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            //openFileDialog.FileName = "EventHorizonRemoteDatabase"; // Default file name
+            openFileDialog.DefaultExt = ".db3"; // Default file extension
+            openFileDialog.Filter = "SQLite databases (.db3)|*.db3"; // Filter files by extension
+            openFileDialog.InitialDirectory = XMLReaderWriter.DatabaseLocationString;
+
+            // Show open file dialog box
+            bool? result = openFileDialog.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                pathFileName = openFileDialog.FileName;
+
+                XMLReaderWriter.GlobalDatabaseString = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
+                XMLReaderWriter.SetDatabaseConnectionString();
+
+                Console.Write("OpenSQLiteDatabaseFile - Path.GetFileNameWithoutExtension(openFileDialog.FileName) = ");
+                Console.WriteLine(Path.GetFileNameWithoutExtension(openFileDialog.FileName));
+            }
+
+            return pathFileName;
         }
         
         internal static void CreateEventLogTable()

@@ -54,6 +54,12 @@ namespace The_Oracle
         public string Size;
         public string LastWriteTime;
     }
+    public struct ReusableMessages
+    {
+        public const string WithGreatPowerComesGreatResponsibility = "With great power comes great responsibility";
+        public const string ThatFileAlreadyExists = "That file already exists";
+        public const string SuccessfullyCreatedFile = "Successfully created file";
+    }
     public struct OracleMessagesNotificationModes
     {
         public const int Welcome = 0;

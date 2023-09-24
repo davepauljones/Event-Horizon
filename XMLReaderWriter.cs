@@ -23,7 +23,21 @@ namespace The_Oracle
         public static string GlobalConnectionString = string.Empty;
         public static string GlobalDatabaseString = "EventHorizonRemoteDatabase";
         public static string GlobalDatabaseFileExtensionString = ".mdb";
+        public static string DefaultLocalSettingsFileName = "EventHorizonLocalSettings.xml";
+        public static string DefaultRemoteSettingsFileName = "EventHorizonRemoteSettings.xml";
+        public static string GlobalLocalSettingsPathFileName = AppDomain.CurrentDomain.BaseDirectory + "\\" + DefaultLocalSettingsFileName;
+        public static string GlobalRemoteSettingsPathFileName = DatabaseLocationString + DefaultRemoteSettingsFileName;
 
+        public static void SetGlobalRemoteSettingsPathFileName(string remoteSettingsFileName)
+        {
+            DefaultRemoteSettingsFileName = remoteSettingsFileName + ".xml";
+
+            GlobalRemoteSettingsPathFileName = DatabaseLocationString + "\\" + DefaultRemoteSettingsFileName;
+
+            Console.Write("SetGlobalRemoteSettingsPathFileName - GlobalRemoteSettingsPathFileName = ");
+            Console.WriteLine(GlobalRemoteSettingsPathFileName);
+            Console.WriteLine();
+        }
         public static void SetDatabaseConnectionString()
         {
             switch (DatabaseSystem)
@@ -116,53 +130,53 @@ namespace The_Oracle
             return result;
         }
 
-        public static void ReadXMLNodesOracleSettingsXMLFile(String PathName)
-        {
-            try
-            {
-                if (File.Exists(PathName + "\\EventHorizonLocalSettings.xml"))
-                {
-                    XmlDocument doc = new XmlDocument();
-                    doc.Load(PathName + "\\EventHorizonLocalSettings.xml");
+        //public static void ReadXMLNodesOracleSettingsXMLFile(String PathName)
+        //{
+        //    try
+        //    {
+        //        if (File.Exists(PathName + "\\" + DefaultRemoteSettingsFileName))
+        //        {
+        //            XmlDocument doc = new XmlDocument();
+        //            doc.Load(PathName + "\\" + DefaultRemoteSettingsFileName);
 
-                    XmlNodeList nodes = doc.DocumentElement.SelectNodes("/EventHorizon/Settings");
+        //            XmlNodeList nodes = doc.DocumentElement.SelectNodes("/EventHorizon/Settings");
 
-                    Console.WriteLine("User");
-                    foreach (XmlNode node in nodes)
-                    {
-                        UserNameString = node.SelectSingleNode("UserName").InnerText;
-                        DatabaseLocationString = node.SelectSingleNode("DatabaseLocation").InnerText;
+        //            Console.WriteLine("User");
+        //            foreach (XmlNode node in nodes)
+        //            {
+        //                UserNameString = node.SelectSingleNode("UserName").InnerText;
+        //                DatabaseLocationString = node.SelectSingleNode("DatabaseLocation").InnerText;
 
-                        UsersRefreshTimeSpan = TimeSpan.FromMilliseconds(UserID * 250);
+        //                UsersRefreshTimeSpan = TimeSpan.FromMilliseconds(UserID * 250);
 
-                        Console.Write("UserID = ");
-                        Console.Write(UserID);
-                        Console.Write(" UserNameString = ");
-                        Console.Write(UserNameString);
-                        Console.Write(" DatabaseLocationString = ");
-                        Console.Write(DatabaseLocationString);
-                    }
-                }
-                else
-                {
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "EventHorizonLocalSettings.xml file is missing", InformationTextBlock = "Event Horizon could not find a required xml file, located in the Event Horizon install folder!" }, RequesterTypes.OK);
-                    msg.ShowDialog();
-                }
-            }
-            catch (XmlException e)
-            {
-                Console.WriteLine("----------------------------------------");
+        //                Console.Write("UserID = ");
+        //                Console.Write(UserID);
+        //                Console.Write(" UserNameString = ");
+        //                Console.Write(UserNameString);
+        //                Console.Write(" DatabaseLocationString = ");
+        //                Console.Write(DatabaseLocationString);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "EventHorizonLocalSettings.xml file is missing", InformationTextBlock = "Event Horizon could not find a required xml file, located in the Event Horizon install folder!" }, RequesterTypes.OK);
+        //            msg.ShowDialog();
+        //        }
+        //    }
+        //    catch (XmlException e)
+        //    {
+        //        Console.WriteLine("----------------------------------------");
 
-                Console.WriteLine("An exception was thrown.");
-                Console.WriteLine(e.Message);
-                if (e.Data.Count > 0)
-                {
-                    Console.WriteLine("  Extra details:");
-                    foreach (DictionaryEntry de in e.Data)
-                        Console.WriteLine("    Key: {0,-20}      Value: {1}", "'" + de.Key.ToString() + "'", de.Value);
-                }
-            }
-        }
+        //        Console.WriteLine("An exception was thrown.");
+        //        Console.WriteLine(e.Message);
+        //        if (e.Data.Count > 0)
+        //        {
+        //            Console.WriteLine("  Extra details:");
+        //            foreach (DictionaryEntry de in e.Data)
+        //                Console.WriteLine("    Key: {0,-20}      Value: {1}", "'" + de.Key.ToString() + "'", de.Value);
+        //        }
+        //    }
+        //}
 
         public static bool TryReadNodesFrom_EventHorizonRemoteSettings_Users(String PathFileName)
         {
