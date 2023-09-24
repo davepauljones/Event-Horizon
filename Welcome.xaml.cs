@@ -166,7 +166,7 @@ namespace The_Oracle
                         OracleRequesterNotification srsborn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Select an existing Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (srsborn.ShowDialog() == true)
                         {
-                            string pathFileName = OracleDatabaseCreate.OpenLocalSettingsXMLFile();
+                            string pathFileName = OracleDatabaseCreate.OpenRemoteSettingsXMLFile();
 
                             Console.Write("Selected Remote Settings File = ");
                             Console.WriteLine(pathFileName);
@@ -178,11 +178,6 @@ namespace The_Oracle
 
                             CheckPrerequisites();
                         }
-                        //OracleRequesterNotification erorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit an existing Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
-                        //if (erorn.ShowDialog() == true)
-                        //{
-                        //    MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
-                        //}
                         break;
                     case WelcomeButtons.New_RemoteDatabase:
                         OracleRequesterNotification nrdborn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Create a New Remote Database File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
@@ -219,7 +214,7 @@ namespace The_Oracle
                         OracleRequesterNotification eurorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit existing Users in Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (eurorn.ShowDialog() == true)
                         {
-                            MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                            MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName);
                         }
                         break;
                     case WelcomeButtons.Select_CurrentUser_RemoteSettings:
@@ -233,7 +228,7 @@ namespace The_Oracle
                         OracleRequesterNotification ecurorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit Current User in Local Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (ecurorn.ShowDialog() == true)
                         {
-                            MiscFunctions.OpenFileInNotepad(AppDomain.CurrentDomain.BaseDirectory + "EventHorizonLocalSettings.xml");
+                            MiscFunctions.OpenFileInNotepad(AppDomain.CurrentDomain.BaseDirectory + XMLReaderWriter.DefaultLocalSettingsFileName);
                         }
                         break;
                     case WelcomeButtons.New_EventType_RemoteSettings:
@@ -247,21 +242,21 @@ namespace The_Oracle
                         OracleRequesterNotification eetrorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit Event Types in Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (eetrorn.ShowDialog() == true)
                         {
-                            MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                            MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName);
                         }
                         break;
                     case WelcomeButtons.New_SourceType_RemoteSettings:
                         OracleRequesterNotification nstorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Add a New Source Type to Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (nstorn.ShowDialog() == true)
                         {
-
+                            MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName);
                         }
                         break;
                     case WelcomeButtons.Edit_SourceTypes_RemoteSettings:
                         OracleRequesterNotification estrorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit Source Types in Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (estrorn.ShowDialog() == true)
                         {
-                            MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml");
+                            MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName);
                         }
                         break;
                 }
@@ -308,12 +303,15 @@ namespace The_Oracle
             try
             {
                 bool partResult = await Execute_Welcome_Async();
+                
                 bool part1Result = await Execute_LocalSettings_Async();
+                
                 bool part2Result = await Execute_RemoteSettings_Async();
                 bool part3Result = await Execute_RemoteDatabase_Async();
 
-                bool part4Result = await Execute_LocalUser_Async();
-                bool part5Result = await Execute_RemoteUsers_Async();
+                
+                bool part4Result = await Execute_RemoteUsers_Async();
+                bool part5Result = await Execute_LocalUser_Async();
                 bool part6Result = await Execute_RemoteEventTypes_Async();
                 bool part7Result = await Execute_RemoteSourceTypes_Async();
 
@@ -476,50 +474,11 @@ namespace The_Oracle
             return result;
         }
 
-        private async Task<bool> Execute_LocalUser_Async()
-        {
-            bool result;
-
-            StatusLabel.Content = "Checking Event Horizon Prerequisites .....";
-
-            string EventHorizonRemoteSettingsPathFileName = XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName;
-            Console.Write("Execute_LocalUser_Async - Remote Folder is ");
-            Console.WriteLine(EventHorizonRemoteSettingsPathFileName);
-
-            if (File.Exists(EventHorizonRemoteSettingsPathFileName))
-            {
-                InstalledCurrentUserIcon.Icon = FontAwesomeIcon.Check;
-                InstalledCurrentUserIcon.Foreground = new SolidColorBrush(Colors.Green);
-
-                if (XMLReaderWriter.TryReadNodesFrom_EventHorizonRemoteSettings_Users(EventHorizonRemoteSettingsPathFileName))
-                {
-                    result = true;
-
-                    MainWindow.mw.LoadCurrentUserIntoGrid(InstalledCurrentUserGrid);
-                }
-                else
-                {
-                    result = false;
-                }
-            }
-            else
-            {
-                result = false;
-                InstalledCurrentUserIcon.Icon = FontAwesomeIcon.Times;
-                InstalledCurrentUserIcon.Foreground = new SolidColorBrush(Colors.Firebrick);
-            }
-
-            InstalledCurrentUserIcon.Visibility = Visibility.Visible;
-
-            await Task.Delay(AwaitDelayTimeSpan); // Simulated delay
-            return result;
-        }
-
         private async Task<bool> Execute_RemoteUsers_Async()
         {
             bool result;
 
-            StatusLabel.Content = "Checking Event Horizon Prerequisites ......";
+            StatusLabel.Content = "Checking Event Horizon Prerequisites .....";
 
             string EventHorizonRemoteSettingsPathFileName = XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName;
             Console.Write("Execute_RemoteUsers_Async - Remote Folder is ");
@@ -549,6 +508,45 @@ namespace The_Oracle
             }
 
             InstalledUsersIcon.Visibility = Visibility.Visible;
+
+            await Task.Delay(AwaitDelayTimeSpan); // Simulated delay
+            return result;
+        }
+
+        private async Task<bool> Execute_LocalUser_Async()
+        {
+            bool result;
+
+            StatusLabel.Content = "Checking Event Horizon Prerequisites ......";
+
+            string EventHorizonRemoteSettingsPathFileName = XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName;
+            Console.Write("Execute_LocalUser_Async - Remote Folder is ");
+            Console.WriteLine(EventHorizonRemoteSettingsPathFileName);
+
+            if (File.Exists(EventHorizonRemoteSettingsPathFileName))
+            {
+                InstalledCurrentUserIcon.Icon = FontAwesomeIcon.Check;
+                InstalledCurrentUserIcon.Foreground = new SolidColorBrush(Colors.Green);
+
+                if (XMLReaderWriter.TryReadNodesFrom_EventHorizonRemoteSettings_Users(EventHorizonRemoteSettingsPathFileName))
+                {
+                    result = true;
+
+                    MainWindow.mw.LoadCurrentUserIntoGrid(InstalledCurrentUserGrid);
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+            else
+            {
+                result = false;
+                InstalledCurrentUserIcon.Icon = FontAwesomeIcon.Times;
+                InstalledCurrentUserIcon.Foreground = new SolidColorBrush(Colors.Firebrick);
+            }
+
+            InstalledCurrentUserIcon.Visibility = Visibility.Visible;
 
             await Task.Delay(AwaitDelayTimeSpan); // Simulated delay
             return result;

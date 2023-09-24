@@ -88,7 +88,7 @@ namespace The_Oracle
             }   
         }
 
-        internal static string OpenLocalSettingsXMLFile()
+        internal static string OpenRemoteSettingsXMLFile()
         {
             string pathFileName = string.Empty;
 
@@ -97,7 +97,7 @@ namespace The_Oracle
             //openFileDialog.FileName = "EventHorizonRemoteDatabase"; // Default file name
             openFileDialog.DefaultExt = ".xml"; // Default file extension
             openFileDialog.Filter = "XML file (.xml)|*.xml"; // Filter files by extension
-            openFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            openFileDialog.InitialDirectory = XMLReaderWriter.DatabaseLocationString;
 
             // Show open file dialog box
             bool? result = openFileDialog.ShowDialog();
@@ -109,7 +109,7 @@ namespace The_Oracle
 
                 XMLReaderWriter.SetGlobalRemoteSettingsPathFileName(Path.GetFileNameWithoutExtension(openFileDialog.FileName));
 
-                Console.Write("OpenLocalSettingsXMLFile - Path.GetFileNameWithoutExtension(openFileDialog.FileName) = ");
+                Console.Write("OpenRemoteSettingsXMLFile - Path.GetFileNameWithoutExtension(openFileDialog.FileName) = ");
                 Console.WriteLine(Path.GetFileNameWithoutExtension(openFileDialog.FileName));
             }
 

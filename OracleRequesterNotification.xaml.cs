@@ -15,8 +15,9 @@ namespace The_Oracle
         MainWindow mw;
         OracleCustomMessage oracleCustomMessage;
         int requesterType;
+        bool overrideNotificationSound;
 
-        public OracleRequesterNotification(MainWindow mw, OracleCustomMessage oracleCustomMessage, int requesterType)
+        public OracleRequesterNotification(MainWindow mw, OracleCustomMessage oracleCustomMessage, int requesterType, bool overrideNotificationSound=true)
         {
             InitializeComponent();
             this.Hide();
@@ -24,6 +25,7 @@ namespace The_Oracle
             this.mw = mw;
             this.oracleCustomMessage = oracleCustomMessage;
             this.requesterType = requesterType;
+            this.overrideNotificationSound = overrideNotificationSound;
 
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
@@ -48,7 +50,7 @@ namespace The_Oracle
                     break;
             }
 
-            PlayNotificationSound();
+            if (!overrideNotificationSound) PlayNotificationSound();
         }
 
         private void PlayNotificationSound()
