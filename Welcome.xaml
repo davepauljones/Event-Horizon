@@ -185,7 +185,7 @@
                         <Button Grid.Row="11" Grid.Column="5" Tag="7" Style="{DynamicResource DefaultButtonStyle }" VerticalAlignment="Top" Margin="0,3,0,0" ToolTip="Add a new event type to remote settings file" Click="WelcomeButton_Click">
                             <fa:FontAwesome Icon="File" FontSize="17" Foreground="White"/>
                         </Button>
-                        <Button Grid.Row="11" Grid.Column="6" Tag="14" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Edit event types in remote settings file" Click="WelcomeButton_Click">
+                        <Button Grid.Row="11" Grid.Column="6" Tag="14" Style="{DynamicResource DefaultButtonStyle }" VerticalAlignment="Top" Margin="0,3,0,0" ToolTip="Edit event types in remote settings file" Click="WelcomeButton_Click">
                             <fa:FontAwesome Icon="FileText" FontSize="17" Foreground="White"/>
                         </Button>
 
@@ -198,7 +198,7 @@
                         <Button Grid.Row="12" Grid.Column="5" Tag="8" Style="{DynamicResource DefaultButtonStyle }" VerticalAlignment="Top" Margin="0,3,0,0" ToolTip="Add a new source type to remote settings file" Click="WelcomeButton_Click">
                             <fa:FontAwesome Icon="File" FontSize="17" Foreground="White"/>
                         </Button>
-                        <Button Grid.Row="12" Grid.Column="6" Tag="15" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Edit source types in remote settings file" Click="WelcomeButton_Click">
+                        <Button Grid.Row="12" Grid.Column="6" Tag="15" Style="{DynamicResource DefaultButtonStyle }" VerticalAlignment="Top" Margin="0,3,0,0" ToolTip="Edit source types in remote settings file" Click="WelcomeButton_Click">
                             <fa:FontAwesome Icon="FileText" FontSize="17" Foreground="White"/>
                         </Button>
 
