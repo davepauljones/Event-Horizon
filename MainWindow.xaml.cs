@@ -106,22 +106,31 @@ namespace The_Oracle
             
             if (welcome.ShowDialog() == true)
             {
-                if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg"))
+                //if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg"))
+                //{
+                //    ImageBrush myBrush = new ImageBrush();
+                //    myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg", UriKind.Absolute));
+
+                //    this.Background = myBrush;
+                //    this.Background.Opacity = 0.3;
+                //}
+
+                OracleLogin oli = new OracleLogin(MainWindow.mw);
+                oli.SelectUserComboBox.SelectedIndex = XMLReaderWriter.UserID-1;
+
+                if (oli.ShowDialog() == true)
                 {
-                    ImageBrush myBrush = new ImageBrush();
-                    myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg", UriKind.Absolute));
 
-                    this.Background = myBrush;
-                    this.Background.Opacity = 0.3;
+                    this.WindowState = WindowState.Maximized;
+
+                    EventStackPanel.Visibility = Visibility.Visible;
+
+                    MainWindowTitle.SetMainWindowTitle();
+
+                    Loaded += MainWindow_Loaded;
                 }
-
-                this.WindowState = WindowState.Maximized;
-
-                EventStackPanel.Visibility = Visibility.Visible;
-
-                MainWindowTitle.SetMainWindowTitle();
-
-                Loaded += MainWindow_Loaded;
+                else
+                    Close();
             }
             else
                 Close();
@@ -610,54 +619,57 @@ namespace The_Oracle
                 int i = 1;
                 foreach (User user in XMLReaderWriter.UsersList)
                 {
-                    Grid originUserIconEllipseGrid;
-                    Ellipse originUserIconEllipse;
-
-                    Color iconEllipseColor = Colors.White;
-
-                    iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
-
                     if (user.ID > 0)
-                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                    else
-                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                    originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                    originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
-
-                    Label originUserIconEllipseLabel;
-
-                    if (user.ID > 0)
-                        originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                    else
-                        originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
-
-                    originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
-
-                    originUserIconEllipseGrid.Opacity = 0.3;
-                    UsersOnlineStatus.Add(user.ID, originUserIconEllipseGrid);
-
-                    originUserIconEllipseGrid.Effect = new DropShadowEffect
                     {
-                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                        Direction = 320,
-                        ShadowDepth = 1,
-                        Opacity = 0.6
-                    };
+                        Grid originUserIconEllipseGrid;
+                        Ellipse originUserIconEllipse;
 
-                    if (i < 4)
-                        UsersColumn1StackPanel.Children.Add(originUserIconEllipseGrid);
-                    else if (i > 3 && i < 7)
-                        UsersColumn2StackPanel.Children.Add(originUserIconEllipseGrid);
-                    else if (i > 6 && i < 10)
-                        UsersColumn3StackPanel.Children.Add(originUserIconEllipseGrid);
-                    else if (i > 9 && i < 13)
-                        UsersColumn4StackPanel.Children.Add(originUserIconEllipseGrid);
-                    else if (i > 12 && i < 16)
-                        UsersColumn5StackPanel.Children.Add(originUserIconEllipseGrid);
+                        Color iconEllipseColor = Colors.White;
 
-                    i++;
+                        iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
+
+                        if (user.ID > 0)
+                            originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                        else
+                            originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+
+                        originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+
+                        originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
+
+                        Label originUserIconEllipseLabel;
+
+                        if (user.ID > 0)
+                            originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                        else
+                            originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
+
+                        originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
+
+                        originUserIconEllipseGrid.Opacity = 0.3;
+                        UsersOnlineStatus.Add(user.ID, originUserIconEllipseGrid);
+
+                        originUserIconEllipseGrid.Effect = new DropShadowEffect
+                        {
+                            Color = new Color { A = 255, R = 0, G = 0, B = 0 },
+                            Direction = 320,
+                            ShadowDepth = 1,
+                            Opacity = 0.6
+                        };
+
+                        if (i < 4)
+                            UsersColumn1StackPanel.Children.Add(originUserIconEllipseGrid);
+                        else if (i > 3 && i < 7)
+                            UsersColumn2StackPanel.Children.Add(originUserIconEllipseGrid);
+                        else if (i > 6 && i < 10)
+                            UsersColumn3StackPanel.Children.Add(originUserIconEllipseGrid);
+                        else if (i > 9 && i < 13)
+                            UsersColumn4StackPanel.Children.Add(originUserIconEllipseGrid);
+                        else if (i > 12 && i < 16)
+                            UsersColumn5StackPanel.Children.Add(originUserIconEllipseGrid);
+
+                        i++;
+                    }
                 }
             }
             catch (Exception e)
@@ -675,7 +687,7 @@ namespace The_Oracle
 
             foreach (User user in XMLReaderWriter.UsersList)
             {
-                if (UsersOnlineStatus.ContainsKey(user.ID))
+                if (UsersOnlineStatus.ContainsKey(user.ID) && user.ID > 0)
                 {
                     //Check if user was still online a minute ago, if so refresh user icon
                     if (UsersLastTimeOnlineDictionary.ContainsKey(user.ID))

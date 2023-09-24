@@ -7,7 +7,7 @@
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d" Name="WelcomeWindow" 
         AllowsTransparency = "True" WindowStyle = "None" WindowStartupLocation="CenterScreen" Background="Transparent" MouseDown="Welcome_MouseDown"
-        Width="1020" MinHeight="698" MaxHeight="1000" MaxWidth="1020" SizeToContent="Height">
+        Width="1048" MinHeight="766" MaxHeight="1068" MaxWidth="1048" SizeToContent="Height">
 
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
@@ -60,6 +60,8 @@
                             <RowDefinition Height="34"/>
                             <RowDefinition Height="34"/>
                             <RowDefinition Height="34"/>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="34"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -72,7 +74,8 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="140"/>
                             <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="44"/>
                         </Grid.ColumnDefinitions>
 
 
@@ -83,7 +86,8 @@
                         <Label Grid.Row="1" Grid.Column="2" Content="Location" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
                         <Label Grid.Row="1" Grid.Column="3" Content="Modified" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
                         <Label Grid.Row="1" Grid.Column="4" Content="Size" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
-                        <Label Grid.Row="1" Grid.Column="5" Content="Change" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Label Grid.Row="1" Grid.Column="5" Content="New" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Label Grid.Row="1" Grid.Column="6" Content="Edit" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
                         <Label Grid.Row="2" Content="Local Settings" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
                         <Grid Grid.Row="2" Grid.Column="1">
@@ -92,8 +96,11 @@
                         <Label Grid.Row="2" Grid.Column="2" x:Name="LocalSettingsLabel" Content="C:\My Installation Location" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
                         <Label Grid.Row="2" Grid.Column="3" x:Name="LocalSettingsModifiedLabel" Content="09/09/23" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
                         <Label Grid.Row="2" Grid.Column="4" x:Name="LocalSettingsSizeLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
-                        <Button Grid.Row="2" Grid.Column="5" Tag="2" Style="{DynamicResource DefaultButtonStyle }" Click="WelcomeButton_Click">
+                        <Button Grid.Row="2" Grid.Column="5" Tag="2" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Create a new local settings file" Click="WelcomeButton_Click">
                             <fa:FontAwesome Icon="File" FontSize="17" Foreground="White"/>
+                        </Button>
+                        <Button Grid.Row="2" Grid.Column="6" Tag="9" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Edit local settings file" Click="WelcomeButton_Click">
+                            <fa:FontAwesome Icon="FileText" FontSize="17" Foreground="White"/>
                         </Button>
 
                         <Label Grid.Row="3" Content="Remote Settings" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
@@ -103,76 +110,103 @@
                         <Label Grid.Row="3" Grid.Column="2" x:Name="RemoteSettingsLabel" Content="D:\EventHorizonRemoteDatabase\EventHorizonRemoteSettings.xml" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
                         <Label Grid.Row="3" Grid.Column="3" x:Name="RemoteSettingsModifiedLabel" Content="09/09/23" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
                         <Label Grid.Row="3" Grid.Column="4" x:Name="RemoteSettingsSizeLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
-                        <Button Grid.Row="3" Grid.Column="5" Tag="3" Style="{DynamicResource DefaultButtonStyle }" Click="WelcomeButton_Click">
+                        <Button Grid.Row="3" Grid.Column="5" Tag="3" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Create a new remote settings file" Click="WelcomeButton_Click">
                             <fa:FontAwesome Icon="File" FontSize="17" Foreground="White"/>
                         </Button>
+                        <Button Grid.Row="3" Grid.Column="6" Tag="10" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Edit remote settings file" Click="WelcomeButton_Click">
+                            <fa:FontAwesome Icon="FileText" FontSize="17" Foreground="White"/>
+                        </Button>
 
-                        <Label Grid.Row="4" Content="Remote Database" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
-                        <Grid Grid.Row="4" Grid.Column="1">
+                        <Label Grid.Row="5" Content="Prerequisites" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
+                        <Label Grid.Row="5" Grid.Column="1" Content="OK" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Label Grid.Row="5" Grid.Column="2" Content="Location" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                        <Label Grid.Row="5" Grid.Column="3" Content="Modified" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                        <Label Grid.Row="5" Grid.Column="4" Content="Size" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                        <Label Grid.Row="5" Grid.Column="5" Content="New" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Label Grid.Row="5" Grid.Column="6" Content="Open" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        
+                        <Label Grid.Row="6" Content="Remote Database" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
+                        <Grid Grid.Row="6" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="7*"/>
                                 <ColumnDefinition Width="8*"/>
                             </Grid.ColumnDefinitions>
                             <fa:FontAwesome x:Name="RemoteDatabaseIcon" Icon="Times" Width="26" Height="26" FontSize="25" Foreground="Firebrick" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,5,2,4" Padding="0" Grid.ColumnSpan="2"/>
                         </Grid>
-                        <Label Grid.Row="4" Grid.Column="2" x:Name="RemoteDatabaseLabel" Content="D:\EventHorizonRemoteDatabase\EventHorizonRemoteDatabase.mdb" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
-                        <Label Grid.Row="4" Grid.Column="3" x:Name="RemoteDatabaseModifiedLabel" Content="09/09/23" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
-                        <Label Grid.Row="4" Grid.Column="4" x:Name="RemoteDatabaseSizeLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
-                        <Button Grid.Row="4" Grid.Column="5" Tag="4" Style="{DynamicResource DefaultButtonStyle }" Click="WelcomeButton_Click">
+                        <Label Grid.Row="6" Grid.Column="2" x:Name="RemoteDatabaseLabel" Content="D:\EventHorizonRemoteDatabase\EventHorizonRemoteDatabase.mdb" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                        <Label Grid.Row="6" Grid.Column="3" x:Name="RemoteDatabaseModifiedLabel" Content="09/09/23" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                        <Label Grid.Row="6" Grid.Column="4" x:Name="RemoteDatabaseSizeLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                        <Button Grid.Row="6" Grid.Column="5" Tag="4" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Create a new remote database" Click="WelcomeButton_Click">
                             <fa:FontAwesome Icon="File" FontSize="17" Foreground="White"/>
                         </Button>
-
-                        <Label Grid.Row="6" Content="Installed Nodes" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
-                        <Label Grid.Row="6" Grid.Column="1" Content="OK" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                        <Label Grid.Row="6" Grid.Column="2" Content="Node Icons" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
-                        <Label Grid.Row="6" Grid.Column="4" Content="Nodes" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
-                        <Label Grid.Row="6" Grid.Column="5" Content="Change" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
-                        <Label Grid.Row="7" Content="Current User" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
-                        <Grid Grid.Row="7" Grid.Column="1">
-                            <fa:FontAwesome x:Name="InstalledCurrentUserIcon" Icon="Times" Width="26" Height="26" FontSize="25" Foreground="Firebrick" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,1,0,0" Padding="0"/>
-                        </Grid>
-                        <Grid Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledCurrentUserGrid" Margin="10,4,0,0"/>
-                        <Label Grid.Row="7" Grid.Column="4" x:Name="InstalledCurrentUserNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
-                        <Button Grid.Row="7" Grid.Column="5" Tag="5" Style="{DynamicResource DefaultButtonStyle }" Click="WelcomeButton_Click">
+                        <Button Grid.Row="6" Grid.Column="6" Tag="11" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Open an existing remote database" Click="WelcomeButton_Click">
                             <fa:FontAwesome Icon="FolderOpen" FontSize="17" Foreground="White"/>
                         </Button>
 
-                        <Label Grid.Row="8" Content="Users" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" Margin="0,5,10,0"/>
-                        <Grid Grid.Row="8" Grid.Column="1">
+                        <Label Grid.Row="8" Content="Installed Nodes" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
+                        <Label Grid.Row="8" Grid.Column="1" Content="OK" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Label Grid.Row="8" Grid.Column="2" Content="Node Icons" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                        <Label Grid.Row="8" Grid.Column="4" Content="Nodes" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                        <Label Grid.Row="8" Grid.Column="5" Content="New" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Label Grid.Row="8" Grid.Column="6" Content="Edit" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+                        <Label Grid.Row="9" Content="Users" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" Margin="0,5,10,0"/>
+                        <Grid Grid.Row="9" Grid.Column="1">
                             <fa:FontAwesome x:Name="InstalledUsersIcon" Icon="Times" Width="26" Height="26" FontSize="25" Foreground="Firebrick" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,6,0,0" Padding="0"/>
                         </Grid>
-                        <Grid Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledUsersGrid" Margin="10,4,0,0"/>
-                        <Label Grid.Row="8" Grid.Column="4" x:Name="InstalledUsersNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Margin="10,5,0,0"/>
-                        <Button Grid.Row="8" Grid.Column="5" Tag="6" Style="{DynamicResource DefaultButtonStyle }" VerticalAlignment="Top" Margin="0,3,0,0" Click="WelcomeButton_Click">
-                            <fa:FontAwesome Icon="FolderOpen" FontSize="17" Foreground="White"/>
+                        <Grid Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledUsersGrid" Margin="10,4,0,0"/>
+                        <Label Grid.Row="9" Grid.Column="4" x:Name="InstalledUsersNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Margin="10,5,0,0"/>
+                        <Button Grid.Row="9" Grid.Column="5" Tag="6" Style="{DynamicResource DefaultButtonStyle }" VerticalAlignment="Top" Margin="0,3,0,0" ToolTip="Add a new user to remote settings file" Click="WelcomeButton_Click">
+                            <fa:FontAwesome Icon="File" FontSize="17" Foreground="White"/>
+                        </Button>
+                        <Button Grid.Row="9" Grid.Column="6" Tag="13" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Edit users in remote settings file" Click="WelcomeButton_Click">
+                            <fa:FontAwesome Icon="FileText" FontSize="17" Foreground="White"/>
                         </Button>
 
-                        <Label Grid.Row="9" Content="Event Types" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" Margin="0,5,10,0"/>
-                        <Grid Grid.Row="9" Grid.Column="1">
+                        <Label Grid.Row="10" Content="Current User" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,5,10,0"/>
+                        <Grid Grid.Row="10" Grid.Column="1">
+                            <fa:FontAwesome x:Name="InstalledCurrentUserIcon" Icon="Times" Width="26" Height="26" FontSize="25" Foreground="Firebrick" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,6,0,0" Padding="0"/>
+                        </Grid>
+                        <Grid Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledCurrentUserGrid" Margin="10,4,0,0"/>
+                        <Label Grid.Row="10" Grid.Column="4" x:Name="InstalledCurrentUserNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                        <Button Grid.Row="10" Grid.Column="5" Tag="5" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Select the current user" Click="WelcomeButton_Click">
+                            <fa:FontAwesome Icon="File" FontSize="17" Foreground="White"/>
+                        </Button>
+                        <Button Grid.Row="10" Grid.Column="6" Tag="12" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Edit current user in local settings file" Click="WelcomeButton_Click">
+                            <fa:FontAwesome Icon="FileText" FontSize="17" Foreground="White"/>
+                        </Button>
+
+                        <Label Grid.Row="11" Content="Event Types" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" Margin="0,5,10,0"/>
+                        <Grid Grid.Row="11" Grid.Column="1">
                             <fa:FontAwesome x:Name="InstalledEventTypesIcon" Icon="Times" Width="26" Height="26" FontSize="25" Foreground="Firebrick" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,6,0,0" Padding="0"/>
                         </Grid>
-                        <Grid Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledEventTypesGrid" Margin="10,4,0,0"/>
-                        <Label Grid.Row="9" Grid.Column="4" x:Name="InstalledEventTypesNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Margin="10,5,0,0"/>
-                        <Button Grid.Row="9" Grid.Column="5" Tag="7" Style="{DynamicResource DefaultButtonStyle }" VerticalAlignment="Top" Margin="0,3,0,0" Click="WelcomeButton_Click">
-                            <fa:FontAwesome Icon="FolderOpen" FontSize="17" Foreground="White"/>
+                        <Grid Grid.Row="11" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledEventTypesGrid" Margin="10,4,0,0"/>
+                        <Label Grid.Row="11" Grid.Column="4" x:Name="InstalledEventTypesNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Margin="10,5,0,0"/>
+                        <Button Grid.Row="11" Grid.Column="5" Tag="7" Style="{DynamicResource DefaultButtonStyle }" VerticalAlignment="Top" Margin="0,3,0,0" ToolTip="Add a new event type to remote settings file" Click="WelcomeButton_Click">
+                            <fa:FontAwesome Icon="File" FontSize="17" Foreground="White"/>
+                        </Button>
+                        <Button Grid.Row="11" Grid.Column="6" Tag="14" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Edit event types in remote settings file" Click="WelcomeButton_Click">
+                            <fa:FontAwesome Icon="FileText" FontSize="17" Foreground="White"/>
                         </Button>
 
-                        <Label Grid.Row="10" Content="Source Types" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" Margin="0,5,10,0"/>
-                        <Grid Grid.Row="10" Grid.Column="1">
+                        <Label Grid.Row="12" Content="Source Types" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" Margin="0,5,10,0"/>
+                        <Grid Grid.Row="12" Grid.Column="1">
                             <fa:FontAwesome x:Name="InstalledSourceTypesIcon" Icon="Times" Width="26" Height="26" FontSize="25" Foreground="Firebrick" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,6,0,0" Padding="0"/>
                         </Grid>
-                        <Grid Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledSourceTypesGrid" Margin="10,4,0,0"/>
-                        <Label Grid.Row="10" Grid.Column="4" x:Name="InstalledSourceTypesNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Margin="10,5,0,0"/>
-                        <Button Grid.Row="10" Grid.Column="5" Tag="8" Style="{DynamicResource DefaultButtonStyle }" VerticalAlignment="Top" Margin="0,3,0,0" Click="WelcomeButton_Click">
-                            <fa:FontAwesome Icon="FolderOpen" FontSize="17" Foreground="White"/>
+                        <Grid Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledSourceTypesGrid" Margin="10,4,0,0"/>
+                        <Label Grid.Row="12" Grid.Column="4" x:Name="InstalledSourceTypesNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Margin="10,5,0,0"/>
+                        <Button Grid.Row="12" Grid.Column="5" Tag="8" Style="{DynamicResource DefaultButtonStyle }" VerticalAlignment="Top" Margin="0,3,0,0" ToolTip="Add a new source type to remote settings file" Click="WelcomeButton_Click">
+                            <fa:FontAwesome Icon="File" FontSize="17" Foreground="White"/>
+                        </Button>
+                        <Button Grid.Row="12" Grid.Column="6" Tag="15" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Edit source types in remote settings file" Click="WelcomeButton_Click">
+                            <fa:FontAwesome Icon="FileText" FontSize="17" Foreground="White"/>
                         </Button>
 
                     </Grid>
-                    <Label Grid.Row="11" Grid.Column="2" x:Name="StatusLabel" Content="Status" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" Width="442" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="0,0,30,0"/>
-                    <StackPanel Grid.Row="11" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Label Grid.Row="13" Grid.Column="2" x:Name="StatusLabel" Content="Status" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" Width="442" HorizontalContentAlignment="Left" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="7,0,30,0"/>
+                    <StackPanel Grid.Row="13" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button x:Name="RetryButton" Content="Retry" Tag="1" Style="{DynamicResource OracleButtonStyle }" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="WelcomeButton_Click"/>
-                        <Button x:Name="CloseButton" Content="Close" Tag="0" Style="{DynamicResource OracleButtonStyle }" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="WelcomeButton_Click"/>
+                        <Button x:Name="LoginButton" Content="Login" Tag="0" Style="{DynamicResource OracleButtonStyle }" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,10,7,10" Click="WelcomeButton_Click"/>
                     </StackPanel>
                 </Grid>
             </Border>

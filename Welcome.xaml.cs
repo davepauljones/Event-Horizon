@@ -30,12 +30,9 @@ namespace The_Oracle
             {
                 ImageBrush myBrush = new ImageBrush();
                 myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\wormhole1020x1000.png", UriKind.Absolute));
-                //myBrush.Stretch = Stretch.Uniform;
 
                 MainBorder.Background = myBrush;
                 MainBorder.Background.Opacity = 1;
-
-                //myBrush.Freeze(); // Freeze the brush (make it unmodifiable) for performance benefits.
             }
 
             CheckPrerequisites();
@@ -182,7 +179,7 @@ namespace The_Oracle
             InstalledSourceTypesIcon.Visibility = Visibility.Hidden;
 
             RetryButton.Visibility = Visibility.Hidden;
-            CloseButton.Visibility = Visibility.Hidden;
+            LoginButton.Visibility = Visibility.Hidden;
 
             int result = 0;
             
@@ -226,14 +223,14 @@ namespace The_Oracle
                 PrerequisitesPassed = true;
                 StatusLabel.Content = "Checking Event Horizon Prerequisites ......... Passed!";
                 SetPrerequisites();
-                CloseButton.Visibility = Visibility.Visible;
+                LoginButton.Visibility = Visibility.Visible;
             }
             else
             {
                 PrerequisitesPassed = false;               
                 StatusLabel.Content = "Checking Event Horizon Prerequisites ......... Failed!";
                 RetryButton.Visibility = Visibility.Visible;
-                CloseButton.Visibility = Visibility.Visible;
+                LoginButton.Visibility = Visibility.Visible;
             }
         }
 

@@ -11,7 +11,8 @@ namespace The_Oracle
     public class XMLReaderWriter
     {
         public static Int32 UserID = 0;
-        public static String UserNameString = string.Empty;
+        public static string UserNameString = string.Empty;
+        public static string DefaultPasswordString = string.Empty;
         public static String DatabaseLocationString = AppDomain.CurrentDomain.BaseDirectory;
         public static List<User> UsersList = new List<User>();
         public static List<EventType> EventTypesList = new List<EventType>();
@@ -40,6 +41,22 @@ namespace The_Oracle
             Console.Write("SetDatabaseConnectionString - GlobalConnectionString = ");
             Console.WriteLine(GlobalConnectionString);
         }
+        public static void ChangeCurrentUser(Int32 userID)
+        {
+            userID++;
+
+            if (userID < UsersList.Count)
+            {
+                UserID = UsersList[userID].ID;
+                UserNameString = UsersList[userID].UserName;
+
+                UsersRefreshTimeSpan = TimeSpan.FromMilliseconds(UserID * 50);
+
+                DefaultPasswordString = MiscFunctions.GetFirstCharsOfString(UserNameString) + UserID;
+                Console.Write(" DefaultPasswordString = ");
+                Console.WriteLine(DefaultPasswordString);
+            }
+        }
         public static bool TryReadNodesFrom_EventHorizonSettingsXMLFile(String PathFileName)
         {
             bool result = false;
@@ -66,6 +83,10 @@ namespace The_Oracle
                         Console.Write(UserNameString);
                         Console.Write(" DatabaseLocationString = ");
                         Console.Write(DatabaseLocationString);
+
+                        DefaultPasswordString = MiscFunctions.GetFirstCharsOfString(UserNameString) + (UserID + 1);
+                        Console.Write(" DefaultPasswordString = ");
+                        Console.WriteLine(DefaultPasswordString);
                     }
 
                     result = true;
