@@ -147,7 +147,7 @@ namespace The_Oracle
         
         internal static void CreateEventLogTable()
         {
-            string sqlquery = @"CREATE TABLE [EventLog]([ID] COUNTER, [EventTypeID] INTEGER, [SourceID] INTEGER, [Details] MEMO, [FrequencyID] INTEGER, [StatusID] INTEGER, [CreatedDateTime] DATETIME, [TargetDateTime] DATETIME, [UserID] INTEGER, [TargetUserID] INTEGER, [ReadByMeID] INTEGER, [LastViewedDateTime] DATETIME, [RemindMeID] INTEGER, [RemindMeDateTime] DATETIME, [NotificationAcknowledged] INTEGER, [ParentEventID] INTEGER, [EventModeID] INTEGER);";
+            string sqlquery = @"CREATE TABLE [EventLog]([ID] COUNTER, [EventTypeID] INTEGER, [SourceID] INTEGER, [Details] MEMO, [FrequencyID] INTEGER, [StatusID] INTEGER, [CreatedDateTime] DATETIME, [TargetDateTime] DATETIME, [UserID] INTEGER, [TargetUserID] INTEGER, [ReadByMeID] INTEGER, [LastViewedDateTime] DATETIME, [RemindMeID] INTEGER, [RemindMeDateTime] DATETIME, [NotificationAcknowledged] INTEGER, [ParentEventID] INTEGER, [EventModeID] INTEGER, [EventAttributeID] INTEGER, [PathFileName] MEMO, [UnitCost] CURRENCY);";
 
             Console.WriteLine(sqlquery);
 
@@ -186,7 +186,7 @@ namespace The_Oracle
                     {
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            using (SQLiteCommand command = new SQLiteCommand("CREATE TABLE EventLog (ID INTEGER PRIMARY KEY, EventTypeID INTEGER, SourceID INTEGER, Details MEMO, FrequencyID INTEGER, StatusID INTEGER, CreatedDateTime DATETIME, TargetDateTime DATETIME, UserID INTEGER, TargetUserID INTEGER, ReadByMeID INTEGER, LastViewedDateTime DATETIME, RemindMeID INTEGER, RemindMeDateTime DATETIME, NotificationAcknowledged INTEGER, ParentEventID INTEGER, EventModeID INTEGER);", connection))
+                            using (SQLiteCommand command = new SQLiteCommand("CREATE TABLE EventLog (ID INTEGER PRIMARY KEY, EventTypeID INTEGER, SourceID INTEGER, Details MEMO, FrequencyID INTEGER, StatusID INTEGER, CreatedDateTime DATETIME, TargetDateTime DATETIME, UserID INTEGER, TargetUserID INTEGER, ReadByMeID INTEGER, LastViewedDateTime DATETIME, RemindMeID INTEGER, RemindMeDateTime DATETIME, NotificationAcknowledged INTEGER, ParentEventID INTEGER, EventModeID INTEGER, EventAttributeID INTEGER, PathFileName TEXT, UnitCost REAL);", connection))
                             {
                                 connection.Open();
 
@@ -267,6 +267,39 @@ namespace The_Oracle
                         Console.WriteLine("-------------------*---------------------");
 
                         OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CreateUsersTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        msg.ShowDialog();
+                    }
+                    break;
+            }
+        }
+        internal static void AddFieldsToExistingTable()
+        {
+            switch (XMLReaderWriter.DatabaseSystem)
+            {
+                case DatabaseSystems.AccessMDB:                  
+                    break;
+                case DatabaseSystems.SQLite:
+                    try
+                    {
+                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (SQLiteCommand command = new SQLiteCommand("ALTER TABLE EventLog ADD COLUMN UnitCost REAL;", connection))
+                            {
+                                connection.Open();
+
+                                command.ExecuteNonQuery();
+
+                                MainWindow.mw.Status.Content = "Added Fields";
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("Error: " + ex.Message);
+                        Console.WriteLine("-------------------*---------------------");
+
+                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "AddFieldsToExistingTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;

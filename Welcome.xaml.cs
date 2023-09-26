@@ -159,7 +159,7 @@ namespace The_Oracle
                         OracleRequesterNotification nrorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Create a New Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (nrorn.ShowDialog() == true)
                         {
-
+                            OracleDatabaseCreate.AddFieldsToExistingTable();
                         }
                         break;
                     case WelcomeButtons.Edit_RemoteSettingsXML:

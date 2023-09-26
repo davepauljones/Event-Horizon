@@ -466,6 +466,10 @@ namespace The_Oracle
             eventHorizonLINQ.StatusID = StatusComboBox.SelectedIndex;
             eventHorizonLINQ.TargetDate = targetDateTime;
 
+            eventHorizonLINQ.EventAttributeID = 0;
+            eventHorizonLINQ.PathFileName = string.Empty;
+            eventHorizonLINQ.UnitCost = 0;
+
             Console.Write("eventHorizonLINQ.TargetUserID = ");
             Console.WriteLine(eventHorizonLINQ.TargetUserID);
         }

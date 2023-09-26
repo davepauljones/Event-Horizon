@@ -38,8 +38,8 @@
 
         <Grid Grid.Row="3" Background="#f7f8f9">
             <StackPanel Orientation="Horizontal" Background="#f7f8f9" Margin="0,0,24,0" HorizontalAlignment="Right">
-                <Button Tag="0" x:Name="NoButton" Content="No" IsDefault="True" FontSize="16" Width="80" Height="40" Margin="30,0,0,0" Style="{DynamicResource OracleButtonStyle }" Click="TreeView_ButtonClick"/>
-                <Button Tag="1" x:Name="YesButton" Content="Yes" FontSize="16" Width="80" Height="40" Margin="30,0,0,0" Style="{DynamicResource OracleButtonStyle }" Click="TreeView_ButtonClick"/>
+                <Button Tag="1" x:Name="YesButton" Content="Yes" FontSize="16" Width="80" Height="30" Margin="0,0,0,0" Style="{DynamicResource OracleButtonStyle }" Click="TreeView_ButtonClick"/>
+                <Button Tag="0" x:Name="NoButton" Content="No" IsDefault="True" FontSize="16" Width="80" Height="30" Margin="16,0,0,0" Style="{DynamicResource OracleButtonStyle }" Click="TreeView_ButtonClick"/>
             </StackPanel>
         </Grid>
     </Grid>

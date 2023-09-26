@@ -34,6 +34,8 @@ namespace The_Oracle
             {
                 if (user.ID > 0) SelectUserComboBox.Items.Add(EventHorizonUsers.GetUserStackPanel(user));
             }
+
+            PasswordPasswordBox.Focus();
         }
 
         private void PlayNotificationSound()
@@ -115,6 +117,7 @@ namespace The_Oracle
             Console.WriteLine(SelectedUserID);
 
             XMLReaderWriter.ChangeCurrentUser(SelectedUserID);
+            PasswordPasswordBox.Focus();
         }
 
         internal int PasswordRetries = 3;
