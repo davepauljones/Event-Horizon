@@ -22,6 +22,13 @@ namespace The_Oracle
         public FontAwesomeIcon Icon = FontAwesomeIcon.Star;
         public Color Color = Colors.White;
     }
+    public class AttributeType
+    {
+        public Int32 ID = 0;
+        public String Name = string.Empty;
+        public FontAwesomeIcon Icon = FontAwesomeIcon.Star;
+        public Color Color = Colors.White;
+    }
     public class SourceType
     {
         public Int32 ID = 0;

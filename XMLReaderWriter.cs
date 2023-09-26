@@ -17,6 +17,7 @@ namespace The_Oracle
         public static List<User> UsersList = new List<User>();
         public static List<EventType> EventTypesList = new List<EventType>();
         public static List<FunctionKeyEventType> FunctionKeyEventTypesList = new List<FunctionKeyEventType>();
+        public static List<AttributeType> AttributeTypesList = new List<AttributeType>();
         public static List<SourceType> SourceTypesList = new List<SourceType>();
         public static TimeSpan UsersRefreshTimeSpan = TimeSpan.FromMilliseconds(100);
         public static int DatabaseSystem = DatabaseSystems.SQLite;
@@ -359,6 +360,15 @@ namespace The_Oracle
                 result = false;
             }
             return result;
+        }
+
+        public static void CreateEventAttributes()
+        {
+            AttributeTypesList.Clear();
+
+            AttributeTypesList.Add(new AttributeType { ID = 0, Name = "None", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
+            AttributeTypesList.Add(new AttributeType { ID = 1, Name = "LineItem", Icon = FontAwesomeIcon.Dollar, Color = (Color)ColorConverter.ConvertFromString("#FFCCCCCC") });
+            AttributeTypesList.Add(new AttributeType { ID = 2, Name = "FooBar", Icon = FontAwesomeIcon.Dribbble, Color = (Color)ColorConverter.ConvertFromString("#FFDDDDDD") });
         }
 
         public static bool TryReadNodesFrom_EventHorizonRemoteSettings_SourceTypes(String PathFileName)

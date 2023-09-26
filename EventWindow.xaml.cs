@@ -35,6 +35,7 @@ namespace The_Oracle
             this.userID = eventHorizonLINQ.UserID;
 
             AddItemsToEventTypeComboBox();
+            AddItemsToEventAttributeComboBox();
             AddItemsToSourceComboBox();
             AddItemsToFrequencyComboBox();
 
@@ -363,7 +364,17 @@ namespace The_Oracle
 
             if (eventWindowMode != EventWindowModes.EditMainEvent || eventWindowMode != EventWindowModes.EditNote || eventWindowMode != EventWindowModes.EditReply) EventTypeComboBox.SelectedIndex = 0;
         }
-        
+
+        private void AddItemsToEventAttributeComboBox()
+        {
+            foreach (AttributeType attributeType in XMLReaderWriter.AttributeTypesList)
+            {
+                EventAttributeComboBox.Items.Add(EventHorizonAttributes.GetAttributeStackPanel(attributeType));
+            }
+
+            if (eventWindowMode != EventWindowModes.EditMainEvent || eventWindowMode != EventWindowModes.EditNote || eventWindowMode != EventWindowModes.EditReply) EventAttributeComboBox.SelectedIndex = 0;
+        }
+
         private void AddItemsToSourceComboBox()
         {
             foreach (SourceType sourceType in XMLReaderWriter.SourceTypesList)
@@ -618,6 +629,30 @@ namespace The_Oracle
             Console.WriteLine(EventTypeComboBox.SelectedIndex);
             Console.Write("** item.Tag EventTypeName = ");
             Console.WriteLine(EventTypeName);
+        }
+
+        String EventAttributeName = string.Empty;
+
+        private void EventAttributeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is StackPanel))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            var selectedTag = ((StackPanel)EventAttributeComboBox.SelectedItem).Tag.ToString();
+
+            EventAttributeName = selectedTag;
+
+            Console.Write("** EventAttributeComboBox_SelectedIndex = ");
+            Console.WriteLine(EventAttributeComboBox.SelectedIndex);
+            Console.Write("** item.Tag EventAttributeName = ");
+            Console.WriteLine(EventAttributeName);
         }
 
         String SourceTypeName = string.Empty;

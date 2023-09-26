@@ -313,6 +313,9 @@ namespace The_Oracle
                 bool part4Result = await Execute_RemoteUsers_Async();
                 bool part5Result = await Execute_LocalUser_Async();
                 bool part6Result = await Execute_RemoteEventTypes_Async();
+                
+                XMLReaderWriter.CreateEventAttributes();
+
                 bool part7Result = await Execute_RemoteSourceTypes_Async();
 
                 if (!part1Result)

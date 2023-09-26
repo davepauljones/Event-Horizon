@@ -136,6 +136,7 @@
       <DependentUpon>EventHorizonLogo.xaml</DependentUpon>
     </Compile>
     <Compile Include="EventHorizonEventTypes.cs" />
+    <Compile Include="EventHorizonAttributes.cs" />
     <Compile Include="EventHorizonSources.cs" />
     <Compile Include="EventHorizonUsers.cs" />
     <Compile Include="EventRowStatusBar.xaml.cs">
