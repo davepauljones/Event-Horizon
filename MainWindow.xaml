@@ -227,11 +227,11 @@
                                             <local:EventHorizonLogo/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="130" MaxWidth="130">
-                                            <Label Content="Current User" Margin="3,0,0,0"/>
+                                            <Label Content="Current User" FontWeight="Medium" Margin="3,0,0,0"/>
                                             <Grid x:Name="CurrentUserGrid" HorizontalAlignment="Left"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="110">
-                                            <Label Content="Users Online" Margin="3,0,0,0"/>
+                                            <Label Content="Users Online" FontWeight="Medium" Margin="3,0,0,0"/>
                                             <StackPanel Orientation="Horizontal">
                                                 <StackPanel x:Name="UsersColumn1StackPanel" Orientation="Vertical" HorizontalAlignment="Left"/>
                                                 <StackPanel x:Name="UsersColumn2StackPanel" Orientation="Vertical" HorizontalAlignment="Left"/>
@@ -241,7 +241,7 @@
                                             </StackPanel>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" Width="92">
-                                            <Label Content="Days" ToolTip="Change the Time Span then click REFRESH" Margin="8,0,0,0"/>
+                                            <Label Content="Days" ToolTip="Change the Time Span then click REFRESH" FontWeight="Medium" Margin="8,0,0,0"/>
                                             <RadioButton Tag="0" GroupName="TimeSpanRadioButton" Content = "Overdue" Background="#FFe60000" Margin="10,0,0,0" Checked="TimeSpanRadioButton_Checked"/>
                                             <RadioButton Tag="1" GroupName="TimeSpanRadioButton" Content = "3 Days" Background="#FFff7800" Margin="10,0,0,0" Checked="TimeSpanRadioButton_Checked"/>
                                             <RadioButton Tag="2" GroupName="TimeSpanRadioButton" Content = "7 Days" Background="#FF4cbb17" Margin="10,0,0,0" Checked="TimeSpanRadioButton_Checked"/>
@@ -249,37 +249,37 @@
                                             <RadioButton Tag="4" GroupName="TimeSpanRadioButton" Content = "28 Days" Background="#FFcff6bb" Margin="10,0,0,0" IsChecked="True" Checked="TimeSpanRadioButton_Checked"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top">
-                                            <Label Content="User Filter Mode" Margin="7,0,0,0"/>
+                                            <Label Content="User Filter Mode" FontWeight="Medium" Margin="7,0,0,0"/>
                                             <RadioButton Tag="0" GroupName="FilterModeRadioButton" Content = "None" Margin="10,0,0,0" Checked="FilterModeRadioButton_Checked"/>
                                             <RadioButton Tag="1" GroupName="FilterModeRadioButton" Content = "Origin is Me" Margin="10,0,0,0" Checked="FilterModeRadioButton_Checked"/>
                                             <RadioButton Tag="2" GroupName="FilterModeRadioButton" Content = "Origin or Target is Me" Margin="10,0,0,0" IsChecked="True" Checked="FilterModeRadioButton_Checked"/>
                                             <RadioButton Tag="3" GroupName="FilterModeRadioButton" Content = "Origin and Target is Me" Margin="10,0,0,0" Checked="FilterModeRadioButton_Checked"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="180">
-                                            <Label Content="Display Mode" Margin="7,0,0,0"/>
+                                            <Label Content="Display Mode" FontWeight="Medium" Margin="7,0,0,0"/>
                                             <RadioButton Tag="1" GroupName="DisplayModeRadioButton" Content = "Reminders" Margin="10,0,0,0" IsChecked="True" Checked="DisplayModeRadioButton_Checked"/>
                                             <RadioButton Tag="0" GroupName="DisplayModeRadioButton" Content = "By New" Margin="10,0,0,0" Checked="DisplayModeRadioButton_Checked"/>
                                         </StackPanel>
-                                        <StackPanel Orientation="Vertical" VerticalAlignment="Top">
-                                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                                <Label Content="Event Type" VerticalAlignment="Center" Margin="0,8,4,0"/>
+                                        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                <Label Content="Event Type" VerticalAlignment="Center" FontWeight="Medium" Margin="0,8,0,0"/>
                                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                                     <StackPanel.Effect>
                                                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                                                     </StackPanel.Effect>
                                                     <ComboBox x:Name="EventTypeComboBox" Style="{DynamicResource FrequencyComboBoxStyle}" ItemContainerStyle="{DynamicResource theComboBoxItem}" Width="280" Height="40" IsEditable="False" SelectionChanged="EventTypeComboBox_SelectionChanged"/>
-                                                    <Button Tag="0" Content="ALL" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,0,0,0" Click="All_ButtonClick"/>
+                                                    <Button Tag="0" Content="ALL" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Height="30" Margin="12,0,0,0" Click="All_ButtonClick"/>
                                                 </StackPanel>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                                                <Label Content="Search" VerticalAlignment="Center" HorizontalContentAlignment="Right" Margin="0,8,4,0" MinWidth="67"/>
-                                                <Border Grid.Column="1" Grid.Row="2" CornerRadius="6" BorderBrush="#3b71ca" Background="White" BorderThickness="1" Margin="0,6,0,0" Width="280" MaxWidth="280" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                                                <Label Content="Search Details" VerticalAlignment="Center" FontWeight="Medium" Margin="0,8,0,0"/>
+                                                <Border CornerRadius="6" BorderBrush="#3b71ca" Background="White" BorderThickness="1" Margin="0,6,0,0" Width="280" MaxWidth="280">
                                                     <Border.Effect>
                                                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                                                     </Border.Effect>
                                                     <TextBox x:Name="SearchTextBox" Width="266" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0" KeyDown="SearchTextBox_OnKeyDown"/>
                                                 </Border>
-                                                <Button Tag="1" Content="CLEAR" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Margin="10,6,0,0" Click="All_ButtonClick"/>
+                                                <Button Tag="1" Content="CLEAR" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Height="30" Margin="12,6,0,0" Click="All_ButtonClick"/>
                                             </StackPanel>
                                             
                                         </StackPanel>
@@ -300,12 +300,12 @@
                                 <StackPanel Orientation="Vertical" Margin="6,0,6,0">
                                     <StackPanel Orientation="Horizontal" Margin="11,0,0,0">
                                         <Label Content="Ref." MinWidth="42" Style="{StaticResource LabelStyle }"/>
-                                        <Label Content="Event" MinWidth="147" Style="{StaticResource LabelStyle }"/>
+                                        <Label Content="Event" MinWidth="178" Style="{StaticResource LabelStyle }"/>
                                         <Label Content="Origin" MinWidth="132" Style="{StaticResource LabelStyle }"/>
                                         <Label Content="Target" MinWidth="141" Style="{StaticResource LabelStyle }"/>
                                         <Label Content="Days" MinWidth="35" Padding="0,5,0,5" Style="{StaticResource LabelStyle }"/>
-                                        <Label Content="Details" MinWidth="398" Style="{StaticResource LabelStyle }"/>
-                                        <Label Content="Source" MinWidth="166" Style="{StaticResource LabelStyle }"/>
+                                        <Label Content="Details" MinWidth="338" Style="{StaticResource LabelStyle }"/>
+                                        <Label Content="Source" MinWidth="196" Style="{StaticResource LabelStyle }"/>
                                         <Label Content="Frequency" MinWidth="122" Style="{StaticResource LabelStyle }"/>
                                         <Label Content="Status" MinWidth="69" Style="{StaticResource LabelStyle }"/>
                                         <Label Content="Notes" MinWidth="24" Style="{StaticResource LabelStyle }"/>

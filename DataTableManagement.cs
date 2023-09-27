@@ -382,6 +382,12 @@ namespace The_Oracle
 
                 if (!double.TryParse(dataRow["UnitCost"].ToString(), out eventHorizonLINQ.UnitCost)) eventHorizonLINQ.UnitCost = 0;
 
+                if (!int.TryParse(dataRow["Qty"].ToString(), out eventHorizonLINQ.Qty)) eventHorizonLINQ.Qty = 0;
+
+                if (!double.TryParse(dataRow["Discount"].ToString(), out eventHorizonLINQ.Discount)) eventHorizonLINQ.Discount = 0;
+
+                if (!int.TryParse(dataRow["Stock"].ToString(), out eventHorizonLINQ.Stock)) eventHorizonLINQ.Stock = 0;
+
                 eventHorizonLINQ.Attributes_TotalDays = totalDays;
                 eventHorizonLINQ.Attributes_TotalDaysEllipseColor = iconEllipeColor;
 
@@ -500,6 +506,12 @@ namespace The_Oracle
 
                 if (!double.TryParse(dataRow["UnitCost"].ToString(), out eventHorizonLINQ.UnitCost)) eventHorizonLINQ.UnitCost = 0;
 
+                if (!int.TryParse(dataRow["Qty"].ToString(), out eventHorizonLINQ.Qty)) eventHorizonLINQ.Qty = 0;
+
+                if (!double.TryParse(dataRow["Discount"].ToString(), out eventHorizonLINQ.Discount)) eventHorizonLINQ.Discount = 0;
+
+                if (!int.TryParse(dataRow["Stock"].ToString(), out eventHorizonLINQ.Stock)) eventHorizonLINQ.Stock = 0;
+
                 eventHorizonLINQ.Attributes_TotalDays = totalDays;
                 eventHorizonLINQ.Attributes_TotalDaysEllipseColor = iconEllipeColor;
 
@@ -548,7 +560,7 @@ namespace The_Oracle
                     case DatabaseSystems.AccessMDB:
                         using (OleDbConnection connection = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            using (var command = new OleDbCommand("UPDATE EventLog SET[EventTypeID] = ?, [SourceID] = ?, [Details] = ?, [FrequencyID] = ?, [StatusID] = ?, [TargetDateTime] = ?, [TargetUserID] = ?, [ReadByMeID] = ?, [LastViewedDateTime] = ?, [RemindMeID] = ?, [RemindMeDateTime] = ?, [NotificationAcknowledged] = ?, [ParentEventID] = ?, [EventModeID] = ?, [EventAttributeID] = ?, [PathFileName] = ?, [UnitCost] = ? WHERE [ID] = ?", connection))
+                            using (var command = new OleDbCommand("UPDATE EventLog SET[EventTypeID] = ?, [SourceID] = ?, [Details] = ?, [FrequencyID] = ?, [StatusID] = ?, [TargetDateTime] = ?, [TargetUserID] = ?, [ReadByMeID] = ?, [LastViewedDateTime] = ?, [RemindMeID] = ?, [RemindMeDateTime] = ?, [NotificationAcknowledged] = ?, [ParentEventID] = ?, [EventModeID] = ?, [EventAttributeID] = ?, [PathFileName] = ?, [UnitCost] = ? , [Qty] = ?, [Discount] = ?, [Stock] = ? WHERE [ID] = ?", connection))
                             {
                                 connection.Open();
 
@@ -580,6 +592,9 @@ namespace The_Oracle
                                 command.Parameters.AddWithValue("@EventAttributeID", eventHorizonLINQ.EventAttributeID);
                                 command.Parameters.AddWithValue("@PathFileName", eventHorizonLINQ.PathFileName);
                                 command.Parameters.AddWithValue("@UnitCost", eventHorizonLINQ.UnitCost);
+                                command.Parameters.AddWithValue("@Qty", eventHorizonLINQ.Qty);
+                                command.Parameters.AddWithValue("@Discount", eventHorizonLINQ.Discount);
+                                command.Parameters.AddWithValue("@Stock", eventHorizonLINQ.Stock);
 
 
                                 command.Parameters.AddWithValue("@ID", eventHorizonLINQ.ID);
@@ -589,7 +604,7 @@ namespace The_Oracle
                                 else if (rowsAffected == 0 || eventMode == EventWindowModes.NewEvent || eventMode == EventWindowModes.NewNote || eventMode == EventWindowModes.NewReply)
                                 {
                                     command.Parameters.Clear();
-                                    command.CommandText = "INSERT INTO EventLog (EventTypeID, SourceID, Details, FrequencyID, StatusID, CreatedDateTime, TargetDateTime, UserID, TargetUserID, ReadByMeID, LastViewedDateTime, RemindMeID, RemindMeDateTime, NotificationAcknowledged, ParentEventID, EventModeID, EventAttributeID, PathFileName, UnitCost) VALUES (@EventTypeID, @SourceID, @Details, @FrequencyID, @StatusID, @CreatedDateTime, @TargetDateTime, @UserID, @TargetUserID, @ReadByMeID, @LastViewedDateTime, @RemindMeID, @RemindMeDateTime, @NotificationAcknowledged, @ParentEventID, @EventModeID);";
+                                    command.CommandText = "INSERT INTO EventLog (EventTypeID, SourceID, Details, FrequencyID, StatusID, CreatedDateTime, TargetDateTime, UserID, TargetUserID, ReadByMeID, LastViewedDateTime, RemindMeID, RemindMeDateTime, NotificationAcknowledged, ParentEventID, EventModeID, EventAttributeID, PathFileName, UnitCost, Qty, Discount, Stock) VALUES (@EventTypeID, @SourceID, @Details, @FrequencyID, @StatusID, @CreatedDateTime, @TargetDateTime, @UserID, @TargetUserID, @ReadByMeID, @LastViewedDateTime, @RemindMeID, @RemindMeDateTime, @NotificationAcknowledged, @ParentEventID, @EventModeID, @EventAttributeID, @PathFileName, @UnitCost, @Qty, @Discount, @Stock);";
                                     command.Parameters.AddWithValue("@EventTypeID", eventWindow.EventTypeComboBox.SelectedIndex);
                                     command.Parameters.AddWithValue("@SourceID", eventWindow.SourceComboBox.SelectedIndex);
                                     command.Parameters.AddWithValue("@Details", detailsSafeString);
@@ -639,6 +654,9 @@ namespace The_Oracle
                                     command.Parameters.AddWithValue("@EventAttributeID", eventHorizonLINQ.EventAttributeID);
                                     command.Parameters.AddWithValue("@PathFileName", eventHorizonLINQ.PathFileName);
                                     command.Parameters.AddWithValue("@UnitCost", eventHorizonLINQ.UnitCost);
+                                    command.Parameters.AddWithValue("@Qty", eventHorizonLINQ.Qty);
+                                    command.Parameters.AddWithValue("@Discount", eventHorizonLINQ.Discount);
+                                    command.Parameters.AddWithValue("@Stock", eventHorizonLINQ.Stock);
 
                                     command.ExecuteNonQuery();
 
@@ -666,7 +684,7 @@ namespace The_Oracle
                     case DatabaseSystems.SQLite:
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            using (SQLiteCommand command = new SQLiteCommand("UPDATE EventLog SET EventTypeID = ?, SourceID = ?, Details = ?, FrequencyID = ?, StatusID = ?, TargetDateTime = ?, TargetUserID = ?, ReadByMeID = ?, LastViewedDateTime = ?, RemindMeID = ?, RemindMeDateTime = ?, NotificationAcknowledged = ?, ParentEventID = ?, EventModeID = ?, EventAttributeID = ?, PathFileName = ?, UnitCost = ? WHERE ID = ?", connection))
+                            using (SQLiteCommand command = new SQLiteCommand("UPDATE EventLog SET EventTypeID = ?, SourceID = ?, Details = ?, FrequencyID = ?, StatusID = ?, TargetDateTime = ?, TargetUserID = ?, ReadByMeID = ?, LastViewedDateTime = ?, RemindMeID = ?, RemindMeDateTime = ?, NotificationAcknowledged = ?, ParentEventID = ?, EventModeID = ?, EventAttributeID = ?, PathFileName = ?, UnitCost = ?, Qty = ?, Discount = ?, Stock = ? WHERE ID = ?", connection))
                             {
                                 connection.Open();
 
@@ -696,6 +714,9 @@ namespace The_Oracle
                                 command.Parameters.Add("@EventAttributeID", DbType.Int32).Value = eventHorizonLINQ.EventAttributeID;
                                 command.Parameters.Add("@PathFileName", DbType.String).Value = eventHorizonLINQ.PathFileName;
                                 command.Parameters.Add("@UnitCost", DbType.Double).Value = eventHorizonLINQ.UnitCost;
+                                command.Parameters.Add("@Qty", DbType.Int32).Value = eventHorizonLINQ.Qty;
+                                command.Parameters.Add("@Discount", DbType.Double).Value = eventHorizonLINQ.Discount;
+                                command.Parameters.Add("@Stock", DbType.Int32).Value = eventHorizonLINQ.Stock;
 
                                 command.Parameters.Add("@ID", DbType.Int32).Value = eventHorizonLINQ.ID;
 
@@ -704,7 +725,7 @@ namespace The_Oracle
                                 else if (rowsAffected == 0 || eventMode == EventWindowModes.NewEvent || eventMode == EventWindowModes.NewNote || eventMode == EventWindowModes.NewReply)
                                 {
                                     command.Parameters.Clear();
-                                    command.CommandText = "INSERT INTO EventLog (EventTypeID, SourceID, Details, FrequencyID, StatusID, CreatedDateTime, TargetDateTime, UserID, TargetUserID, ReadByMeID, LastViewedDateTime, RemindMeID, RemindMeDateTime, NotificationAcknowledged, ParentEventID, EventModeID, EventAttributeID, PathFileName, UnitCost) VALUES (@EventTypeID, @SourceID, @Details, @FrequencyID, @StatusID, @CreatedDateTime, @TargetDateTime, @UserID, @TargetUserID, @ReadByMeID, @LastViewedDateTime, @RemindMeID, @RemindMeDateTime, @NotificationAcknowledged, @ParentEventID, @EventModeID, @EventAttributeID, @PathFileName, @UnitCost);";
+                                    command.CommandText = "INSERT INTO EventLog (EventTypeID, SourceID, Details, FrequencyID, StatusID, CreatedDateTime, TargetDateTime, UserID, TargetUserID, ReadByMeID, LastViewedDateTime, RemindMeID, RemindMeDateTime, NotificationAcknowledged, ParentEventID, EventModeID, EventAttributeID, PathFileName, UnitCost, Qty, Discount, Stock) VALUES (@EventTypeID, @SourceID, @Details, @FrequencyID, @StatusID, @CreatedDateTime, @TargetDateTime, @UserID, @TargetUserID, @ReadByMeID, @LastViewedDateTime, @RemindMeID, @RemindMeDateTime, @NotificationAcknowledged, @ParentEventID, @EventModeID, @EventAttributeID, @PathFileName, @UnitCost, @Qty, @Discount, @Stock);";
 
                                     command.Parameters.Add("@EventTypeID", DbType.Int32).Value = eventWindow.EventTypeComboBox.SelectedIndex;
                                     command.Parameters.Add("@SourceID", DbType.Int32).Value = eventWindow.SourceComboBox.SelectedIndex;
@@ -751,6 +772,9 @@ namespace The_Oracle
                                     command.Parameters.Add("@EventAttributeID", DbType.Int32).Value = eventHorizonLINQ.EventAttributeID;
                                     command.Parameters.Add("@PathFileName", DbType.String).Value = eventHorizonLINQ.PathFileName;
                                     command.Parameters.Add("@UnitCost", DbType.Double).Value = eventHorizonLINQ.UnitCost;
+                                    command.Parameters.Add("@Qty", DbType.Int32).Value = eventHorizonLINQ.Qty;
+                                    command.Parameters.Add("@Discount", DbType.Double).Value = eventHorizonLINQ.Discount;
+                                    command.Parameters.Add("@Stock", DbType.Int32).Value = eventHorizonLINQ.Stock;
 
                                     command.ExecuteNonQuery();
 
@@ -1261,6 +1285,18 @@ namespace The_Oracle
                 if (!int.TryParse(dataRow["NotificationAcknowledged"].ToString(), out eventHorizonLINQ.NotificationAcknowledged)) eventHorizonLINQ.NotificationAcknowledged = 0;
 
                 if (!int.TryParse(dataRow["EventModeID"].ToString(), out eventHorizonLINQ.EventModeID)) eventHorizonLINQ.EventModeID = 0;
+
+                if (!int.TryParse(dataRow["EventAttributeID"].ToString(), out eventHorizonLINQ.EventAttributeID)) eventHorizonLINQ.EventAttributeID = 0;
+
+                eventHorizonLINQ.PathFileName = dataRow["PathFileName"].ToString();
+
+                if (!double.TryParse(dataRow["UnitCost"].ToString(), out eventHorizonLINQ.UnitCost)) eventHorizonLINQ.UnitCost = 0;
+
+                if (!int.TryParse(dataRow["Qty"].ToString(), out eventHorizonLINQ.Qty)) eventHorizonLINQ.Qty = 0;
+
+                if (!double.TryParse(dataRow["Discount"].ToString(), out eventHorizonLINQ.Discount)) eventHorizonLINQ.Discount = 0;
+
+                if (!int.TryParse(dataRow["Stock"].ToString(), out eventHorizonLINQ.Stock)) eventHorizonLINQ.Stock = 0;
 
                 eventHorizonLINQ.Attributes_TotalDays = totalDays;
                 eventHorizonLINQ.Attributes_TotalDaysEllipseColor = iconEllipeColor;

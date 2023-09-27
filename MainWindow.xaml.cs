@@ -115,12 +115,27 @@ namespace The_Oracle
                 //    this.Background.Opacity = 0.3;
                 //}
 
-                OracleLogin oli = new OracleLogin(MainWindow.mw);
-                oli.SelectUserComboBox.SelectedIndex = XMLReaderWriter.UserID-1;
-
-                if (oli.ShowDialog() == true)
+                if (XMLReaderWriter.OverridePassword == false)
                 {
+                    OracleLogin oli = new OracleLogin(MainWindow.mw);
+                    oli.SelectUserComboBox.SelectedIndex = XMLReaderWriter.UserID - 1;
 
+                    if (oli.ShowDialog() == true)
+                    {
+
+                        this.WindowState = WindowState.Maximized;
+
+                        EventStackPanel.Visibility = Visibility.Visible;
+
+                        MainWindowTitle.SetMainWindowTitle();
+
+                        Loaded += MainWindow_Loaded;
+                    }
+                    else
+                        Close();
+                }
+                else
+                {
                     this.WindowState = WindowState.Maximized;
 
                     EventStackPanel.Visibility = Visibility.Visible;
@@ -129,8 +144,6 @@ namespace The_Oracle
 
                     Loaded += MainWindow_Loaded;
                 }
-                else
-                    Close();
             }
             else
                 Close();

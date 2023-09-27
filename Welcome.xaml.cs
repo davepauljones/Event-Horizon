@@ -346,6 +346,13 @@ namespace The_Oracle
                 PrerequisitesPassed = true;
                 StatusLabel.Content = "Checking Event Horizon Prerequisites ......... Passed!";
                 SetPrerequisites();
+                RetryButton.Visibility = Visibility.Hidden;
+
+                if (XMLReaderWriter.OverridePassword)
+                    LoginButton.Content = "Open";
+                else
+                    LoginButton.Content = "Login";
+
                 LoginButton.Visibility = Visibility.Visible;
             }
             else
@@ -353,6 +360,7 @@ namespace The_Oracle
                 PrerequisitesPassed = false;               
                 StatusLabel.Content = "Checking Event Horizon Prerequisites ......... Failed!";
                 RetryButton.Visibility = Visibility.Visible;
+                LoginButton.Content = "Close";
                 LoginButton.Visibility = Visibility.Visible;
             }
         }

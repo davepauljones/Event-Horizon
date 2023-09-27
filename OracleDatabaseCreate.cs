@@ -145,6 +145,67 @@ namespace The_Oracle
             return pathFileName;
         }
         
+        internal static string OpenFile(string filter, string initialDirectory=null)
+        {
+            string pathFileName = string.Empty;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            //openFileDialog.FileName = "EventHorizonRemoteDatabase"; // Default file name
+            openFileDialog.DefaultExt = ".*"; // Default file extension
+            //openFileDialog.Filter = "PNG file (.png)|*.png"; // Filter files by extension
+            openFileDialog.Filter = filter;
+              //"All supported files|*.jpg;*.jpeg;*.png|" +
+              //"JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              //"Portable Network Graphic (*.png)|*.png|" +
+              //"PDF (*.pdf)|*.pdf|" +
+              //"All files (*.*)|*.*";
+            
+            if (initialDirectory != null) openFileDialog.InitialDirectory = initialDirectory;
+
+            // Show open file dialog box
+            bool? result = openFileDialog.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                pathFileName = openFileDialog.FileName;
+
+                Console.Write("OpenImageFile - openFileDialog.FileName = ");
+                Console.WriteLine(openFileDialog.FileName);
+            }
+
+            return pathFileName;
+        }
+        internal static string OpenImageFile()
+        {
+            string pathFileName = string.Empty;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            //openFileDialog.FileName = "EventHorizonRemoteDatabase"; // Default file name
+            openFileDialog.DefaultExt = ".png"; // Default file extension
+            //openFileDialog.Filter = "PNG file (.png)|*.png"; // Filter files by extension
+            openFileDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png";
+            //openFileDialog.InitialDirectory = XMLReaderWriter.DatabaseLocationString;
+
+            // Show open file dialog box
+            bool? result = openFileDialog.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                pathFileName = openFileDialog.FileName;
+
+                Console.Write("OpenImageFile - openFileDialog.FileName = ");
+                Console.WriteLine(openFileDialog.FileName);
+            }
+
+            return pathFileName;
+        }
+
         internal static void CreateEventLogTable()
         {
             string sqlquery = @"CREATE TABLE [EventLog]([ID] COUNTER, [EventTypeID] INTEGER, [SourceID] INTEGER, [Details] MEMO, [FrequencyID] INTEGER, [StatusID] INTEGER, [CreatedDateTime] DATETIME, [TargetDateTime] DATETIME, [UserID] INTEGER, [TargetUserID] INTEGER, [ReadByMeID] INTEGER, [LastViewedDateTime] DATETIME, [RemindMeID] INTEGER, [RemindMeDateTime] DATETIME, [NotificationAcknowledged] INTEGER, [ParentEventID] INTEGER, [EventModeID] INTEGER, [EventAttributeID] INTEGER, [PathFileName] MEMO, [UnitCost] CURRENCY);";
@@ -279,29 +340,29 @@ namespace The_Oracle
                 case DatabaseSystems.AccessMDB:                  
                     break;
                 case DatabaseSystems.SQLite:
-                    try
-                    {
-                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
-                        {
-                            using (SQLiteCommand command = new SQLiteCommand("ALTER TABLE EventLog ADD COLUMN UnitCost REAL;", connection))
-                            {
-                                connection.Open();
+                    //try
+                    //{
+                    //    using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                    //    {
+                    //        using (SQLiteCommand command = new SQLiteCommand("ALTER TABLE EventLog ADD COLUMN Stock INTEGER;", connection))
+                    //        {
+                    //            connection.Open();
 
-                                command.ExecuteNonQuery();
+                    //            command.ExecuteNonQuery();
 
-                                MainWindow.mw.Status.Content = "Added Fields";
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Handle exceptions here
-                        Console.WriteLine("Error: " + ex.Message);
-                        Console.WriteLine("-------------------*---------------------");
+                    //            MainWindow.mw.Status.Content = "Added Fields";
+                    //        }
+                    //    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    // Handle exceptions here
+                    //    Console.WriteLine("Error: " + ex.Message);
+                    //    Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "AddFieldsToExistingTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
-                        msg.ShowDialog();
-                    }
+                    //    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "AddFieldsToExistingTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                    //    msg.ShowDialog();
+                    //}
                     break;
             }
         }

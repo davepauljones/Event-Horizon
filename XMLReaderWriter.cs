@@ -13,6 +13,7 @@ namespace The_Oracle
         public static Int32 UserID = 0;
         public static string UserNameString = string.Empty;
         public static string DefaultPasswordString = string.Empty;
+        public static bool OverridePassword = false;
         public static String DatabaseLocationString = AppDomain.CurrentDomain.BaseDirectory;
         public static List<User> UsersList = new List<User>();
         public static List<EventType> EventTypesList = new List<EventType>();
@@ -103,6 +104,16 @@ namespace The_Oracle
                         Console.Write(" DefaultPasswordString = ");
                         Console.WriteLine(DefaultPasswordString);
                     }
+
+                    XmlNode nodeToFind;
+                    XmlElement root = doc.DocumentElement;
+
+                    nodeToFind = root.SelectSingleNode("//OverridePassword");
+                    if (nodeToFind != null)
+                        OverridePassword = true;
+                    else
+                        OverridePassword = false;
+
 
                     result = true;
                 }
@@ -625,6 +636,7 @@ namespace The_Oracle
             writer.WriteStartElement("Settings");
             writer.WriteElementString("UserName", os.UserName);
             writer.WriteElementString("DatabaseLocation", os.DatabaseLocation);
+            //writer.WriteElementString("OverridePassword", os.OverridePassword);
 
             writer.WriteEndElement();
             writer.WriteEndElement();
