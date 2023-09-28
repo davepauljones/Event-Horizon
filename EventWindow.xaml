@@ -171,7 +171,7 @@
                     <Border.Effect>
                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                     </Border.Effect>
-                    <TextBox x:Name="QtyTextBox" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
+                    <TextBox x:Name="QtyTextBox" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0" Text="0"/>
                 </Border>
                 <!--<Button Tag="1" Content="CLEAR" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Height="30" Margin="12,6,0,0" Click="All_ButtonClick"/>-->
             </StackPanel>
@@ -182,7 +182,7 @@
                     <Border.Effect>
                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                     </Border.Effect>
-                    <TextBox x:Name="UnitCostTextBox" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
+                    <TextBox x:Name="UnitCostTextBox" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0" Text="0"/>
                 </Border>
                 <!--<Button Tag="1" Content="CLEAR" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Height="30" Margin="12,6,0,0" Click="All_ButtonClick"/>-->
             </StackPanel>
@@ -193,7 +193,7 @@
                     <Border.Effect>
                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                     </Border.Effect>
-                    <TextBox x:Name="DiscountTextBox" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
+                    <TextBox x:Name="DiscountTextBox" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0" Text="0"/>
                 </Border>
                 <!--<Button Tag="1" Content="CLEAR" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Height="30" Margin="12,6,0,0" Click="All_ButtonClick"/>-->
             </StackPanel>
@@ -204,7 +204,7 @@
                     <Border.Effect>
                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                     </Border.Effect>
-                    <TextBox x:Name="GrandTotalTextBox" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
+                    <TextBox x:Name="GrandTotalTextBox" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0" Text="0"/>
                 </Border>
                 <!--<Button Tag="1" Content="CLEAR" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Height="30" Margin="12,6,0,0" Click="All_ButtonClick"/>-->
             </StackPanel>

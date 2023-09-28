@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Globalization;
 
 namespace The_Oracle
 {
@@ -18,6 +19,47 @@ namespace The_Oracle
             InitializeComponent();
 
             this.eventHorizonLINQ = eventHorizonLINQ;
+        }
+
+        public void MorphEventRow()
+        {
+            switch (eventHorizonLINQ.EventAttributeID)
+            {
+                case EventAttributes.Standard:
+                    //doo nothing
+                    break;
+                case EventAttributes.LineItem:
+                    //change UI to suit LineItem
+                    EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.Green);
+                    EventTypeFontAwesomeIcon.Icon = FontAwesome.WPF.FontAwesomeIcon.Dollar;
+                    EventTypeTextBlock.Text = "Line Item";
+
+                    TargetUserTokenGrid.Visibility = Visibility.Collapsed;
+                    TotalDaysTokenGrid.Visibility = Visibility.Collapsed;
+
+                    TargetDateTimeTextBlock.Visibility = Visibility.Collapsed;
+                    QtyTextBlock.Visibility = Visibility.Visible;
+                    QtyTextBlock.Text = eventHorizonLINQ.Qty.ToString();
+
+                    SourceIDTextBlock.Visibility = Visibility.Collapsed;
+                    UnitCostTextBlock.Visibility = Visibility.Visible;
+                    UnitCostTextBlock.Text = eventHorizonLINQ.UnitCost.ToString("C2", CultureInfo.CurrentCulture);
+
+                    FrequencyGrid.Visibility = Visibility.Collapsed;
+                    DiscountTextBlock.Visibility = Visibility.Visible;
+                    double discount = eventHorizonLINQ.Discount / 100;
+                    DiscountTextBlock.Text = discount.ToString("P", CultureInfo.InvariantCulture);
+
+                    StatusGrid.Visibility = Visibility.Collapsed;
+                    GrandTotalTextBlock.Visibility = Visibility.Visible;       
+                    double grandTotal = (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) - ((eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) * eventHorizonLINQ.Discount / 100);
+                    GrandTotalTextBlock.Text = grandTotal.ToString("C2", CultureInfo.CurrentCulture);
+
+                    break;
+                case EventAttributes.FooBar:
+                    //change UI to suit FooBar 
+                    break;
+            }
         }
 
         private void RepliesButton_Click(object sender, RoutedEventArgs e)
