@@ -11,7 +11,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" MinWidth="44" MaxWidth="44"/>
             <ColumnDefinition Width="Auto" MinWidth="38" MaxWidth="38"/>
-            <ColumnDefinition Width="Auto" MinWidth="150" MaxWidth="120"/>
+            <ColumnDefinition Width="Auto" MinWidth="150" MaxWidth="150"/>
             <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
             <ColumnDefinition Width="Auto" MinWidth="98" MaxWidth="98"/>
             <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
@@ -19,7 +19,7 @@
             <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
             <ColumnDefinition Width="Auto" MinWidth="339" MaxWidth="339"/>
             <ColumnDefinition Width="Auto" MinWidth="38" MaxWidth="38"/>
-            <ColumnDefinition Width="Auto" MinWidth="138" MaxWidth="108"/>
+            <ColumnDefinition Width="Auto" MinWidth="138" MaxWidth="138"/>
             <ColumnDefinition Width="Auto" MinWidth="110" MaxWidth="110"/>
             <ColumnDefinition Width="Auto" MinWidth="122" MaxWidth="122"/>
             <ColumnDefinition Width="Auto" MinWidth="60" MaxWidth="60"/>
@@ -31,7 +31,23 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="14" x:Name="HeaderGrid" Width="Auto" Height="29" Margin="0,4,0,2" MaxWidth="1288" HorizontalAlignment="Left" IsEnabled="False" Visibility="Visible">
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="14" x:Name="HeaderGrid" Width="1280" Height="29" Margin="0,4,0,2" MaxWidth="1280" HorizontalAlignment="Left" IsEnabled="False" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="44" MaxWidth="44"/>
+                <ColumnDefinition Width="Auto" MinWidth="38" MaxWidth="38"/>
+                <ColumnDefinition Width="Auto" MinWidth="150" MaxWidth="150"/>
+                <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
+                <ColumnDefinition Width="Auto" MinWidth="98" MaxWidth="98"/>
+                <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
+                <ColumnDefinition Width="Auto" MinWidth="98" MaxWidth="98"/>
+                <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
+                <ColumnDefinition Width="Auto" MinWidth="339" MaxWidth="339"/>
+                <ColumnDefinition Width="Auto" MinWidth="38" MaxWidth="38"/>
+                <ColumnDefinition Width="Auto" MinWidth="138" MaxWidth="138"/>
+                <ColumnDefinition Width="Auto" MinWidth="110" MaxWidth="110"/>
+                <ColumnDefinition Width="Auto" MinWidth="122" MaxWidth="122"/>
+                <ColumnDefinition Width="Auto" MinWidth="60" MaxWidth="60"/>
+            </Grid.ColumnDefinitions>
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="0.3">
 
@@ -47,16 +63,15 @@
 
                 </LinearGradientBrush>
             </Grid.Background>
-            <StackPanel Orientation="Horizontal" Margin="4,0,0,0">
-                <Label Content="Ref." MinWidth="42" Style="{StaticResource LabelStyle }" Foreground="Black"/>
-                <Label Content="Event" MinWidth="178" Style="{StaticResource LabelStyle }" Foreground="Black"/>
-                <Label Content="Origin" MinWidth="122" Style="{StaticResource LabelStyle }" Foreground="Black"/>
-                <Label Content="Qty" MinWidth="143" Style="{StaticResource LabelStyle }" HorizontalContentAlignment="Right" Foreground="Black"/>
-                <Label Content="Description" MinWidth="400" Style="{StaticResource LabelStyle }" Margin="45,0,0,0" Foreground="Black"/>
-                <Label Content="Unit Cost" MinWidth="104" Style="{StaticResource LabelStyle }" HorizontalContentAlignment="Right" Foreground="Black"/>
-                <Label Content="Discount" MinWidth="106" Style="{StaticResource LabelStyle }" HorizontalContentAlignment="Right" Foreground="Black"/>
-                <Label Content="Total" MinWidth="119" Style="{StaticResource LabelStyle }" HorizontalContentAlignment="Right" Margin="0,0,13,0" Foreground="Black"/>
-            </StackPanel>
+            <Label Grid.Column="0" Content="Ref." Style="{StaticResource LabelStyle }" Margin="4,0,0,0" Foreground="Black"/>
+            <Label Grid.Column="1" Grid.ColumnSpan="2" Content="Event" Style="{StaticResource LabelStyle }" Margin="4,0,0,0" Foreground="Black"/>
+            <Label Grid.Column="3" Grid.ColumnSpan="2" Content="Origin" Style="{StaticResource LabelStyle }" Margin="-4,0,0,0" Foreground="Black"/>
+            <Label Grid.Column="6" Content="Qty" Style="{StaticResource LabelStyle }" HorizontalContentAlignment="Right" Margin="0,0,6,0" Foreground="Black"/>
+            <Label Grid.Column="8" Content="Description" Style="{StaticResource LabelStyle }" Margin="6,0,0,0" Foreground="Black"/>
+            <Label Grid.Column="10" Content="Unit Cost" Style="{StaticResource LabelStyle }" Margin="7,0,0,0"  HorizontalContentAlignment="Left" Foreground="Black"/>
+            <Label Grid.Column="10" Content="Sub Total" Style="{StaticResource LabelStyle }" HorizontalContentAlignment="Right" Foreground="Black"/>
+            <Label Grid.Column="11" Content="Discount" Style="{StaticResource LabelStyle }" HorizontalContentAlignment="Right" Foreground="Black"/>
+            <Label Grid.Column="12" Content="Line Total" Style="{StaticResource LabelStyle }" HorizontalContentAlignment="Right" Margin="0,0,6,0" Foreground="Black"/>
         </Grid>
 
         <Grid Grid.Column="0" Grid.Row="1" Background="#f7f8f9" Height="18" VerticalAlignment="Top" Margin="0,5,5,0">
@@ -95,7 +110,7 @@
 
         <TextBlock Grid.Column="6" Grid.Row="1" x:Name="TargetDateTimeTextBlock" Text="04/08/23 16:35" Foreground="Black" FontSize="13" Margin="0,5,10,0"/>
 
-        <TextBlock Grid.Column="6" Grid.Row="1" x:Name="QtyTextBlock" Foreground="Black" FontSize="13" HorizontalAlignment="Right" Margin="5,0,10,0" Visibility="Collapsed"/>
+        <TextBlock Grid.Column="6" Grid.Row="1" x:Name="QtyTextBlock" Foreground="Black" FontSize="13" Height="18" HorizontalAlignment="Right" Margin="5,0,10,0" Visibility="Collapsed"/>
         
         <Grid x:Name="TotalDaysTokenGrid" Grid.Column="7" Grid.Row="1" Margin="5,1,5,0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Grid.Effect>
@@ -115,16 +130,27 @@
         </Border>
 
         <TextBlock Grid.Column="10" Grid.Row="1" x:Name="SourceIDTextBlock" Text="David Jones" Foreground="Black" FontSize="13" Height="18" Width="126" MaxWidth="126" HorizontalAlignment="Left" Margin="5,0,10,0"/>
-        
-        <TextBlock Grid.Column="10" Grid.Row="1" x:Name="UnitCostTextBlock" Text="David Jones" Foreground="Black" FontSize="13" HorizontalAlignment="Right" Margin="5,0,10,0" Visibility="Collapsed"/>
-        
+
+        <Grid Grid.Column="10" Grid.Row="1" x:Name="UnitCostTotalCostGrid" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <TextBlock x:Name="UnitCostTextBlock" Text="0" Foreground="Black" FontSize="13" Height="18" Margin="0,0,6,0" HorizontalAlignment="Right"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <TextBlock x:Name="TotalCostTextBlock" Text="0" Foreground="Black" FontSize="13" Height="18" Margin="0,0,6,0" HorizontalAlignment="Right"/>
+            </Grid>
+        </Grid>
+
         <Grid Grid.Column="11" Grid.Row="1" x:Name="FrequencyGrid" Margin="10,2,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-        
-        <TextBlock Grid.Column="11" Grid.Row="1" x:Name="DiscountTextBlock" Text="0.00" Foreground="Black" FontSize="13" HorizontalAlignment="Right" Margin="5,0,10,0" Visibility="Collapsed"/>
+
+        <TextBlock Grid.Column="11" Grid.Row="1" x:Name="DiscountTextBlock" Text="0.00" Foreground="Black" FontSize="13" Height="18" HorizontalAlignment="Right" Margin="5,0,6,0" Visibility="Collapsed"/>
 
         <Grid Grid.Column="12" Grid.Row="1" x:Name="StatusGrid" Margin="10,2,5,0" VerticalAlignment="Top" IsEnabled="False"/>
 
-        <TextBlock Grid.Column="12" Grid.Row="1" x:Name="TotalTextBlock" Text="0" Foreground="Black" FontSize="13" HorizontalAlignment="Right" Margin="5,0,10,0" Visibility="Collapsed"/>
+        <TextBlock Grid.Column="12" Grid.Row="1" x:Name="TotalTextBlock" Text="0" Foreground="Black" FontSize="13" Height="18" HorizontalAlignment="Right" Margin="0,0,10,0" Visibility="Collapsed"/>
         
         <Grid Grid.Column="13" Grid.Row="1" Margin="0,0,0,0">
             <Grid.Effect>
@@ -148,11 +174,11 @@
             </ListView.ItemsPanel>
         </ListView>
 
-        <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="14" x:Name="StatusBarGrid" Width="1288" Height="29" Margin="0,4,0,0" MaxWidth="1288" HorizontalAlignment="Left" IsEnabled="False" Visibility="Visible">
+        <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="14" x:Name="StatusBarGrid" Width="1280" Height="29" Margin="0,4,0,0" MaxWidth="1280" HorizontalAlignment="Left" IsEnabled="False" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" MinWidth="44" MaxWidth="44"/>
                 <ColumnDefinition Width="Auto" MinWidth="38" MaxWidth="38"/>
-                <ColumnDefinition Width="Auto" MinWidth="150" MaxWidth="120"/>
+                <ColumnDefinition Width="Auto" MinWidth="150" MaxWidth="150"/>
                 <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
                 <ColumnDefinition Width="Auto" MinWidth="98" MaxWidth="98"/>
                 <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
@@ -160,7 +186,7 @@
                 <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
                 <ColumnDefinition Width="Auto" MinWidth="339" MaxWidth="339"/>
                 <ColumnDefinition Width="Auto" MinWidth="38" MaxWidth="38"/>
-                <ColumnDefinition Width="Auto" MinWidth="138" MaxWidth="108"/>
+                <ColumnDefinition Width="Auto" MinWidth="138" MaxWidth="138"/>
                 <ColumnDefinition Width="Auto" MinWidth="110" MaxWidth="110"/>
                 <ColumnDefinition Width="Auto" MinWidth="122" MaxWidth="122"/>
                 <ColumnDefinition Width="Auto" MinWidth="60" MaxWidth="60"/>
@@ -181,17 +207,17 @@
                 </LinearGradientBrush>
             </Grid.Background>
 
-            <TextBlock Grid.Column="2" Text="Line Item Status Bar" Foreground="Black" FontSize="13" FontWeight="Medium" Margin="6,5,10,0"/>
+            <TextBlock Grid.Column="2" Text="Line Items Status Bar" Foreground="Black" FontSize="13" FontWeight="Medium" Margin="6,5,10,0"/>
 
-            <TextBlock Grid.Column="4" Text="Total Items" Foreground="Black" FontSize="13" FontWeight="Medium" HorizontalAlignment="Right" Margin="0,5,10,0"/>
+            <TextBlock Grid.Column="4" Grid.ColumnSpan="2" Text="Total Items" Foreground="Black" FontSize="13" FontWeight="Medium" HorizontalAlignment="Right" Margin="0,5,6,0"/>
 
             <TextBlock Grid.Column="6" x:Name="TotalItemsTextBlock" Text="0" Foreground="Black" FontSize="13" FontWeight="Medium" HorizontalAlignment="Right" Margin="0,5,10,0"/>
 
-            <TextBlock Grid.Column="8" Grid.ColumnSpan="2" Text="Total Unit Cost" Foreground="Black" FontSize="13" FontWeight="Medium" Margin="10,5,5,0" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Column="8" Grid.ColumnSpan="3" Text="Before Discounts - Sub Total" Foreground="Black" FontSize="13" FontWeight="Medium" Margin="0,5,80,0" HorizontalAlignment="Right"/>
 
-            <TextBlock Grid.Column="10" x:Name="TotalUnitCostTextBlock" Text="0" Foreground="Black" FontSize="13" FontWeight="Medium" Margin="5,5,10,0" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Column="9" Grid.ColumnSpan="2" x:Name="TotalUnitCostTextBlock" Text="0" Foreground="Black" FontSize="13" FontWeight="Medium" Margin="5,5,6,0" HorizontalAlignment="Right"/>
 
-            <TextBlock Grid.Column="11" Text="Grand Total" Foreground="Black" FontWeight="Medium" FontSize="13" Margin="5,5,10,0" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Column="11" Text="Grand Total" Foreground="Black" FontWeight="Medium" FontSize="13" Margin="5,5,6,0" HorizontalAlignment="Right"/>
 
             <TextBlock Grid.Column="12" x:Name="GrandTotalTextBlock" Text="£0.00" Foreground="Black" FontWeight="Medium" FontSize="13" Margin="5,5,10,0" HorizontalAlignment="Right"/>
 

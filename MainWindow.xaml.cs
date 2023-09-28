@@ -256,6 +256,7 @@ namespace The_Oracle
                     {
                         Int32 grandTotalItems = 0;
                         double grandTotalUnitCost = 0;
+                        double grandTotalTotal = 0;
 
                         foreach (EventHorizonLINQ eventHorizonLINQRow in eventHorizonLINQRepliesList)
                         {
@@ -274,7 +275,10 @@ namespace The_Oracle
                                     eventRow.RepliesListView.Items.Add(er);
 
                                     grandTotalItems += eventHorizonLINQRow.Qty;
-                                    grandTotalUnitCost += (eventHorizonLINQRow.UnitCost * eventHorizonLINQRow.Qty) - (eventHorizonLINQRow.UnitCost * eventHorizonLINQRow.Qty) * eventHorizonLINQRow.Discount / 100;
+
+                                    grandTotalUnitCost += eventHorizonLINQRow.UnitCost * eventHorizonLINQRow.Qty;
+
+                                    grandTotalTotal += (eventHorizonLINQRow.UnitCost * eventHorizonLINQRow.Qty) - (eventHorizonLINQRow.UnitCost * eventHorizonLINQRow.Qty) * eventHorizonLINQRow.Discount / 100;
 
                                     if (eventHorizonLINQRow == eventHorizonLINQRepliesList.Last()) // Check if it's the last item
                                     {
@@ -283,9 +287,9 @@ namespace The_Oracle
                                         er.TotalItemsTextBlock.Text = grandTotalItems.ToString();
 
                                         er.TotalUnitCostTextBlock.Text = grandTotalUnitCost.ToString("C2", CultureInfo.CurrentCulture);
-                                        
+
                                         er.GrandTotalTextBlock.Visibility = Visibility.Visible;
-                                        er.GrandTotalTextBlock.Text = grandTotalUnitCost.ToString("C2", CultureInfo.CurrentCulture);
+                                        er.GrandTotalTextBlock.Text = grandTotalTotal.ToString("C2", CultureInfo.CurrentCulture);
 
                                         //EventRowStatusBar ersb = new EventRowStatusBar(new EventHorizonLINQ());
                                         ////ersb.SourceIDTextBlock.Text = eventHorizonLINQ.Attributes_Replies.ToString();

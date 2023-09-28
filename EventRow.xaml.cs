@@ -45,8 +45,12 @@ namespace The_Oracle
                     QtyTextBlock.Text = eventHorizonLINQ.Qty.ToString();
 
                     SourceIDTextBlock.Visibility = Visibility.Collapsed;
-                    UnitCostTextBlock.Visibility = Visibility.Visible;
+                    UnitCostTotalCostGrid.Visibility = Visibility.Visible;
                     UnitCostTextBlock.Text = eventHorizonLINQ.UnitCost.ToString("C2", CultureInfo.CurrentCulture);
+
+                    double totalCost = eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty;
+                    TotalCostTextBlock.Visibility = Visibility.Visible;
+                    TotalCostTextBlock.Text = totalCost.ToString("C2", CultureInfo.CurrentCulture);
 
                     FrequencyGrid.Visibility = Visibility.Collapsed;
                     DiscountTextBlock.Visibility = Visibility.Visible;
@@ -55,7 +59,7 @@ namespace The_Oracle
 
                     StatusGrid.Visibility = Visibility.Collapsed;
                     TotalTextBlock.Visibility = Visibility.Visible;       
-                    double grandTotal = (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) - ((eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) * eventHorizonLINQ.Discount / 100);
+                    double grandTotal = (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) - (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) * eventHorizonLINQ.Discount / 100;
                     TotalTextBlock.Text = grandTotal.ToString("C2", CultureInfo.CurrentCulture);
 
                     break;
