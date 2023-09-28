@@ -19,6 +19,9 @@ namespace The_Oracle
             InitializeComponent();
 
             this.eventHorizonLINQ = eventHorizonLINQ;
+
+            HeaderGrid.Visibility = Visibility.Collapsed;
+            StatusBarGrid.Visibility = Visibility.Collapsed;
         }
 
         public void MorphEventRow()
@@ -51,9 +54,9 @@ namespace The_Oracle
                     DiscountTextBlock.Text = discount.ToString("P", CultureInfo.InvariantCulture);
 
                     StatusGrid.Visibility = Visibility.Collapsed;
-                    GrandTotalTextBlock.Visibility = Visibility.Visible;       
+                    TotalTextBlock.Visibility = Visibility.Visible;       
                     double grandTotal = (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) - ((eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) * eventHorizonLINQ.Discount / 100);
-                    GrandTotalTextBlock.Text = grandTotal.ToString("C2", CultureInfo.CurrentCulture);
+                    TotalTextBlock.Text = grandTotal.ToString("C2", CultureInfo.CurrentCulture);
 
                     break;
                 case EventAttributes.FooBar:

@@ -6,15 +6,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
-using System.Data;
 using System.IO;
-using System.Windows.Threading;
 using System.Windows.Media.Effects;
-
 using FontAwesome.WPF;
+using System.Globalization;
 
 namespace The_Oracle
 {
@@ -258,6 +254,9 @@ namespace The_Oracle
 
                     if (eventHorizonLINQ.Attributes_Replies > 0)
                     {
+                        Int32 grandTotalItems = 0;
+                        double grandTotalUnitCost = 0;
+
                         foreach (EventHorizonLINQ eventHorizonLINQRow in eventHorizonLINQRepliesList)
                         {
                             switch (eventHorizonLINQRow.EventAttributeID)
@@ -272,14 +271,26 @@ namespace The_Oracle
                                         er.HeaderGrid.Visibility = Visibility.Visible;
                                     }
 
-                                        eventRow.RepliesListView.Items.Add(er);
+                                    eventRow.RepliesListView.Items.Add(er);
+
+                                    grandTotalItems += eventHorizonLINQRow.Qty;
+                                    grandTotalUnitCost += (eventHorizonLINQRow.UnitCost * eventHorizonLINQRow.Qty) - (eventHorizonLINQRow.UnitCost * eventHorizonLINQRow.Qty) * eventHorizonLINQRow.Discount / 100;
 
                                     if (eventHorizonLINQRow == eventHorizonLINQRepliesList.Last()) // Check if it's the last item
                                     {
-                                        EventRowStatusBar ersb = new EventRowStatusBar(new EventHorizonLINQ());
-                                        //ersb.SourceIDTextBlock.Text = eventHorizonLINQ.Attributes_Replies.ToString();
-                                        er.StatusBarGrid.Children.Add(ersb);
                                         er.StatusBarGrid.Visibility = Visibility.Visible;
+                                        
+                                        er.TotalItemsTextBlock.Text = grandTotalItems.ToString();
+
+                                        er.TotalUnitCostTextBlock.Text = grandTotalUnitCost.ToString("C2", CultureInfo.CurrentCulture);
+                                        
+                                        er.GrandTotalTextBlock.Visibility = Visibility.Visible;
+                                        er.GrandTotalTextBlock.Text = grandTotalUnitCost.ToString("C2", CultureInfo.CurrentCulture);
+
+                                        //EventRowStatusBar ersb = new EventRowStatusBar(new EventHorizonLINQ());
+                                        ////ersb.SourceIDTextBlock.Text = eventHorizonLINQ.Attributes_Replies.ToString();
+                                        //er.StatusBarGrid.Children.Add(ersb);
+                                        //er.StatusBarGrid.Visibility = Visibility.Visible;
                                     }
                                     break;
                             }
