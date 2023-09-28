@@ -260,19 +260,19 @@ namespace The_Oracle
 
                         foreach (EventHorizonLINQ eventHorizonLINQRow in eventHorizonLINQRepliesList)
                         {
+                            EventRow er = CreateEventLogRow(eventHorizonLINQRow);
+
+                            eventRow.RepliesListView.Items.Add(er);
+
                             switch (eventHorizonLINQRow.EventAttributeID)
                             {
                                 case EventAttributes.Standard:
+                                    break;
                                 case EventAttributes.LineItem:
-                                case EventAttributes.FooBar:
-                                    EventRow er = CreateEventLogRow(eventHorizonLINQRow);
-
                                     if (eventHorizonLINQRow == eventHorizonLINQRepliesList.First()) // Check if it's the first item
                                     {
                                         er.HeaderGrid.Visibility = Visibility.Visible;
                                     }
-
-                                    eventRow.RepliesListView.Items.Add(er);
 
                                     grandTotalItems += eventHorizonLINQRow.Qty;
 
@@ -296,6 +296,8 @@ namespace The_Oracle
                                         //er.StatusBarGrid.Children.Add(ersb);
                                         //er.StatusBarGrid.Visibility = Visibility.Visible;
                                     }
+                                    break;
+                                case EventAttributes.FooBar:
                                     break;
                             }
                         }
