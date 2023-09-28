@@ -142,54 +142,6 @@ namespace The_Oracle
             return result;
         }
 
-        //public static void ReadXMLNodesOracleSettingsXMLFile(String PathName)
-        //{
-        //    try
-        //    {
-        //        if (File.Exists(PathName + "\\" + DefaultRemoteSettingsFileName))
-        //        {
-        //            XmlDocument doc = new XmlDocument();
-        //            doc.Load(PathName + "\\" + DefaultRemoteSettingsFileName);
-
-        //            XmlNodeList nodes = doc.DocumentElement.SelectNodes("/EventHorizon/Settings");
-
-        //            Console.WriteLine("User");
-        //            foreach (XmlNode node in nodes)
-        //            {
-        //                UserNameString = node.SelectSingleNode("UserName").InnerText;
-        //                DatabaseLocationString = node.SelectSingleNode("DatabaseLocation").InnerText;
-
-        //                UsersRefreshTimeSpan = TimeSpan.FromMilliseconds(UserID * 250);
-
-        //                Console.Write("UserID = ");
-        //                Console.Write(UserID);
-        //                Console.Write(" UserNameString = ");
-        //                Console.Write(UserNameString);
-        //                Console.Write(" DatabaseLocationString = ");
-        //                Console.Write(DatabaseLocationString);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "EventHorizonLocalSettings.xml file is missing", InformationTextBlock = "Event Horizon could not find a required xml file, located in the Event Horizon install folder!" }, RequesterTypes.OK);
-        //            msg.ShowDialog();
-        //        }
-        //    }
-        //    catch (XmlException e)
-        //    {
-        //        Console.WriteLine("----------------------------------------");
-
-        //        Console.WriteLine("An exception was thrown.");
-        //        Console.WriteLine(e.Message);
-        //        if (e.Data.Count > 0)
-        //        {
-        //            Console.WriteLine("  Extra details:");
-        //            foreach (DictionaryEntry de in e.Data)
-        //                Console.WriteLine("    Key: {0,-20}      Value: {1}", "'" + de.Key.ToString() + "'", de.Value);
-        //        }
-        //    }
-        //}
-
         public static bool TryReadNodesFrom_EventHorizonRemoteSettings_Users(String PathFileName)
         {
             bool result = false;
@@ -377,9 +329,9 @@ namespace The_Oracle
         {
             AttributeTypesList.Clear();
 
-            AttributeTypesList.Add(new AttributeType { ID = 0, Name = "None", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
-            AttributeTypesList.Add(new AttributeType { ID = 1, Name = "LineItem", Icon = FontAwesomeIcon.Dollar, Color = (Color)ColorConverter.ConvertFromString("#FFCCCCCC") });
-            AttributeTypesList.Add(new AttributeType { ID = 2, Name = "FooBar", Icon = FontAwesomeIcon.Dribbble, Color = (Color)ColorConverter.ConvertFromString("#FFDDDDDD") });
+            AttributeTypesList.Add(new AttributeType { ID = 0, Name = "Standard", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FF84a3ab") });
+            AttributeTypesList.Add(new AttributeType { ID = 1, Name = "LineItem", Icon = FontAwesomeIcon.Dollar, Color = (Color)ColorConverter.ConvertFromString("#FF10b05b") });
+            AttributeTypesList.Add(new AttributeType { ID = 2, Name = "FooBar", Icon = FontAwesomeIcon.Dribbble, Color = (Color)ColorConverter.ConvertFromString("#FFdb2a3e") });
         }
 
         public static bool TryReadNodesFrom_EventHorizonRemoteSettings_SourceTypes(String PathFileName)

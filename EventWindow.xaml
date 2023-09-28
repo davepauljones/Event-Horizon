@@ -146,9 +146,9 @@
                 <TextBox x:Name="DetailsTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
             </Border>
             
-            <Grid Grid.Column="1" Grid.Row="5" Grid.RowSpan="4" Background="Transparent" HorizontalAlignment="Left" MaxHeight="200" Margin="11,6,0,6">
+            <Grid Grid.Column="1" Grid.Row="5" Grid.RowSpan="4" Background="Transparent" HorizontalAlignment="Left" MaxWidth="334" MaxHeight="220" Margin="11,6,0,6">
                 <Grid.Effect>
-                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="2" Opacity="0.6" />
                 </Grid.Effect>
                 <Border BorderBrush="Transparent" BorderThickness="0" CornerRadius="9">
                     <Border.Clip>

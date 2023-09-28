@@ -263,4 +263,10 @@ namespace The_Oracle
         public const string avi = "avi";
         public const string mkv = "mkv";
     }
+    public struct EventAttributes
+    {
+        public const int Standard = 0;
+        public const int LineItem = 1;
+        public const int FooBar = 2;
+    }
 }

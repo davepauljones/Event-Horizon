@@ -8,28 +8,9 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Windows.Data;
 
 namespace The_Oracle
 {
-    public class RectConverter : IMultiValueConverter
-    {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (values.Length == 2 && values[0] is double width && values[1] is double height)
-            {
-                return new Rect(0, 0, width, height);
-            }
-            return DependencyProperty.UnsetValue;
-        }
-
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     /// <summary>
     /// Interaction logic for EventWindow.xaml
     /// </summary>
@@ -495,6 +476,8 @@ namespace The_Oracle
             TargetUserIDComboBox.SelectedIndex = eventHorizonLINQ.TargetUserID;
             StatusComboBox.SelectedIndex = eventHorizonLINQ.StatusID;
 
+            EventAttributeComboBox.SelectedIndex = eventHorizonLINQ.EventAttributeID;
+
             TryLoadImage(eventHorizonLINQ.PathFileName);
 
             QtyTextBox.Text = eventHorizonLINQ.Qty.ToString();
@@ -544,7 +527,7 @@ namespace The_Oracle
             eventHorizonLINQ.StatusID = StatusComboBox.SelectedIndex;
             eventHorizonLINQ.TargetDate = targetDateTime;
 
-            eventHorizonLINQ.EventAttributeID = 0;
+            eventHorizonLINQ.EventAttributeID = EventAttributeComboBox.SelectedIndex;
             //eventHorizonLINQ.PathFileName = string.Empty;
             
             double unitCost;
