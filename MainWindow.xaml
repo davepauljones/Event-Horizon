@@ -30,6 +30,28 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
+                <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" x:Name="ReportsTreeViewStackPanel">
+                    <Button Tag="0" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
+                        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Background="#FF800080" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TreeViewIconGridStyle}">
+                                    <fa:FontAwesome Icon="FileText" Style="{StaticResource TreeViewIconTextBlockStyle}"/>
+                                </Grid>
+                                <TextBlock Grid.Column="0" Text="REPORTS" Style="{StaticResource TreeViewHeaderTextBlock}"/>
+                                <TextBlock x:Name="NumberOfReportsTextBlock" Grid.Column="1" Text="0" Style="{StaticResource TreeViewNumberOfTextBlock}"/>
+                            </Grid>
+                        </WrapPanel>
+                    </Button>
+
+                    <StackPanel x:Name="ReportsStackPanel" Orientation="Vertical" Visibility="Collapsed">
+                        <ListView x:Name="ReportsVisualTreeListView" Margin="30,6,0,10" Visibility="Collapsed" Style="{StaticResource VisualTreeViewListView}" PreviewMouseDown="ReportsVisualTreeListView_PreviewMouseDown"/>
+                    </StackPanel>
+                </StackPanel>
+                
                 <Grid Grid.Row="0" Grid.Column="2" Margin="0,10,0,0">
                     <StackPanel x:Name="FuntionKeysStackPanel" Orientation="Vertical" HorizontalAlignment="Center">
                         <StackPanel.Effect>

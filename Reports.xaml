@@ -1,0 +1,15 @@
+﻿<Window x:Class="The_Oracle.Reports"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
+        xmlns:l="clr-namespace:The_Oracle"
+        SizeToContent="Manual" Width="800" Height="504" WindowStyle="ToolWindow"
+        Title="Reports" Closing="Reports_Closing">
+    <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Background="#FF145883">
+        <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Background="#FF145883">
+            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <DocumentViewer x:Name="PreviewD" Style="{StaticResource DocumentViewerStyle}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

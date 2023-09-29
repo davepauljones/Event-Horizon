@@ -40,17 +40,19 @@ namespace The_Oracle
 
         private static DatabasePoller databasePoller;
 
+        List<SelectionIdString> ListOfReports = new List<SelectionIdString>();
+
         private void Init_OracleDatabaseFileWatcher()
         {
             databasePoller = new DatabasePoller(XMLReaderWriter.GlobalConnectionString);
             databasePoller.StartPolling();
         }
-        
+
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            
+
         }
-        
+
         private async void RunTask()
         {
             System.Threading.Thread.Sleep(XMLReaderWriter.UsersRefreshTimeSpan);
@@ -61,7 +63,7 @@ namespace The_Oracle
 
             });
         }
-        
+
         public void RunningTask()
         {
             this.Dispatcher.Invoke((Action)(() =>
@@ -91,7 +93,7 @@ namespace The_Oracle
             CheckMyUnreadAndMyReminders();
             MainWindow.mw.oracleDatabaseHealth.UpdateLastWriteLabel(false);
         }
-       
+
         public MainWindow()
         {
             InitializeComponent();
@@ -99,7 +101,7 @@ namespace The_Oracle
             mw = this;
 
             Welcome welcome = new Welcome();
-            
+
             if (welcome.ShowDialog() == true)
             {
                 //if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg"))
@@ -146,9 +148,11 @@ namespace The_Oracle
         }
 
         bool MainWindowIs_Loaded = false;
-        
+
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            LoadReportsVisualTree();
+
             today = new Today();
             TodayGrid.Children.Add(today);
 
@@ -172,14 +176,14 @@ namespace The_Oracle
 
             MainWindowIs_Loaded = true;
         }
-        
+
         public void RefreshXML()
         {
             LoadCurrentUserIntoGrid(CurrentUserGrid);
             LoadUsersIntoUsersStackPanel();
             AddItemsToEventTypeComboBox();
         }
-        
+
         private void CheckMyUnreadAndMyReminders()
         {
             Int32 notificationsAddedThisCycle = 0;
@@ -229,7 +233,7 @@ namespace The_Oracle
                 Console.WriteLine(e);
             }
         }
-        
+
         public void RefreshLog(int listViewToPopulate)
         {
             try
@@ -288,7 +292,7 @@ namespace The_Oracle
                                     if (eventHorizonLINQRow == eventHorizonLINQRepliesList.Last()) // Check if it's the last item
                                     {
                                         er.StatusBarGrid.Visibility = Visibility.Visible;
-                                        
+
                                         er.TotalItemsTextBlock.Text = grandTotalItems.ToString();
 
                                         er.TotalUnitCostTextBlock.Text = grandTotalUnitCost.ToString("C2", CultureInfo.CurrentCulture);
@@ -617,7 +621,7 @@ namespace The_Oracle
 
                     stackPanel.Children.Add(border);
                 }
-                
+
                 i++;
             }
             grid.Children.Add(stackPanel);
@@ -906,7 +910,7 @@ namespace The_Oracle
                 switch (buttonID)
                 {
                     case 0:
-                        EventTypeComboBox.SelectedIndex = 0;                     
+                        EventTypeComboBox.SelectedIndex = 0;
                         break;
                     case 1:
                         EventTypeComboBox.SelectedIndex = 0;
@@ -1132,7 +1136,7 @@ namespace The_Oracle
         }
 
         public int FilterMode = FilterModes.None;
-        
+
         private void FilterModeRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton radioButton = e.OriginalSource as RadioButton;
@@ -1175,7 +1179,7 @@ namespace The_Oracle
         }
 
         public int DisplayMode = DisplayModes.Reminders;
-        
+
         private void DisplayModeRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton radioButton = e.OriginalSource as RadioButton;
@@ -1289,16 +1293,16 @@ namespace The_Oracle
 
             Console.Write("item.Tag eventHorizonLINQ.Source_Mode = ");
             Console.WriteLine(eventHorizonLINQ.Source_Mode);
-            
+
             Console.Write("item.Tag eventHorizonLINQ.ID = ");
             Console.WriteLine(eventHorizonLINQ.ID);
-            
+
             Console.Write("item.Tag eventHorizonLINQ.Source_ParentEventID = ");
             Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
-            
+
             Console.Write("item.Tag eventHorizonLINQ.Attributes_Replies = ");
             Console.WriteLine(eventHorizonLINQ.Attributes_Replies);
-            
+
             Console.WriteLine();
             Console.WriteLine(">F>>MainWindow ReminderListView_PreviewMouseLeftButtonDown<<<<");
             Console.WriteLine();
@@ -1339,7 +1343,7 @@ namespace The_Oracle
             Console.WriteLine();
             Console.WriteLine(">F>>MainWindow ReminderListView_MouseDoubleClick<<<<");
             Console.WriteLine();
-            
+
             ReminderListView.SelectedItem = item;
 
             if (eventHorizonLINQ != null)
@@ -1358,6 +1362,91 @@ namespace The_Oracle
                     RefreshLog(ListViews.Reminder);
                 else
                     RefreshLog(ListViews.Log);
+            }
+        }
+
+        private void TreeViewButtons_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var code = button.Tag.ToString();
+            uint switchValue = uint.Parse(code);
+
+            switch (switchValue)
+            {
+                case 0://Events
+                    if (ReportsStackPanel.Visibility == System.Windows.Visibility.Collapsed)
+                    {
+                        ReportsStackPanel.Visibility = System.Windows.Visibility.Visible;
+                        ReportsVisualTreeListView.Visibility = System.Windows.Visibility.Visible;
+                    }
+                    else
+                    {
+                        ReportsStackPanel.Visibility = System.Windows.Visibility.Collapsed;
+                        ReportsVisualTreeListView.Visibility = System.Windows.Visibility.Collapsed;
+                    }
+                    break;
+            }
+        }
+        private void LoadReportsVisualTree()
+        {
+            ListOfReports.Clear();
+            ReportsVisualTreeListView.Items.Clear();
+
+            ListOfReports.Add(new SelectionIdString { Id = 0, Name = "Roll Call" });
+            ListOfReports.Add(new SelectionIdString { Id = 1, Name = "Access Groups" });
+            ListOfReports.Add(new SelectionIdString { Id = 2, Name = "Time Zones" });
+            ListOfReports.Add(new SelectionIdString { Id = 3, Name = "Time Sheets" });
+
+            NumberOfReportsTextBlock.Text = ListOfReports.Count.ToString();
+
+            foreach (SelectionIdString ss in ListOfReports)
+            {
+                ReportsVisualTreeListView.Items.Add(new TextBlock { Tag = ss.Id, Text = " " + ss.Name + " ", Style = (Style)FindResource("TreeViewItemTextBlock") });
+            }
+        }
+
+        private void ReportsVisualTreeListView_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is ListViewItem))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            ListViewItem item = (ListViewItem)dep;
+
+            item.IsSelected = true;
+            e.Handled = true;
+
+            try
+            {
+                if (ReportsVisualTreeListView.SelectedItem == null)
+                {
+                    return;
+                }
+
+                if (ReportsVisualTreeListView.SelectedItems.Count == 1)
+                {
+                    ReportsWindow REPORTS;
+
+                    switch (ReportsVisualTreeListView.SelectedIndex)
+                    {
+                        case Reports.ReportTypes.RollCall:
+                            REPORTS = new ReportsWindow(0, Reports.ReportTypes.RollCall);
+                            REPORTS.Show();
+                            break;                  
+                    }
+
+                    item.IsSelected = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }

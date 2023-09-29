@@ -269,4 +269,9 @@ namespace The_Oracle
         public const int LineItem = 1;
         public const int FooBar = 2;
     }
+    public class SelectionIdString
+    {
+        public Int32 Id;
+        public string Name;
+    }
 }
