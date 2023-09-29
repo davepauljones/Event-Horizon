@@ -254,6 +254,7 @@ namespace The_Oracle
 
                     if (eventHorizonLINQ.Attributes_Replies > 0)
                     {
+                        Int32 LineItemNumber = 0;
                         Int32 grandTotalItems = 0;
                         double grandTotalUnitCost = 0;
                         double grandTotalTotal = 0;
@@ -274,6 +275,10 @@ namespace The_Oracle
                                         er.HeaderGrid.Visibility = Visibility.Visible;
                                     }
 
+                                    LineItemNumber++;
+
+                                    er.EventTypeTextBlock.Text = "Item " + LineItemNumber;
+
                                     grandTotalItems += eventHorizonLINQRow.Qty;
 
                                     grandTotalUnitCost += eventHorizonLINQRow.UnitCost * eventHorizonLINQRow.Qty;
@@ -290,11 +295,6 @@ namespace The_Oracle
 
                                         er.GrandTotalTextBlock.Visibility = Visibility.Visible;
                                         er.GrandTotalTextBlock.Text = grandTotalTotal.ToString("C2", CultureInfo.CurrentCulture);
-
-                                        //EventRowStatusBar ersb = new EventRowStatusBar(new EventHorizonLINQ());
-                                        ////ersb.SourceIDTextBlock.Text = eventHorizonLINQ.Attributes_Replies.ToString();
-                                        //er.StatusBarGrid.Children.Add(ersb);
-                                        //er.StatusBarGrid.Visibility = Visibility.Visible;
                                     }
                                     break;
                                 case EventAttributes.FooBar:

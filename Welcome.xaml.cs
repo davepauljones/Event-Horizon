@@ -265,6 +265,7 @@ namespace The_Oracle
 
         private async void CheckPrerequisites()
         {
+            StatusLabel.Foreground = new SolidColorBrush(Colors.Firebrick);
             LocalSettingsIcon.Visibility = Visibility.Hidden;
             LocalSettingsLabel.Content = string.Empty;
             RemoteSettingsIcon.Visibility = Visibility.Hidden;
@@ -336,6 +337,7 @@ namespace The_Oracle
             catch (Exception ex)
             {
                 result++;
+                StatusLabel.Foreground = new SolidColorBrush(Colors.Firebrick);
                 StatusLabel.Content = "Checking Event Horizon Prerequisites Failed!";
                 OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CheckPrerequisites - ", InformationTextBlock = $"An error occurred: {ex.Message}" }, RequesterTypes.OK);
                 msg.ShowDialog();
@@ -344,6 +346,7 @@ namespace The_Oracle
             if (result == 0)
             {
                 PrerequisitesPassed = true;
+                StatusLabel.Foreground = new SolidColorBrush(Colors.Green);
                 StatusLabel.Content = "Checking Event Horizon Prerequisites ......... Passed!";
                 SetPrerequisites();
                 RetryButton.Visibility = Visibility.Hidden;
@@ -357,7 +360,8 @@ namespace The_Oracle
             }
             else
             {
-                PrerequisitesPassed = false;               
+                PrerequisitesPassed = false;
+                StatusLabel.Foreground = new SolidColorBrush(Colors.Firebrick);
                 StatusLabel.Content = "Checking Event Horizon Prerequisites ......... Failed!";
                 RetryButton.Visibility = Visibility.Visible;
                 LoginButton.Content = "Close";

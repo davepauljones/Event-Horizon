@@ -738,30 +738,25 @@ namespace The_Oracle
                         nev.Top += 30;
                         break;
                     case EventFormCloseButtons.Save:
+                        SetOracleEvent();
                         switch (eventWindowMode)
                         {
                             case EventWindowModes.ViewMainEvent:
-                                SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewMainEvent);
                                 break;
                             case EventWindowModes.ViewNote:
-                                SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewNote);
                                 break;
                             case EventWindowModes.ViewReply:
-                                SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewReply);
                                 break;
                             case EventWindowModes.EditMainEvent:
-                                SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditMainEvent);
                                 break;
                             case EventWindowModes.EditNote:
-                                SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditNote);
                                 break;
                             case EventWindowModes.EditReply:
-                                SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditReply);
                                 break;
                             case EventWindowModes.NewEvent:
