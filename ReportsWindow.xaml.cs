@@ -72,17 +72,17 @@ namespace The_Oracle
 
             switch (ReportType)
             {
-                case Reports.ReportTypes.RollCall:
-                    ReportTypeString = Reports.ReportTypeStrings.RollCall;
+                case ReportsWindow.ReportTypes.RollCall:
+                    ReportTypeString = ReportsWindow.ReportTypeStrings.RollCall;
                     break;
-                case Reports.ReportTypes.AccessGroups:
-                    ReportTypeString = Reports.ReportTypeStrings.AccessGroups;
+                case ReportsWindow.ReportTypes.AccessGroups:
+                    ReportTypeString = ReportsWindow.ReportTypeStrings.AccessGroups;
                     break;
-                case Reports.ReportTypes.TimeZones:
-                    ReportTypeString = Reports.ReportTypeStrings.TimeZones;
+                case ReportsWindow.ReportTypes.TimeZones:
+                    ReportTypeString = ReportsWindow.ReportTypeStrings.TimeZones;
                     break;
-                case Reports.ReportTypes.TimeSheets:
-                    ReportTypeString = Reports.ReportTypeStrings.TimeSheets;
+                case ReportsWindow.ReportTypes.TimeSheets:
+                    ReportTypeString = ReportsWindow.ReportTypeStrings.TimeSheets;
                     break;
             }
 

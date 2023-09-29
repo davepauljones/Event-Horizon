@@ -1435,8 +1435,8 @@ namespace The_Oracle
 
                     switch (ReportsVisualTreeListView.SelectedIndex)
                     {
-                        case Reports.ReportTypes.RollCall:
-                            REPORTS = new ReportsWindow(0, Reports.ReportTypes.RollCall);
+                        case ReportsWindow.ReportTypes.RollCall:
+                            REPORTS = new ReportsWindow(0, ReportsWindow.ReportTypes.RollCall);
                             REPORTS.Show();
                             break;                  
                     }

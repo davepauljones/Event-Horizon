@@ -166,7 +166,6 @@
     <Compile Include="OracleRequesterNotification.xaml.cs">
       <DependentUpon>OracleRequesterNotification.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Reports.xaml.cs" />
     <Compile Include="ReportsWindow.xaml.cs">
       <DependentUpon>ReportsWindow.xaml</DependentUpon>
     </Compile>
@@ -243,10 +242,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Now.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Reports.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
