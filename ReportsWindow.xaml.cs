@@ -25,34 +25,18 @@ namespace The_Oracle
     /// </summary>
     public partial class ReportsWindow : Window
     {
-        byte ReportType = ReportTypes.RollCall;
-        byte Destination = 0;
-
-        public struct ReportTypes
-        {
-            public const byte RollCall = 0;
-            public const byte AccessGroups = 1;
-            public const byte TimeZones = 2;
-            public const byte TimeSheets = 3;
-        }
-        public struct ReportTypeStrings
-        {
-            public const string RollCall = "Roll Call";
-            public const string AccessGroups = "Access Groups";
-            public const string TimeZones = "Time Zones";
-            public const string TimeSheets = "Time Sheets";
-        }
-
         XpsDocument xpsDocument;
         FixedDocumentSequence Document { get; set; }
 
-        List<SelectionIdString> ListOfReport = new List<SelectionIdString>();
-        public ReportsWindow(byte Destination, byte ReportType = ReportTypes.RollCall)
+        EventHorizonLINQ eventHorizonLINQ_MainEvent;
+        List<EventHorizonLINQ> eventHorizonLINQ_LineItemsList = new List<EventHorizonLINQ>();
+
+        public ReportsWindow(EventHorizonLINQ eventHorizonLINQ_MainEvent, List<EventHorizonLINQ> eventHorizonLINQ_LineItemsList)
         {
             InitializeComponent();
 
-            this.Destination = Destination;
-            this.ReportType = ReportType;
+            this.eventHorizonLINQ_MainEvent = eventHorizonLINQ_MainEvent;
+            this.eventHorizonLINQ_LineItemsList = eventHorizonLINQ_LineItemsList;
 
             Init();
         }
@@ -60,31 +44,6 @@ namespace The_Oracle
         private void Init()
         {
             this.Owner = Application.Current.MainWindow;
-
-            string DestinationString = string.Empty;
-
-            switch (Destination)
-            {
-
-            }
-
-            string ReportTypeString = string.Empty;
-
-            switch (ReportType)
-            {
-                case ReportsWindow.ReportTypes.RollCall:
-                    ReportTypeString = ReportsWindow.ReportTypeStrings.RollCall;
-                    break;
-                case ReportsWindow.ReportTypes.AccessGroups:
-                    ReportTypeString = ReportsWindow.ReportTypeStrings.AccessGroups;
-                    break;
-                case ReportsWindow.ReportTypes.TimeZones:
-                    ReportTypeString = ReportsWindow.ReportTypeStrings.TimeZones;
-                    break;
-                case ReportsWindow.ReportTypes.TimeSheets:
-                    ReportTypeString = ReportsWindow.ReportTypeStrings.TimeSheets;
-                    break;
-            }
 
             GenerateReport();
         }
@@ -103,17 +62,11 @@ namespace The_Oracle
 
             doc.Blocks.Add(new BlockUIContainer(i));
 
-            string TitleRun = string.Empty;
-            string DescriptionRun = string.Empty;
+            string TitleRun;
+            string DescriptionRun;
 
-            switch (ReportType)
-            {
-                case ReportTypes.RollCall:
-                    TitleRun = "Roll Call";
-                    DescriptionRun = "Roll Call is a list of users that have used UPAS today.";
-                    //ArduDatabaseModule.UsersToList(ListOfReport);
-                    break;
-            }
+            TitleRun = "Event Horizon - List for ID: " + eventHorizonLINQ_MainEvent.ID;
+            DescriptionRun = eventHorizonLINQ_MainEvent.Details;
 
             Paragraph titlerun = new Paragraph(new Bold(new Run(TitleRun + " Report")));
             titlerun.FontSize = 30;
@@ -127,14 +80,40 @@ namespace The_Oracle
 
             this.Title += " - " + TitleRun;
 
-            List fdList = new List();
-
-            foreach (SelectionIdString ss in ListOfReport)
+            foreach (EventHorizonLINQ eventHorizonLINQ in eventHorizonLINQ_LineItemsList)
             {
-                fdList.ListItems.Add(new ListItem(new Paragraph(new Run(ss.Name))));
-            }
+                // Create a paragraph and add it to the FlowDocument
+                Paragraph paragraph = new Paragraph();
+                doc.Blocks.Add(paragraph);
 
-            doc.Blocks.Add(fdList);
+                // Create an InlineUIContainer to host an image
+                InlineUIContainer imageContainer = new InlineUIContainer();
+
+                Image image = new Image();
+                image.MaxWidth = 200;
+                image.MaxHeight = 100;
+                image.Stretch = Stretch.Uniform;
+                image.StretchDirection = StretchDirection.DownOnly;
+                image.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                image.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                image.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri(eventHorizonLINQ.PathFileName));
+
+                // Add the Image to the InlineUIContainer
+                imageContainer.Child = image;
+                
+                // Add the InlineUIContainer to the paragraph
+                paragraph.Inlines.Add(imageContainer);
+
+                doc.Blocks.Add(paragraph);
+
+                // Add more text if needed
+                Run moreTextRun = new Run(eventHorizonLINQ.Details);
+                paragraph.Inlines.Add(moreTextRun);
+
+                //doc.Blocks.Add(new Paragraph(new Run(eventHorizonLINQ.Details)));
+
+                //doc.Blocks.Add(new InlineUIContainer(ii));
+            }
 
             var package = Package.Open(new MemoryStream(), FileMode.Create, FileAccess.ReadWrite);
             var packUri = new Uri("pack://temp.xps");
@@ -153,6 +132,7 @@ namespace The_Oracle
 
             PreviewD.Document = Document;
         }
+
         private void Reports_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (WindowState == WindowState.Maximized) WindowState = WindowState.Normal;

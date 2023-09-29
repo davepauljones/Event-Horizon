@@ -42,6 +42,8 @@ namespace The_Oracle
 
         List<SelectionIdString> ListOfReports = new List<SelectionIdString>();
 
+        public List<EventHorizonLINQ> EventHorizonLINQ_SelectedItemsList = new List<EventHorizonLINQ>();
+
         private void Init_OracleDatabaseFileWatcher()
         {
             databasePoller = new DatabasePoller(XMLReaderWriter.GlobalConnectionString);
@@ -277,7 +279,10 @@ namespace The_Oracle
                                     if (eventHorizonLINQRow == eventHorizonLINQRepliesList.First()) // Check if it's the first item
                                     {
                                         er.HeaderGrid.Visibility = Visibility.Visible;
+                                        EventHorizonLINQ_SelectedItemsList.Clear();
                                     }
+
+                                    EventHorizonLINQ_SelectedItemsList.Add(eventHorizonLINQRow);
 
                                     LineItemNumber++;
 
@@ -1392,10 +1397,10 @@ namespace The_Oracle
             ListOfReports.Clear();
             ReportsVisualTreeListView.Items.Clear();
 
-            ListOfReports.Add(new SelectionIdString { Id = 0, Name = "Roll Call" });
-            ListOfReports.Add(new SelectionIdString { Id = 1, Name = "Access Groups" });
-            ListOfReports.Add(new SelectionIdString { Id = 2, Name = "Time Zones" });
-            ListOfReports.Add(new SelectionIdString { Id = 3, Name = "Time Sheets" });
+            ListOfReports.Add(new SelectionIdString { Id = 0, Name = "Product Items" });
+            ListOfReports.Add(new SelectionIdString { Id = 1, Name = "Spare" });
+            ListOfReports.Add(new SelectionIdString { Id = 2, Name = "Spare" });
+            ListOfReports.Add(new SelectionIdString { Id = 3, Name = "Spare" });
 
             NumberOfReportsTextBlock.Text = ListOfReports.Count.ToString();
 
@@ -1435,9 +1440,12 @@ namespace The_Oracle
 
                     switch (ReportsVisualTreeListView.SelectedIndex)
                     {
-                        case ReportsWindow.ReportTypes.RollCall:
-                            REPORTS = new ReportsWindow(0, ReportsWindow.ReportTypes.RollCall);
-                            REPORTS.Show();
+                        case 0:
+                            if (eventHorizonLINQ != null && EventHorizonLINQ_SelectedItemsList.Count > 0)
+                            {
+                                REPORTS = new ReportsWindow(eventHorizonLINQ, EventHorizonLINQ_SelectedItemsList);
+                                REPORTS.Show();
+                            }
                             break;                  
                     }
 
