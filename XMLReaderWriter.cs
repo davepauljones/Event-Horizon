@@ -119,7 +119,7 @@ namespace The_Oracle
                 }
                 else
                 {
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "EventHorizonLocalSettings.xml file is missing", InformationTextBlock = "Event Horizon could not find a required xml file, located in the Event Horizon install folder!" }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "EventHorizonLocalSettings.xml file is missing", InformationTextBlock = "Event Horizon could not find a required xml file, located in the Event Horizon install folder!" }, RequesterTypes.OK);
                     msg.ShowDialog();
                     result = false;
                 }
@@ -183,7 +183,7 @@ namespace The_Oracle
                 }
                 else
                 {
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "TryReadNodes - ", InformationTextBlock = "Missing " + XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml file." }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "TryReadNodes - ", InformationTextBlock = "Missing " + XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml file." }, RequesterTypes.OK);
                     msg.ShowDialog();
                     result = false;
                 }
@@ -303,7 +303,7 @@ namespace The_Oracle
                 }
                 else
                 {
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "TryReadNodes - ", InformationTextBlock = "Missing " + XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml file." }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "TryReadNodes - ", InformationTextBlock = "Missing " + XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml file." }, RequesterTypes.OK);
                     msg.ShowDialog();
                     result = false;
                 }
@@ -373,7 +373,7 @@ namespace The_Oracle
                 }
                 else
                 {
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "TryReadNodes - ", InformationTextBlock = "Missing " + XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml file." }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "TryReadNodes - ", InformationTextBlock = "Missing " + XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml file." }, RequesterTypes.OK);
                     msg.ShowDialog();
                     result = false;
                 }

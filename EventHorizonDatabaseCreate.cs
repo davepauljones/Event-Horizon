@@ -6,7 +6,7 @@ using Microsoft.Win32;
 
 namespace The_Oracle
 {
-    public class OracleDatabaseCreate
+    public class EventHorizonDatabaseCreate
     {
         internal static bool CheckIfDatabaseExists()
         {
@@ -16,7 +16,7 @@ namespace The_Oracle
             }
             else
             {
-                OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Event Horizon could not connect to a database", InformationTextBlock = "You have a few options, you can browse for the database, create a new database or close Event Horizon and seek IT Support." }, RequesterTypes.OK);
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Event Horizon could not connect to a database", InformationTextBlock = "You have a few options, you can browse for the database, create a new database or close Event Horizon and seek IT Support." }, RequesterTypes.OK);
                 msg.ShowDialog();
                 return false;
             }
@@ -77,12 +77,12 @@ namespace The_Oracle
                     XMLReaderWriter.GlobalConnectionString = "Data Source=" + filename;
                     CreateEventLogTable();
                     CreateUsersTable();
-                    OracleRequesterNotification fileCreated = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = ReusableMessages.SuccessfullyCreatedFile, InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification fileCreated = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = ReusableMessages.SuccessfullyCreatedFile, InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility }, RequesterTypes.OK);
                     fileCreated.ShowDialog();
                 }
                 else
                 {
-                    OracleRequesterNotification fileExistWarning = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = ReusableMessages.ThatFileAlreadyExists, InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification fileExistWarning = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = ReusableMessages.ThatFileAlreadyExists, InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility }, RequesterTypes.OK);
                     fileExistWarning.ShowDialog();
                 }
             }   
@@ -263,7 +263,7 @@ namespace The_Oracle
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CreateEventLogTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CreateEventLogTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -327,7 +327,7 @@ namespace The_Oracle
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CreateUsersTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CreateUsersTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;

@@ -142,31 +142,31 @@ namespace The_Oracle
                         CheckPrerequisites();
                         break;
                     case WelcomeButtons.New_LocalSettingsXML:
-                        OracleRequesterNotification norn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Create a New Local Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification norn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Create a New Local Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (norn.ShowDialog() == true)
                         {
 
                         }
                         break;
                     case WelcomeButtons.Edit_LocalSettingsXML:
-                        OracleRequesterNotification eorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit an existing Local Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification eorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit an existing Local Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (eorn.ShowDialog() == true)
                         {
                             MiscFunctions.OpenFileInNotepad(AppDomain.CurrentDomain.BaseDirectory + "EventHorizonLocalSettings.xml");
                         }
                         break;
                     case WelcomeButtons.New_RemoteSettingsXML:
-                        OracleRequesterNotification nrorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Create a New Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification nrorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Create a New Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (nrorn.ShowDialog() == true)
                         {
-                            OracleDatabaseCreate.AddFieldsToExistingTable();
+                            EventHorizonDatabaseCreate.AddFieldsToExistingTable();
                         }
                         break;
                     case WelcomeButtons.Edit_RemoteSettingsXML:
-                        OracleRequesterNotification srsborn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Select an existing Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification srsborn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Select an existing Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (srsborn.ShowDialog() == true)
                         {
-                            string pathFileName = OracleDatabaseCreate.OpenRemoteSettingsXMLFile();
+                            string pathFileName = EventHorizonDatabaseCreate.OpenRemoteSettingsXMLFile();
 
                             Console.Write("Selected Remote Settings File = ");
                             Console.WriteLine(pathFileName);
@@ -180,17 +180,17 @@ namespace The_Oracle
                         }
                         break;
                     case WelcomeButtons.New_RemoteDatabase:
-                        OracleRequesterNotification nrdborn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Create a New Remote Database File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification nrdborn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Create a New Remote Database File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (nrdborn.ShowDialog() == true)
                         {
-                            OracleDatabaseCreate.CreateSQLiteDatabaseFile();
+                            EventHorizonDatabaseCreate.CreateSQLiteDatabaseFile();
                         }   
                         break;
                     case WelcomeButtons.Select_RemoteDatabase:
-                        OracleRequesterNotification srdborn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Select an existing Remote Database File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification srdborn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Select an existing Remote Database File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (srdborn.ShowDialog() == true)
                         {
-                            string pathFileName = OracleDatabaseCreate.OpenSQLiteDatabaseFile();
+                            string pathFileName = EventHorizonDatabaseCreate.OpenSQLiteDatabaseFile();
 
                             Console.Write("Selected Database = ");
                             Console.WriteLine(pathFileName);
@@ -204,56 +204,56 @@ namespace The_Oracle
                         }
                         break;
                     case WelcomeButtons.New_User_RemoteSettings:
-                        OracleRequesterNotification nuorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Add a New User to Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification nuorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Add a New User to Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (nuorn.ShowDialog() == true)
                         {
                             
                         }
                         break;
                     case WelcomeButtons.Edit_Users_RemoteSettings:
-                        OracleRequesterNotification eurorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit existing Users in Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification eurorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit existing Users in Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (eurorn.ShowDialog() == true)
                         {
                             MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName);
                         }
                         break;
                     case WelcomeButtons.Select_CurrentUser_RemoteSettings:
-                        OracleRequesterNotification scuorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Select the Current User", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification scuorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Select the Current User", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (scuorn.ShowDialog() == true)
                         {
 
                         }
                         break;
                     case WelcomeButtons.Edit_CurrentUser_LocalSettings:
-                        OracleRequesterNotification ecurorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit Current User in Local Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification ecurorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit Current User in Local Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (ecurorn.ShowDialog() == true)
                         {
                             MiscFunctions.OpenFileInNotepad(AppDomain.CurrentDomain.BaseDirectory + XMLReaderWriter.DefaultLocalSettingsFileName);
                         }
                         break;
                     case WelcomeButtons.New_EventType_RemoteSettings:
-                        OracleRequesterNotification netorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Add a New Event Type to Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification netorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Add a New Event Type to Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (netorn.ShowDialog() == true)
                         {
 
                         }
                         break;
                     case WelcomeButtons.Edit_EventTypes_RemoteSettings:
-                        OracleRequesterNotification eetrorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit Event Types in Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification eetrorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit Event Types in Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (eetrorn.ShowDialog() == true)
                         {
                             MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName);
                         }
                         break;
                     case WelcomeButtons.New_SourceType_RemoteSettings:
-                        OracleRequesterNotification nstorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Add a New Source Type to Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification nstorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Add a New Source Type to Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (nstorn.ShowDialog() == true)
                         {
                             MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName);
                         }
                         break;
                     case WelcomeButtons.Edit_SourceTypes_RemoteSettings:
-                        OracleRequesterNotification estrorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit Source Types in Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
+                        EventHorizonRequesterNotification estrorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Edit Source Types in Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (estrorn.ShowDialog() == true)
                         {
                             MiscFunctions.OpenFileInNotepad(XMLReaderWriter.DatabaseLocationString + "\\" + XMLReaderWriter.DefaultRemoteSettingsFileName);
@@ -339,7 +339,7 @@ namespace The_Oracle
                 result++;
                 StatusLabel.Foreground = new SolidColorBrush(Colors.Firebrick);
                 StatusLabel.Content = "Checking Event Horizon Prerequisites Failed!";
-                OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CheckPrerequisites - ", InformationTextBlock = $"An error occurred: {ex.Message}" }, RequesterTypes.OK);
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CheckPrerequisites - ", InformationTextBlock = $"An error occurred: {ex.Message}" }, RequesterTypes.OK);
                 msg.ShowDialog();
             }
             

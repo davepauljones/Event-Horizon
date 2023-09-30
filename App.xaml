@@ -7,7 +7,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/OracleResource.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/EventHorizonResource.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

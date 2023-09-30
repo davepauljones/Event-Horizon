@@ -604,7 +604,7 @@ namespace The_Oracle
                 switch (buttonID)
                 {
                     case 0:
-                        string PathFileNameString = OracleDatabaseCreate.OpenFile("All supported files|*.jpg;*.jpeg;*.png|JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|Portable Network Graphic (*.png)|*.png|PDF (*.pdf)|*.pdf|All files (*.*)|*.*");
+                        string PathFileNameString = EventHorizonDatabaseCreate.OpenFile("All supported files|*.jpg;*.jpeg;*.png|JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|Portable Network Graphic (*.png)|*.png|PDF (*.pdf)|*.pdf|All files (*.*)|*.*");
 
                         TryLoadImage(PathFileNameString);
 

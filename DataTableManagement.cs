@@ -19,7 +19,7 @@ namespace The_Oracle
             List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();
 
             MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\claves.wav");
-            MainWindow.mw.oracleDatabaseHealth.UpdateLastWriteLabel(true);
+            MainWindow.mw.eventHorizonDatabaseHealth.UpdateLastWriteLabel(true);
 
             switch (XMLReaderWriter.DatabaseSystem)
             {
@@ -48,7 +48,7 @@ namespace The_Oracle
                             Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
                             Console.WriteLine("----------------------------------------");
 
-                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetEvents - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetEvents - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
                             msg.ShowDialog();
                         }
                     }
@@ -73,7 +73,7 @@ namespace The_Oracle
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetEvents - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetEvents - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -857,7 +857,7 @@ namespace The_Oracle
                             Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
                             Console.WriteLine("----------------------------------------");
 
-                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUserID - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUserID - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
                             msg.ShowDialog();
                         }
                     }
@@ -889,7 +889,7 @@ namespace The_Oracle
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUserID - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUserID - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -903,7 +903,7 @@ namespace The_Oracle
 
             if (GetUserID(EventID) != XMLReaderWriter.UserID)
             {
-                OracleRequesterNotification rorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, you can only delete your own events.", InformationTextBlock = "You could ask the user who created it, to delete it." }, RequesterTypes.OK);
+                EventHorizonRequesterNotification rorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, you can only delete your own events.", InformationTextBlock = "You could ask the user who created it, to delete it." }, RequesterTypes.OK);
                 rorn.ShowDialog();
                 return;
             }
@@ -942,7 +942,7 @@ namespace The_Oracle
                             Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
                             Console.WriteLine("----------------------------------------");
 
-                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "DeleteEvent - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "DeleteEvent - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
                             msg.ShowDialog();
                         }
                     }
@@ -972,7 +972,7 @@ namespace The_Oracle
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "DeleteEvent - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "DeleteEvent - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -1046,7 +1046,7 @@ namespace The_Oracle
                             Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
                             Console.WriteLine("----------------------------------------");
 
-                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUsersLastTimeOnline - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUsersLastTimeOnline - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
                             msg.ShowDialog();
                         }
                     }
@@ -1097,7 +1097,7 @@ namespace The_Oracle
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUsersLastTimeOnline - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUsersLastTimeOnline - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -1145,7 +1145,7 @@ namespace The_Oracle
                             Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
                             Console.WriteLine("----------------------------------------");
 
-                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "InsertOrUpdateLastTimeOnline - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "InsertOrUpdateLastTimeOnline - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
                             msg.ShowDialog();
                         }
                     }
@@ -1180,7 +1180,7 @@ namespace The_Oracle
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "InsertOrUpdateLastTimeOnline - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "InsertOrUpdateLastTimeOnline - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -1363,7 +1363,7 @@ namespace The_Oracle
                             Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
                             Console.WriteLine("----------------------------------------");
 
-                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateMyReminder - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateMyReminder - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
                             msg.ShowDialog();
                         }
                     }
@@ -1396,7 +1396,7 @@ namespace The_Oracle
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateMyReminder - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateMyReminder - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -1438,7 +1438,7 @@ namespace The_Oracle
                             Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
                             Console.WriteLine("----------------------------------------");
 
-                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateStatusID - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateStatusID - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
                             msg.ShowDialog();
                         }
                     }
@@ -1467,7 +1467,7 @@ namespace The_Oracle
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateStatusID - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateStatusID - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -1511,7 +1511,7 @@ namespace The_Oracle
                             Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
                             Console.WriteLine("----------------------------------------");
 
-                            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateReadByMeID - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateReadByMeID - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
                             msg.ShowDialog();
                         }
                     }
@@ -1541,7 +1541,7 @@ namespace The_Oracle
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateReadByMeID - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "UpdateReadByMeID - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -1554,7 +1554,7 @@ namespace The_Oracle
 
             if (eventWindow.EventTypeComboBox.SelectedIndex == 0)
             {
-                OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CheckFormFields", InformationTextBlock = "You can not choose 'All Events' as an event type." }, RequesterTypes.OK);
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CheckFormFields", InformationTextBlock = "You can not choose 'All Events' as an event type." }, RequesterTypes.OK);
                 msg.ShowDialog();
                 return false;
             }

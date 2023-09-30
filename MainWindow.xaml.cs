@@ -25,7 +25,7 @@ namespace The_Oracle
 
         private Today today;
         private Now now;
-        public OracleDatabaseHealth oracleDatabaseHealth;
+        public EventHorizonDatabaseHealth eventHorizonDatabaseHealth;
 
         public static MainWindow mw;
         public static DateTime OracleDatabaseLastWriteTime = DateTime.Now;
@@ -70,7 +70,7 @@ namespace The_Oracle
         {
             this.Dispatcher.Invoke((Action)(() =>
             {
-                oracleDatabaseHealth.UpdateLastWriteDateTime(DateTime.Now);
+                eventHorizonDatabaseHealth.UpdateLastWriteDateTime(DateTime.Now);
 
                 if (DisplayMode == DisplayModes.Reminders)
                     RefreshLog(ListViews.Reminder);
@@ -93,7 +93,7 @@ namespace The_Oracle
                 UpdateUsersOnline();
             }
             CheckMyUnreadAndMyReminders();
-            MainWindow.mw.oracleDatabaseHealth.UpdateLastWriteLabel(false);
+            MainWindow.mw.eventHorizonDatabaseHealth.UpdateLastWriteLabel(false);
         }
 
         public MainWindow()
@@ -117,7 +117,7 @@ namespace The_Oracle
 
                 if (XMLReaderWriter.OverridePassword == false)
                 {
-                    OracleLogin oli = new OracleLogin(MainWindow.mw);
+                    EventHorizonLogin oli = new EventHorizonLogin(MainWindow.mw);
                     oli.SelectUserComboBox.SelectedIndex = XMLReaderWriter.UserID - 1;
 
                     if (oli.ShowDialog() == true)
@@ -161,10 +161,10 @@ namespace The_Oracle
             now = new Now();
             NowGrid.Children.Add(now);
 
-            oracleDatabaseHealth = new OracleDatabaseHealth();
-            OracleDatabaseHealthGrid.Children.Add(oracleDatabaseHealth);
+            eventHorizonDatabaseHealth = new EventHorizonDatabaseHealth();
+            OracleDatabaseHealthGrid.Children.Add(eventHorizonDatabaseHealth);
 
-            if (OracleDatabaseCreate.CheckIfDatabaseExists())
+            if (EventHorizonDatabaseCreate.CheckIfDatabaseExists())
             {
                 Init_OracleDatabaseFileWatcher();
 
@@ -194,9 +194,9 @@ namespace The_Oracle
 
             foreach (EventHorizonLINQ eventHorizonLINQ in eventHorizonLINQList)
             {
-                if (!OracleNotification.Notifications.ContainsKey(eventHorizonLINQ.ID))
+                if (!EventHorizonNotification.Notifications.ContainsKey(eventHorizonLINQ.ID))
                 {
-                    OracleNotification on = new OracleNotification(this, eventHorizonLINQ.ID, notifications, eventHorizonLINQList.Count, eventHorizonLINQ);
+                    EventHorizonNotification on = new EventHorizonNotification(this, eventHorizonLINQ.ID, notifications, eventHorizonLINQList.Count, eventHorizonLINQ);
                     on.Show();
 
                     notifications--;
@@ -221,8 +221,8 @@ namespace The_Oracle
                 {
                     if (justLoaded == true && result.UserID != XMLReaderWriter.UserID)
                     {
-                        OracleBriefNotification oracleBriefNotification = new OracleBriefNotification(this, maxValue, 1, 1, result);
-                        oracleBriefNotification.Show();
+                        EventHorizonBriefNotification eventHorizonBriefNotification = new EventHorizonBriefNotification(this, maxValue, 1, 1, result);
+                        eventHorizonBriefNotification.Show();
                     }
 
                     LastGetLastEntry = maxValue;
@@ -318,7 +318,7 @@ namespace The_Oracle
             {
                 Console.WriteLine("----------------------------------------");
 
-                OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "RefreshLog - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "RefreshLog - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
                 msg.ShowDialog();
             }
         }
@@ -546,7 +546,7 @@ namespace The_Oracle
             {
                 Console.WriteLine("----------------------------------------");
 
-                OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadCurrentUserIntoUserStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadCurrentUserIntoUserStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
                 msg.ShowDialog();
             }
         }
@@ -731,7 +731,7 @@ namespace The_Oracle
             {
                 Console.WriteLine("----------------------------------------");
 
-                OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadUsersIntoUsersStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadUsersIntoUsersStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
                 msg.ShowDialog();
             }
         }
@@ -885,12 +885,12 @@ namespace The_Oracle
                     {
                         if (SelectedReplies > 0)
                         {
-                            OracleRequesterNotification rorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, this event has notes or replies", InformationTextBlock = "You won't be able to delete an event if it has notes or replies.\nYou must delete them first." }, RequesterTypes.OK);
+                            EventHorizonRequesterNotification rorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, this event has notes or replies", InformationTextBlock = "You won't be able to delete an event if it has notes or replies.\nYou must delete them first." }, RequesterTypes.OK);
                             rorn.ShowDialog();
                         }
                         else
                         {
-                            OracleRequesterNotification orn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Delete this event, are you sure", InformationTextBlock = "Consider changing the events status to archived instead.\nThat way you use the event as a log." }, RequesterTypes.NoYes);
+                            EventHorizonRequesterNotification orn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Delete this event, are you sure", InformationTextBlock = "Consider changing the events status to archived instead.\nThat way you use the event as a log." }, RequesterTypes.NoYes);
                             var result = orn.ShowDialog();
                             if (result == true)
                             {

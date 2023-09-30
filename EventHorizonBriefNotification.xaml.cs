@@ -7,9 +7,9 @@ using System.Windows.Media.Animation;
 namespace The_Oracle
 {
     /// <summary>
-    /// Interaction logic for OracleBriefNotification.xaml
+    /// Interaction logic for EventHorizonBriefNotification.xaml
     /// </summary>
-    public partial class OracleBriefNotification : Window
+    public partial class EventHorizonBriefNotification : Window
     {
         MainWindow mw;
         Int32 eventID;
@@ -17,10 +17,10 @@ namespace The_Oracle
         Int32 totalNotifications;
         EventHorizonLINQ eventHorizonLINQ;
 
-        public static Dictionary<Int32, OracleBriefNotification> BriefNotifications = new Dictionary<int, OracleBriefNotification>();
+        public static Dictionary<Int32, EventHorizonBriefNotification> BriefNotifications = new Dictionary<int, EventHorizonBriefNotification>();
         Int32 remindMeID = RemindMeDateTimes.OneHour;
 
-        public OracleBriefNotification(MainWindow mw, Int32 eventID, Int32 notificationNumber, Int32 totalNotifications, EventHorizonLINQ eventHorizonLINQ = null)
+        public EventHorizonBriefNotification(MainWindow mw, Int32 eventID, Int32 notificationNumber, Int32 totalNotifications, EventHorizonLINQ eventHorizonLINQ = null)
         {
             InitializeComponent();
             this.Hide();
