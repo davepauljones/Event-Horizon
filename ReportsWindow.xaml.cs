@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.IO.Packaging;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
 using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
-using System.Printing;
-using System.IO;
-using System.IO.Packaging;
 
 namespace The_Oracle
 {
@@ -29,7 +23,7 @@ namespace The_Oracle
         FixedDocumentSequence Document { get; set; }
 
         EventHorizonLINQ eventHorizonLINQ_MainEvent;
-        List<EventHorizonLINQ> eventHorizonLINQ_LineItemsList = new List<EventHorizonLINQ>();
+        List<EventHorizonLINQ> eventHorizonLINQ_LineItemsList;
 
         public ReportsWindow(EventHorizonLINQ eventHorizonLINQ_MainEvent, List<EventHorizonLINQ> eventHorizonLINQ_LineItemsList)
         {
@@ -45,10 +39,10 @@ namespace The_Oracle
         {
             this.Owner = Application.Current.MainWindow;
 
-            GenerateReport2();
+            GenerateReport();
         }
 
-        private void GenerateReport2()
+        private void GenerateReport()
         {
             FlowDocument flowDoc;
             // Create the parent FlowDocument...
@@ -57,9 +51,9 @@ namespace The_Oracle
             flowDoc.ColumnWidth = 10000;
 
             Image i = new Image();
-            i.Width = 138;
-            i.Height = 38;
-            i.Stretch = Stretch.Fill;
+            i.Width = 189;
+            i.Height = 34;
+            i.Stretch = Stretch.Uniform;
             i.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             i.VerticalAlignment = System.Windows.VerticalAlignment.Center;
             i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/EventHorizonLogoNewSmall.png"));
@@ -84,33 +78,127 @@ namespace The_Oracle
 
             this.Title += " - " + TitleRun;
 
+            Table tableHeader = new Table();
+            // ...and add it to the FlowDocument Blocks collection.
+            flowDoc.Blocks.Add(tableHeader);
+
+            // Set some global formatting properties for the table.
+            tableHeader.CellSpacing = 10;
+            tableHeader.Background = Brushes.White;
+
+            List<GridLength> gridLengths = new List<GridLength> {
+                new GridLength(60),
+                new GridLength(60),
+                new GridLength(50),
+                new GridLength(260),
+                new GridLength(60),
+                new GridLength(60),
+                new GridLength(60),
+                new GridLength(80)
+            };
+
+            int numberOfColumns = 8;
+            for (int x = 0; x < numberOfColumns; x++)
+            {
+                tableHeader.Columns.Add(new TableColumn());
+
+                tableHeader.Columns[x].Width = gridLengths[x];
+            }
+
+            // Create and add an empty TableRowGroup to hold the table's Rows.
+            tableHeader.RowGroups.Add(new TableRowGroup());
+
+            // Add the first (title) row.
+            tableHeader.RowGroups[0].Rows.Add(new TableRow());
+
+            // Alias the current working row for easy reference.
+            TableRow currentRowHeader = tableHeader.RowGroups[0].Rows[0];
+
+            // Global formatting for the title row.
+            currentRowHeader.Background = Brushes.Silver;
+            currentRowHeader.FontSize = 1;
+            currentRowHeader.FontWeight = System.Windows.FontWeights.Bold;
+
+            // Add the second (header) row.
+            tableHeader.RowGroups[0].Rows.Add(new TableRow());
+            currentRowHeader = tableHeader.RowGroups[0].Rows[1];
+
+            // Global formatting for the header row.
+            currentRowHeader.FontSize = 12;
+            currentRowHeader.FontWeight = FontWeights.Bold;
+            tableHeader.Columns.Add(new TableColumn() { Width = new GridLength(100) }); // First column width
+
+            // Add cells with content to the second row.
+            Paragraph paragraphItemNumberHeader = new Paragraph(new Run("Item No."));
+            paragraphItemNumberHeader.TextAlignment = TextAlignment.Center;
+            currentRowHeader.Cells.Add(new TableCell(paragraphItemNumberHeader));
+
+            Paragraph paragraphImageHeader = new Paragraph(new Run("Image"));
+            paragraphImageHeader.TextAlignment = TextAlignment.Center;
+            currentRowHeader.Cells.Add(new TableCell(paragraphImageHeader));
+
+            Paragraph paragraphQtyHeader = new Paragraph(new Run("Qty"));
+            paragraphQtyHeader.TextAlignment = TextAlignment.Center;
+            currentRowHeader.Cells.Add(new TableCell(paragraphQtyHeader));
+
+            Paragraph paragraphDescriptionHeader = new Paragraph(new Run("Description"));
+            paragraphDescriptionHeader.TextAlignment = TextAlignment.Left;
+            currentRowHeader.Cells.Add(new TableCell(paragraphDescriptionHeader));
+
+            Paragraph paragraphUnitCostHeader = new Paragraph(new Run("Unit Cost"));
+            paragraphUnitCostHeader.TextAlignment = TextAlignment.Right;
+            currentRowHeader.Cells.Add(new TableCell(paragraphUnitCostHeader));
+
+            Paragraph paragraphSubTotalHeader = new Paragraph(new Run("Sub Total"));
+            paragraphSubTotalHeader.TextAlignment = TextAlignment.Right;
+            currentRowHeader.Cells.Add(new TableCell(paragraphSubTotalHeader));
+
+            Paragraph paragraphDiscountHeader = new Paragraph(new Run("Discount"));
+            paragraphDiscountHeader.TextAlignment = TextAlignment.Right;
+            currentRowHeader.Cells.Add(new TableCell(paragraphDiscountHeader));
+
+            Paragraph paragraphTotalHeader = new Paragraph(new Run("Total"));
+            paragraphTotalHeader.TextAlignment = TextAlignment.Right;
+            currentRowHeader.Cells.Add(new TableCell(paragraphTotalHeader));
+
+            // Add the second (header) row.
+            tableHeader.RowGroups[0].Rows.Add(new TableRow());
+            currentRowHeader = tableHeader.RowGroups[0].Rows[2];
+
+            // Global formatting for the title row.
+            currentRowHeader.Background = Brushes.Silver;
+            currentRowHeader.FontSize = 1;
+            currentRowHeader.FontWeight = System.Windows.FontWeights.Bold;
+
             Int32 ItemNumber = 0;
+            Int32 grandTotalItems = 0;
+            double grandTotalUnitCost = 0;
+            double grandTotalTotal = 0;
 
             foreach (EventHorizonLINQ eventHorizonLINQ in eventHorizonLINQ_LineItemsList)
             {
                 ItemNumber++;
 
-                Table table1;
-            // Create the Table...
-            table1 = new Table();
-            // ...and add it to the FlowDocument Blocks collection.
-            flowDoc.Blocks.Add(table1);
+                grandTotalItems += eventHorizonLINQ.Qty;
 
-            // Set some global formatting properties for the table.
-            table1.CellSpacing = 10;
-            table1.Background = Brushes.White;
+                grandTotalUnitCost += eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty;
 
-                // Create 6 columns and add them to the table's Columns collection.
-                int numberOfColumns = 6;
+                grandTotalTotal += (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) - (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) * eventHorizonLINQ.Discount / 100;
+
+
+                Table table1 = new Table();
+
+                flowDoc.Blocks.Add(table1);
+
+                // Set some global formatting properties for the table.
+                table1.CellSpacing = 10;
+                table1.Background = Brushes.White;
+
                 for (int x = 0; x < numberOfColumns; x++)
                 {
                     table1.Columns.Add(new TableColumn());
 
-                    // Set alternating background colors for the middle colums.
-                    if (x % 2 == 0)
-                        table1.Columns[x].Background = Brushes.Beige;
-                    else
-                        table1.Columns[x].Background = Brushes.LightSteelBlue;
+                    table1.Columns[x].Width = gridLengths[x];
                 }
 
                 // Create and add an empty TableRowGroup to hold the table's Rows.
@@ -123,53 +211,44 @@ namespace The_Oracle
                 TableRow currentRow = table1.RowGroups[0].Rows[0];
 
                 // Global formatting for the title row.
-                currentRow.Background = Brushes.Silver;
-                currentRow.FontSize = 40;
-                currentRow.FontWeight = System.Windows.FontWeights.Bold;
+                //currentRow.Background = Brushes.Silver;
+                //currentRow.FontSize = 18;
+                //currentRow.FontWeight = System.Windows.FontWeights.Medium;
 
-                //// Add the header row with content,
-                //currentRow.Cells.Add(new TableCell(new Paragraph(new Run("2004 Sales Project"))));
-                //// and set the row to span all 6 columns.
-                //currentRow.Cells[0].ColumnSpan = 6;
-
-            
                 // Add the second (header) row.
                 table1.RowGroups[0].Rows.Add(new TableRow());
                 currentRow = table1.RowGroups[0].Rows[1];
 
                 // Global formatting for the header row.
-                currentRow.FontSize = 18;
+                currentRow.FontSize = 12;
                 currentRow.FontWeight = FontWeights.Bold;
-
-                // Add cells with content to the second row.
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Item No."))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Image"))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Quarter 2"))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Quarter 3"))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Quarter 4"))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("TOTAL"))));
+                table1.Columns.Add(new TableColumn() { Width = new GridLength(100) }); // First column width
 
                 // Create a paragraph and add it to the FlowDocument
-                Paragraph paragraph = new Paragraph();
-                flowDoc.Blocks.Add(paragraph);
+                Paragraph paragraphImage = new Paragraph();
+                flowDoc.Blocks.Add(paragraphImage);
 
-                // Create an InlineUIContainer to host an image
-                InlineUIContainer imageContainer = new InlineUIContainer();
+                if (File.Exists(eventHorizonLINQ.PathFileName))
+                {
+                    // Create an InlineUIContainer to host an image
+                    InlineUIContainer imageContainer = new InlineUIContainer();
 
-                Image image = new Image();
-                image.MaxWidth = 200;
-                image.MaxHeight = 100;
-                image.Stretch = Stretch.Uniform;
-                image.StretchDirection = StretchDirection.DownOnly;
-                image.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                image.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-                image.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri(eventHorizonLINQ.PathFileName));
+                    Image image = new Image();
+                    image.MaxWidth = 200;
+                    image.MaxHeight = 100;
+                    image.Stretch = Stretch.Uniform;
+                    image.StretchDirection = StretchDirection.DownOnly;
+                    image.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+                    image.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                    image.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri(eventHorizonLINQ.PathFileName));
 
-                // Add the Image to the InlineUIContainer
-                imageContainer.Child = image;
+                    // Add the Image to the InlineUIContainer
+                    imageContainer.Child = image;
 
-                // Add the InlineUIContainer to the paragraph
-                paragraph.Inlines.Add(imageContainer);
+                    // Add the InlineUIContainer to the paragraph
+                    paragraphImage.Inlines.Add(imageContainer);
+                    paragraphImage.TextAlignment = TextAlignment.Center;
+                }
 
                 // Add the third row.
                 table1.RowGroups[0].Rows.Add(new TableRow());
@@ -179,31 +258,190 @@ namespace The_Oracle
                 currentRow.FontSize = 12;
                 currentRow.FontWeight = FontWeights.Normal;
 
-                // Add cells with content to the third row.
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(ItemNumber.ToString()))));
-                currentRow.Cells.Add(new TableCell(paragraph));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("$55,000"))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("$60,000"))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("$65,000"))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("$230,000"))));
+                Paragraph paragraphItemNumber = new Paragraph(new Run(ItemNumber.ToString()));
+                paragraphItemNumber.TextAlignment = TextAlignment.Center;
+                currentRow.Cells.Add(new TableCell(paragraphItemNumber));
+
+                currentRow.Cells.Add(new TableCell(paragraphImage));
+                
+                Paragraph paragraphQty = new Paragraph( new Run(eventHorizonLINQ.Qty.ToString()));
+                paragraphQty.TextAlignment = TextAlignment.Center;
+                currentRow.Cells.Add(new TableCell(paragraphQty));
+
+                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(eventHorizonLINQ.Details.ToString()))));
+
+                Paragraph paragraphUnitCost = new Paragraph(new Run(eventHorizonLINQ.UnitCost.ToString("C2", CultureInfo.CurrentCulture)));
+                paragraphUnitCost.TextAlignment = TextAlignment.Right;
+                currentRow.Cells.Add(new TableCell(paragraphUnitCost));
+
+                double lineTotal = eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty;
+                Paragraph paragraphLineTotal = new Paragraph(new Run(lineTotal.ToString("C2", CultureInfo.CurrentCulture)));
+                paragraphLineTotal.TextAlignment = TextAlignment.Right;
+                currentRow.Cells.Add(new TableCell(paragraphLineTotal));
+
+                double discount = eventHorizonLINQ.Discount / 100;
+                Paragraph paragraphDiscount = new Paragraph(new Run(discount.ToString("P", CultureInfo.InvariantCulture)));
+                paragraphDiscount.TextAlignment = TextAlignment.Right;
+                currentRow.Cells.Add(new TableCell(paragraphDiscount));
+
+                double total = (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) - (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) * eventHorizonLINQ.Discount / 100;
+                Paragraph paragraphTotal = new Paragraph(new Run(total.ToString("C2", CultureInfo.CurrentCulture)));
+                paragraphTotal.TextAlignment = TextAlignment.Right;
+                currentRow.Cells.Add(new TableCell(paragraphTotal));
 
                 // Bold the first cell.
                 currentRow.Cells[0].FontWeight = FontWeights.Bold;
 
                 table1.RowGroups[0].Rows.Add(new TableRow());
                 currentRow = table1.RowGroups[0].Rows[3];
-
-                // Global formatting for the footer row.
-                currentRow.Background = Brushes.LightGray;
-                currentRow.FontSize = 18;
-                currentRow.FontWeight = System.Windows.FontWeights.Normal;
-
-                //// Add the header row with content,
-                //currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Projected 2004 Revenue: $810,000"))));
-                //// and set the row to span all 6 columns.
-                //currentRow.Cells[0].ColumnSpan = 6;
-
             }
+
+            Table tableFooter = new Table();
+            // ...and add it to the FlowDocument Blocks collection.
+            flowDoc.Blocks.Add(tableFooter);
+
+            // Set some global formatting properties for the table.
+            tableFooter.CellSpacing = 10;
+            tableFooter.Background = Brushes.White;
+
+            for (int x = 0; x < numberOfColumns; x++)
+            {
+                tableFooter.Columns.Add(new TableColumn());
+
+                tableFooter.Columns[x].Width = gridLengths[x];
+            }
+
+            // Create and add an empty TableRowGroup to hold the table's Rows.
+            tableFooter.RowGroups.Add(new TableRowGroup());
+
+            // Add the first (title) row.
+            tableFooter.RowGroups[0].Rows.Add(new TableRow());
+
+            // Alias the current working row for easy reference.
+            TableRow currentRowFooter = tableFooter.RowGroups[0].Rows[0];
+
+            // Global formatting for the title row.
+            currentRowFooter.Background = Brushes.Silver;
+            currentRowFooter.FontSize = 1;
+            currentRowFooter.FontWeight = System.Windows.FontWeights.Bold;
+
+            // Add the second (header) row.
+            tableFooter.RowGroups[0].Rows.Add(new TableRow());
+            currentRowFooter = tableFooter.RowGroups[0].Rows[1];
+
+            // Global formatting for the header row.
+            currentRowFooter.FontSize = 12;
+            currentRowFooter.FontWeight = FontWeights.Bold;
+            //tableFooter.Columns.Add(new TableColumn() { Width = new GridLength(100) }); // First column width
+
+            // Add cells with content to the second row.
+            Paragraph paragraphItemNumbeFooter = new Paragraph(new Run("Lines"));
+            paragraphItemNumbeFooter.TextAlignment = TextAlignment.Center;
+            currentRowFooter.Cells.Add(new TableCell(paragraphItemNumbeFooter));
+
+            Paragraph paragraphImageFooter = new Paragraph(new Run(""));
+            paragraphImageFooter.TextAlignment = TextAlignment.Center;
+            currentRowFooter.Cells.Add(new TableCell(paragraphImageFooter));
+
+            Paragraph paragraphQtyFooter = new Paragraph(new Run("Qty"));
+            paragraphQtyFooter.TextAlignment = TextAlignment.Center;
+            currentRowFooter.Cells.Add(new TableCell(paragraphQtyFooter));
+
+            Paragraph paragraphDescriptionFooter = new Paragraph(new Run("Description"));
+            paragraphDescriptionFooter.TextAlignment = TextAlignment.Left;
+            currentRowFooter.Cells.Add(new TableCell(paragraphDescriptionFooter));
+
+            Paragraph paragraphUnitCostFooter = new Paragraph(new Run(""));
+            paragraphUnitCostFooter.TextAlignment = TextAlignment.Right;
+            currentRowFooter.Cells.Add(new TableCell(paragraphUnitCostFooter));
+
+            Paragraph paragraphSubTotalFooter = new Paragraph(new Run("Sub Total"));
+            paragraphSubTotalFooter.TextAlignment = TextAlignment.Right;
+            currentRowFooter.Cells.Add(new TableCell(paragraphSubTotalFooter));
+
+            Paragraph paragraphDiscountFooter = new Paragraph(new Run("Discount"));
+            paragraphDiscountFooter.TextAlignment = TextAlignment.Right;
+            currentRowFooter.Cells.Add(new TableCell(paragraphDiscountFooter));
+
+            Paragraph paragraphTotalFooter = new Paragraph(new Run("Grand Total"));
+            paragraphTotalFooter.TextAlignment = TextAlignment.Right;
+            currentRowFooter.Cells.Add(new TableCell(paragraphTotalFooter));
+
+
+            tableFooter.RowGroups[0].Rows.Add(new TableRow());
+            currentRowFooter = tableFooter.RowGroups[0].Rows[2];
+
+            // Global formatting for the title row.
+            currentRowFooter.Background = Brushes.White;
+            currentRowFooter.FontSize = 12;
+            //currentRowFooter.FontWeight = System.Windows.FontWeights.Bold;
+
+            Paragraph paragraphGrandItemNumber = new Paragraph(new Run(ItemNumber.ToString()));
+            paragraphGrandItemNumber.TextAlignment = TextAlignment.Center;
+            currentRowFooter.Cells.Add(new TableCell(paragraphGrandItemNumber));
+
+            ////// Create a paragraph and add it to the FlowDocument
+            //Paragraph paragraphGrandImageFooter = new Paragraph();
+            //flowDoc.Blocks.Add(paragraphGrandImageFooter);
+
+            //// Create an InlineUIContainer to host an image
+            //InlineUIContainer imageContainerFooter = new InlineUIContainer();
+
+            //Image imageFooter = new Image();
+            //imageFooter.MaxWidth = 200;
+            //imageFooter.MaxHeight = 100;
+            //imageFooter.Stretch = Stretch.Uniform;
+            //imageFooter.StretchDirection = StretchDirection.DownOnly;
+            //imageFooter.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+            //imageFooter.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+            //imageFooter.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri(eventHorizonLINQ_MainEvent.PathFileName));
+
+            //// Add the Image to the InlineUIContainer
+            //imageContainerFooter.Child = imageFooter;
+
+            //// Add the InlineUIContainer to the paragraph
+            //paragraphGrandImageFooter.Inlines.Add(imageContainerFooter);
+            //paragraphGrandImageFooter.TextAlignment = TextAlignment.Center;
+
+            //currentRowFooter.Cells.Add(new TableCell(paragraphGrandImageFooter));
+
+            Paragraph paragraphImageSpaceHolder = new Paragraph(new Run(""));
+            paragraphImageSpaceHolder.TextAlignment = TextAlignment.Right;
+            currentRowFooter.Cells.Add(new TableCell(paragraphImageSpaceHolder));
+
+            Paragraph paragraphGrandQty = new Paragraph(new Run(grandTotalItems.ToString()));
+            paragraphGrandQty.TextAlignment = TextAlignment.Center;
+            currentRowFooter.Cells.Add(new TableCell(paragraphGrandQty));
+
+            currentRowFooter.Cells.Add(new TableCell(new Paragraph(new Run(eventHorizonLINQ_MainEvent.Details))));
+
+            Paragraph paragraphGrandUnitCost = new Paragraph(new Run(""));
+            paragraphGrandUnitCost.TextAlignment = TextAlignment.Right;
+            currentRowFooter.Cells.Add(new TableCell(paragraphGrandUnitCost));
+
+            Paragraph paragraphGrandLineTotal = new Paragraph(new Run(grandTotalUnitCost.ToString("C2", CultureInfo.CurrentCulture)));
+            paragraphGrandLineTotal.TextAlignment = TextAlignment.Right;
+            currentRowFooter.Cells.Add(new TableCell(paragraphGrandLineTotal));
+
+            double grandTotalDiscount = grandTotalUnitCost - grandTotalTotal;
+
+            Paragraph paragraphGrandDiscount = new Paragraph(new Run(grandTotalDiscount.ToString("C2", CultureInfo.CurrentCulture)));
+            paragraphGrandDiscount.TextAlignment = TextAlignment.Right;
+            currentRowFooter.Cells.Add(new TableCell(paragraphGrandDiscount));
+
+            Paragraph paragraphGrandTotal = new Paragraph(new Run(grandTotalTotal.ToString("C2", CultureInfo.CurrentCulture)));
+            paragraphGrandTotal.TextAlignment = TextAlignment.Right;
+            currentRowFooter.Cells.Add(new TableCell(paragraphGrandTotal));
+
+
+            // Add the second (header) row.
+            tableFooter.RowGroups[0].Rows.Add(new TableRow());
+            currentRowFooter = tableFooter.RowGroups[0].Rows[3];
+
+            // Global formatting for the title row.
+            currentRowFooter.Background = Brushes.Silver;
+            currentRowFooter.FontSize = 1;
+            currentRowFooter.FontWeight = System.Windows.FontWeights.Bold;
 
             var package = Package.Open(new MemoryStream(), FileMode.Create, FileAccess.ReadWrite);
             var packUri = new Uri("pack://temp.xps");
@@ -215,122 +453,6 @@ namespace The_Oracle
             XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
 
             writer.Write(((IDocumentPaginatorSource)flowDoc).DocumentPaginator);
-
-            Document = xpsDocument.GetFixedDocumentSequence();
-
-            xpsDocument.Close();
-
-            PreviewD.Document = Document;
-        }
-        
-        private void GenerateReport()
-        {
-            FlowDocument doc = new FlowDocument();
-
-            Image i = new Image();
-            i.Width = 138;
-            i.Height = 38;
-            i.Stretch = Stretch.Fill;
-            i.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            i.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/EventHorizonLogoNewSmall.png"));
-
-            doc.Blocks.Add(new BlockUIContainer(i));
-
-            string TitleRun;
-            string DescriptionRun;
-
-            TitleRun = "Event Horizon - List for ID: " + eventHorizonLINQ_MainEvent.ID;
-            DescriptionRun = eventHorizonLINQ_MainEvent.Details;
-
-            Paragraph titlerun = new Paragraph(new Bold(new Run(TitleRun + " Report")));
-            titlerun.FontSize = 30;
-            doc.Blocks.Add(titlerun);
-
-            Paragraph descriptionrun = new Paragraph(new Run(DescriptionRun));
-            doc.Blocks.Add(descriptionrun);
-
-            Paragraph dt = new Paragraph(new Run(DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString()));
-            doc.Blocks.Add(dt);
-
-            this.Title += " - " + TitleRun;
-
-            Int32 ItemNumber = 0;
-
-            foreach (EventHorizonLINQ eventHorizonLINQ in eventHorizonLINQ_LineItemsList)
-            {
-                // Create a paragraph and add it to the FlowDocument
-                Paragraph paragraph = new Paragraph();
-                doc.Blocks.Add(paragraph);
-
-                // Create an InlineUIContainer to host an image
-                InlineUIContainer imageContainer = new InlineUIContainer();
-
-                Image image = new Image();
-                image.MaxWidth = 200;
-                image.MaxHeight = 100;
-                image.Stretch = Stretch.Uniform;
-                image.StretchDirection = StretchDirection.DownOnly;
-                image.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                image.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-                image.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri(eventHorizonLINQ.PathFileName));
-
-                // Add the Image to the InlineUIContainer
-                imageContainer.Child = image;
-                
-                // Add the InlineUIContainer to the paragraph
-                paragraph.Inlines.Add(imageContainer);
-
-                //doc.Blocks.Add(paragraph);
-
-                Table table = new Table();
-                for (int iii = 0; iii < 7; iii++)
-                {
-                    table.Columns.Add(new TableColumn());
-                }
-
-                TableRow tableRow = new TableRow();
-                //tableRow.Background = Brushes.Pink;
-                tableRow.FontSize = 40;
-                tableRow.FontWeight = FontWeights.Bold;
-
-                tableRow.Cells.Add(new TableCell(new Paragraph(new Run(ItemNumber.ToString()))));
-                //tableRow.Cells.Add(new TableCell(new Paragraph(new Run("Blah"))));
-                tableRow.Cells.Add(new TableCell(paragraph));
-                tableRow.Cells.Add(new TableCell(new Paragraph(new Run(eventHorizonLINQ.Details))));
-                tableRow.Cells.Add(new TableCell(new Paragraph(new Run(eventHorizonLINQ.UnitCost.ToString()))));
-                //tableRow.Cells[0].BorderThickness = new Thickness(3);
-                //tableRow.Cells[0].ColumnSpan = 2;
-                //
-                //tableRow.Background = System.Windows.Media.Brushes.Navy;
-
-                tableRow.Foreground = System.Windows.Media.Brushes.White;
-
-                var tableRowGroup = new TableRowGroup();
-                tableRowGroup.Rows.Add(tableRow);
-                table.RowGroups.Add(tableRowGroup);
-                doc.Blocks.Add(table);
-
-                // Add more text if needed
-                //Run moreTextRun = new Run(eventHorizonLINQ.Details);
-                //moreTextRun.BaselineAlignment = BaselineAlignment.Center;
-                //paragraph.Inlines.Add(moreTextRun);
-
-                //doc.Blocks.Add(new Paragraph(new Run(eventHorizonLINQ.Details)));
-
-                //doc.Blocks.Add(new InlineUIContainer(ii));
-            }
-
-            var package = Package.Open(new MemoryStream(), FileMode.Create, FileAccess.ReadWrite);
-            var packUri = new Uri("pack://temp.xps");
-            PackageStore.RemovePackage(packUri);
-            PackageStore.AddPackage(packUri, package);
-
-            xpsDocument = new XpsDocument(package, CompressionOption.SuperFast, packUri.ToString());
-
-            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
-
-            writer.Write(((IDocumentPaginatorSource)doc).DocumentPaginator);
 
             Document = xpsDocument.GetFixedDocumentSequence();
 

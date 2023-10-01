@@ -42,7 +42,7 @@ namespace The_Oracle
 
         List<SelectionIdString> ListOfReports = new List<SelectionIdString>();
 
-        public List<EventHorizonLINQ> EventHorizonLINQ_SelectedItemsList = new List<EventHorizonLINQ>();
+        public EventHorizonLINQ eventHorizonLINQ_SelectedItem;
 
         private void Init_OracleDatabaseFileWatcher()
         {
@@ -278,11 +278,8 @@ namespace The_Oracle
                                 case EventAttributes.LineItem:
                                     if (eventHorizonLINQRow == eventHorizonLINQRepliesList.First()) // Check if it's the first item
                                     {
-                                        er.HeaderGrid.Visibility = Visibility.Visible;
-                                        EventHorizonLINQ_SelectedItemsList.Clear();
+                                        er.HeaderGrid.Visibility = Visibility.Visible;;
                                     }
-
-                                    EventHorizonLINQ_SelectedItemsList.Add(eventHorizonLINQRow);
 
                                     LineItemNumber++;
 
@@ -321,6 +318,40 @@ namespace The_Oracle
                 EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "RefreshLog - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
                 msg.ShowDialog();
             }
+        }
+
+        public List<EventHorizonLINQ> GetProductItems(EventHorizonLINQ eventHorizonLINQ)
+        {
+            List<EventHorizonLINQ> Return_EventHorizonLINQ = new List<EventHorizonLINQ>();
+
+            try
+            {
+                List<EventHorizonLINQ> eventHorizonLINQRepliesList = DataTableManagement.GetReplies(eventHorizonLINQ.ID);
+
+                foreach (EventHorizonLINQ eventHorizonLINQRow in eventHorizonLINQRepliesList)
+                {
+                    switch (eventHorizonLINQRow.EventAttributeID)
+                    {
+                        case EventAttributes.Standard:
+                            break;
+                        case EventAttributes.LineItem:
+                            Return_EventHorizonLINQ.Add(eventHorizonLINQRow);
+                            break;
+                        case EventAttributes.FooBar:
+                            break;
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("----------------------------------------");
+
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetProductItems - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
+                msg.ShowDialog();
+            }
+
+            return Return_EventHorizonLINQ;
         }
 
         private EventRow CreateEventLogRow(EventHorizonLINQ eventHorizonLINQ)
@@ -771,9 +802,9 @@ namespace The_Oracle
                     newEventWindow.Show();
                     break;
                 case Key.F2:
-                    if (eventHorizonLINQ != null)
+                    if (eventHorizonLINQ_SelectedItem != null)
                     {
-                        EventWindow editEventWindow = new EventWindow(this, EventWindowModes.NewNote, eventHorizonLINQ, null);
+                        EventWindow editEventWindow = new EventWindow(this, EventWindowModes.NewNote, eventHorizonLINQ_SelectedItem, null);
                         editEventWindow.Show();
                     }
                     break;
@@ -881,7 +912,7 @@ namespace The_Oracle
                     }
                     break;
                 case Key.Delete:
-                    if (eventHorizonLINQ != null)
+                    if (eventHorizonLINQ_SelectedItem != null)
                     {
                         if (SelectedReplies > 0)
                         {
@@ -894,7 +925,7 @@ namespace The_Oracle
                             var result = orn.ShowDialog();
                             if (result == true)
                             {
-                                if (eventHorizonLINQ.ID > 0) DataTableManagement.DeleteEvent(eventHorizonLINQ.ID);
+                                if (eventHorizonLINQ_SelectedItem.ID > 0) DataTableManagement.DeleteEvent(eventHorizonLINQ_SelectedItem.ID);
                             }
                         }
                     }
@@ -975,9 +1006,9 @@ namespace The_Oracle
                         newEventWindow.Show();
                         break;
                     case 1:
-                        if (eventHorizonLINQ != null)
+                        if (eventHorizonLINQ_SelectedItem != null)
                         {
-                            EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ, null);
+                            EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ_SelectedItem, null);
                             editEventWindow.Show();
                         }
                         break;
@@ -1084,8 +1115,6 @@ namespace The_Oracle
                 }
             }
         }
-
-        public EventHorizonLINQ eventHorizonLINQ;
 
         private void AddItemsToEventTypeComboBox()
         {
@@ -1290,23 +1319,23 @@ namespace The_Oracle
 
             EventRow item = (EventRow)dep;
 
-            eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
+            eventHorizonLINQ_SelectedItem = (EventHorizonLINQ)item.Tag;
 
             Console.WriteLine();
             Console.WriteLine(">S>>MainWindow ReminderListView_PreviewMouseLeftButtonDown<<<<");
             Console.WriteLine();
 
-            Console.Write("item.Tag eventHorizonLINQ.Source_Mode = ");
-            Console.WriteLine(eventHorizonLINQ.Source_Mode);
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.Source_Mode = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.Source_Mode);
 
-            Console.Write("item.Tag eventHorizonLINQ.ID = ");
-            Console.WriteLine(eventHorizonLINQ.ID);
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.ID = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.ID);
 
-            Console.Write("item.Tag eventHorizonLINQ.Source_ParentEventID = ");
-            Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.Source_ParentEventID = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.Source_ParentEventID);
 
-            Console.Write("item.Tag eventHorizonLINQ.Attributes_Replies = ");
-            Console.WriteLine(eventHorizonLINQ.Attributes_Replies);
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.Attributes_Replies = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.Attributes_Replies);
 
             Console.WriteLine();
             Console.WriteLine(">F>>MainWindow ReminderListView_PreviewMouseLeftButtonDown<<<<");
@@ -1327,23 +1356,23 @@ namespace The_Oracle
 
             EventRow item = (EventRow)dep;
 
-            eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
+            eventHorizonLINQ_SelectedItem = (EventHorizonLINQ)item.Tag;
 
             Console.WriteLine();
             Console.WriteLine(">S>>MainWindow ReminderListView_MouseDoubleClick<<<<");
             Console.WriteLine();
 
-            Console.Write("item.Tag eventHorizonLINQ.Source_Mode = ");
-            Console.WriteLine(eventHorizonLINQ.Source_Mode);
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.Source_Mode = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.Source_Mode);
 
-            Console.Write("item.Tag eventHorizonLINQ.ID = ");
-            Console.WriteLine(eventHorizonLINQ.ID);
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.ID = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.ID);
 
-            Console.Write("item.Tag eventHorizonLINQ.Source_ParentEventID = ");
-            Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.Source_ParentEventID = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.Source_ParentEventID);
 
-            Console.Write("item.Tag eventHorizonLINQ.Attributes_Replies = ");
-            Console.WriteLine(eventHorizonLINQ.Attributes_Replies);
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.Attributes_Replies = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.Attributes_Replies);
 
             Console.WriteLine();
             Console.WriteLine(">F>>MainWindow ReminderListView_MouseDoubleClick<<<<");
@@ -1351,10 +1380,10 @@ namespace The_Oracle
 
             ReminderListView.SelectedItem = item;
 
-            if (eventHorizonLINQ != null)
+            if (eventHorizonLINQ_SelectedItem != null)
             {
                 //try open event as EditEvent
-                EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ, null);
+                EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ_SelectedItem, null);
                 editEventWindow.Show();
             }
         }
@@ -1441,9 +1470,9 @@ namespace The_Oracle
                     switch (ReportsVisualTreeListView.SelectedIndex)
                     {
                         case 0:
-                            if (eventHorizonLINQ != null && EventHorizonLINQ_SelectedItemsList.Count > 0)
+                            if (eventHorizonLINQ_SelectedItem != null)
                             {
-                                REPORTS = new ReportsWindow(eventHorizonLINQ, EventHorizonLINQ_SelectedItemsList);
+                                REPORTS = new ReportsWindow(eventHorizonLINQ_SelectedItem, GetProductItems(eventHorizonLINQ_SelectedItem));
                                 REPORTS.Show();
                             }
                             break;                  

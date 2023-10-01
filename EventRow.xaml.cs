@@ -97,23 +97,23 @@ namespace The_Oracle
 
             EventRow item = (EventRow)dep;
 
-            MainWindow.mw.eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
+            MainWindow.mw.eventHorizonLINQ_SelectedItem = (EventHorizonLINQ)item.Tag;
 
             Console.WriteLine();
             Console.WriteLine(">S>>EventRow RepliesListView_PreviewMouseDoubleClick<<<<");
             Console.WriteLine();
 
-            Console.Write("item.Tag MainWindow.mw.eventHorizonLINQ.Source_Mode = ");
-            Console.WriteLine(MainWindow.mw.eventHorizonLINQ.Source_Mode);
+            Console.Write("item.Tag MainWindow.mw.eventHorizonLINQ_SelectedItem.Source_Mode = ");
+            Console.WriteLine(MainWindow.mw.eventHorizonLINQ_SelectedItem.Source_Mode);
 
-            Console.Write("item.Tag MainWindow.mw.eventHorizonLINQ.ID = ");
-            Console.WriteLine(MainWindow.mw.eventHorizonLINQ.ID);
+            Console.Write("item.Tag MainWindow.mw.eventHorizonLINQ_SelectedItem.ID = ");
+            Console.WriteLine(MainWindow.mw.eventHorizonLINQ_SelectedItem.ID);
 
-            Console.Write("item.Tag MainWindow.mw.eventHorizonLINQ.ParentEventID = ");
-            Console.WriteLine(MainWindow.mw.eventHorizonLINQ.Source_ParentEventID);
+            Console.Write("item.Tag MainWindow.mw.eventHorizonLINQ_SelectedItem.ParentEventID = ");
+            Console.WriteLine(MainWindow.mw.eventHorizonLINQ_SelectedItem.Source_ParentEventID);
 
-            Console.Write("item.Tag MainWindow.mw.eventHorizonLINQ.Details = ");
-            Console.WriteLine(MainWindow.mw.eventHorizonLINQ.Details);
+            Console.Write("item.Tag MainWindow.mw.eventHorizonLINQ_SelectedItem.Details = ");
+            Console.WriteLine(MainWindow.mw.eventHorizonLINQ_SelectedItem.Details);
 
             Console.WriteLine();
             Console.WriteLine(">F>>EventRow RepliesListView_PreviewMouseDoubleClick<<<<");
@@ -121,16 +121,16 @@ namespace The_Oracle
 
             //MiscFunctions.ConsoleWriteEventHorizonLINQ(eventHorizonLINQ);
 
-            if (MainWindow.mw.eventHorizonLINQ != null)
+            if (MainWindow.mw.eventHorizonLINQ_SelectedItem != null)
             {
-                if (MainWindow.mw.eventHorizonLINQ.EventModeID == EventModes.NoteEvent)
+                if (MainWindow.mw.eventHorizonLINQ_SelectedItem.EventModeID == EventModes.NoteEvent)
                 {
-                    EventWindow eventWindow = new EventWindow(MainWindow.mw, EventWindowModes.ViewNote, MainWindow.mw.eventHorizonLINQ);
+                    EventWindow eventWindow = new EventWindow(MainWindow.mw, EventWindowModes.ViewNote, MainWindow.mw.eventHorizonLINQ_SelectedItem);
                     eventWindow.Show();
                 }
-                else if (MainWindow.mw.eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
+                else if (MainWindow.mw.eventHorizonLINQ_SelectedItem.EventModeID == EventModes.ReplyEvent)
                 {
-                    EventWindow eventWindow = new EventWindow(MainWindow.mw, EventWindowModes.ViewReply, MainWindow.mw.eventHorizonLINQ);
+                    EventWindow eventWindow = new EventWindow(MainWindow.mw, EventWindowModes.ViewReply, MainWindow.mw.eventHorizonLINQ_SelectedItem);
                     eventWindow.Show();
                 }
             }
