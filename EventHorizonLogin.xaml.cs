@@ -8,14 +8,14 @@ using Microsoft.Win32;
 namespace The_Oracle
 {
     /// <summary>
-    /// Interaction logic for OracleLogin.xaml
+    /// Interaction logic for EventHorizonLogin.xaml
     /// </summary>
-    public partial class OracleLogin : Window
+    public partial class EventHorizonLogin : Window
     {
         MainWindow mw;
         Int32 SelectedUserID;
 
-        public OracleLogin(MainWindow mw)
+        public EventHorizonLogin(MainWindow mw)
         {
             InitializeComponent();
             this.Hide();

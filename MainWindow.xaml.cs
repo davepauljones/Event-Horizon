@@ -6,15 +6,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
-using System.Data;
 using System.IO;
-using System.Windows.Threading;
 using System.Windows.Media.Effects;
-
 using FontAwesome.WPF;
+using System.Globalization;
 
 namespace The_Oracle
 {
@@ -29,7 +25,7 @@ namespace The_Oracle
 
         private Today today;
         private Now now;
-        public OracleDatabaseHealth oracleDatabaseHealth;
+        public EventHorizonDatabaseHealth eventHorizonDatabaseHealth;
 
         public static MainWindow mw;
         public static DateTime OracleDatabaseLastWriteTime = DateTime.Now;
@@ -44,17 +40,21 @@ namespace The_Oracle
 
         private static DatabasePoller databasePoller;
 
+        List<SelectionIdString> ListOfReports = new List<SelectionIdString>();
+
+        public EventHorizonLINQ eventHorizonLINQ_SelectedItem;
+
         private void Init_OracleDatabaseFileWatcher()
         {
             databasePoller = new DatabasePoller(XMLReaderWriter.GlobalConnectionString);
             databasePoller.StartPolling();
         }
-        
+
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            
+
         }
-        
+
         private async void RunTask()
         {
             System.Threading.Thread.Sleep(XMLReaderWriter.UsersRefreshTimeSpan);
@@ -65,12 +65,12 @@ namespace The_Oracle
 
             });
         }
-        
+
         public void RunningTask()
         {
             this.Dispatcher.Invoke((Action)(() =>
             {
-                oracleDatabaseHealth.UpdateLastWriteDateTime(DateTime.Now);
+                eventHorizonDatabaseHealth.UpdateLastWriteDateTime(DateTime.Now);
 
                 if (DisplayMode == DisplayModes.Reminders)
                     RefreshLog(ListViews.Reminder);
@@ -93,9 +93,9 @@ namespace The_Oracle
                 UpdateUsersOnline();
             }
             CheckMyUnreadAndMyReminders();
-            MainWindow.mw.oracleDatabaseHealth.UpdateLastWriteLabel(false);
+            MainWindow.mw.eventHorizonDatabaseHealth.UpdateLastWriteLabel(false);
         }
-       
+
         public MainWindow()
         {
             InitializeComponent();
@@ -103,7 +103,7 @@ namespace The_Oracle
             mw = this;
 
             Welcome welcome = new Welcome();
-            
+
             if (welcome.ShowDialog() == true)
             {
                 //if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg"))
@@ -115,12 +115,27 @@ namespace The_Oracle
                 //    this.Background.Opacity = 0.3;
                 //}
 
-                OracleLogin oli = new OracleLogin(MainWindow.mw);
-                oli.SelectUserComboBox.SelectedIndex = XMLReaderWriter.UserID-1;
-
-                if (oli.ShowDialog() == true)
+                if (XMLReaderWriter.OverridePassword == false)
                 {
+                    EventHorizonLogin oli = new EventHorizonLogin(MainWindow.mw);
+                    oli.SelectUserComboBox.SelectedIndex = XMLReaderWriter.UserID - 1;
 
+                    if (oli.ShowDialog() == true)
+                    {
+
+                        this.WindowState = WindowState.Maximized;
+
+                        EventStackPanel.Visibility = Visibility.Visible;
+
+                        MainWindowTitle.SetMainWindowTitle();
+
+                        Loaded += MainWindow_Loaded;
+                    }
+                    else
+                        Close();
+                }
+                else
+                {
                     this.WindowState = WindowState.Maximized;
 
                     EventStackPanel.Visibility = Visibility.Visible;
@@ -129,27 +144,27 @@ namespace The_Oracle
 
                     Loaded += MainWindow_Loaded;
                 }
-                else
-                    Close();
             }
             else
                 Close();
         }
 
         bool MainWindowIs_Loaded = false;
-        
+
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            LoadReportsVisualTree();
+
             today = new Today();
             TodayGrid.Children.Add(today);
 
             now = new Now();
             NowGrid.Children.Add(now);
 
-            oracleDatabaseHealth = new OracleDatabaseHealth();
-            OracleDatabaseHealthGrid.Children.Add(oracleDatabaseHealth);
+            eventHorizonDatabaseHealth = new EventHorizonDatabaseHealth();
+            OracleDatabaseHealthGrid.Children.Add(eventHorizonDatabaseHealth);
 
-            if (OracleDatabaseCreate.CheckIfDatabaseExists())
+            if (EventHorizonDatabaseCreate.CheckIfDatabaseExists())
             {
                 Init_OracleDatabaseFileWatcher();
 
@@ -163,14 +178,14 @@ namespace The_Oracle
 
             MainWindowIs_Loaded = true;
         }
-        
+
         public void RefreshXML()
         {
             LoadCurrentUserIntoGrid(CurrentUserGrid);
             LoadUsersIntoUsersStackPanel();
             AddItemsToEventTypeComboBox();
         }
-        
+
         private void CheckMyUnreadAndMyReminders()
         {
             Int32 notificationsAddedThisCycle = 0;
@@ -179,9 +194,9 @@ namespace The_Oracle
 
             foreach (EventHorizonLINQ eventHorizonLINQ in eventHorizonLINQList)
             {
-                if (!OracleNotification.Notifications.ContainsKey(eventHorizonLINQ.ID))
+                if (!EventHorizonNotification.Notifications.ContainsKey(eventHorizonLINQ.ID))
                 {
-                    OracleNotification on = new OracleNotification(this, eventHorizonLINQ.ID, notifications, eventHorizonLINQList.Count, eventHorizonLINQ);
+                    EventHorizonNotification on = new EventHorizonNotification(this, eventHorizonLINQ.ID, notifications, eventHorizonLINQList.Count, eventHorizonLINQ);
                     on.Show();
 
                     notifications--;
@@ -206,8 +221,8 @@ namespace The_Oracle
                 {
                     if (justLoaded == true && result.UserID != XMLReaderWriter.UserID)
                     {
-                        OracleBriefNotification oracleBriefNotification = new OracleBriefNotification(this, maxValue, 1, 1, result);
-                        oracleBriefNotification.Show();
+                        EventHorizonBriefNotification eventHorizonBriefNotification = new EventHorizonBriefNotification(this, maxValue, 1, 1, result);
+                        eventHorizonBriefNotification.Show();
                     }
 
                     LastGetLastEntry = maxValue;
@@ -220,7 +235,7 @@ namespace The_Oracle
                 Console.WriteLine(e);
             }
         }
-        
+
         public void RefreshLog(int listViewToPopulate)
         {
             try
@@ -245,21 +260,53 @@ namespace The_Oracle
 
                     if (eventHorizonLINQ.Attributes_Replies > 0)
                     {
+                        Int32 LineItemNumber = 0;
+                        Int32 grandTotalItems = 0;
+                        double grandTotalUnitCost = 0;
+                        double grandTotalTotal = 0;
+
                         foreach (EventHorizonLINQ eventHorizonLINQRow in eventHorizonLINQRepliesList)
                         {
                             EventRow er = CreateEventLogRow(eventHorizonLINQRow);
-                            
+
                             eventRow.RepliesListView.Items.Add(er);
 
-                            if (eventHorizonLINQRow == eventHorizonLINQRepliesList.Last()) // Check if it's the last item
+                            switch (eventHorizonLINQRow.EventAttributeID)
                             {
-                                EventRowStatusBar ersb = new EventRowStatusBar(new EventHorizonLINQ());
-                                //ersb.SourceIDTextBlock.Text = eventHorizonLINQ.Attributes_Replies.ToString();
-                                er.StatusBarGrid.Children.Add(ersb);
-                                er.StatusBarGrid.Visibility = Visibility.Visible;
+                                case EventAttributes.Standard:
+                                    break;
+                                case EventAttributes.LineItem:
+                                    if (eventHorizonLINQRow == eventHorizonLINQRepliesList.First()) // Check if it's the first item
+                                    {
+                                        er.HeaderGrid.Visibility = Visibility.Visible;;
+                                    }
+
+                                    LineItemNumber++;
+
+                                    er.EventTypeTextBlock.Text = "Item " + LineItemNumber;
+
+                                    grandTotalItems += eventHorizonLINQRow.Qty;
+
+                                    grandTotalUnitCost += eventHorizonLINQRow.UnitCost * eventHorizonLINQRow.Qty;
+
+                                    grandTotalTotal += (eventHorizonLINQRow.UnitCost * eventHorizonLINQRow.Qty) - (eventHorizonLINQRow.UnitCost * eventHorizonLINQRow.Qty) * eventHorizonLINQRow.Discount / 100;
+
+                                    if (eventHorizonLINQRow == eventHorizonLINQRepliesList.Last()) // Check if it's the last item
+                                    {
+                                        er.StatusBarGrid.Visibility = Visibility.Visible;
+
+                                        er.TotalItemsTextBlock.Text = grandTotalItems.ToString();
+
+                                        er.TotalUnitCostTextBlock.Text = grandTotalUnitCost.ToString("C2", CultureInfo.CurrentCulture);
+
+                                        er.GrandTotalTextBlock.Visibility = Visibility.Visible;
+                                        er.GrandTotalTextBlock.Text = grandTotalTotal.ToString("C2", CultureInfo.CurrentCulture);
+                                    }
+                                    break;
+                                case EventAttributes.FooBar:
+                                    break;
                             }
                         }
-
                     }
                 }
                 Status.Content = "Reminders needing attention " + ReminderListView.Items.Count;
@@ -268,9 +315,43 @@ namespace The_Oracle
             {
                 Console.WriteLine("----------------------------------------");
 
-                OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "RefreshLog - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "RefreshLog - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
                 msg.ShowDialog();
             }
+        }
+
+        public List<EventHorizonLINQ> GetProductItems(EventHorizonLINQ eventHorizonLINQ)
+        {
+            List<EventHorizonLINQ> Return_EventHorizonLINQ = new List<EventHorizonLINQ>();
+
+            try
+            {
+                List<EventHorizonLINQ> eventHorizonLINQRepliesList = DataTableManagement.GetReplies(eventHorizonLINQ.ID);
+
+                foreach (EventHorizonLINQ eventHorizonLINQRow in eventHorizonLINQRepliesList)
+                {
+                    switch (eventHorizonLINQRow.EventAttributeID)
+                    {
+                        case EventAttributes.Standard:
+                            break;
+                        case EventAttributes.LineItem:
+                            Return_EventHorizonLINQ.Add(eventHorizonLINQRow);
+                            break;
+                        case EventAttributes.FooBar:
+                            break;
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("----------------------------------------");
+
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetProductItems - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
+                msg.ShowDialog();
+            }
+
+            return Return_EventHorizonLINQ;
         }
 
         private EventRow CreateEventLogRow(EventHorizonLINQ eventHorizonLINQ)
@@ -428,11 +509,16 @@ namespace The_Oracle
                 eventRow.RepliesButton.IsEnabled = false;
             }
 
+            if (eventHorizonLINQ.EventAttributeID == EventAttributes.LineItem)
+            {
+                eventRow.MorphEventRow();
+            }
+
             eventRow.Tag = eventHorizonLINQ;
 
             return eventRow;
         }
-        
+
         public Dictionary<Int32, Grid> UsersOnlineStatus = new Dictionary<int, Grid>();
 
         public void LoadCurrentUserIntoGrid(Grid grid)
@@ -491,7 +577,7 @@ namespace The_Oracle
             {
                 Console.WriteLine("----------------------------------------");
 
-                OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadCurrentUserIntoUserStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadCurrentUserIntoUserStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
                 msg.ShowDialog();
             }
         }
@@ -571,7 +657,7 @@ namespace The_Oracle
 
                     stackPanel.Children.Add(border);
                 }
-                
+
                 i++;
             }
             grid.Children.Add(stackPanel);
@@ -676,7 +762,7 @@ namespace The_Oracle
             {
                 Console.WriteLine("----------------------------------------");
 
-                OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadUsersIntoUsersStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadUsersIntoUsersStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
                 msg.ShowDialog();
             }
         }
@@ -716,9 +802,9 @@ namespace The_Oracle
                     newEventWindow.Show();
                     break;
                 case Key.F2:
-                    if (eventHorizonLINQ != null)
+                    if (eventHorizonLINQ_SelectedItem != null)
                     {
-                        EventWindow editEventWindow = new EventWindow(this, EventWindowModes.NewNote, eventHorizonLINQ, null);
+                        EventWindow editEventWindow = new EventWindow(this, EventWindowModes.NewNote, eventHorizonLINQ_SelectedItem, null);
                         editEventWindow.Show();
                     }
                     break;
@@ -826,20 +912,20 @@ namespace The_Oracle
                     }
                     break;
                 case Key.Delete:
-                    if (eventHorizonLINQ != null)
+                    if (eventHorizonLINQ_SelectedItem != null)
                     {
                         if (SelectedReplies > 0)
                         {
-                            OracleRequesterNotification rorn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, this event has notes or replies", InformationTextBlock = "You won't be able to delete an event if it has notes or replies.\nYou must delete them first." }, RequesterTypes.OK);
+                            EventHorizonRequesterNotification rorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, this event has notes or replies", InformationTextBlock = "You won't be able to delete an event if it has notes or replies.\nYou must delete them first." }, RequesterTypes.OK);
                             rorn.ShowDialog();
                         }
                         else
                         {
-                            OracleRequesterNotification orn = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Delete this event, are you sure", InformationTextBlock = "Consider changing the events status to archived instead.\nThat way you use the event as a log." }, RequesterTypes.NoYes);
+                            EventHorizonRequesterNotification orn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Delete this event, are you sure", InformationTextBlock = "Consider changing the events status to archived instead.\nThat way you use the event as a log." }, RequesterTypes.NoYes);
                             var result = orn.ShowDialog();
                             if (result == true)
                             {
-                                if (eventHorizonLINQ.ID > 0) DataTableManagement.DeleteEvent(eventHorizonLINQ.ID);
+                                if (eventHorizonLINQ_SelectedItem.ID > 0) DataTableManagement.DeleteEvent(eventHorizonLINQ_SelectedItem.ID);
                             }
                         }
                     }
@@ -860,7 +946,7 @@ namespace The_Oracle
                 switch (buttonID)
                 {
                     case 0:
-                        EventTypeComboBox.SelectedIndex = 0;                     
+                        EventTypeComboBox.SelectedIndex = 0;
                         break;
                     case 1:
                         EventTypeComboBox.SelectedIndex = 0;
@@ -920,9 +1006,9 @@ namespace The_Oracle
                         newEventWindow.Show();
                         break;
                     case 1:
-                        if (eventHorizonLINQ != null)
+                        if (eventHorizonLINQ_SelectedItem != null)
                         {
-                            EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ, null);
+                            EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ_SelectedItem, null);
                             editEventWindow.Show();
                         }
                         break;
@@ -1030,8 +1116,6 @@ namespace The_Oracle
             }
         }
 
-        public EventHorizonLINQ eventHorizonLINQ;
-
         private void AddItemsToEventTypeComboBox()
         {
             foreach (EventType eventType in XMLReaderWriter.EventTypesList)
@@ -1086,7 +1170,7 @@ namespace The_Oracle
         }
 
         public int FilterMode = FilterModes.None;
-        
+
         private void FilterModeRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton radioButton = e.OriginalSource as RadioButton;
@@ -1129,7 +1213,7 @@ namespace The_Oracle
         }
 
         public int DisplayMode = DisplayModes.Reminders;
-        
+
         private void DisplayModeRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton radioButton = e.OriginalSource as RadioButton;
@@ -1235,24 +1319,24 @@ namespace The_Oracle
 
             EventRow item = (EventRow)dep;
 
-            eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
+            eventHorizonLINQ_SelectedItem = (EventHorizonLINQ)item.Tag;
 
             Console.WriteLine();
             Console.WriteLine(">S>>MainWindow ReminderListView_PreviewMouseLeftButtonDown<<<<");
             Console.WriteLine();
 
-            Console.Write("item.Tag eventHorizonLINQ.Source_Mode = ");
-            Console.WriteLine(eventHorizonLINQ.Source_Mode);
-            
-            Console.Write("item.Tag eventHorizonLINQ.ID = ");
-            Console.WriteLine(eventHorizonLINQ.ID);
-            
-            Console.Write("item.Tag eventHorizonLINQ.Source_ParentEventID = ");
-            Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
-            
-            Console.Write("item.Tag eventHorizonLINQ.Attributes_Replies = ");
-            Console.WriteLine(eventHorizonLINQ.Attributes_Replies);
-            
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.Source_Mode = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.Source_Mode);
+
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.ID = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.ID);
+
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.Source_ParentEventID = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.Source_ParentEventID);
+
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.Attributes_Replies = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.Attributes_Replies);
+
             Console.WriteLine();
             Console.WriteLine(">F>>MainWindow ReminderListView_PreviewMouseLeftButtonDown<<<<");
             Console.WriteLine();
@@ -1272,34 +1356,34 @@ namespace The_Oracle
 
             EventRow item = (EventRow)dep;
 
-            eventHorizonLINQ = (EventHorizonLINQ)item.Tag;
+            eventHorizonLINQ_SelectedItem = (EventHorizonLINQ)item.Tag;
 
             Console.WriteLine();
             Console.WriteLine(">S>>MainWindow ReminderListView_MouseDoubleClick<<<<");
             Console.WriteLine();
 
-            Console.Write("item.Tag eventHorizonLINQ.Source_Mode = ");
-            Console.WriteLine(eventHorizonLINQ.Source_Mode);
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.Source_Mode = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.Source_Mode);
 
-            Console.Write("item.Tag eventHorizonLINQ.ID = ");
-            Console.WriteLine(eventHorizonLINQ.ID);
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.ID = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.ID);
 
-            Console.Write("item.Tag eventHorizonLINQ.Source_ParentEventID = ");
-            Console.WriteLine(eventHorizonLINQ.Source_ParentEventID);
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.Source_ParentEventID = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.Source_ParentEventID);
 
-            Console.Write("item.Tag eventHorizonLINQ.Attributes_Replies = ");
-            Console.WriteLine(eventHorizonLINQ.Attributes_Replies);
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.Attributes_Replies = ");
+            Console.WriteLine(eventHorizonLINQ_SelectedItem.Attributes_Replies);
 
             Console.WriteLine();
             Console.WriteLine(">F>>MainWindow ReminderListView_MouseDoubleClick<<<<");
             Console.WriteLine();
-            
+
             ReminderListView.SelectedItem = item;
 
-            if (eventHorizonLINQ != null)
+            if (eventHorizonLINQ_SelectedItem != null)
             {
                 //try open event as EditEvent
-                EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ, null);
+                EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ_SelectedItem, null);
                 editEventWindow.Show();
             }
         }
@@ -1312,6 +1396,94 @@ namespace The_Oracle
                     RefreshLog(ListViews.Reminder);
                 else
                     RefreshLog(ListViews.Log);
+            }
+        }
+
+        private void TreeViewButtons_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var code = button.Tag.ToString();
+            uint switchValue = uint.Parse(code);
+
+            switch (switchValue)
+            {
+                case 0://Events
+                    if (ReportsStackPanel.Visibility == System.Windows.Visibility.Collapsed)
+                    {
+                        ReportsStackPanel.Visibility = System.Windows.Visibility.Visible;
+                        ReportsVisualTreeListView.Visibility = System.Windows.Visibility.Visible;
+                    }
+                    else
+                    {
+                        ReportsStackPanel.Visibility = System.Windows.Visibility.Collapsed;
+                        ReportsVisualTreeListView.Visibility = System.Windows.Visibility.Collapsed;
+                    }
+                    break;
+            }
+        }
+        private void LoadReportsVisualTree()
+        {
+            ListOfReports.Clear();
+            ReportsVisualTreeListView.Items.Clear();
+
+            ListOfReports.Add(new SelectionIdString { Id = 0, Name = "Product Items" });
+            ListOfReports.Add(new SelectionIdString { Id = 1, Name = "Spare" });
+            ListOfReports.Add(new SelectionIdString { Id = 2, Name = "Spare" });
+            ListOfReports.Add(new SelectionIdString { Id = 3, Name = "Spare" });
+
+            NumberOfReportsTextBlock.Text = ListOfReports.Count.ToString();
+
+            foreach (SelectionIdString ss in ListOfReports)
+            {
+                ReportsVisualTreeListView.Items.Add(new TextBlock { Tag = ss.Id, Text = " " + ss.Name + " ", Style = (Style)FindResource("TreeViewItemTextBlock") });
+            }
+        }
+
+        private void ReportsVisualTreeListView_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is ListViewItem))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            ListViewItem item = (ListViewItem)dep;
+
+            item.IsSelected = true;
+            e.Handled = true;
+
+            try
+            {
+                if (ReportsVisualTreeListView.SelectedItem == null)
+                {
+                    return;
+                }
+
+                if (ReportsVisualTreeListView.SelectedItems.Count == 1)
+                {
+                    ReportsWindow REPORTS;
+
+                    switch (ReportsVisualTreeListView.SelectedIndex)
+                    {
+                        case 0:
+                            if (eventHorizonLINQ_SelectedItem != null)
+                            {
+                                REPORTS = new ReportsWindow(eventHorizonLINQ_SelectedItem, GetProductItems(eventHorizonLINQ_SelectedItem));
+                                REPORTS.Show();
+                            }
+                            break;                  
+                    }
+
+                    item.IsSelected = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }

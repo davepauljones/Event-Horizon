@@ -22,6 +22,13 @@ namespace The_Oracle
         public FontAwesomeIcon Icon = FontAwesomeIcon.Star;
         public Color Color = Colors.White;
     }
+    public class AttributeType
+    {
+        public Int32 ID = 0;
+        public String Name = string.Empty;
+        public FontAwesomeIcon Icon = FontAwesomeIcon.Star;
+        public Color Color = Colors.White;
+    }
     public class SourceType
     {
         public Int32 ID = 0;
@@ -40,9 +47,10 @@ namespace The_Oracle
     public class OracleSettings
     {
         public Int32 UserID = 0;
-        public String UserName = string.Empty;
-        public String DatabaseLocation = string.Empty;
-        public String HoverDatabaseLocation = string.Empty;
+        public string UserName = string.Empty;
+        public string DatabaseLocation = string.Empty;
+        public bool OverridePassword = false;
+        public string HoverDatabaseLocation = string.Empty;
     }
     public class OracleCustomMessage
     {
@@ -229,5 +237,41 @@ namespace The_Oracle
     {
         public const int AccessMDB = 0;
         public const int SQLite = 1;
+    }
+    public struct FileExtensionsImage
+    {
+        public const string png = "png";
+        public const string jpg = "jpg";
+        public const string bmp = "bmp";
+    }
+    public struct FileExtensionsAudio
+    {
+        public const string wav = "wav";
+        public const string mp3 = "mp3";
+    }
+    public struct FileExtensionsOffice
+    {
+        public const string doc = "doc";
+        public const string xls = "xls";
+        public const string pdf = "pdf";
+    }
+    public struct FileExtensionsMovie
+    {
+        public const string mp4 = "mp4";
+        public const string mov = "mov";
+        public const string wmv = "mwv";
+        public const string avi = "avi";
+        public const string mkv = "mkv";
+    }
+    public struct EventAttributes
+    {
+        public const int Standard = 0;
+        public const int LineItem = 1;
+        public const int FooBar = 2;
+    }
+    public class SelectionIdString
+    {
+        public Int32 Id;
+        public string Name;
     }
 }

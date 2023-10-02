@@ -5,6 +5,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.IO;
+using System.Windows.Media.Imaging;
+using System.Diagnostics;
 
 namespace The_Oracle
 {
@@ -35,6 +38,7 @@ namespace The_Oracle
             this.userID = eventHorizonLINQ.UserID;
 
             AddItemsToEventTypeComboBox();
+            AddItemsToEventAttributeComboBox();
             AddItemsToSourceComboBox();
             AddItemsToFrequencyComboBox();
 
@@ -363,7 +367,17 @@ namespace The_Oracle
 
             if (eventWindowMode != EventWindowModes.EditMainEvent || eventWindowMode != EventWindowModes.EditNote || eventWindowMode != EventWindowModes.EditReply) EventTypeComboBox.SelectedIndex = 0;
         }
-        
+
+        private void AddItemsToEventAttributeComboBox()
+        {
+            foreach (AttributeType attributeType in XMLReaderWriter.AttributeTypesList)
+            {
+                EventAttributeComboBox.Items.Add(EventHorizonAttributes.GetAttributeStackPanel(attributeType));
+            }
+
+            if (eventWindowMode != EventWindowModes.EditMainEvent || eventWindowMode != EventWindowModes.EditNote || eventWindowMode != EventWindowModes.EditReply) EventAttributeComboBox.SelectedIndex = 0;
+        }
+
         private void AddItemsToSourceComboBox()
         {
             foreach (SourceType sourceType in XMLReaderWriter.SourceTypesList)
@@ -422,6 +436,37 @@ namespace The_Oracle
             StatusComboBox.Items.Add(StatusIcons.GetStatus(Statuses.ActiveNotifiedReadArchived));
         }
 
+        private double CalcGrandTotal()
+        {
+            double unitCost;
+            if (double.TryParse(UnitCostTextBox.Text, out unitCost))
+            {
+                eventHorizonLINQ.UnitCost = unitCost;
+                Console.Write("eventHorizonLINQ.TargetUserID = ");
+                Console.WriteLine(eventHorizonLINQ.TargetUserID);
+            }
+
+            Int32 qty;
+            if (Int32.TryParse(QtyTextBox.Text, out qty))
+            {
+                eventHorizonLINQ.Qty = qty;
+                Console.Write("eventHorizonLINQ.Qty = ");
+                Console.WriteLine(eventHorizonLINQ.Qty);
+            }
+
+            double discount;
+            if (double.TryParse(DiscountTextBox.Text, out discount))
+            {
+                eventHorizonLINQ.Discount = discount;
+                Console.Write("eventHorizonLINQ.Discount = ");
+                Console.WriteLine(eventHorizonLINQ.Discount);
+            }
+
+            double grandTotal = (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) - ((eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) * eventHorizonLINQ.Discount / 100);
+
+            return grandTotal;
+        }
+
         private void GetOracleEvent()
         {
             EventTypeComboBox.SelectedIndex = eventHorizonLINQ.EventTypeID;
@@ -430,6 +475,22 @@ namespace The_Oracle
             FrequencyComboBox.SelectedIndex = eventHorizonLINQ.FrequencyID;
             TargetUserIDComboBox.SelectedIndex = eventHorizonLINQ.TargetUserID;
             StatusComboBox.SelectedIndex = eventHorizonLINQ.StatusID;
+
+            EventAttributeComboBox.SelectedIndex = eventHorizonLINQ.EventAttributeID;
+
+            TryLoadImage(eventHorizonLINQ.PathFileName);
+
+            QtyTextBox.Text = eventHorizonLINQ.Qty.ToString();
+
+            UnitCostTextBox.Text = $"{eventHorizonLINQ.UnitCost:0.00}";
+
+            DiscountTextBox.Text = $"{eventHorizonLINQ.Discount:0.00}";
+
+            GrandTotalTextBox.Text = $"{CalcGrandTotal():0.00}";
+
+            StockTextBox.Text = eventHorizonLINQ.Stock.ToString();
+
+            PathFileNameLabel.Content = eventHorizonLINQ.PathFileName;
 
             DateTime targetDateTimet = eventHorizonLINQ.TargetDate;
             TargetDatePicker.SelectedDate = targetDateTimet;
@@ -466,9 +527,40 @@ namespace The_Oracle
             eventHorizonLINQ.StatusID = StatusComboBox.SelectedIndex;
             eventHorizonLINQ.TargetDate = targetDateTime;
 
-            eventHorizonLINQ.EventAttributeID = 0;
-            eventHorizonLINQ.PathFileName = string.Empty;
-            eventHorizonLINQ.UnitCost = 0;
+            eventHorizonLINQ.EventAttributeID = EventAttributeComboBox.SelectedIndex;
+            //eventHorizonLINQ.PathFileName = string.Empty;
+            
+            double unitCost;
+            if (double.TryParse(UnitCostTextBox.Text, out unitCost))
+            {
+                eventHorizonLINQ.UnitCost = unitCost;
+                Console.Write("eventHorizonLINQ.TargetUserID = ");
+                Console.WriteLine(eventHorizonLINQ.TargetUserID);
+            }
+
+            Int32 qty;
+            if (Int32.TryParse(QtyTextBox.Text, out qty))
+            {
+                eventHorizonLINQ.Qty = qty;
+                Console.Write("eventHorizonLINQ.Qty = ");
+                Console.WriteLine(eventHorizonLINQ.Qty);
+            }
+
+            double discount;
+            if (double.TryParse(DiscountTextBox.Text, out discount))
+            {
+                eventHorizonLINQ.Discount = discount;
+                Console.Write("eventHorizonLINQ.Discount = ");
+                Console.WriteLine(eventHorizonLINQ.Discount);
+            }
+
+            Int32 stock;
+            if (Int32.TryParse(StockTextBox.Text, out stock))
+            {
+                eventHorizonLINQ.Stock = stock;
+                Console.Write("eventHorizonLINQ.Stock = ");
+                Console.WriteLine(eventHorizonLINQ.Stock);
+            }
 
             Console.Write("eventHorizonLINQ.TargetUserID = ");
             Console.WriteLine(eventHorizonLINQ.TargetUserID);
@@ -498,7 +590,100 @@ namespace The_Oracle
         {
             DetailsTextBox.Text = EventTypeName + " " + SourceTypeName;
         }
-        
+
+        private void BrowseButton_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            Button button = e.OriginalSource as Button;
+
+            int buttonID = 0;
+
+            bool success = Int32.TryParse(button.Tag.ToString(), out buttonID);
+
+            if (button != null && success)
+            {
+                switch (buttonID)
+                {
+                    case 0:
+                        string PathFileNameString = EventHorizonDatabaseCreate.OpenFile("All supported files|*.jpg;*.jpeg;*.png|JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|Portable Network Graphic (*.png)|*.png|PDF (*.pdf)|*.pdf|All files (*.*)|*.*");
+
+                        TryLoadImage(PathFileNameString);
+
+                        PathFileNameLabel.Content = PathFileNameString;
+                        eventHorizonLINQ.PathFileName = PathFileNameString;
+                        break;
+                    case 1:
+                        if (eventHorizonLINQ.PathFileName != string.Empty)
+                        {
+                            if (File.Exists(eventHorizonLINQ.PathFileName))
+                            {
+                                Topmost = false;
+                                Process.Start(eventHorizonLINQ.PathFileName);        
+                            }
+                        }
+                        break;
+                    case 2:
+                        double unitCost;
+                        if (double.TryParse(UnitCostTextBox.Text, out unitCost))
+                        {
+                            eventHorizonLINQ.UnitCost = unitCost;
+                            Console.Write("eventHorizonLINQ.TargetUserID = ");
+                            Console.WriteLine(eventHorizonLINQ.TargetUserID);
+                        }
+
+                        UnitCostTextBox.Text = $"{eventHorizonLINQ.UnitCost:0.00}";
+
+                        double discount;
+                        if (double.TryParse(DiscountTextBox.Text, out discount))
+                        {
+                            eventHorizonLINQ.Discount = discount;
+                            Console.Write("eventHorizonLINQ.Discount = ");
+                            Console.WriteLine(eventHorizonLINQ.Discount);
+                        }
+
+                        DiscountTextBox.Text = $"{eventHorizonLINQ.Discount:0.00}";
+
+                        GrandTotalTextBox.Text = $"{CalcGrandTotal():0.00}";
+                        break;
+                }
+            }
+        }
+
+        internal void TryLoadImage(string pathFileName)
+        {
+            string FileExtension = Path.GetExtension(pathFileName);
+
+            FileExtension = FileExtension.Replace(".", string.Empty);
+
+            FileExtension = FileExtension.ToLower();
+
+            Console.Write("File Extension is ");
+            Console.WriteLine(FileExtension);
+
+            if (FileExtension == FileExtensionsImage.png || FileExtension == FileExtensionsImage.jpg || FileExtension == FileExtensionsImage.bmp)
+            {
+                PathFileNameImage.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/EventHorizonLogoNewSmall.png"));
+
+                try
+                {
+                    if (File.Exists(pathFileName))
+                    {
+                        Uri src = new Uri(pathFileName, UriKind.RelativeOrAbsolute);
+                        BitmapImage small_image_bmp = new BitmapImage();
+                        small_image_bmp.BeginInit();
+                        small_image_bmp.CacheOption = BitmapCacheOption.OnLoad;
+                        small_image_bmp.UriSource = src;
+                        small_image_bmp.EndInit();
+
+                        PathFileNameImage.Source = small_image_bmp;
+                    }
+                }
+                catch
+                {
+                    //UserPhoto.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,,/Images/face.jpg"));
+                }
+            }
+        }
+
         public int TargetUserID = 0;
         
         private void TargetUserIDComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -553,30 +738,25 @@ namespace The_Oracle
                         nev.Top += 30;
                         break;
                     case EventFormCloseButtons.Save:
+                        SetOracleEvent();
                         switch (eventWindowMode)
                         {
                             case EventWindowModes.ViewMainEvent:
-                                SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewMainEvent);
                                 break;
                             case EventWindowModes.ViewNote:
-                                SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewNote);
                                 break;
                             case EventWindowModes.ViewReply:
-                                SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewReply);
                                 break;
                             case EventWindowModes.EditMainEvent:
-                                SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditMainEvent);
                                 break;
                             case EventWindowModes.EditNote:
-                                SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditNote);
                                 break;
                             case EventWindowModes.EditReply:
-                                SetOracleEvent();
                                 DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditReply);
                                 break;
                             case EventWindowModes.NewEvent:
@@ -618,6 +798,30 @@ namespace The_Oracle
             Console.WriteLine(EventTypeComboBox.SelectedIndex);
             Console.Write("** item.Tag EventTypeName = ");
             Console.WriteLine(EventTypeName);
+        }
+
+        String EventAttributeName = string.Empty;
+
+        private void EventAttributeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is StackPanel))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            var selectedTag = ((StackPanel)EventAttributeComboBox.SelectedItem).Tag.ToString();
+
+            EventAttributeName = selectedTag;
+
+            Console.Write("** EventAttributeComboBox_SelectedIndex = ");
+            Console.WriteLine(EventAttributeComboBox.SelectedIndex);
+            Console.Write("** item.Tag EventAttributeName = ");
+            Console.WriteLine(EventAttributeName);
         }
 
         String SourceTypeName = string.Empty;
@@ -718,5 +922,6 @@ namespace The_Oracle
                 }
             }
         }
+
     }
 }

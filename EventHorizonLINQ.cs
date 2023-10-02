@@ -28,9 +28,13 @@ namespace The_Oracle
         public DateTime RemindMeDateTime = DateTime.Now;
         public Int32 NotificationAcknowledged = 0;
         public Int32 EventModeID = 0;
+        
         public Int32 EventAttributeID = 0;
         public String PathFileName = string.Empty;
         public Double UnitCost = 0;
+        public Int32 Qty = 0;
+        public Double Discount = 0;
+        public Int32 Stock = 0;
 
         public Int32 Attributes_TotalDays = 0;
         public Color Attributes_TotalDaysEllipseColor = Colors.Black;

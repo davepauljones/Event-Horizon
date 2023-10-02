@@ -2,11 +2,11 @@
 
 namespace The_Oracle
 {
-    public class OracleDatabaseFileWatcher
+    public class EventHorizonDatabaseFileWatcher
     {
         public FileSystemWatcher watcher;
 
-        public OracleDatabaseFileWatcher(string path, MainWindow.OnOracleDatabaseChanged OnChanged )
+        public EventHorizonDatabaseFileWatcher(string path, MainWindow.OnOracleDatabaseChanged OnChanged )
         {
             // Create a new FileSystemWatcher and set its properties.
             watcher = new FileSystemWatcher();

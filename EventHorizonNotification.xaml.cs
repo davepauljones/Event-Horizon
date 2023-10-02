@@ -6,9 +6,9 @@ using System.Windows.Controls;
 namespace The_Oracle
 {
     /// <summary>
-    /// Interaction logic for OracleNotification.xaml
+    /// Interaction logic for EventHorizonNotification.xaml
     /// </summary>
-    public partial class OracleNotification : Window
+    public partial class EventHorizonNotification : Window
     {
         MainWindow mw;
         Int32 eventID;
@@ -16,10 +16,10 @@ namespace The_Oracle
         Int32 totalNotifications;
         EventHorizonLINQ eventHorizonLINQ;
 
-        public static Dictionary<Int32, OracleNotification> Notifications = new Dictionary<int, OracleNotification>();
+        public static Dictionary<Int32, EventHorizonNotification> Notifications = new Dictionary<int, EventHorizonNotification>();
         Int32 remindMeID = RemindMeDateTimes.OneHour;
 
-        public OracleNotification(MainWindow mw, Int32 eventID, Int32 notificationNumber, Int32 totalNotifications, EventHorizonLINQ eventHorizonLINQ = null)
+        public EventHorizonNotification(MainWindow mw, Int32 eventID, Int32 notificationNumber, Int32 totalNotifications, EventHorizonLINQ eventHorizonLINQ = null)
         {
             InitializeComponent();
             this.Hide();

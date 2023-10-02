@@ -203,10 +203,10 @@
                         </Button>
 
                     </Grid>
-                    <Label Grid.Row="13" Grid.Column="2" x:Name="StatusLabel" Content="Status" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" Width="442" HorizontalContentAlignment="Left" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="7,0,30,0"/>
-                    <StackPanel Grid.Row="13" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button x:Name="RetryButton" Content="Retry" Tag="1" Style="{DynamicResource OracleButtonStyle }" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="WelcomeButton_Click"/>
-                        <Button x:Name="LoginButton" Content="Login" Tag="0" Style="{DynamicResource OracleButtonStyle }" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,10,7,10" Click="WelcomeButton_Click"/>
+                    <Label Grid.Row="13" Grid.Column="2" x:Name="StatusLabel" Content="Status" FontSize="12" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" Width="442" HorizontalContentAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Margin="7,0,30,14"/>
+                    <StackPanel Grid.Row="13" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                        <Button x:Name="RetryButton" Content="Retry" Tag="1" Style="{DynamicResource OracleButtonStyle }" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="WelcomeButton_Click"/>
+                        <Button x:Name="LoginButton" Content="Close" Tag="0" Style="{DynamicResource OracleButtonStyle }" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,10,7,10" Click="WelcomeButton_Click"/>
                     </StackPanel>
                 </Grid>
             </Border>

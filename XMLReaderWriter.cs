@@ -13,10 +13,12 @@ namespace The_Oracle
         public static Int32 UserID = 0;
         public static string UserNameString = string.Empty;
         public static string DefaultPasswordString = string.Empty;
+        public static bool OverridePassword = false;
         public static String DatabaseLocationString = AppDomain.CurrentDomain.BaseDirectory;
         public static List<User> UsersList = new List<User>();
         public static List<EventType> EventTypesList = new List<EventType>();
         public static List<FunctionKeyEventType> FunctionKeyEventTypesList = new List<FunctionKeyEventType>();
+        public static List<AttributeType> AttributeTypesList = new List<AttributeType>();
         public static List<SourceType> SourceTypesList = new List<SourceType>();
         public static TimeSpan UsersRefreshTimeSpan = TimeSpan.FromMilliseconds(100);
         public static int DatabaseSystem = DatabaseSystems.SQLite;
@@ -103,11 +105,21 @@ namespace The_Oracle
                         Console.WriteLine(DefaultPasswordString);
                     }
 
+                    XmlNode nodeToFind;
+                    XmlElement root = doc.DocumentElement;
+
+                    nodeToFind = root.SelectSingleNode("//OverridePassword");
+                    if (nodeToFind != null)
+                        OverridePassword = true;
+                    else
+                        OverridePassword = false;
+
+
                     result = true;
                 }
                 else
                 {
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "EventHorizonLocalSettings.xml file is missing", InformationTextBlock = "Event Horizon could not find a required xml file, located in the Event Horizon install folder!" }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "EventHorizonLocalSettings.xml file is missing", InformationTextBlock = "Event Horizon could not find a required xml file, located in the Event Horizon install folder!" }, RequesterTypes.OK);
                     msg.ShowDialog();
                     result = false;
                 }
@@ -129,54 +141,6 @@ namespace The_Oracle
 
             return result;
         }
-
-        //public static void ReadXMLNodesOracleSettingsXMLFile(String PathName)
-        //{
-        //    try
-        //    {
-        //        if (File.Exists(PathName + "\\" + DefaultRemoteSettingsFileName))
-        //        {
-        //            XmlDocument doc = new XmlDocument();
-        //            doc.Load(PathName + "\\" + DefaultRemoteSettingsFileName);
-
-        //            XmlNodeList nodes = doc.DocumentElement.SelectNodes("/EventHorizon/Settings");
-
-        //            Console.WriteLine("User");
-        //            foreach (XmlNode node in nodes)
-        //            {
-        //                UserNameString = node.SelectSingleNode("UserName").InnerText;
-        //                DatabaseLocationString = node.SelectSingleNode("DatabaseLocation").InnerText;
-
-        //                UsersRefreshTimeSpan = TimeSpan.FromMilliseconds(UserID * 250);
-
-        //                Console.Write("UserID = ");
-        //                Console.Write(UserID);
-        //                Console.Write(" UserNameString = ");
-        //                Console.Write(UserNameString);
-        //                Console.Write(" DatabaseLocationString = ");
-        //                Console.Write(DatabaseLocationString);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "EventHorizonLocalSettings.xml file is missing", InformationTextBlock = "Event Horizon could not find a required xml file, located in the Event Horizon install folder!" }, RequesterTypes.OK);
-        //            msg.ShowDialog();
-        //        }
-        //    }
-        //    catch (XmlException e)
-        //    {
-        //        Console.WriteLine("----------------------------------------");
-
-        //        Console.WriteLine("An exception was thrown.");
-        //        Console.WriteLine(e.Message);
-        //        if (e.Data.Count > 0)
-        //        {
-        //            Console.WriteLine("  Extra details:");
-        //            foreach (DictionaryEntry de in e.Data)
-        //                Console.WriteLine("    Key: {0,-20}      Value: {1}", "'" + de.Key.ToString() + "'", de.Value);
-        //        }
-        //    }
-        //}
 
         public static bool TryReadNodesFrom_EventHorizonRemoteSettings_Users(String PathFileName)
         {
@@ -219,7 +183,7 @@ namespace The_Oracle
                 }
                 else
                 {
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "TryReadNodes - ", InformationTextBlock = "Missing " + XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml file." }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "TryReadNodes - ", InformationTextBlock = "Missing " + XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml file." }, RequesterTypes.OK);
                     msg.ShowDialog();
                     result = false;
                 }
@@ -339,7 +303,7 @@ namespace The_Oracle
                 }
                 else
                 {
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "TryReadNodes - ", InformationTextBlock = "Missing " + XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml file." }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "TryReadNodes - ", InformationTextBlock = "Missing " + XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml file." }, RequesterTypes.OK);
                     msg.ShowDialog();
                     result = false;
                 }
@@ -359,6 +323,15 @@ namespace The_Oracle
                 result = false;
             }
             return result;
+        }
+
+        public static void CreateEventAttributes()
+        {
+            AttributeTypesList.Clear();
+
+            AttributeTypesList.Add(new AttributeType { ID = 0, Name = "Standard", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FF84a3ab") });
+            AttributeTypesList.Add(new AttributeType { ID = 1, Name = "LineItem", Icon = FontAwesomeIcon.Dollar, Color = (Color)ColorConverter.ConvertFromString("#FF10b05b") });
+            AttributeTypesList.Add(new AttributeType { ID = 2, Name = "FooBar", Icon = FontAwesomeIcon.Dribbble, Color = (Color)ColorConverter.ConvertFromString("#FFdb2a3e") });
         }
 
         public static bool TryReadNodesFrom_EventHorizonRemoteSettings_SourceTypes(String PathFileName)
@@ -400,7 +373,7 @@ namespace The_Oracle
                 }
                 else
                 {
-                    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "TryReadNodes - ", InformationTextBlock = "Missing " + XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml file." }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "TryReadNodes - ", InformationTextBlock = "Missing " + XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteSettings.xml file." }, RequesterTypes.OK);
                     msg.ShowDialog();
                     result = false;
                 }
@@ -615,6 +588,7 @@ namespace The_Oracle
             writer.WriteStartElement("Settings");
             writer.WriteElementString("UserName", os.UserName);
             writer.WriteElementString("DatabaseLocation", os.DatabaseLocation);
+            //writer.WriteElementString("OverridePassword", os.OverridePassword);
 
             writer.WriteEndElement();
             writer.WriteEndElement();

@@ -6,7 +6,7 @@ using Microsoft.Win32;
 
 namespace The_Oracle
 {
-    public class OracleDatabaseCreate
+    public class EventHorizonDatabaseCreate
     {
         internal static bool CheckIfDatabaseExists()
         {
@@ -16,7 +16,7 @@ namespace The_Oracle
             }
             else
             {
-                OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Event Horizon could not connect to a database", InformationTextBlock = "You have a few options, you can browse for the database, create a new database or close Event Horizon and seek IT Support." }, RequesterTypes.OK);
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Event Horizon could not connect to a database", InformationTextBlock = "You have a few options, you can browse for the database, create a new database or close Event Horizon and seek IT Support." }, RequesterTypes.OK);
                 msg.ShowDialog();
                 return false;
             }
@@ -77,12 +77,12 @@ namespace The_Oracle
                     XMLReaderWriter.GlobalConnectionString = "Data Source=" + filename;
                     CreateEventLogTable();
                     CreateUsersTable();
-                    OracleRequesterNotification fileCreated = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = ReusableMessages.SuccessfullyCreatedFile, InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification fileCreated = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = ReusableMessages.SuccessfullyCreatedFile, InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility }, RequesterTypes.OK);
                     fileCreated.ShowDialog();
                 }
                 else
                 {
-                    OracleRequesterNotification fileExistWarning = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = ReusableMessages.ThatFileAlreadyExists, InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification fileExistWarning = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = ReusableMessages.ThatFileAlreadyExists, InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility }, RequesterTypes.OK);
                     fileExistWarning.ShowDialog();
                 }
             }   
@@ -145,6 +145,67 @@ namespace The_Oracle
             return pathFileName;
         }
         
+        internal static string OpenFile(string filter, string initialDirectory=null)
+        {
+            string pathFileName = string.Empty;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            //openFileDialog.FileName = "EventHorizonRemoteDatabase"; // Default file name
+            openFileDialog.DefaultExt = ".*"; // Default file extension
+            //openFileDialog.Filter = "PNG file (.png)|*.png"; // Filter files by extension
+            openFileDialog.Filter = filter;
+              //"All supported files|*.jpg;*.jpeg;*.png|" +
+              //"JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              //"Portable Network Graphic (*.png)|*.png|" +
+              //"PDF (*.pdf)|*.pdf|" +
+              //"All files (*.*)|*.*";
+            
+            if (initialDirectory != null) openFileDialog.InitialDirectory = initialDirectory;
+
+            // Show open file dialog box
+            bool? result = openFileDialog.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                pathFileName = openFileDialog.FileName;
+
+                Console.Write("OpenImageFile - openFileDialog.FileName = ");
+                Console.WriteLine(openFileDialog.FileName);
+            }
+
+            return pathFileName;
+        }
+        internal static string OpenImageFile()
+        {
+            string pathFileName = string.Empty;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            //openFileDialog.FileName = "EventHorizonRemoteDatabase"; // Default file name
+            openFileDialog.DefaultExt = ".png"; // Default file extension
+            //openFileDialog.Filter = "PNG file (.png)|*.png"; // Filter files by extension
+            openFileDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png";
+            //openFileDialog.InitialDirectory = XMLReaderWriter.DatabaseLocationString;
+
+            // Show open file dialog box
+            bool? result = openFileDialog.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                pathFileName = openFileDialog.FileName;
+
+                Console.Write("OpenImageFile - openFileDialog.FileName = ");
+                Console.WriteLine(openFileDialog.FileName);
+            }
+
+            return pathFileName;
+        }
+
         internal static void CreateEventLogTable()
         {
             string sqlquery = @"CREATE TABLE [EventLog]([ID] COUNTER, [EventTypeID] INTEGER, [SourceID] INTEGER, [Details] MEMO, [FrequencyID] INTEGER, [StatusID] INTEGER, [CreatedDateTime] DATETIME, [TargetDateTime] DATETIME, [UserID] INTEGER, [TargetUserID] INTEGER, [ReadByMeID] INTEGER, [LastViewedDateTime] DATETIME, [RemindMeID] INTEGER, [RemindMeDateTime] DATETIME, [NotificationAcknowledged] INTEGER, [ParentEventID] INTEGER, [EventModeID] INTEGER, [EventAttributeID] INTEGER, [PathFileName] MEMO, [UnitCost] CURRENCY);";
@@ -202,7 +263,7 @@ namespace The_Oracle
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CreateEventLogTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CreateEventLogTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -266,7 +327,7 @@ namespace The_Oracle
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CreateUsersTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CreateUsersTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -283,7 +344,7 @@ namespace The_Oracle
                     //{
                     //    using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                     //    {
-                    //        using (SQLiteCommand command = new SQLiteCommand("ALTER TABLE EventLog ADD COLUMN UnitCost REAL;", connection))
+                    //        using (SQLiteCommand command = new SQLiteCommand("ALTER TABLE EventLog ADD COLUMN Stock INTEGER;", connection))
                     //        {
                     //            connection.Open();
 

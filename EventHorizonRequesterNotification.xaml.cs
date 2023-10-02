@@ -8,16 +8,16 @@ using Microsoft.Win32;
 namespace The_Oracle
 {
     /// <summary>
-    /// Interaction logic for OracleRequesterNotification.xaml
+    /// Interaction logic for EventHorizonRequesterNotification.xaml
     /// </summary>
-    public partial class OracleRequesterNotification : Window
+    public partial class EventHorizonRequesterNotification : Window
     {
         MainWindow mw;
         OracleCustomMessage oracleCustomMessage;
         int requesterType;
         bool overrideNotificationSound;
 
-        public OracleRequesterNotification(MainWindow mw, OracleCustomMessage oracleCustomMessage, int requesterType, bool overrideNotificationSound=true)
+        public EventHorizonRequesterNotification(MainWindow mw, OracleCustomMessage oracleCustomMessage, int requesterType, bool overrideNotificationSound=true)
         {
             InitializeComponent();
             this.Hide();

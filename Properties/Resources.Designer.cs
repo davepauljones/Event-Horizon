@@ -69,9 +69,9 @@ namespace The_Oracle.Properties {
         ///copy &quot;C:\My Solutions\Event Horizon\bin\Debug\Event Horizon.exe&quot; &quot;D:\Oracle Steve Jobs\&quot;
         ///copy &quot;C:\My Solutions\Event Horizon\bin\Debug\Event Horizon.exe&quot; &quot;D:\Oracle Steve Waznia [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string CopyOracle {
+        internal static string CopyEventHorizon {
             get {
-                return ResourceManager.GetString("CopyOracle", resourceCulture);
+                return ResourceManager.GetString("CopyEventHorizon", resourceCulture);
             }
         }
         
