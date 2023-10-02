@@ -279,29 +279,29 @@ namespace The_Oracle
                 case DatabaseSystems.AccessMDB:                  
                     break;
                 case DatabaseSystems.SQLite:
-                    try
-                    {
-                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
-                        {
-                            using (SQLiteCommand command = new SQLiteCommand("ALTER TABLE EventLog ADD COLUMN UnitCost REAL;", connection))
-                            {
-                                connection.Open();
+                    //try
+                    //{
+                    //    using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                    //    {
+                    //        using (SQLiteCommand command = new SQLiteCommand("ALTER TABLE EventLog ADD COLUMN UnitCost REAL;", connection))
+                    //        {
+                    //            connection.Open();
 
-                                command.ExecuteNonQuery();
+                    //            command.ExecuteNonQuery();
 
-                                MainWindow.mw.Status.Content = "Added Fields";
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Handle exceptions here
-                        Console.WriteLine("Error: " + ex.Message);
-                        Console.WriteLine("-------------------*---------------------");
+                    //            MainWindow.mw.Status.Content = "Added Fields";
+                    //        }
+                    //    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    // Handle exceptions here
+                    //    Console.WriteLine("Error: " + ex.Message);
+                    //    Console.WriteLine("-------------------*---------------------");
 
-                        OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "AddFieldsToExistingTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
-                        msg.ShowDialog();
-                    }
+                    //    OracleRequesterNotification msg = new OracleRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "AddFieldsToExistingTable - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                    //    msg.ShowDialog();
+                    //}
                     break;
             }
         }
