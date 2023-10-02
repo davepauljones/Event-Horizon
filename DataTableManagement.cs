@@ -13,6 +13,9 @@ namespace The_Oracle
     public class DataTableManagement
     {
         public static EventHorizonEvent EventHorizon_Event = new EventHorizonEvent();
+        public static int RowLimitMode = RowLimitModes.LimitOnly;
+        public static Int32 RowLimit = 30;
+        public static Int32 RowOffset = 30;
 
         public static List<EventHorizonLINQ> GetEvents(int listViewToPopulate, Int32 eventTypeID, Int32 filterMode, Int32 displayMode, string searchString)
         {
@@ -58,11 +61,45 @@ namespace The_Oracle
                     {
                         using (SQLiteConnection conn = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM EventLog", conn);
+                            string sqlcmd;
+
+                            switch (RowLimitMode)
+                            {
+                                case RowLimitModes.NoLimit:
+                                    sqlcmd = "SELECT * FROM EventLog;";
+                                    break;
+                                case RowLimitModes.LimitOnly:
+                                    sqlcmd = "SELECT * FROM EventLog LIMIT @Limit;";
+                                    break;
+                                case RowLimitModes.LimitWithOffset:
+                                    sqlcmd = "SELECT * FROM EventLog LIMIT @Limit OFFSET @Offset;";
+                                    break;
+                                default:
+                                    sqlcmd = "SELECT * FROM EventLog LIMIT @Limit;";
+                                    break;
+                            }
+
+                            SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
 
                             conn.Open();
 
                             SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+
+                            switch (RowLimitMode)
+                            {
+                                case RowLimitModes.NoLimit:
+                                    break;
+                                case RowLimitModes.LimitOnly:
+                                    adapter.SelectCommand.Parameters.AddWithValue("@Limit", RowLimit);
+                                    break;
+                                case RowLimitModes.LimitWithOffset:
+                                    adapter.SelectCommand.Parameters.AddWithValue("@Limit", RowLimit);
+                                    adapter.SelectCommand.Parameters.AddWithValue("@Offset", RowOffset);
+                                    break;
+                                default:
+                                    adapter.SelectCommand.Parameters.AddWithValue("@Limit", RowLimit);
+                                    break;
+                            }
 
                             adapter.Fill(EventHorizon_Event);
                         }
