@@ -184,33 +184,33 @@ namespace The_Oracle
             if (notificationsAddedThisCycle > 0) MiscFunctions.PlayFile("Notification.mp3");
         }
 
-        private Int32 LastGetLastEntry = 0;
+        //private Int32 LastGetLastEntry = 0;
 
-        public void GetLastEntry(List<EventHorizonLINQ> eventHorizonLINQList, bool justLoaded)
-        {
-            try
-            {
-                var maxValue = eventHorizonLINQList.Max(x => x.ID);
-                var result = eventHorizonLINQList.First(x => x.ID == maxValue);
+        //public void GetLastEntry(List<EventHorizonLINQ> eventHorizonLINQList, bool justLoaded)
+        //{
+        //    try
+        //    {
+        //        var maxValue = eventHorizonLINQList.Max(x => x.ID);
+        //        var result = eventHorizonLINQList.First(x => x.ID == maxValue);
 
-                if (LastGetLastEntry < maxValue)
-                {
-                    if (justLoaded == true && result.UserID != XMLReaderWriter.UserID)
-                    {
-                        EventHorizonBriefNotification eventHorizonBriefNotification = new EventHorizonBriefNotification(this, maxValue, 1, 1, result);
-                        eventHorizonBriefNotification.Show();
-                    }
+        //        if (LastGetLastEntry < maxValue)
+        //        {
+        //            if (justLoaded == true && result.UserID != XMLReaderWriter.UserID)
+        //            {
+        //                EventHorizonBriefNotification eventHorizonBriefNotification = new EventHorizonBriefNotification(this, maxValue, 1, 1, result);
+        //                eventHorizonBriefNotification.Show();
+        //            }
 
-                    LastGetLastEntry = maxValue;
-                }
-            }
-            catch (Exception e)
-            {
-                //necessary if searching a blank database
-                Console.WriteLine("***** GeLastEntry *****");
-                Console.WriteLine(e);
-            }
-        }
+        //            LastGetLastEntry = maxValue;
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        //necessary if searching a blank database
+        //        Console.WriteLine("***** GeLastEntry *****");
+        //        Console.WriteLine(e);
+        //    }
+        //}
 
         public void RefreshLog(int listViewToPopulate)
         {
