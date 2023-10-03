@@ -71,7 +71,7 @@ namespace The_Oracle
 
                     connection.Close();
 
-                    if (recordCount != previousPolledCount || ID != previousPolledID)
+                    if (recordCount > previousPolledCount && ID != previousPolledID)
                     {
                         MainWindow.mw.RunningTask();
 
