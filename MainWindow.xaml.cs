@@ -11,6 +11,7 @@ using System.IO;
 using System.Windows.Media.Effects;
 using FontAwesome.WPF;
 using System.Globalization;
+using Xceed.Wpf.Toolkit;
 
 namespace The_Oracle
 {
@@ -48,22 +49,6 @@ namespace The_Oracle
         {
             databasePoller = new DatabasePoller(XMLReaderWriter.GlobalConnectionString);
             databasePoller.StartPolling();
-        }
-
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
-
-        private async void RunTask()
-        {
-            System.Threading.Thread.Sleep(XMLReaderWriter.UsersRefreshTimeSpan);
-
-            await Task.Factory.StartNew(() =>
-            {
-                RunningTask();
-
-            });
         }
 
         public void RunningTask()
@@ -106,15 +91,6 @@ namespace The_Oracle
 
             if (welcome.ShowDialog() == true)
             {
-                //if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg"))
-                //{
-                //    ImageBrush myBrush = new ImageBrush();
-                //    myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\OracleBackground.jpg", UriKind.Absolute));
-
-                //    this.Background = myBrush;
-                //    this.Background.Opacity = 0.3;
-                //}
-
                 if (XMLReaderWriter.OverridePassword == false)
                 {
                     EventHorizonLogin oli = new EventHorizonLogin(MainWindow.mw);
@@ -123,7 +99,7 @@ namespace The_Oracle
                     if (oli.ShowDialog() == true)
                     {
 
-                        this.WindowState = WindowState.Maximized;
+                        this.WindowState = System.Windows.WindowState.Maximized;
 
                         EventStackPanel.Visibility = Visibility.Visible;
 
@@ -136,7 +112,7 @@ namespace The_Oracle
                 }
                 else
                 {
-                    this.WindowState = WindowState.Maximized;
+                    this.WindowState = System.Windows.WindowState.Maximized;
 
                     EventStackPanel.Visibility = Visibility.Visible;
 
@@ -1288,6 +1264,9 @@ namespace The_Oracle
                     case 1:
                         SearchTextBox.Text = string.Empty;
                         break;
+                    case 2:
+                        //Just Refresh
+                        break;
                 }
             }
 
@@ -1486,5 +1465,65 @@ namespace The_Oracle
                 Console.WriteLine(ex.Message);
             }
         }
+
+        private void RecordsToViewRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton radioButton = e.OriginalSource as RadioButton;
+
+            if (MainWindowIs_Loaded)
+            {
+                int buttonID = 0;
+
+                bool success = Int32.TryParse(radioButton.Tag.ToString(), out buttonID);
+
+                if (radioButton != null && success)
+                {
+                    switch (buttonID)
+                    {
+                        case RowLimitModes.NoLimit:
+                            DataTableManagement.RowLimitMode = RowLimitModes.NoLimit;
+                            RecordsIntegerUpDown.IsEnabled = false;
+                            OffsetIntegerUpDown.IsEnabled = false;
+                            break;
+                        case RowLimitModes.LimitOnly:
+                            DataTableManagement.RowLimitMode = RowLimitModes.LimitOnly;
+                            RecordsIntegerUpDown.IsEnabled = true;
+                            OffsetIntegerUpDown.IsEnabled = false;
+                            break;
+                        case RowLimitModes.LimitWithOffset:
+                            DataTableManagement.RowLimitMode = RowLimitModes.LimitWithOffset;
+                            RecordsIntegerUpDown.IsEnabled = true;
+                            OffsetIntegerUpDown.IsEnabled = true;
+                            break;
+                    }
+                }
+
+                Console.Write("DataTableManagement.RowLimitMode = ");
+                Console.WriteLine(DataTableManagement.RowLimitMode);
+
+                if (MainWindowIs_Loaded)
+                {
+                    if (DisplayMode == DisplayModes.Reminders)
+                        RefreshLog(ListViews.Reminder);
+                    else
+                        RefreshLog(ListViews.Log);
+                }
+            }
+        }
+
+        private void RecordsIntegerUpDown_Spinned(object sender, SpinEventArgs e)
+        {
+            DataTableManagement.RowLimit = (int)RecordsIntegerUpDown.Value;
+            Console.Write("DataTableManagement.RowLimit = ");
+            Console.WriteLine(DataTableManagement.RowLimit);
+        }
+
+        private void OffsetIntegerUpDown_Spinned(object sender, SpinEventArgs e)
+        {
+            DataTableManagement.RowOffset = (int)OffsetIntegerUpDown.Value;
+            Console.Write("DataTableManagement.RowOffset = ");
+            Console.WriteLine(DataTableManagement.RowOffset);
+        }
+
     }
 }

@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:The_Oracle"
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Icon="EventHorizonIcon.ico" 
-        Title="EventHorizon" Height="600" Width="1400" MinHeight="400" KeyDown="Window_KeyDown" Closing="MainWindow_Closing">
+        Title="EventHorizon" Height="600" Width="1400" MinHeight="400" KeyDown="Window_KeyDown">
     <Window.Resources>
         <local:HeightToParentConverter x:Key="ListViewConverter"/>
         <local:EventHorizonLogo x:Key="EventHorizonLogoUserControl"/>
@@ -51,7 +52,7 @@
                         <ListView x:Name="ReportsVisualTreeListView" Margin="30,6,0,10" Visibility="Collapsed" Style="{StaticResource VisualTreeViewListView}" PreviewMouseDown="ReportsVisualTreeListView_PreviewMouseDown"/>
                     </StackPanel>
                 </StackPanel>
-                
+
                 <Grid Grid.Row="0" Grid.Column="2" Margin="0,10,0,0">
                     <StackPanel x:Name="FuntionKeysStackPanel" Orientation="Vertical" HorizontalAlignment="Center">
                         <StackPanel.Effect>
@@ -272,15 +273,49 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                                             <Label Content="User Filter Mode" FontWeight="Medium" Margin="7,0,0,0"/>
-                                            <RadioButton Tag="0" GroupName="FilterModeRadioButton" Content = "None" Margin="10,0,0,0" Checked="FilterModeRadioButton_Checked"/>
-                                            <RadioButton Tag="1" GroupName="FilterModeRadioButton" Content = "Origin is Me" Margin="10,0,0,0" Checked="FilterModeRadioButton_Checked"/>
-                                            <RadioButton Tag="2" GroupName="FilterModeRadioButton" Content = "Origin or Target is Me" Margin="10,0,0,0" IsChecked="True" Checked="FilterModeRadioButton_Checked"/>
-                                            <RadioButton Tag="3" GroupName="FilterModeRadioButton" Content = "Origin and Target is Me" Margin="10,0,0,0" Checked="FilterModeRadioButton_Checked"/>
+                                            <RadioButton Tag="0" GroupName="FilterModeRadioButton" Content = "All Users" Margin="10,-4,0,0" Checked="FilterModeRadioButton_Checked"/>
+                                            <RadioButton Tag="1" GroupName="FilterModeRadioButton" Content = "Origin is Me" Margin="10,-2,0,0" Checked="FilterModeRadioButton_Checked"/>
+                                            <RadioButton Tag="2" GroupName="FilterModeRadioButton" Content = "Origin or Target is Me" Margin="10,-2,0,0" IsChecked="True" Checked="FilterModeRadioButton_Checked"/>
+                                            <RadioButton Tag="3" GroupName="FilterModeRadioButton" Content = "Origin and Target is Me" Margin="10,-2,0,0" Checked="FilterModeRadioButton_Checked"/>
+                                            <Button Tag="2" Content="REFRESH" Width="80" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Height="30" Margin="12,4,0,0" HorizontalAlignment="Right" Click="All_ButtonClick"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="180">
-                                            <Label Content="Display Mode" FontWeight="Medium" Margin="7,0,0,0"/>
-                                            <RadioButton Tag="1" GroupName="DisplayModeRadioButton" Content = "Reminders" Margin="10,0,0,0" IsChecked="True" Checked="DisplayModeRadioButton_Checked"/>
-                                            <RadioButton Tag="0" GroupName="DisplayModeRadioButton" Content = "By New" Margin="10,0,0,0" Checked="DisplayModeRadioButton_Checked"/>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <Label Grid.Column="0" Grid.Row="0" Content="Display Mode" FontWeight="Medium" Margin="7,0,0,0"/>
+                                                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical">
+                                                    <RadioButton Tag="1" GroupName="DisplayModeRadioButton" Content = "Reminders" Margin="10,-4,0,0" IsChecked="True" Checked="DisplayModeRadioButton_Checked"/>
+                                                    <RadioButton Tag="0" GroupName="DisplayModeRadioButton" Content = "By New" Margin="10,-2,0,0" Checked="DisplayModeRadioButton_Checked"/>
+                                                </StackPanel>
+                                                <Label Grid.Column="1" Grid.Row="0" Content="Limit" FontWeight="Medium" Margin="7,0,28,0" HorizontalAlignment="Right"/>
+                                                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="2" Name="RecordsIntegerUpDown" Width="50" Height="30" Minimum="30" Maximum="360" Increment="30" Value="30" Padding="0,0,6,0" HorizontalAlignment="Right" Margin="0,0,20,0" Spinned="RecordsIntegerUpDown_Spinned"/>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="106*"/>
+                                                    <ColumnDefinition Width="15*"/>
+                                                    <ColumnDefinition Width="59*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <Label Grid.Column="0" Grid.Row="0" Content="Records To View" FontWeight="Medium" Margin="7,-8,0,0"/>
+                                                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,16,0,0" Grid.RowSpan="2">
+                                                    <RadioButton Tag="0" GroupName="RecordsToViewRadioButton" Content = "No Limit" Margin="10,-4,0,0" Checked="RecordsToViewRadioButton_Checked"/>
+                                                    <RadioButton Tag="1" GroupName="RecordsToViewRadioButton" Content = "Limit Only" Margin="10,-2,0,0" IsChecked="True" Checked="RecordsToViewRadioButton_Checked"/>
+                                                    <RadioButton Tag="2" GroupName="RecordsToViewRadioButton" Content = "Limit + Offset" Margin="10,-2,0,0" Checked="RecordsToViewRadioButton_Checked"/>
+                                                </StackPanel>
+                                                <Label Grid.Column="1" Grid.Row="0" Content="Offset" FontWeight="Medium" Margin="7,0,18,0" Grid.ColumnSpan="2"/>
+                                                <xctk:IntegerUpDown Grid.Column="1" Name="OffsetIntegerUpDown" Width="50" Height="30" Minimum="0" Maximum="360" Increment="30" Value="30" Padding="0,0,6,0" HorizontalAlignment="Right" Margin="0,22,20,1" IsEnabled="False" Spinned="OffsetIntegerUpDown_Spinned" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+                                            </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right">
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -303,7 +338,7 @@
                                                 </Border>
                                                 <Button Tag="1" Content="CLEAR" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Height="30" Margin="12,6,0,0" Click="All_ButtonClick"/>
                                             </StackPanel>
-                                            
+
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>

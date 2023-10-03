@@ -100,6 +100,12 @@ namespace The_Oracle
         public const int Normal = 0;
         public const int Reminders = 1;
     }
+    public struct RowLimitModes
+    {
+        public const int NoLimit = 0;
+        public const int LimitOnly = 1;
+        public const int LimitWithOffset = 2;
+    }
     public struct FilterModes
     {
         public const int None = 0;

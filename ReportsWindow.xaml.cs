@@ -60,23 +60,40 @@ namespace The_Oracle
 
             flowDoc.Blocks.Add(new BlockUIContainer(i));
 
-            string TitleRun;
-            string DescriptionRun;
-
-            TitleRun = "Event Horizon - List for ID: " + eventHorizonLINQ_MainEvent.ID;
-            DescriptionRun = eventHorizonLINQ_MainEvent.Details;
-
-            Paragraph titlerun = new Paragraph(new Bold(new Run(TitleRun + " Report")));
-            titlerun.FontSize = 30;
-            flowDoc.Blocks.Add(titlerun);
-
-            Paragraph descriptionrun = new Paragraph(new Run(DescriptionRun));
-            flowDoc.Blocks.Add(descriptionrun);
-
             Paragraph dt = new Paragraph(new Run(DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString()));
             flowDoc.Blocks.Add(dt);
 
+            string TitleRun;
+            string DescriptionRun;
+
+            TitleRun = "Ref. " + eventHorizonLINQ_MainEvent.ID.ToString("D5");
+            DescriptionRun = eventHorizonLINQ_MainEvent.Details;
+
+            Paragraph titlerun = new Paragraph(new Run(TitleRun));
+            titlerun.FontSize = 20;
+            flowDoc.Blocks.Add(titlerun);
+
+            Paragraph descriptionrun = new Paragraph(new Bold(new Run(DescriptionRun)));
+            descriptionrun.FontSize = 30;
+            flowDoc.Blocks.Add(descriptionrun);
+
             this.Title += " - " + TitleRun;
+
+            if (File.Exists(eventHorizonLINQ_MainEvent.PathFileName))
+            {
+                // Create an InlineUIContainer to host an image
+                InlineUIContainer imageContainer = new InlineUIContainer();
+                
+                Image productImage = new Image();
+                productImage.Width = 763;
+                productImage.Height = 407;
+                productImage.Stretch = Stretch.Uniform;
+                productImage.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                productImage.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                productImage.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri(eventHorizonLINQ_MainEvent.PathFileName));
+
+                flowDoc.Blocks.Add(new BlockUIContainer(productImage));
+            }
 
             Table tableHeader = new Table();
             // ...and add it to the FlowDocument Blocks collection.
