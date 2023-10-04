@@ -282,4 +282,30 @@ namespace The_Oracle
         public Int32 Id;
         public string Name;
     }
+    public struct TreeViews
+    {
+        public const int Reports = 0;
+        public const int Help = 1;
+    }
+    public struct Reports
+    {
+        public const int None = 99;
+        public const int Product = 0;
+        public const int Foo = 1;
+        public const int FooBar = 2;
+    }
+    public struct Helps
+    {
+        public const int None = 99;
+        public const int EventStatus = 0;
+        public const int Foo = 1;
+        public const int FooBar = 2;
+    }
+    public struct EventRowContextMenu
+    {
+        public const int ViewAsProduct = 0;
+        public const int Spare = 1;
+        public const int Delete = 2;
+        public const int Help = 3;
+    }
 }

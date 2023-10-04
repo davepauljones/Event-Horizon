@@ -48,7 +48,7 @@
                         <local:EventHorizonLogo/>
                     </StackPanel>
 
-                    <Image Grid.Row="0" Grid.Column="2" Source="pack://application:,,/gplv3-216x110.png" Stretch="UniformToFill" Width="216" Height="110" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,50,0"/>
+                    <Image Grid.Row="0" Grid.Column="2" Source="pack://application:,,/Images/gplv3-216x110.png" Stretch="UniformToFill" Width="216" Height="110" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,50,0"/>
 
                     <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
                         <Grid.RowDefinitions>

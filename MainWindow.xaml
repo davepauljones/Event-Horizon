@@ -31,25 +31,48 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" x:Name="ReportsTreeViewStackPanel">
-                    <Button Tag="0" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
-                        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0" Background="#FF800080" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TreeViewIconGridStyle}">
-                                    <fa:FontAwesome Icon="FileText" Style="{StaticResource TreeViewIconTextBlockStyle}"/>
+                <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Orientation="Vertical">
+                    <StackPanel x:Name="ReportsTreeViewStackPanel">
+                        <Button Tag="0" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
+                            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Background="#FF800080" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TreeViewIconGridStyle}">
+                                        <fa:FontAwesome Icon="FileText" Style="{StaticResource TreeViewIconTextBlockStyle}"/>
+                                    </Grid>
+                                    <TextBlock Grid.Column="0" Text="REPORTS" Style="{StaticResource TreeViewHeaderTextBlock}"/>
+                                    <TextBlock x:Name="NumberOfReportsTextBlock" Grid.Column="1" Text="0" Style="{StaticResource TreeViewNumberOfTextBlock}"/>
                                 </Grid>
-                                <TextBlock Grid.Column="0" Text="REPORTS" Style="{StaticResource TreeViewHeaderTextBlock}"/>
-                                <TextBlock x:Name="NumberOfReportsTextBlock" Grid.Column="1" Text="0" Style="{StaticResource TreeViewNumberOfTextBlock}"/>
-                            </Grid>
-                        </WrapPanel>
-                    </Button>
+                            </WrapPanel>
+                        </Button>
 
-                    <StackPanel x:Name="ReportsStackPanel" Orientation="Vertical" Visibility="Collapsed">
-                        <ListView x:Name="ReportsVisualTreeListView" Margin="30,6,0,10" Visibility="Collapsed" Style="{StaticResource VisualTreeViewListView}" PreviewMouseDown="ReportsVisualTreeListView_PreviewMouseDown"/>
+                        <StackPanel x:Name="ReportsStackPanel" Orientation="Vertical" Visibility="Collapsed">
+                            <ListView x:Name="ReportsVisualTreeListView" Margin="30,6,0,10" Visibility="Collapsed" Style="{StaticResource VisualTreeViewListView}" PreviewMouseDown="ReportsVisualTreeListView_PreviewMouseDown"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel x:Name="HelpTreeViewStackPanel">
+                        <Button Tag="1" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
+                            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Background="ForestGreen" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TreeViewIconGridStyle}">
+                                        <fa:FontAwesome Icon="Question" Style="{StaticResource TreeViewIconTextBlockStyle}"/>
+                                    </Grid>
+                                    <TextBlock Grid.Column="0" Text="HELP" Style="{StaticResource TreeViewHeaderTextBlock}"/>
+                                    <TextBlock x:Name="NumberOfHelpTextBlock" Grid.Column="1" Text="0" Style="{StaticResource TreeViewNumberOfTextBlock}"/>
+                                </Grid>
+                            </WrapPanel>
+                        </Button>
+
+                        <StackPanel x:Name="HelpStackPanel" Orientation="Vertical" Visibility="Collapsed">
+                            <ListView x:Name="HelpVisualTreeListView" Margin="30,6,0,10" Visibility="Collapsed" Style="{StaticResource VisualTreeViewListView}" PreviewMouseDown="HelpVisualTreeListView_PreviewMouseDown"/>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
 
@@ -372,7 +395,7 @@
 
                                     <Line X1="3" Y1="0" X2="1321" Y2="0" Stroke="Crimson" StrokeThickness="1" Margin="0,0,0,2"/>
 
-                                    <ListView x:Name="ReminderListView" SelectionMode="Single" Margin="2,0,0,0" BorderThickness="0" PreviewMouseLeftButtonDown="ReminderListView_PreviewMouseLeftButtonDown" MouseDoubleClick="ReminderListView_MouseDoubleClick">
+                                    <ListView x:Name="ReminderListView" SelectionMode="Single" Margin="2,0,0,0" BorderThickness="0" PreviewMouseLeftButtonDown="ReminderListView_PreviewMouseLeftButtonDown" PreviewMouseRightButtonDown="ReminderListView_PreviewMouseLeftButtonDown" MouseDoubleClick="ReminderListView_MouseDoubleClick">
                                         <ListView.Template>
                                             <ControlTemplate>
                                                 <ItemsPresenter></ItemsPresenter>
