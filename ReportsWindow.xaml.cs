@@ -70,11 +70,11 @@ namespace The_Oracle
             DescriptionRun = eventHorizonLINQ_MainEvent.Details;
 
             Paragraph titlerun = new Paragraph(new Run(TitleRun));
-            titlerun.FontSize = 20;
+            titlerun.FontSize = 14;
             flowDoc.Blocks.Add(titlerun);
 
             Paragraph descriptionrun = new Paragraph(new Bold(new Run(DescriptionRun)));
-            descriptionrun.FontSize = 30;
+            descriptionrun.FontSize = 18;
             flowDoc.Blocks.Add(descriptionrun);
 
             this.Title += " - " + TitleRun;

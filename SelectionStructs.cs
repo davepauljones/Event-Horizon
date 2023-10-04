@@ -153,6 +153,8 @@ namespace The_Oracle
         public const int TimeSpan_4to7_Days = 2;
         public const int TimeSpan_8to14_Days = 3;
         public const int TimeSpan_15to28_Days = 4;
+        public const int TimeSpan_29to60_Days = 5;
+        public const int TimeSpan_61to90_Days = 6;
     }
     public struct Statuses
     {

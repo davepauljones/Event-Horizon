@@ -120,7 +120,17 @@
             <Label x:Name="TotalDaysLabel" Content="30" Foreground="Black" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
         </Grid>
 
-        <TextBlock Grid.Column="8" Grid.Row="1" x:Name="DetailsTextBlock" Text="Mary had a little lambMary had a little lambMary had a lMary had a little lambMary had a l" Foreground="Black" FontSize="13" Margin="10,0,5,0" Width="330" Height="18" MaxWidth="330" HorizontalAlignment="Left" TextWrapping="NoWrap"/>
+        <TextBlock Grid.Column="8" Grid.Row="1" x:Name="DetailsTextBlock" Text="Mary had a little lambMary had a little lambMary had a lMary had a little lambMary had a l" Foreground="Black" FontSize="13" Margin="10,0,5,0" Width="330" Height="18" MaxWidth="330" HorizontalAlignment="Left" TextWrapping="NoWrap">
+            <!--<TextBlock.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="View as Product" Tag="0" Click="RightMouseButton_Click"/>
+                <MenuItem Header="Spare" Tag="1" Click="RightMouseButton_Click"/>
+                <Separator />
+                <MenuItem Header="Delete" Tag="2" Click="RightMouseButton_Click"/>
+                <MenuItem Header="Help" Tag="3" Click="RightMouseButton_Click"/>
+            </ContextMenu>
+            </TextBlock.ContextMenu>-->
+        </TextBlock>
 
         <Border x:Name="SourceTypeFontAwesomeIconBorder" Grid.Column="9" Grid.Row="1" Width="28" Height="28" Margin="10,0,0,0" BorderThickness="0" CornerRadius="3" Background="DodgerBlue" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="0">
             <Border.Effect>
@@ -167,11 +177,6 @@
                     <ItemsPresenter></ItemsPresenter>
                 </ControlTemplate>
             </ListView.Template>
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical" Margin="0,2,0,-2" HorizontalAlignment="Right"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
         </ListView>
 
         <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="14" x:Name="StatusBarGrid" Width="1280" Height="29" Margin="0,4,0,0" MaxWidth="1280" HorizontalAlignment="Left" IsEnabled="False" Visibility="Visible">

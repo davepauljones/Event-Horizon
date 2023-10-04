@@ -1131,6 +1131,12 @@ namespace The_Oracle
                     case ReminderListTimeSpans.TimeSpan_15to28_Days:
                         ReminderListTimeSpan = new TimeSpan(29, 0, 0, 0);
                         break;
+                    case ReminderListTimeSpans.TimeSpan_29to60_Days:
+                        ReminderListTimeSpan = new TimeSpan(60, 0, 0, 0);
+                        break;
+                    case ReminderListTimeSpans.TimeSpan_61to90_Days:
+                        ReminderListTimeSpan = new TimeSpan(90, 0, 0, 0);
+                        break;
                 }
             }
 
@@ -1525,5 +1531,61 @@ namespace The_Oracle
             Console.WriteLine(DataTableManagement.RowOffset);
         }
 
+        private void RightMouseButton_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem button = e.OriginalSource as MenuItem;
+
+            int buttonID = 0;
+
+            bool success = Int32.TryParse(button.Tag.ToString(), out buttonID);
+
+            if (button != null && success)
+            {
+                switch (buttonID)
+                {
+                    case 0:
+                        Console.WriteLine("View as Product");
+                        try
+                        {
+                            //if (ReminderListView.SelectedItem == null)
+                            //{
+                            //    return;
+                            //}
+
+                            //if (ReminderListView.SelectedItems.Count == 1)
+                            //{
+                                ReportsWindow REPORTS;
+
+                                //switch (ReminderListView.SelectedIndex)
+                                //{
+                                //    case 0:
+                                        if (eventHorizonLINQ_SelectedItem != null)
+                                        {
+                                            REPORTS = new ReportsWindow(eventHorizonLINQ_SelectedItem, GetProductItems(eventHorizonLINQ_SelectedItem));
+                                            REPORTS.Show();
+                                        }
+                                //        break;
+                                //}
+
+                                //ReminderListView.IsSelected = false;
+                            //}
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        break;
+                    case 1:
+                        Console.WriteLine("Spare");
+                        break;
+                    case 2:
+                        Console.WriteLine("Delete");
+                        break;
+                    case 3:
+                        Console.WriteLine("Help");
+                        break;
+                }
+            }
+        }
     }
 }
