@@ -31,7 +31,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Orientation="Vertical">
+                <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Orientation="Vertical">
                     <StackPanel x:Name="ReportsTreeViewStackPanel">
                         <Button Tag="0" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
                             <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top">
