@@ -436,6 +436,188 @@ namespace The_Oracle
             return _EventHorizonLINQReturnList;
         }
 
+        public static EventHorizonLINQ GetEvent(Int32 eventID)
+        {
+            EventHorizonLINQ _EventHorizonLINQReturn = new EventHorizonLINQ();
+
+            switch (XMLReaderWriter.DatabaseSystem)
+            {
+                case DatabaseSystems.AccessMDB:
+                    try
+                    {
+                        using (OleDbConnection conn = new OleDbConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            OleDbCommand cmd = new OleDbCommand($"SELECT * FROM EventLog", conn);
+
+                            conn.Open();
+
+                            OleDbDataAdapter adapter = new OleDbDataAdapter(cmd);
+
+                            adapter.Fill(EventHorizon_Event);
+                        }
+                    }
+                    catch (OleDbException myOLEDBException)
+                    {
+                        Console.WriteLine("-------------------*---------------------");
+                        for (int i = 0; i <= myOLEDBException.Errors.Count - 1; i++)
+                        {
+                            Console.WriteLine("Message " + (i + 1) + ": " + myOLEDBException.Errors[i].Message);
+                            Console.WriteLine("Native: " + myOLEDBException.Errors[i].NativeError.ToString());
+                            Console.WriteLine("Source: " + myOLEDBException.Errors[i].Source);
+                            Console.WriteLine("SQL: " + myOLEDBException.Errors[i].SQLState);
+                            Console.WriteLine("----------------------------------------");
+
+                            EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetEvent - " + myOLEDBException.Errors[i].Source, InformationTextBlock = myOLEDBException.Errors[i].Message + " SQL: " + myOLEDBException.Errors[i].SQLState }, RequesterTypes.OK);
+                            msg.ShowDialog();
+                        }
+                    }
+                    break;
+                case DatabaseSystems.SQLite:
+                    try
+                    {
+                        using (SQLiteConnection conn = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            string sqlcmd = "SELECT * FROM EventLog ORDER BY ID DESC LIMIT 1;";
+                                 
+                            SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
+
+                            conn.Open();
+
+                            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+
+                            adapter.Fill(EventHorizon_Event);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("Error: " + ex.Message);
+                        Console.WriteLine("-------------------*---------------------");
+
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetEvent - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        msg.ShowDialog();
+                    }
+                    break;
+            }
+
+            EnumerableRowCollection<DataRow> query;
+
+            query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                    where eventHorizonEvent.Field<Int32>("ID") == eventID
+                    select eventHorizonEvent;                  
+
+            DataView dataView = query.AsDataView();
+
+            Console.WriteLine("*** Start of view.ToTable().Rows ***");
+
+            foreach (DataRow dataRow in dataView.ToTable().Rows)
+            {
+                EventHorizonLINQ eventHorizonLINQ = new EventHorizonLINQ();
+
+                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonLINQ.ID)) eventHorizonLINQ.ID = 0;
+                if (!int.TryParse(dataRow["EventTypeID"].ToString(), out eventHorizonLINQ.EventTypeID)) eventHorizonLINQ.EventTypeID = 0;
+                if (!int.TryParse(dataRow["SourceID"].ToString(), out eventHorizonLINQ.SourceID)) eventHorizonLINQ.SourceID = 0;
+
+                eventHorizonLINQ.Details = dataRow["Details"].ToString();
+
+                if (!int.TryParse(dataRow["FrequencyID"].ToString(), out eventHorizonLINQ.FrequencyID)) eventHorizonLINQ.FrequencyID = 0;
+                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonLINQ.StatusID)) eventHorizonLINQ.StatusID = 0;
+
+                string createdDateTimeString = dataRow["CreatedDateTime"].ToString();
+                DateTime createdDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
+                eventHorizonLINQ.CreationDate = createdDateTime;
+
+                string targetDateTimeString = dataRow["TargetDateTime"].ToString();
+                DateTime targetDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(targetDateTimeString, out targetDateTime))
+                {
+                    if (targetDateTime.TimeOfDay == TimeSpan.Zero)
+                        targetDateTimeString = targetDateTime.ToString("dd/MM/y");
+                    else
+                        targetDateTimeString = targetDateTime.ToString("dd/MM/y HH:mm");
+
+                    eventHorizonLINQ.TargetDate = targetDateTime;
+                }
+                else
+                    Console.WriteLine("Unable to parse targetDateTimeString '{0}'", targetDateTimeString);
+
+                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonLINQ.UserID)) eventHorizonLINQ.UserID = 0;
+
+                if (!int.TryParse(dataRow["TargetUserID"].ToString(), out eventHorizonLINQ.TargetUserID)) eventHorizonLINQ.TargetUserID = 0;
+
+                if (!int.TryParse(dataRow["ReadByMeID"].ToString(), out eventHorizonLINQ.ReadByMeID)) eventHorizonLINQ.ReadByMeID = 0;
+
+                string lastViewedDateTimeString = dataRow["LastViewedDateTime"].ToString();
+                DateTime lastViewedDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(lastViewedDateTimeString, out lastViewedDateTime)) lastViewedDateTimeString = lastViewedDateTime.ToString("dd/MM/y HH:mm");
+                eventHorizonLINQ.LastViewedDate = lastViewedDateTime;
+
+                TimeSpan timeSpan = MainWindow.mw.ReminderListTimeSpan;
+
+                int totalDays = Convert.ToInt32((targetDateTime.Date - DateTime.Today).Days);
+                Color iconEllipeColor = Colors.Pink;
+
+                if ((DateTime.Today + timeSpan) > targetDateTime.Date)
+                {
+                    switch (totalDays)
+                    {
+                        case int n when (n <= 0):
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe60000");
+                            break;
+                        case int n when (n > 0 && n <= 3):
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFff7800");
+                            break;
+                        case int n when (n > 3 && n <= 7):
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF4cbb17");
+                            break;
+                        case int n when (n > 7 && n <= 14):
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FF9fee79");
+                            break;
+                        case int n when (n > 14 && n <= 28):
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFcff6bb");
+                            break;
+                        case int n when (n > 28):
+                            iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe7fadd");
+                            break;
+                    }
+                }
+
+                eventHorizonLINQ.Source_ID = eventHorizonLINQ.ID;
+
+                if (!int.TryParse(dataRow["RemindMeID"].ToString(), out eventHorizonLINQ.RemindMeID)) eventHorizonLINQ.RemindMeID = 0;
+
+                string remindMeDateTimeString = dataRow["RemindMeDateTime"].ToString();
+                DateTime remindMeDateTime = DateTime.MinValue;
+                if (DateTime.TryParse(remindMeDateTimeString, out remindMeDateTime)) remindMeDateTimeString = remindMeDateTime.ToString("dd/MM/y HH:mm");
+                eventHorizonLINQ.RemindMeDateTime = remindMeDateTime;
+
+                if (!int.TryParse(dataRow["NotificationAcknowledged"].ToString(), out eventHorizonLINQ.NotificationAcknowledged)) eventHorizonLINQ.NotificationAcknowledged = 0;
+
+                if (!int.TryParse(dataRow["ParentEventID"].ToString(), out eventHorizonLINQ.Source_ParentEventID)) eventHorizonLINQ.Source_ParentEventID = 0;
+
+                if (!int.TryParse(dataRow["EventModeID"].ToString(), out eventHorizonLINQ.EventModeID)) eventHorizonLINQ.EventModeID = 0;
+
+                if (!int.TryParse(dataRow["EventAttributeID"].ToString(), out eventHorizonLINQ.EventAttributeID)) eventHorizonLINQ.EventAttributeID = 0;
+
+                eventHorizonLINQ.PathFileName = dataRow["PathFileName"].ToString();
+
+                if (!double.TryParse(dataRow["UnitCost"].ToString(), out eventHorizonLINQ.UnitCost)) eventHorizonLINQ.UnitCost = 0;
+
+                if (!int.TryParse(dataRow["Qty"].ToString(), out eventHorizonLINQ.Qty)) eventHorizonLINQ.Qty = 0;
+
+                if (!double.TryParse(dataRow["Discount"].ToString(), out eventHorizonLINQ.Discount)) eventHorizonLINQ.Discount = 0;
+
+                if (!int.TryParse(dataRow["Stock"].ToString(), out eventHorizonLINQ.Stock)) eventHorizonLINQ.Stock = 0;
+
+                eventHorizonLINQ.Attributes_TotalDays = totalDays;
+                eventHorizonLINQ.Attributes_TotalDaysEllipseColor = iconEllipeColor;
+
+                _EventHorizonLINQReturn = eventHorizonLINQ;
+            }
+            return _EventHorizonLINQReturn;
+        }
+
         public static List<EventHorizonLINQ> GetReplies(Int32 eventID)
         {
             List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();

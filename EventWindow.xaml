@@ -177,7 +177,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="2" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,6,0,0">
-                <Label Content="Units Cost" VerticalAlignment="Center" FontWeight="Medium"/>
+                <Label Content="Unit Cost" VerticalAlignment="Center" FontWeight="Medium"/>
                 <Border CornerRadius="6" BorderBrush="#3b71ca" Background="White" BorderThickness="1" Margin="0,0,0,0" Width="80" MaxWidth="280">
                     <Border.Effect>
                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />

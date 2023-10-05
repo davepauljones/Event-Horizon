@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:The_Oracle"
         mc:Ignorable="d"
-        Title="ReportsWindow" Height="850" Width="1100">
+        Title="Event Horizon Print Preview" WindowState="Maximized" Width="1100">
     <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Background="#FF145883">
         <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Background="#FF145883">
             <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">

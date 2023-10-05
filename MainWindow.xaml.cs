@@ -42,6 +42,7 @@ namespace The_Oracle
         private static DatabasePoller databasePoller;
 
         List<SelectionIdString> ListOfReports = new List<SelectionIdString>();
+        List<SelectionIdString> ListOfHelp = new List<SelectionIdString>();
 
         public EventHorizonLINQ eventHorizonLINQ_SelectedItem;
 
@@ -130,6 +131,7 @@ namespace The_Oracle
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             LoadReportsVisualTree();
+            LoadHelpVisualTree();
 
             today = new Today();
             TodayGrid.Children.Add(today);
@@ -182,34 +184,6 @@ namespace The_Oracle
             }
 
             if (notificationsAddedThisCycle > 0) MiscFunctions.PlayFile("Notification.mp3");
-        }
-
-        private Int32 LastGetLastEntry = 0;
-
-        public void GetLastEntry(List<EventHorizonLINQ> eventHorizonLINQList, bool justLoaded)
-        {
-            try
-            {
-                var maxValue = eventHorizonLINQList.Max(x => x.ID);
-                var result = eventHorizonLINQList.First(x => x.ID == maxValue);
-
-                if (LastGetLastEntry < maxValue)
-                {
-                    if (justLoaded == true && result.UserID != XMLReaderWriter.UserID)
-                    {
-                        EventHorizonBriefNotification eventHorizonBriefNotification = new EventHorizonBriefNotification(this, maxValue, 1, 1, result);
-                        eventHorizonBriefNotification.Show();
-                    }
-
-                    LastGetLastEntry = maxValue;
-                }
-            }
-            catch (Exception e)
-            {
-                //necessary if searching a blank database
-                Console.WriteLine("***** GeLastEntry *****");
-                Console.WriteLine(e);
-            }
         }
 
         public void RefreshLog(int listViewToPopulate)
@@ -888,24 +862,29 @@ namespace The_Oracle
                     }
                     break;
                 case Key.Delete:
-                    if (eventHorizonLINQ_SelectedItem != null)
-                    {
-                        if (SelectedReplies > 0)
-                        {
-                            EventHorizonRequesterNotification rorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, this event has notes or replies", InformationTextBlock = "You won't be able to delete an event if it has notes or replies.\nYou must delete them first." }, RequesterTypes.OK);
-                            rorn.ShowDialog();
-                        }
-                        else
-                        {
-                            EventHorizonRequesterNotification orn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Delete this event, are you sure", InformationTextBlock = "Consider changing the events status to archived instead.\nThat way you use the event as a log." }, RequesterTypes.NoYes);
-                            var result = orn.ShowDialog();
-                            if (result == true)
-                            {
-                                if (eventHorizonLINQ_SelectedItem.ID > 0) DataTableManagement.DeleteEvent(eventHorizonLINQ_SelectedItem.ID);
-                            }
-                        }
-                    }
+                    DeleteEventRow();
                     break;
+            }
+        }
+
+        private void DeleteEventRow()
+        {
+            if (eventHorizonLINQ_SelectedItem != null)
+            {
+                if (eventHorizonLINQ_SelectedItem.Attributes_Replies > 0)
+                {
+                    EventHorizonRequesterNotification rorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, this event has notes or replies", InformationTextBlock = "You won't be able to delete an event if it has notes or replies.\nYou must delete them first." }, RequesterTypes.OK);
+                    rorn.ShowDialog();
+                }
+                else
+                {
+                    EventHorizonRequesterNotification orn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Delete this event, are you sure", InformationTextBlock = "Consider changing the events status to archived instead.\nThat way you use the event as a log." }, RequesterTypes.NoYes);
+                    var result = orn.ShowDialog();
+                    if (result == true)
+                    {
+                        if (eventHorizonLINQ_SelectedItem.ID > 0) DataTableManagement.DeleteEvent(eventHorizonLINQ_SelectedItem.ID);
+                    }
+                }
             }
         }
 
@@ -1130,6 +1109,12 @@ namespace The_Oracle
                         break;
                     case ReminderListTimeSpans.TimeSpan_15to28_Days:
                         ReminderListTimeSpan = new TimeSpan(29, 0, 0, 0);
+                        break;
+                    case ReminderListTimeSpans.TimeSpan_29to60_Days:
+                        ReminderListTimeSpan = new TimeSpan(60, 0, 0, 0);
+                        break;
+                    case ReminderListTimeSpans.TimeSpan_61to90_Days:
+                        ReminderListTimeSpan = new TimeSpan(90, 0, 0, 0);
                         break;
                 }
             }
@@ -1386,7 +1371,7 @@ namespace The_Oracle
 
             switch (switchValue)
             {
-                case 0://Events
+                case TreeViews.Reports:
                     if (ReportsStackPanel.Visibility == System.Windows.Visibility.Collapsed)
                     {
                         ReportsStackPanel.Visibility = System.Windows.Visibility.Visible;
@@ -1396,6 +1381,18 @@ namespace The_Oracle
                     {
                         ReportsStackPanel.Visibility = System.Windows.Visibility.Collapsed;
                         ReportsVisualTreeListView.Visibility = System.Windows.Visibility.Collapsed;
+                    }
+                    break;
+                case TreeViews.Help:
+                    if (HelpStackPanel.Visibility == System.Windows.Visibility.Collapsed)
+                    {
+                        HelpStackPanel.Visibility = System.Windows.Visibility.Visible;
+                        HelpVisualTreeListView.Visibility = System.Windows.Visibility.Visible;
+                    }
+                    else
+                    {
+                        HelpStackPanel.Visibility = System.Windows.Visibility.Collapsed;
+                        HelpVisualTreeListView.Visibility = System.Windows.Visibility.Collapsed;
                     }
                     break;
             }
@@ -1408,13 +1405,29 @@ namespace The_Oracle
             ListOfReports.Add(new SelectionIdString { Id = 0, Name = "Product Items" });
             ListOfReports.Add(new SelectionIdString { Id = 1, Name = "Spare" });
             ListOfReports.Add(new SelectionIdString { Id = 2, Name = "Spare" });
-            ListOfReports.Add(new SelectionIdString { Id = 3, Name = "Spare" });
+            ListOfReports.Add(new SelectionIdString { Id = 3, Name = "Help" });
 
             NumberOfReportsTextBlock.Text = ListOfReports.Count.ToString();
 
             foreach (SelectionIdString ss in ListOfReports)
             {
                 ReportsVisualTreeListView.Items.Add(new TextBlock { Tag = ss.Id, Text = " " + ss.Name + " ", Style = (Style)FindResource("TreeViewItemTextBlock") });
+            }
+        }
+        private void LoadHelpVisualTree()
+        {
+            ListOfHelp.Clear();
+            HelpVisualTreeListView.Items.Clear();
+
+            ListOfHelp.Add(new SelectionIdString { Id = 0, Name = "Event Status" });
+            ListOfHelp.Add(new SelectionIdString { Id = 1, Name = "Foo" });
+            ListOfHelp.Add(new SelectionIdString { Id = 2, Name = "FooBar" });
+
+            NumberOfHelpTextBlock.Text = ListOfHelp.Count.ToString();
+
+            foreach (SelectionIdString ss in ListOfHelp)
+            {
+                HelpVisualTreeListView.Items.Add(new TextBlock { Tag = ss.Id, Text = " " + ss.Name + " ", Style = (Style)FindResource("TreeViewItemTextBlock") });
             }
         }
 
@@ -1448,13 +1461,71 @@ namespace The_Oracle
 
                     switch (ReportsVisualTreeListView.SelectedIndex)
                     {
-                        case 0:
+                        case Reports.Product:
                             if (eventHorizonLINQ_SelectedItem != null)
                             {
-                                REPORTS = new ReportsWindow(eventHorizonLINQ_SelectedItem, GetProductItems(eventHorizonLINQ_SelectedItem));
+                                REPORTS = new ReportsWindow(eventHorizonLINQ_SelectedItem, GetProductItems(eventHorizonLINQ_SelectedItem), Helps.None);
                                 REPORTS.Show();
                             }
-                            break;                  
+                            break;
+                        case Reports.Foo:
+                            
+                            break;
+                        case Reports.FooBar:
+
+                            break;
+                    }
+
+                    item.IsSelected = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        private void HelpVisualTreeListView_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is ListViewItem))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            ListViewItem item = (ListViewItem)dep;
+
+            item.IsSelected = true;
+            e.Handled = true;
+
+            try
+            {
+                if (HelpVisualTreeListView.SelectedItem == null)
+                {
+                    return;
+                }
+
+                if (HelpVisualTreeListView.SelectedItems.Count == 1)
+                {
+                    ReportsWindow REPORTS;
+
+                    switch (HelpVisualTreeListView.SelectedIndex)
+                    {
+                        case Helps.EventStatus:
+                            REPORTS = new ReportsWindow(null, null, Helps.EventStatus);
+                            REPORTS.Show();
+                            break;
+                        case Helps.Foo:
+                            REPORTS = new ReportsWindow(null, null, Helps.Foo);
+                            REPORTS.Show();
+                            break;
+                        case Helps.FooBar:
+                            REPORTS = new ReportsWindow(null, null, Helps.FooBar);
+                            REPORTS.Show();
+                            break;
                     }
 
                     item.IsSelected = false;
@@ -1525,5 +1596,60 @@ namespace The_Oracle
             Console.WriteLine(DataTableManagement.RowOffset);
         }
 
+        private void RightMouseButton_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem button = e.OriginalSource as MenuItem;
+
+            int buttonID = 0;
+
+            bool success = Int32.TryParse(button.Tag.ToString(), out buttonID);
+
+            if (button != null && success)
+            {
+                switch (buttonID)
+                {
+                    case EventRowContextMenu.ViewAsProduct:
+                        Console.WriteLine("View as Product");
+                        try
+                        {
+                            ReportsWindow REPORTS;
+
+                            if (eventHorizonLINQ_SelectedItem != null)
+                            {
+                                REPORTS = new ReportsWindow(eventHorizonLINQ_SelectedItem, GetProductItems(eventHorizonLINQ_SelectedItem), Helps.None);
+                                REPORTS.Show();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        break;
+                    case EventRowContextMenu.Spare:
+                        Console.WriteLine("Spare");
+                        break;
+                    case EventRowContextMenu.Delete:
+                        Console.WriteLine("Delete");
+                        DeleteEventRow();
+                        break;
+                    case EventRowContextMenu.Help:
+                        Console.WriteLine("Help");
+                        try
+                        {
+                            ReportsWindow REPORTS;
+
+                            REPORTS = new ReportsWindow(null, null, Helps.EventStatus);
+                            REPORTS.Show();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        break;
+                }
+            }
+        }
+
+        
     }
 }

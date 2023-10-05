@@ -32,42 +32,73 @@ namespace The_Oracle
 
         private void PollDatabase(object sender, EventArgs e)
         {
+            int recordCount;
+            object polledID;
+            Int32 ID = -1;
+
             try
             {
                 using (var connection = new SQLiteConnection(connectionString))
                 {
+                    Console.WriteLine("Polling Database");
+
                     connection.Open();
 
-                    Console.Write("--------------------PollDatabase connectionString = ");
-                    Console.WriteLine(connectionString);
-                    // Perform a query to check for changes (e.g., SELECT COUNT(*) FROM TableName)
-                    using (var command = new SQLiteCommand("SELECT COUNT(*) FROM EventLog", connection))
+                    // Get the count of records
+                    using (SQLiteCommand countCommand = new SQLiteCommand("SELECT COUNT(*) FROM EventLog", connection))
                     {
-                        var rowCount = Convert.ToInt32(command.ExecuteScalar());
-
-                        // Compare the current row count with the previous row count
-                        if (rowCount != previousRowCount)
-                        {
-                            Console.WriteLine("Changes detected in the database.");
-                            // Handle the changes here (e.g., update UI, trigger actions)
-
-                            MainWindow.mw.RunningTask();
-
-                            MainWindow.mw.GetLastEntry(MainWindow.mw.EventHorizonLINQList, MainWindow.mw.justLoaded);
-
-                            previousRowCount = rowCount;
-                        }
+                        recordCount = Convert.ToInt32(countCommand.ExecuteScalar());
                     }
-                }
+
+                    // Get the ID of the last record
+                    using (SQLiteCommand lastRecordCommand = new SQLiteCommand("SELECT ID FROM EventLog ORDER BY ID DESC LIMIT 1", connection))
+                    {
+                        polledID = lastRecordCommand.ExecuteScalar();
+                    }
+
+                    if (polledID != null)
+                    {
+                        Console.WriteLine($"Last Record ID: {polledID}");
+
+                        Console.WriteLine($"Record Count: {recordCount}");
+
+                        ID = Convert.ToInt32(polledID);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No records in the table.");
+                    }
+
+                    connection.Close();
+
+                    if (recordCount > previousPolledCount && ID != previousPolledID)
+                    {
+                        MainWindow.mw.RunningTask();
+
+                        EventHorizonLINQ EventHorizonLINQList = DataTableManagement.GetEvent(ID);
+
+                        if (MainWindow.mw.justLoaded == true && EventHorizonLINQList.UserID != XMLReaderWriter.UserID)
+                        {
+                            EventHorizonBriefNotification eventHorizonBriefNotification = new EventHorizonBriefNotification(MainWindow.mw, ID, 1, 1, EventHorizonLINQList);
+                            eventHorizonBriefNotification.Show();
+                        }
+
+                        previousPolledID = ID;
+                        previousPolledCount = recordCount;
+                    }
+                } 
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error while polling the database: " + ex.Message);
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "PollDatabase - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                msg.ShowDialog();
             }
 
             MainWindow.mw.RunCycle();
         }
 
-        public int previousRowCount = -1; // Store the previous row count to compare changes
+        public Int32 previousPolledID = -1; // Store the previous polled ID to compare changes
+        public Int32 previousPolledCount = -1; // Store the previous row count to compare changes
     }
 }

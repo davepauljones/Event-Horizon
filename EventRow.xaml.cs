@@ -138,5 +138,6 @@ namespace The_Oracle
             //prevents parent firing
             e.Handled = true;
         }
+
     }
 }

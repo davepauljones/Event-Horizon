@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
+using System.Windows.Shapes;
 
 namespace The_Oracle
 {
@@ -24,13 +25,15 @@ namespace The_Oracle
 
         EventHorizonLINQ eventHorizonLINQ_MainEvent;
         List<EventHorizonLINQ> eventHorizonLINQ_LineItemsList;
+        int helpReportToView;
 
-        public ReportsWindow(EventHorizonLINQ eventHorizonLINQ_MainEvent, List<EventHorizonLINQ> eventHorizonLINQ_LineItemsList)
+        public ReportsWindow(EventHorizonLINQ eventHorizonLINQ_MainEvent, List<EventHorizonLINQ> eventHorizonLINQ_LineItemsList, int helpReportToView = Helps.None)
         {
             InitializeComponent();
 
             this.eventHorizonLINQ_MainEvent = eventHorizonLINQ_MainEvent;
             this.eventHorizonLINQ_LineItemsList = eventHorizonLINQ_LineItemsList;
+            this.helpReportToView = helpReportToView;
 
             Init();
         }
@@ -39,9 +42,163 @@ namespace The_Oracle
         {
             this.Owner = Application.Current.MainWindow;
 
-            GenerateReport();
+            switch (helpReportToView)
+            {
+                case Helps.None:
+                    if (eventHorizonLINQ_MainEvent != null && eventHorizonLINQ_LineItemsList != null)
+                        GenerateReport();
+                    break;
+                case Helps.EventStatus:
+                    GenerateHelpReport();
+                    break;
+                case Helps.Foo:
+                    GenerateHelpReport();
+                    break;
+                case Helps.FooBar:
+                    GenerateHelpReport();
+                    break;
+            }
         }
 
+        private void GenerateHelpReport()
+        {
+            FlowDocument flowDoc;
+            // Create the parent FlowDocument...
+            flowDoc = new FlowDocument();
+
+            flowDoc.ColumnWidth = 10000;
+
+            Image i = new Image();
+            i.Width = 189;
+            i.Height = 34;
+            i.Stretch = Stretch.Uniform;
+            i.Margin = new Thickness(25, 0, 0, 0);
+            i.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            i.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+            i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/EventHorizonLogoNewSmall.png"));
+
+            flowDoc.Blocks.Add(new BlockUIContainer(i));
+
+            BlockUIContainer buic = new BlockUIContainer();
+            Grid g1 = new Grid { Margin = new Thickness(5) };
+            Grid g2 = new Grid { Margin = new Thickness(5) };
+            Grid g3 = new Grid { Margin = new Thickness(5) };
+            Grid g4 = new Grid { Margin = new Thickness(5) };
+            Grid g5 = new Grid { Margin = new Thickness(5) };
+
+            StackPanel sp = new StackPanel { Margin = new Thickness(20, 0, 0, 0) };
+
+            Label helpHeadingLabel = new Label { Content = "Event Horizon - Help", Margin = new Thickness(5, 20, 0, 0), FontWeight = FontWeights.Bold, FontSize = 22, HorizontalContentAlignment = HorizontalAlignment.Center };
+            sp.Children.Add(helpHeadingLabel);
+
+            Label statusHelpHeadingLabel = new Label { Content = "Event Status", Margin = new Thickness(5, 20, 0, 0), FontWeight = FontWeights.Bold, FontSize = 22 };
+            sp.Children.Add(statusHelpHeadingLabel);
+
+            TextBlock statusIntroductionTextBlock = new TextBlock { Text = "Event Horizon keeps track of events by assigning a Status to the event during the various stages of the events life span.\nThis acts a visual aid for all users, but especially useful as feedback for the origin user, the origin user can quickly determine whether the target user has responded to the notification and or read the event.\nStatus 'Active, Notified & Read' are automatic, Status 'Active, Notified, Read & Archived' is manual.\nThe origin user who created the event, can at any time, override the event's Status by manually setting the events Status, ie. When a target user has not given a response to the event, the origin user can change the event's Status back to 'Active', this will result in the target user getting a new notification, as though the event was just created and the cycle starts over.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(statusIntroductionTextBlock);
+
+            Label statusHeadingLabel = new Label { Content = "Status Legend", Margin = new Thickness(5, 3, 0, 0), FontWeight = FontWeights.Bold };
+            sp.Children.Add(statusHeadingLabel);
+
+            StackPanel sp1 = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(40, 20, 0, 0) };
+            g1.Children.Add(StatusIcons.GetStatus(Statuses.Inactive));
+            sp1.Children.Add(g1);
+            Label l1 = new Label { Content = "Inactive", Margin = new Thickness(10,3,0,0) };
+            sp1.Children.Add(l1);
+            sp.Children.Add(sp1);
+
+            StackPanel sp2 = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(40, 0, 0, 0) };
+            g2.Children.Add(StatusIcons.GetStatus(Statuses.Active));
+            sp2.Children.Add(g2);
+            Label l2 = new Label { Content = "Active", Margin = new Thickness(10, 3, 0, 0) };
+            sp2.Children.Add(l2);
+            sp.Children.Add(sp2);
+
+            StackPanel sp3 = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(40, 0, 0, 0) };
+            g3.Children.Add(StatusIcons.GetStatus(Statuses.ActiveNotified));
+            sp3.Children.Add(g3);
+            Label l3 = new Label { Content = "Active & Notified", Margin = new Thickness(10, 3, 0, 0) };
+            sp3.Children.Add(l3);
+            sp.Children.Add(sp3);
+
+            StackPanel sp4 = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(40, 0, 0, 0) };
+            g4.Children.Add(StatusIcons.GetStatus(Statuses.ActiveNotifiedRead));
+            sp4.Children.Add(g4);
+            Label l4 = new Label { Content = "Active, Notified & Read", Margin = new Thickness(10, 3, 0, 0) };
+            sp4.Children.Add(l4);
+            sp.Children.Add(sp4);
+
+            StackPanel sp5 = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(40, 0, 0, 0) };
+            g5.Children.Add(StatusIcons.GetStatus(Statuses.ActiveNotifiedReadArchived));
+            sp5.Children.Add(g5);
+            Label l5 = new Label { Content = "Active, Notified, Read & Archived", Margin = new Thickness(10, 3, 0, 0) };
+            sp5.Children.Add(l5);
+            sp.Children.Add(sp5);
+
+            TextBlock activeTextBlock = new TextBlock { Text = "When a new event is created, the event's Status is set to Active.", Margin = new Thickness(50, 20, 50, 10), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(activeTextBlock);
+
+            Grid g6 = new Grid { Margin = new Thickness(5) };
+            StackPanel sp6 = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(40, 0, 0, 0) };
+            g6.Children.Add(StatusIcons.GetStatus(Statuses.Active));
+            sp6.Children.Add(g6);
+            Label l6 = new Label { Content = "Active", Margin = new Thickness(10, 3, 0, 0) };
+            sp6.Children.Add(l6);
+            sp.Children.Add(sp6);
+
+            TextBlock activeNotifiedTextBlock = new TextBlock { Text = "When a new event is created & the target user has acknowleged the notification, the event's Status is set to Active & Notified.", Margin = new Thickness(50, 20, 50, 10), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(activeNotifiedTextBlock);
+
+            Grid g7 = new Grid { Margin = new Thickness(5) };
+            StackPanel sp7 = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(40, 0, 0, 0) };
+            g7.Children.Add(StatusIcons.GetStatus(Statuses.ActiveNotified));
+            sp7.Children.Add(g7);
+            Label l7 = new Label { Content = "Active & Notified", Margin = new Thickness(10, 3, 0, 0) };
+            sp7.Children.Add(l7);
+            sp.Children.Add(sp7);
+
+            TextBlock activeNotifiedReadTextBlock = new TextBlock { Text = "When a new event is created & the target user has acknowleged the notification & the target user has viewed the event for longer than 3 seconds, then closed, the event's Status is set to Active, Notified & Read.", Margin = new Thickness(50, 20, 50, 10), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(activeNotifiedReadTextBlock);
+
+            Grid g8 = new Grid { Margin = new Thickness(5) };
+            StackPanel sp8 = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(40, 0, 0, 0) };
+            g8.Children.Add(StatusIcons.GetStatus(Statuses.ActiveNotifiedRead));
+            sp8.Children.Add(g8);
+            Label l8 = new Label { Content = "Active, Notified & Read", Margin = new Thickness(10, 3, 0, 0) };
+            sp8.Children.Add(l8);
+            sp.Children.Add(sp8);
+
+            TextBlock activeNotifiedReadArchivedTextBlock = new TextBlock { Text = "When an event is finished with, you can set its Status to Active, Notified, Read & Archived, this will prevent the event from showing up in the 'Reminders' display mode, but is available to view as a log, 'By New' display mode.", Margin = new Thickness(50, 20, 50, 10), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(activeNotifiedReadArchivedTextBlock);
+
+            Grid g9 = new Grid { Margin = new Thickness(5) };
+            StackPanel sp9 = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(40, 0, 0, 0) };
+            g9.Children.Add(StatusIcons.GetStatus(Statuses.ActiveNotifiedReadArchived));
+            sp9.Children.Add(g9);
+            Label l9 = new Label { Content = "Active, Notified, Read & Archived", Margin = new Thickness(10, 3, 0, 0) };
+            sp9.Children.Add(l9);
+            sp.Children.Add(sp9);
+
+            buic.Child = sp;
+            flowDoc.Blocks.Add(buic);
+
+            var package = Package.Open(new MemoryStream(), FileMode.Create, FileAccess.ReadWrite);
+            var packUri = new Uri("pack://temp.xps");
+            PackageStore.RemovePackage(packUri);
+            PackageStore.AddPackage(packUri, package);
+
+            xpsDocument = new XpsDocument(package, CompressionOption.SuperFast, packUri.ToString());
+
+            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
+
+            writer.Write(((IDocumentPaginatorSource)flowDoc).DocumentPaginator);
+
+            Document = xpsDocument.GetFixedDocumentSequence();
+
+            xpsDocument.Close();
+
+            PreviewD.Document = Document;
+        }
         private void GenerateReport()
         {
             FlowDocument flowDoc;
@@ -70,11 +227,11 @@ namespace The_Oracle
             DescriptionRun = eventHorizonLINQ_MainEvent.Details;
 
             Paragraph titlerun = new Paragraph(new Run(TitleRun));
-            titlerun.FontSize = 20;
+            titlerun.FontSize = 14;
             flowDoc.Blocks.Add(titlerun);
 
             Paragraph descriptionrun = new Paragraph(new Bold(new Run(DescriptionRun)));
-            descriptionrun.FontSize = 30;
+            descriptionrun.FontSize = 18;
             flowDoc.Blocks.Add(descriptionrun);
 
             this.Title += " - " + TitleRun;

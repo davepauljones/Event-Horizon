@@ -31,25 +31,48 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" x:Name="ReportsTreeViewStackPanel">
-                    <Button Tag="0" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
-                        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0" Background="#FF800080" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TreeViewIconGridStyle}">
-                                    <fa:FontAwesome Icon="FileText" Style="{StaticResource TreeViewIconTextBlockStyle}"/>
+                <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Orientation="Vertical">
+                    <StackPanel x:Name="ReportsTreeViewStackPanel">
+                        <Button Tag="0" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
+                            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Background="#FF800080" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TreeViewIconGridStyle}">
+                                        <fa:FontAwesome Icon="FileText" Style="{StaticResource TreeViewIconTextBlockStyle}"/>
+                                    </Grid>
+                                    <TextBlock Grid.Column="0" Text="REPORTS" Style="{StaticResource TreeViewHeaderTextBlock}"/>
+                                    <TextBlock x:Name="NumberOfReportsTextBlock" Grid.Column="1" Text="0" Style="{StaticResource TreeViewNumberOfTextBlock}"/>
                                 </Grid>
-                                <TextBlock Grid.Column="0" Text="REPORTS" Style="{StaticResource TreeViewHeaderTextBlock}"/>
-                                <TextBlock x:Name="NumberOfReportsTextBlock" Grid.Column="1" Text="0" Style="{StaticResource TreeViewNumberOfTextBlock}"/>
-                            </Grid>
-                        </WrapPanel>
-                    </Button>
+                            </WrapPanel>
+                        </Button>
 
-                    <StackPanel x:Name="ReportsStackPanel" Orientation="Vertical" Visibility="Collapsed">
-                        <ListView x:Name="ReportsVisualTreeListView" Margin="30,6,0,10" Visibility="Collapsed" Style="{StaticResource VisualTreeViewListView}" PreviewMouseDown="ReportsVisualTreeListView_PreviewMouseDown"/>
+                        <StackPanel x:Name="ReportsStackPanel" Orientation="Vertical" Visibility="Collapsed">
+                            <ListView x:Name="ReportsVisualTreeListView" Margin="30,6,0,10" Visibility="Collapsed" Style="{StaticResource VisualTreeViewListView}" PreviewMouseDown="ReportsVisualTreeListView_PreviewMouseDown"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel x:Name="HelpTreeViewStackPanel">
+                        <Button Tag="1" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
+                            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Background="ForestGreen" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TreeViewIconGridStyle}">
+                                        <fa:FontAwesome Icon="Question" Style="{StaticResource TreeViewIconTextBlockStyle}"/>
+                                    </Grid>
+                                    <TextBlock Grid.Column="0" Text="HELP" Style="{StaticResource TreeViewHeaderTextBlock}"/>
+                                    <TextBlock x:Name="NumberOfHelpTextBlock" Grid.Column="1" Text="0" Style="{StaticResource TreeViewNumberOfTextBlock}"/>
+                                </Grid>
+                            </WrapPanel>
+                        </Button>
+
+                        <StackPanel x:Name="HelpStackPanel" Orientation="Vertical" Visibility="Collapsed">
+                            <ListView x:Name="HelpVisualTreeListView" Margin="30,6,0,10" Visibility="Collapsed" Style="{StaticResource VisualTreeViewListView}" PreviewMouseDown="HelpVisualTreeListView_PreviewMouseDown"/>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
 
@@ -265,11 +288,13 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" Width="92">
                                             <Label Content="Days" ToolTip="Change the Time Span then click REFRESH" FontWeight="Medium" Margin="8,0,0,0"/>
-                                            <RadioButton Tag="0" GroupName="TimeSpanRadioButton" Content = "Overdue" Background="#FFe60000" Margin="10,0,0,0" Checked="TimeSpanRadioButton_Checked"/>
-                                            <RadioButton Tag="1" GroupName="TimeSpanRadioButton" Content = "3 Days" Background="#FFff7800" Margin="10,0,0,0" Checked="TimeSpanRadioButton_Checked"/>
-                                            <RadioButton Tag="2" GroupName="TimeSpanRadioButton" Content = "7 Days" Background="#FF4cbb17" Margin="10,0,0,0" Checked="TimeSpanRadioButton_Checked"/>
-                                            <RadioButton Tag="3" GroupName="TimeSpanRadioButton" Content = "14 Days" Background="#FF9fee79" Margin="10,0,0,0" IsChecked="True" Checked="TimeSpanRadioButton_Checked"/>
-                                            <RadioButton Tag="4" GroupName="TimeSpanRadioButton" Content = "28 Days" Background="#FFcff6bb" Margin="10,0,0,0" IsChecked="True" Checked="TimeSpanRadioButton_Checked"/>
+                                            <RadioButton Tag="0" GroupName="TimeSpanRadioButton" Content = "Overdue" Background="#FFe60000" Margin="10,-4,0,0" Checked="TimeSpanRadioButton_Checked"/>
+                                            <RadioButton Tag="1" GroupName="TimeSpanRadioButton" Content = "3 Days" Background="#FFff7800" Margin="10,-2,0,0" Checked="TimeSpanRadioButton_Checked"/>
+                                            <RadioButton Tag="2" GroupName="TimeSpanRadioButton" Content = "7 Days" Background="#FF4cbb17" Margin="10,-2,0,0" Checked="TimeSpanRadioButton_Checked"/>
+                                            <RadioButton Tag="3" GroupName="TimeSpanRadioButton" Content = "14 Days" Background="#FF9fee79" Margin="10,-2,0,0" IsChecked="True" Checked="TimeSpanRadioButton_Checked"/>
+                                            <RadioButton Tag="4" GroupName="TimeSpanRadioButton" Content = "28 Days" Background="#FFcff6bb" Margin="10,-2,0,0" Checked="TimeSpanRadioButton_Checked"/>
+                                            <RadioButton Tag="5" GroupName="TimeSpanRadioButton" Content = "60 Days" Background="#FFe7fadd" Margin="10,-2,0,0" Checked="TimeSpanRadioButton_Checked"/>
+                                            <RadioButton Tag="6" GroupName="TimeSpanRadioButton" Content = "90 Days" Background="#FFf3fced" Margin="10,-2,0,0" Checked="TimeSpanRadioButton_Checked"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                                             <Label Content="User Filter Mode" FontWeight="Medium" Margin="7,0,0,0"/>
@@ -370,12 +395,22 @@
 
                                     <Line X1="3" Y1="0" X2="1321" Y2="0" Stroke="Crimson" StrokeThickness="1" Margin="0,0,0,2"/>
 
-                                    <ListView x:Name="ReminderListView" SelectionMode="Single" Margin="2,0,0,0" BorderThickness="0" PreviewMouseLeftButtonDown="ReminderListView_PreviewMouseLeftButtonDown" MouseDoubleClick="ReminderListView_MouseDoubleClick">
+                                    <ListView x:Name="ReminderListView" SelectionMode="Single" Margin="2,0,0,0" BorderThickness="0" PreviewMouseLeftButtonDown="ReminderListView_PreviewMouseLeftButtonDown" PreviewMouseRightButtonDown="ReminderListView_PreviewMouseLeftButtonDown" MouseDoubleClick="ReminderListView_MouseDoubleClick">
                                         <ListView.Template>
                                             <ControlTemplate>
                                                 <ItemsPresenter></ItemsPresenter>
                                             </ControlTemplate>
                                         </ListView.Template>
+                                        <ListView.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="View as Product" Tag="0" Click="RightMouseButton_Click"/>
+                                                <MenuItem Header="Spare" Tag="1" Click="RightMouseButton_Click"/>
+                                                <Separator />
+                                                <MenuItem Header="Delete" Tag="2" Click="RightMouseButton_Click"/>
+                                                <Separator />
+                                                <MenuItem Header="Help" Tag="3" Click="RightMouseButton_Click"/>
+                                            </ContextMenu>
+                                        </ListView.ContextMenu>
                                     </ListView>
                                 </StackPanel>
                             </ScrollViewer>
