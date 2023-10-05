@@ -120,7 +120,7 @@ namespace The_Oracle
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.IsEnabled = false;
                 GenButton.Visibility = Visibility.Collapsed;
-                DetailsTextBox.IsEnabled = false;
+                DetailsTextBox.IsReadOnly = true;
                 FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.IsEnabled = false;
                 StatusComboBox.IsEnabled = false;
@@ -145,7 +145,7 @@ namespace The_Oracle
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.IsEnabled = false;
                 GenButton.Visibility = Visibility.Collapsed;
-                DetailsTextBox.IsEnabled = false;
+                DetailsTextBox.IsReadOnly = true;
                 FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.IsEnabled = false;
                 StatusComboBox.IsEnabled = false;
@@ -170,7 +170,7 @@ namespace The_Oracle
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.IsEnabled = false;
                 GenButton.Visibility = Visibility.Collapsed;
-                DetailsTextBox.IsEnabled = false;
+                DetailsTextBox.IsReadOnly = true;
                 FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.IsEnabled = false;
                 StatusComboBox.IsEnabled = false;
@@ -195,7 +195,7 @@ namespace The_Oracle
                 EventTypeComboBox.IsEnabled = true;
                 SourceComboBox.IsEnabled = true;
                 GenButton.Visibility = Visibility.Visible;
-                DetailsTextBox.IsEnabled = true;
+                DetailsTextBox.IsReadOnly = false;
                 FrequencyComboBox.IsEnabled = true;
                 TargetUserIDComboBox.IsEnabled = true;
                 StatusComboBox.IsEnabled = true;
@@ -220,7 +220,7 @@ namespace The_Oracle
                 EventTypeComboBox.IsEnabled = true;
                 SourceComboBox.IsEnabled = true;
                 GenButton.Visibility = Visibility.Visible;
-                DetailsTextBox.IsEnabled = true;
+                DetailsTextBox.IsReadOnly = false;
                 FrequencyComboBox.IsEnabled = true;
                 TargetUserIDComboBox.IsEnabled = true;
                 StatusComboBox.IsEnabled = true;
@@ -245,7 +245,7 @@ namespace The_Oracle
                 EventTypeComboBox.IsEnabled = true;
                 SourceComboBox.IsEnabled = true;
                 GenButton.Visibility = Visibility.Visible;
-                DetailsTextBox.IsEnabled = true;
+                DetailsTextBox.IsReadOnly = false;
                 FrequencyComboBox.IsEnabled = true;
                 TargetUserIDComboBox.IsEnabled = true;
                 StatusComboBox.IsEnabled = true;
@@ -272,7 +272,7 @@ namespace The_Oracle
                 SourceComboBox.SelectedIndex = eventHorizonLINQ.SourceID;
                 SourceComboBox.IsEnabled = true;
                 GenButton.Visibility = Visibility.Visible;
-                DetailsTextBox.IsEnabled = true;
+                DetailsTextBox.IsReadOnly = false;
                 FrequencyComboBox.SelectedIndex = eventHorizonLINQ.FrequencyID;
                 FrequencyComboBox.IsEnabled = true;
                 TargetUserIDComboBox.SelectedIndex = eventHorizonLINQ.TargetUserID;
@@ -303,7 +303,7 @@ namespace The_Oracle
                 SourceComboBox.SelectedIndex = eventHorizonLINQ.SourceID;
                 SourceComboBox.IsEnabled = false;
                 GenButton.Visibility = Visibility.Visible;
-                DetailsTextBox.IsEnabled = true;
+                DetailsTextBox.IsReadOnly = false;
                 FrequencyComboBox.SelectedIndex = eventHorizonLINQ.FrequencyID;
                 FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.SelectedIndex = 0;
@@ -334,7 +334,7 @@ namespace The_Oracle
                 SourceComboBox.SelectedIndex = eventHorizonLINQ.SourceID;
                 SourceComboBox.IsEnabled = false;
                 GenButton.Visibility = Visibility.Visible;
-                DetailsTextBox.IsEnabled = true;
+                DetailsTextBox.IsReadOnly = false;
                 FrequencyComboBox.SelectedIndex = eventHorizonLINQ.FrequencyID;
                 FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.SelectedIndex = eventHorizonLINQ.TargetUserID;
