@@ -62,8 +62,6 @@ namespace The_Oracle
                     RefreshLog(ListViews.Reminder);
                 else
                     RefreshLog(ListViews.Log);
-
-                justLoaded = true;
             }));
         }
 
@@ -80,6 +78,7 @@ namespace The_Oracle
             }
             CheckMyUnreadAndMyReminders();
             MainWindow.mw.eventHorizonDatabaseHealth.UpdateLastWriteLabel(false);
+            justLoaded = true;
         }
 
         public MainWindow()

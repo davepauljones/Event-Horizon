@@ -77,7 +77,7 @@ namespace The_Oracle
 
                         EventHorizonLINQ EventHorizonLINQList = DataTableManagement.GetEvent(ID);
 
-                        if (MainWindow.mw.justLoaded == true && EventHorizonLINQList.UserID != XMLReaderWriter.UserID)
+                        if (MainWindow.mw.justLoaded == true)
                         {
                             EventHorizonBriefNotification eventHorizonBriefNotification = new EventHorizonBriefNotification(MainWindow.mw, ID, 1, 1, EventHorizonLINQList);
                             eventHorizonBriefNotification.Show();
