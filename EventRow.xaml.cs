@@ -73,7 +73,7 @@ namespace The_Oracle
         {
             if (RepliesListView.Visibility == Visibility.Visible)
             {
-                BackgroundGrid.Background = new SolidColorBrush(Colors.White);
+                BackgroundGrid.Background = new SolidColorBrush(Colors.Transparent);
                 RepliesListView.Visibility = Visibility.Collapsed;
             }
             else

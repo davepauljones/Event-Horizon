@@ -332,7 +332,7 @@ namespace The_Oracle
                     eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Color);
                     eventRow.EventTypeFontAwesomeIcon.Icon = XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Icon;
                     eventRow.EventTypeTextBlock.Text = XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Name;
-                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
+                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.Transparent);
                     eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
                 }
                 else
@@ -340,7 +340,7 @@ namespace The_Oracle
                     eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.White);
                     eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Question;
                     eventRow.EventTypeTextBlock.Text = "Error";
-                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
+                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.Transparent);
                     eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
                 }
             }
@@ -358,7 +358,7 @@ namespace The_Oracle
                     eventRow.SourceTypeFontAwesomeIconBorder.Background = new SolidColorBrush(XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Color);
                     eventRow.SourceTypeFontAwesomeIcon.Icon = XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Icon;
                     eventRow.SourceIDTextBlock.Text = XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Name;
-                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
+                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.Transparent);
                     eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
                 }
                 else
@@ -366,7 +366,7 @@ namespace The_Oracle
                     eventRow.SourceTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.White);
                     eventRow.SourceTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Question;
                     eventRow.SourceIDTextBlock.Text = "Error";
-                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
+                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.Transparent);
                     eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
                 }
             }
