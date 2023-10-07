@@ -332,6 +332,21 @@
   <ItemGroup>
     <Resource Include="Images\wormhole1000x600.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EventHorizonLogoHLN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="TreeBranch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="waterfall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="sea.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="acropolis.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

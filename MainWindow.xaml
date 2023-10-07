@@ -7,8 +7,8 @@
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Icon="EventHorizonIcon.ico" 
-        Title="EventHorizon" Height="600" Width="1400" MinHeight="400" KeyDown="Window_KeyDown">
+        Icon="EventHorizonIcon.ico" Name="MainWindowWindow"
+        Title="EventHorizon" Height="600" Width="1800" MinHeight="400" KeyDown="Window_KeyDown">
     <Window.Resources>
         <local:HeightToParentConverter x:Key="ListViewConverter"/>
         <local:EventHorizonLogo x:Key="EventHorizonLogoUserControl"/>
@@ -31,6 +31,46 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
+                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Source="TreeBranch.png" Stretch="UniformToFill" Opacity="1" Width="187" Height="398" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="5" Opacity="0.56" Width="200" Height="{Binding ActualHeight, ElementName=MainWindowWindow}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                            <GradientStop Color="DodgerBlue" Offset="0.10" />
+                            <GradientStop Color="Transparent" Offset="0.70" />
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Rectangle Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="5" Opacity="0.56" Width="200" Height="{Binding ActualHeight, ElementName=MainWindowWindow}" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                            <GradientStop Color="Transparent" Offset="0.10" />
+                            <GradientStop Color="DodgerBlue" Offset="0.70" />
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="3" Opacity="0.56" Width="{Binding ActualWidth, ElementName=MainWindowWindow}" Height="600" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                            <GradientStop Color="DodgerBlue" Offset="0.8" />
+                            <GradientStop Color="Transparent" Offset="0.40" />
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="4" Opacity="1" Width="{Binding ActualWidth, ElementName=MainWindowWindow}" Height="330" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="Transparent" Offset="0.40" />
+                            <GradientStop Color="ForestGreen" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <!--<Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="5" Source="EventHorizonLogoHLN.png" Stretch="UniformToFill" Opacity="0.3" Width="1170" Height="567" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>-->
+
                 <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Orientation="Vertical">
                     <StackPanel x:Name="ReportsTreeViewStackPanel">
                         <Button Tag="0" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
@@ -44,7 +84,7 @@
                                         <fa:FontAwesome Icon="FileText" Style="{StaticResource TreeViewIconTextBlockStyle}"/>
                                     </Grid>
                                     <TextBlock Grid.Column="0" Text="REPORTS" Style="{StaticResource TreeViewHeaderTextBlock}"/>
-                                    <TextBlock x:Name="NumberOfReportsTextBlock" Grid.Column="1" Text="0" Style="{StaticResource TreeViewNumberOfTextBlock}"/>
+                                    <TextBlock x:Name="NumberOfReportsTextBlock" Grid.Column="1" Text="0" Style="{StaticResource TreeViewNumberOfTextBlock}" Foreground="Firebrick"/>
                                 </Grid>
                             </WrapPanel>
                         </Button>
@@ -65,7 +105,7 @@
                                         <fa:FontAwesome Icon="Question" Style="{StaticResource TreeViewIconTextBlockStyle}"/>
                                     </Grid>
                                     <TextBlock Grid.Column="0" Text="HELP" Style="{StaticResource TreeViewHeaderTextBlock}"/>
-                                    <TextBlock x:Name="NumberOfHelpTextBlock" Grid.Column="1" Text="0" Style="{StaticResource TreeViewNumberOfTextBlock}"/>
+                                    <TextBlock x:Name="NumberOfHelpTextBlock" Grid.Column="1" Text="0" Style="{StaticResource TreeViewNumberOfTextBlock}" Foreground="Firebrick"/>
                                 </Grid>
                             </WrapPanel>
                         </Button>
@@ -83,7 +123,7 @@
                         </StackPanel.Effect>
                         <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
                             <StackPanel x:Name="EventStackPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                                <Button Tag="0" ToolTip="Create A New Event" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="10,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="0" ToolTip="Create A New Event" Style="{DynamicResource EventHorizonButtonStyle }" Height="60" Margin="10,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F1" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -97,7 +137,7 @@
                                         <Label Content="New Event" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="1" ToolTip="Edit A Event" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="1" ToolTip="Edit A Event" Style="{DynamicResource EventHorizonButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F2" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -111,7 +151,7 @@
                                         <Label Content="Edit Event" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="2" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="2" Style="{DynamicResource EventHorizonButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F3" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -125,7 +165,7 @@
                                         <Label x:Name="F3ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="3" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="3" Style="{DynamicResource EventHorizonButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F4" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -139,7 +179,7 @@
                                         <Label x:Name="F4ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="4" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="4" Style="{DynamicResource EventHorizonButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F5" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -153,7 +193,7 @@
                                         <Label x:Name="F5ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="5" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="5" Style="{DynamicResource EventHorizonButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F6" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -167,7 +207,7 @@
                                         <Label x:Name="F6ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="6" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="6" Style="{DynamicResource EventHorizonButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F7" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -181,7 +221,7 @@
                                         <Label x:Name="F7ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="7" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="7" Style="{DynamicResource EventHorizonButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F8" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -195,7 +235,7 @@
                                         <Label x:Name="F8ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="8" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="8" Style="{DynamicResource EventHorizonButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F9" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -209,7 +249,7 @@
                                         <Label x:Name="F9ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="9" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="9" Style="{DynamicResource EventHorizonButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F10" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -223,7 +263,7 @@
                                         <Label x:Name="F10ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="10" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="10" Style="{DynamicResource EventHorizonButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F11" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -237,7 +277,7 @@
                                         <Label x:Name="F11ButtonLabel" Content="Spare" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Tag="11" Style="{DynamicResource OracleButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="11" Style="{DynamicResource EventHorizonButtonStyle }" Height="60" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Label Content="F12" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -267,7 +307,7 @@
                         </StackPanel.Effect>
                         <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="114">
-                                <Border x:Name="EventOptionsBorder" CornerRadius="6" BorderBrush="#ff003a72" Background="White" BorderThickness="0" Width="1358">
+                                <Border x:Name="EventOptionsBorder" CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="1358">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <StackPanel Orientation="Vertical" Margin="10,10,10,4">
                                             <local:EventHorizonLogo/>
@@ -302,7 +342,7 @@
                                             <RadioButton Tag="1" GroupName="FilterModeRadioButton" Content = "Origin is Me" Margin="10,-2,0,0" Checked="FilterModeRadioButton_Checked"/>
                                             <RadioButton Tag="2" GroupName="FilterModeRadioButton" Content = "Origin or Target is Me" Margin="10,-2,0,0" IsChecked="True" Checked="FilterModeRadioButton_Checked"/>
                                             <RadioButton Tag="3" GroupName="FilterModeRadioButton" Content = "Origin and Target is Me" Margin="10,-2,0,0" Checked="FilterModeRadioButton_Checked"/>
-                                            <Button Tag="2" Content="REFRESH" Width="80" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Height="30" Margin="12,4,0,0" HorizontalAlignment="Right" Click="All_ButtonClick"/>
+                                            <Button Tag="2" Content="REFRESH" Width="80" IsTabStop="False" Style="{DynamicResource EventHorizonButtonStyle }" Height="30" Margin="12,4,0,0" HorizontalAlignment="Right" Click="All_ButtonClick"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="180">
                                             <Grid>
@@ -320,7 +360,7 @@
                                                     <RadioButton Tag="0" GroupName="DisplayModeRadioButton" Content = "By New" Margin="10,-2,0,0" Checked="DisplayModeRadioButton_Checked"/>
                                                 </StackPanel>
                                                 <Label Grid.Column="1" Grid.Row="0" Content="Limit" FontWeight="Medium" Margin="7,0,28,0" HorizontalAlignment="Right"/>
-                                                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="2" Name="RecordsIntegerUpDown" Width="50" Height="30" Minimum="30" Maximum="360" Increment="30" Value="30" Padding="0,0,6,0" HorizontalAlignment="Right" Margin="0,0,20,0" Spinned="RecordsIntegerUpDown_Spinned"/>
+                                                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="2" Name="RecordsIntegerUpDown" Width="50" Height="30" Minimum="30" Maximum="360" Increment="30" Value="30" Padding="0,0,6,0" Background="#66ffffff" HorizontalAlignment="Right" Margin="0,0,20,0" Spinned="RecordsIntegerUpDown_Spinned"/>
                                             </Grid>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -339,7 +379,7 @@
                                                     <RadioButton Tag="2" GroupName="RecordsToViewRadioButton" Content = "Limit + Offset" Margin="10,-2,0,0" Checked="RecordsToViewRadioButton_Checked"/>
                                                 </StackPanel>
                                                 <Label Grid.Column="1" Grid.Row="0" Content="Offset" FontWeight="Medium" Margin="7,0,18,0" Grid.ColumnSpan="2"/>
-                                                <xctk:IntegerUpDown Grid.Column="1" Name="OffsetIntegerUpDown" Width="50" Height="30" Minimum="0" Maximum="360" Increment="30" Value="30" Padding="0,0,6,0" HorizontalAlignment="Right" Margin="0,22,20,1" IsEnabled="False" Spinned="OffsetIntegerUpDown_Spinned" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+                                                <xctk:IntegerUpDown Grid.Column="1" Name="OffsetIntegerUpDown" Width="50" Height="30" Minimum="0" Maximum="360" Increment="30" Value="30" Padding="0,0,6,0" Background="#66ffffff" HorizontalAlignment="Right" Margin="0,22,20,1" IsEnabled="False" Spinned="OffsetIntegerUpDown_Spinned" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right">
@@ -349,19 +389,19 @@
                                                     <StackPanel.Effect>
                                                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                                                     </StackPanel.Effect>
-                                                    <ComboBox x:Name="EventTypeComboBox" Style="{DynamicResource FrequencyComboBoxStyle}" ItemContainerStyle="{DynamicResource theComboBoxItem}" Width="280" Height="40" IsEditable="False" SelectionChanged="EventTypeComboBox_SelectionChanged"/>
-                                                    <Button Tag="0" Content="ALL" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Height="30" Margin="12,0,0,0" Click="All_ButtonClick"/>
+                                                    <ComboBox x:Name="EventTypeComboBox" Style="{DynamicResource FrequencyComboBoxStyle}" ItemContainerStyle="{DynamicResource theComboBoxItem}" Background="#66ffffff" Width="280" Height="40" IsEditable="False" SelectionChanged="EventTypeComboBox_SelectionChanged"/>
+                                                    <Button Tag="0" Content="ALL" Width="60" IsTabStop="False" Style="{DynamicResource EventHorizonButtonStyle }" Height="30" Margin="12,0,0,0" Click="All_ButtonClick"/>
                                                 </StackPanel>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                                                 <Label Content="Search Details" VerticalAlignment="Center" FontWeight="Medium" Margin="0,8,0,0"/>
-                                                <Border CornerRadius="6" BorderBrush="#3b71ca" Background="White" BorderThickness="1" Margin="0,6,0,0" Width="280" MaxWidth="280">
+                                                <Border CornerRadius="6" BorderBrush="#3b71ca" Background="#66ffffff" BorderThickness="1" Margin="0,6,0,0" Width="280" MaxWidth="280">
                                                     <Border.Effect>
                                                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                                                     </Border.Effect>
-                                                    <TextBox x:Name="SearchTextBox" Width="266" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0" KeyDown="SearchTextBox_OnKeyDown"/>
+                                                    <TextBox x:Name="SearchTextBox" Width="266" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0" KeyDown="SearchTextBox_OnKeyDown"/>
                                                 </Border>
-                                                <Button Tag="1" Content="CLEAR" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Height="30" Margin="12,6,0,0" Click="All_ButtonClick"/>
+                                                <Button Tag="1" Content="CLEAR" Width="60" IsTabStop="False" Style="{DynamicResource EventHorizonButtonStyle }" Height="30" Margin="12,6,0,0" Click="All_ButtonClick"/>
                                             </StackPanel>
 
                                         </StackPanel>
@@ -373,11 +413,11 @@
                 </Grid>
                 <Grid x:Name="ReminderGrid" Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" Margin="0,10,0,0" Visibility="Visible">
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" >
-                        <Border CornerRadius="6" BorderBrush="#ff003a72" Background="White" BorderThickness="0" MinWidth="1358" MaxWidth="1358" Width="1358">
+                        <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" MinWidth="1358" MaxWidth="1358" Width="1358">
                             <Border.Effect>
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                             </Border.Effect>
-                            <ScrollViewer x:Name="ReminderListScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" Margin="1" Height="{Binding ElementName=ReminderGrid, Path=ActualHeight, Converter={StaticResource ListViewConverter}, ConverterParameter=10, Mode=OneWay}">
+                            <ScrollViewer x:Name="ReminderListScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="1" Height="{Binding ElementName=ReminderGrid, Path=ActualHeight, Converter={StaticResource ListViewConverter}, ConverterParameter=10, Mode=OneWay}">
 
                                 <StackPanel Orientation="Vertical" Margin="6,0,6,0">
                                     <StackPanel Orientation="Horizontal" Margin="11,0,0,0">
@@ -419,7 +459,7 @@
                 </Grid>
                 <Grid x:Name="StatusGrid" Grid.Row="4" Grid.Column="2" Margin="0,0,0,10">
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                        <Border CornerRadius="6" BorderBrush="#ff003a72" Background="White" MaxWidth="1359" BorderThickness="0">
+                        <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#55ffffff" MaxWidth="1359" BorderThickness="0">
                             <Border.Effect>
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="2" Opacity="0.6" />
                             </Border.Effect>

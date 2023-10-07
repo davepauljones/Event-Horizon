@@ -226,7 +226,32 @@
             </Trigger>
         </Style.Triggers>
     </Style>-->
-    
+    <Style x:Key="EventHorizonButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#66ffffff"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Width" Value="105"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Margin" Value="10,6,6,6"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1b3866"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#0068cd"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     <Style x:Key="OracleButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="#3b71ca"/>
         <Setter Property="Foreground" Value="White"/>

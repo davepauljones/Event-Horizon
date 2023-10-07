@@ -22,7 +22,7 @@ namespace The_Oracle
         protected override void OnStartup(StartupEventArgs e)
         {
             // Step 1 - Load the splash screen
-            SplashScreen splash = new SplashScreen("EventHorizonLogoNewSmall.png");
+            SplashScreen splash = new SplashScreen("EventHorizonLogoHLN.png");
             splash.Show(false, true);
 
             // Step 2 - Start a stop watch
