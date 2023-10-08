@@ -47,6 +47,8 @@ namespace The_Oracle
 
         public EventHorizonLINQ eventHorizonLINQ_SelectedItem;
 
+        public Dictionary<Int32, StackPanel> OnlineUsersStackPanelList = new Dictionary<int, StackPanel>();
+
         private void Init_OracleDatabaseFileWatcher()
         {
             databasePoller = new DatabasePoller(XMLReaderWriter.GlobalConnectionString);
@@ -75,7 +77,6 @@ namespace The_Oracle
             if (DateTime.Now.Second == XMLReaderWriter.UserID * 6)//use UserID as to offset actual second used to update
             {
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
-                //UpdateUsersOnline();
                 LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
             }
             CheckMyUnreadAndMyReminders();
@@ -157,7 +158,6 @@ namespace The_Oracle
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
 
                 LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
-                //UpdateUsersOnline();
             }
 
             MainWindowIs_Loaded = true;
@@ -165,8 +165,7 @@ namespace The_Oracle
 
         public void RefreshXML()
         {
-            LoadCurrentUserIntoGrid(CurrentUserGrid);
-            //LoadUsersIntoUsersStackPanel();
+            CurrentUserGrid.Children.Add(GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[XMLReaderWriter.UserID]));
             LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
             AddItemsToEventTypeComboBox();
         }
@@ -474,15 +473,13 @@ namespace The_Oracle
             eventRow.Tag = eventHorizonLINQ;
 
             return eventRow;
-        }
+        } 
 
-        public Dictionary<Int32, StackPanel> OnlineUsersStackPanelList = new Dictionary<int, StackPanel>();
-
-        public void LoadUsersIntoOnlineUsersStackPanel(StackPanel parentStackPanel)
+        internal void LoadUsersIntoOnlineUsersStackPanel(StackPanel parentStackPanel)
         {
-            //parentStackPanel.Children.Clear();
-
             DataTableManagement.GetUsersLastTimeOnline();
+
+            int UsersWhoJustCameOnlineCount = 0;
 
             int UsersOnlineCount = 0;
 
@@ -509,7 +506,7 @@ namespace The_Oracle
 
                             OnlineUsersStackPanelList.Add(user.ID, childStackPanel);
                             parentStackPanel.Children.Add(childStackPanel);
-                        }                        
+                        }
                     }
                     else
                     {
@@ -517,7 +514,10 @@ namespace The_Oracle
                         {
                             if (UsersLastTimeOnlineDictionary[user.ID] > (DateTime.Now - TimeSpan.FromMinutes(2)))
                             {
-                                if (user.ID != XMLReaderWriter.UserID && OnlineUsersStackPanelList[user.ID].Opacity != 1) MiscFunctions.PlayFile("Notification.mp3");
+                                if (user.ID != XMLReaderWriter.UserID && OnlineUsersStackPanelList[user.ID].Opacity != 1)
+                                {
+                                    UsersWhoJustCameOnlineCount++;
+                                }
 
                                 OnlineUsersStackPanelList[user.ID].Opacity = 1;
 
@@ -528,15 +528,22 @@ namespace The_Oracle
                                 OnlineUsersStackPanelList[user.ID].Opacity = 0.2;
                             }
                         }
-                    }  
+                    }
                 }
 
-                if (user == XMLReaderWriter.UsersList.Last()) // Check if it's not the first item
+                if (user == XMLReaderWriter.UsersList.Last()) // Check if its the last item
+                {
                     usersOnline.NumberOfUsersOnlineLabel.Content = UsersOnlineCount + " of " + (XMLReaderWriter.UsersList.Count - 1);
+
+                    if (UsersWhoJustCameOnlineCount > 0)
+                    {
+                        MiscFunctions.PlayFile("Notification.mp3");
+                    }
+                }
             }
         }
 
-        internal StackPanel GetUserAsTokenStackPanel(User user)
+        internal StackPanel GetUserAsTokenStackPanel(User user, bool JustUsersToken = false)
         {
             StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal, Height = 30 };
 
@@ -585,196 +592,44 @@ namespace The_Oracle
             usersName.SetResourceReference(Control.StyleProperty, "EventTypeText_TextBlockStyle");
 
             stackPanel.Children.Add(originUserIconEllipseGrid);
-            stackPanel.Children.Add(usersName);
+
+            if (!JustUsersToken)
+            {
+                stackPanel.Children.Add(usersName);
+            }
+            else
+            {
+                stackPanel.Margin = new Thickness(0, 0, -5.5, 0);
+            }
 
             return stackPanel;
         }
-
-        //public void LoadUsersOnlineIntoUsersOnlineStackPanel(StackPanel parentStackPanel)
-        //{
-        //    try
-        //    {
-        //        foreach (User user in XMLReaderWriter.UsersList)
-        //        {
-        //            StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
-
-        //            Grid originUserIconEllipseGrid;
-        //            Ellipse originUserIconEllipse;
-
-        //            Color iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
-
-        //            if (user.ID > 0)
-        //                originUserIconEllipse = new Ellipse();
-        //            else
-        //                originUserIconEllipse = new Ellipse();
-
-        //            originUserIconEllipse.SetResourceReference(Control.StyleProperty, "EllipseToken_EllipseStyle");
-        //            originUserIconEllipse.Fill = new SolidColorBrush(iconEllipseColor);
-
-        //            originUserIconEllipseGrid = new Grid();
-
-        //            originUserIconEllipseGrid.SetResourceReference(Control.StyleProperty, "EllipseToken_GridStyle");
-
-        //            originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
-
-        //            Label originUserIconEllipseLabel;
-
-        //            if (user.ID > 0)
-        //            {
-        //                originUserIconEllipseLabel = new Label();
-        //                originUserIconEllipseLabel.Content = MiscFunctions.GetFirstCharsOfString(user.UserName);
-        //                originUserIconEllipseLabel.SetResourceReference(Control.StyleProperty, "EllipseToken_LabelStyle");
-        //            }
-        //            else
-        //            {
-        //                originUserIconEllipseLabel = new Label();
-        //                originUserIconEllipseLabel.Content = "★";
-        //                originUserIconEllipseLabel.SetResourceReference(Control.StyleProperty, "EllipseToken_LabelStyle");
-        //                originUserIconEllipseLabel.FontSize = 14;
-        //                originUserIconEllipseLabel.Margin = new Thickness(0, -3, 0, 0);
-        //                originUserIconEllipseLabel.MaxHeight = 24;
-        //                originUserIconEllipseLabel.Padding = new Thickness(0);
-        //            }
-
-        //            originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
-
-        //            TextBlock usersName = new TextBlock();
-        //            usersName.Text = user.UserName;
-        //            usersName.SetResourceReference(Control.StyleProperty, "EventTypeText_TextBlockStyle");
-
-        //            stackPanel.Children.Add(originUserIconEllipseGrid);
-        //            stackPanel.Children.Add(usersName);
-
-        //            parentStackPanel.Children.Add(stackPanel);
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine("----------------------------------------");
-
-        //        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadUsersOnlineIntoUsersOnlineStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
-        //        msg.ShowDialog();
-        //    }
-        //}
-
-        public void LoadCurrentUserIntoGrid(Grid grid)
-        {
-            try
-            {
-                StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
-
-                if (XMLReaderWriter.UsersList[XMLReaderWriter.UserID] != null)
-                {
-                    User user = XMLReaderWriter.UsersList[XMLReaderWriter.UserID];
-
-                    Grid originUserIconEllipseGrid;
-                    Ellipse originUserIconEllipse;
-
-                    Color iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
-
-                    if (user.ID > 0)
-                        originUserIconEllipse = new Ellipse();// { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                    else
-                        originUserIconEllipse = new Ellipse();// { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                    originUserIconEllipse.SetResourceReference(Control.StyleProperty, "EllipseToken_EllipseStyle");
-                    originUserIconEllipse.Fill = new SolidColorBrush(iconEllipseColor);             
-
-                    originUserIconEllipseGrid = new Grid();// { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                    
-                    originUserIconEllipseGrid.SetResourceReference(Control.StyleProperty, "EllipseToken_GridStyle");
-                    
-                    originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
-
-                    Label originUserIconEllipseLabel;
-
-                    if (user.ID > 0)
-                    {
-                        originUserIconEllipseLabel = new Label();// { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                        originUserIconEllipseLabel.Content = MiscFunctions.GetFirstCharsOfString(user.UserName);
-                        originUserIconEllipseLabel.SetResourceReference(Control.StyleProperty, "EllipseToken_LabelStyle");
-                    }
-                    else
-                    {
-                        originUserIconEllipseLabel = new Label();// { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
-                        originUserIconEllipseLabel.Content = "★";
-                        originUserIconEllipseLabel.SetResourceReference(Control.StyleProperty, "EllipseToken_LabelStyle");
-                        originUserIconEllipseLabel.FontSize = 14;
-                        originUserIconEllipseLabel.Margin = new Thickness(0, -3, 0, 0);
-                        originUserIconEllipseLabel.MaxHeight = 24;
-                        originUserIconEllipseLabel.Padding = new Thickness(0);
-                    }
-
-                    originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
-
-                    TextBlock usersName = new TextBlock(); // { Text = user.UserName, Foreground = Brushes.Black, FontSize = 11, MaxWidth = 120, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
-                    usersName.Text = user.UserName;
-                    usersName.SetResourceReference(Control.StyleProperty, "EventTypeText_TextBlockStyle");
-
-                    stackPanel.Children.Add(originUserIconEllipseGrid);
-                    stackPanel.Children.Add(usersName);
-                }
-                grid.Children.Add(stackPanel);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("----------------------------------------");
-
-                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadCurrentUserIntoUserStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
-                msg.ShowDialog();
-            }
-        }
-        public void LoadUsersIntoWelcome(Grid grid)
+ 
+        internal void LoadUsersIntoWelcome(Grid grid)
         {
             WrapPanel stackPanel = new WrapPanel { Orientation = Orientation.Horizontal };
 
             int i = 1;
+            
             foreach (User user in XMLReaderWriter.UsersList)
             {
                 if (i > 1)
                 {
                     Grid originUserIconEllipseGrid;
-                    Ellipse originUserIconEllipse;
 
-                    Color iconEllipseColor = Colors.White;
+                    originUserIconEllipseGrid = new Grid();
 
-                    iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
-
-                    if (user.ID > 0)
-                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                    else
-                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                    originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                    originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
-
-                    Label originUserIconEllipseLabel;
-
-                    if (user.ID > 0)
-                        originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                    else
-                        originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
-
-                    originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
-
-                    originUserIconEllipseGrid.Opacity = 1;
-
-                    originUserIconEllipseGrid.Effect = new DropShadowEffect
-                    {
-                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                        Direction = 320,
-                        ShadowDepth = 1,
-                        Opacity = 0.6
-                    };
-
+                    originUserIconEllipseGrid.Children.Add(GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[user.ID], true));
+ 
                     stackPanel.Children.Add(originUserIconEllipseGrid);
                 }
 
                 i++;
             }
+
             grid.Children.Add(stackPanel);
         }
+
         public void LoadEventTypesIntoWelcome(Grid grid)
         {
             WrapPanel stackPanel = new WrapPanel { Orientation = Orientation.Horizontal };
@@ -835,107 +690,7 @@ namespace The_Oracle
             }
             grid.Children.Add(stackPanel);
         }
-        //private void LoadUsersIntoUsersStackPanel()
-        //{
-        //    try
-        //    {
-        //        UsersColumn1StackPanel.Children.Clear();
-        //        UsersColumn2StackPanel.Children.Clear();
-        //        UsersColumn3StackPanel.Children.Clear();
-        //        UsersColumn4StackPanel.Children.Clear();
-        //        UsersColumn5StackPanel.Children.Clear();
-
-        //        int i = 1;
-        //        foreach (User user in XMLReaderWriter.UsersList)
-        //        {
-        //            if (user.ID > 0)
-        //            {
-        //                Grid originUserIconEllipseGrid;
-        //                Ellipse originUserIconEllipse;
-
-        //                Color iconEllipseColor = Colors.White;
-
-        //                iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
-
-        //                if (user.ID > 0)
-        //                    originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-        //                else
-        //                    originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-        //                originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-        //                originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
-
-        //                Label originUserIconEllipseLabel;
-
-        //                if (user.ID > 0)
-        //                    originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-        //                else
-        //                    originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
-
-        //                originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
-
-        //                originUserIconEllipseGrid.Opacity = 0.3;
-        //                UsersOnlineStatus.Add(user.ID, originUserIconEllipseGrid);
-
-        //                originUserIconEllipseGrid.Effect = new DropShadowEffect
-        //                {
-        //                    Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-        //                    Direction = 320,
-        //                    ShadowDepth = 1,
-        //                    Opacity = 0.6
-        //                };
-
-        //                if (i < 4)
-        //                    UsersColumn1StackPanel.Children.Add(originUserIconEllipseGrid);
-        //                else if (i > 3 && i < 7)
-        //                    UsersColumn2StackPanel.Children.Add(originUserIconEllipseGrid);
-        //                else if (i > 6 && i < 10)
-        //                    UsersColumn3StackPanel.Children.Add(originUserIconEllipseGrid);
-        //                else if (i > 9 && i < 13)
-        //                    UsersColumn4StackPanel.Children.Add(originUserIconEllipseGrid);
-        //                else if (i > 12 && i < 16)
-        //                    UsersColumn5StackPanel.Children.Add(originUserIconEllipseGrid);
-
-        //                i++;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine("----------------------------------------");
-
-        //        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadUsersIntoUsersStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
-        //        msg.ShowDialog();
-        //    }
-        //}
-
-        //private void UpdateUsersOnline()
-        //{
-        //    DataTableManagement.GetUsersLastTimeOnline();
-
-        //    foreach (User user in XMLReaderWriter.UsersList)
-        //    {
-        //        if (UsersOnlineStatus.ContainsKey(user.ID) && user.ID > 0)
-        //        {
-        //            //Check if user was still online a minute ago, if so refresh user icon
-        //            if (UsersLastTimeOnlineDictionary.ContainsKey(user.ID))
-        //            {
-        //                if (UsersLastTimeOnlineDictionary[user.ID] > (DateTime.Now - TimeSpan.FromMinutes(2)))
-        //                {
-        //                    Grid usersIconGrid = UsersOnlineStatus[user.ID];
-        //                    usersIconGrid.Opacity = 1;
-        //                }
-        //                else
-        //                {
-        //                    Grid usersIconGrid = UsersOnlineStatus[user.ID];
-        //                    usersIconGrid.Opacity = 0.3;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
+        
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)

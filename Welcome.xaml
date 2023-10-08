@@ -154,7 +154,7 @@
                         <Grid Grid.Row="9" Grid.Column="1">
                             <fa:FontAwesome x:Name="InstalledUsersIcon" Icon="Times" Width="26" Height="26" FontSize="25" Foreground="Firebrick" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,6,0,0" Padding="0"/>
                         </Grid>
-                        <Grid Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledUsersGrid" Margin="10,4,0,0"/>
+                        <Grid Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledUsersGrid" Margin="6,4,0,0"/>
                         <Label Grid.Row="9" Grid.Column="4" x:Name="InstalledUsersNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Margin="10,5,0,0"/>
                         <Button Grid.Row="9" Grid.Column="5" Tag="8" Style="{DynamicResource DefaultButtonStyle }" VerticalAlignment="Top" Margin="0,3,0,0" ToolTip="Add a new user to remote settings file" Click="WelcomeButton_Click" Visibility="Hidden">
                             <fa:FontAwesome Icon="File" FontSize="17" Foreground="White"/>
@@ -167,7 +167,7 @@
                         <Grid Grid.Row="10" Grid.Column="1">
                             <fa:FontAwesome x:Name="InstalledCurrentUserIcon" Icon="Times" Width="26" Height="26" FontSize="25" Foreground="Firebrick" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,6,0,0" Padding="0"/>
                         </Grid>
-                        <Grid Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledCurrentUserGrid" Margin="10,4,0,0"/>
+                        <Grid Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" x:Name="InstalledCurrentUserGrid" Margin="6,4,0,0"/>
                         <Label Grid.Row="10" Grid.Column="4" x:Name="InstalledCurrentUserNodesLabel" Content="0" FontSize="12" FontWeight="Normal" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
                         <Button Grid.Row="10" Grid.Column="5" Tag="10" Style="{DynamicResource DefaultButtonStyle }" ToolTip="Select the current user" Click="WelcomeButton_Click" Visibility="Hidden">
                             <fa:FontAwesome Icon="File" FontSize="17" Foreground="White"/>

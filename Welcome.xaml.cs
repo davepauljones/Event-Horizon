@@ -547,7 +547,8 @@ namespace The_Oracle
                 {
                     result = true;
 
-                    MainWindow.mw.LoadCurrentUserIntoGrid(InstalledCurrentUserGrid);
+                    //MainWindow.mw.LoadCurrentUserIntoGrid(InstalledCurrentUserGrid);
+                    InstalledCurrentUserGrid.Children.Add(MainWindow.mw.GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[XMLReaderWriter.UserID]));
                 }
                 else
                 {
