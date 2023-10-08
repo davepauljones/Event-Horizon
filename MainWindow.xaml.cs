@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
-using System.IO;
-using System.Windows.Media.Effects;
-using FontAwesome.WPF;
 using System.Globalization;
+using System.IO;
+
+using System.Windows.Media.Imaging;
 using Xceed.Wpf.Toolkit;
 
 namespace The_Oracle
@@ -22,23 +20,16 @@ namespace The_Oracle
     {
         int EventTypeID = 0;
 
-        public Int32 LastRecordCount = 0;
-
         private Today today;
         private Now now;
         public EventHorizonDatabaseHealth eventHorizonDatabaseHealth;
-        private UsersOnline usersOnline;
+        public UsersOnline usersOnline;
 
         public static MainWindow mw;
-        public static DateTime OracleDatabaseLastWriteTime = DateTime.Now;
-
-        public delegate void OnOracleDatabaseChanged(object source, FileSystemEventArgs e);
 
         public bool justLoaded = false;
 
         public List<EventHorizonLINQ> EventHorizonLINQList;
-
-        public static Dictionary<Int32, DateTime> UsersLastTimeOnlineDictionary = new Dictionary<int, DateTime>();
 
         private static DatabasePoller databasePoller;
 
@@ -46,8 +37,6 @@ namespace The_Oracle
         List<SelectionIdString> ListOfHelp = new List<SelectionIdString>();
 
         public EventHorizonLINQ eventHorizonLINQ_SelectedItem;
-
-        public Dictionary<Int32, StackPanel> OnlineUsersStackPanelList = new Dictionary<int, StackPanel>();
 
         private void Init_OracleDatabaseFileWatcher()
         {
@@ -77,11 +66,27 @@ namespace The_Oracle
             if (DateTime.Now.Second == XMLReaderWriter.UserID * 6)//use UserID as to offset actual second used to update
             {
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
-                LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
+                EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
             }
+            
             CheckMyUnreadAndMyReminders();
+            
             MainWindow.mw.eventHorizonDatabaseHealth.UpdateLastWriteLabel(false);
+            
             justLoaded = true;
+        }
+
+        private void ReminderListScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\EventHorizonLogoHLNNN.png"))
+            {
+                ImageBrush myBrush = new ImageBrush();
+                myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\EventHorizonLogoHLNNN.png", UriKind.Absolute));
+                myBrush.Stretch = Stretch.Uniform;
+                myBrush.Transform = new ScaleTransform(0.33, 0.33, 700, ReminderListScrollViewer.ActualHeight);
+                ReminderListScrollViewer.Background = myBrush;
+                ReminderListScrollViewer.Background.Opacity = 1;
+            }
         }
 
         public MainWindow()
@@ -157,7 +162,7 @@ namespace The_Oracle
 
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
 
-                LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
+                EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
             }
 
             MainWindowIs_Loaded = true;
@@ -165,8 +170,8 @@ namespace The_Oracle
 
         public void RefreshXML()
         {
-            CurrentUserGrid.Children.Add(GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[XMLReaderWriter.UserID]));
-            LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
+            CurrentUserGrid.Children.Add(EventHorizonTokens.GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[XMLReaderWriter.UserID]));
+            EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
             AddItemsToEventTypeComboBox();
         }
 
@@ -207,7 +212,7 @@ namespace The_Oracle
 
                     eventHorizonLINQ.Attributes_Replies = eventHorizonLINQRepliesList.Count;
 
-                    EventRow eventRow = CreateEventLogRow(eventHorizonLINQ);
+                    EventRow eventRow = EventRow.CreateEventLogRow(eventHorizonLINQ);
 
                     if (eventHorizonLINQ.EventModeID == EventModes.MainEvent)
                     {
@@ -223,7 +228,7 @@ namespace The_Oracle
 
                         foreach (EventHorizonLINQ eventHorizonLINQRow in eventHorizonLINQRepliesList)
                         {
-                            EventRow er = CreateEventLogRow(eventHorizonLINQRow);
+                            EventRow er = EventRow.CreateEventLogRow(eventHorizonLINQRow);
 
                             eventRow.RepliesListView.Items.Add(er);
 
@@ -310,387 +315,6 @@ namespace The_Oracle
             return Return_EventHorizonLINQ;
         }
 
-        private EventRow CreateEventLogRow(EventHorizonLINQ eventHorizonLINQ)
-        {
-            EventRow eventRow = new EventRow(eventHorizonLINQ);
-
-            eventRow.EventIDTextBlock.Text = eventHorizonLINQ.ID.ToString("D5");
-
-            if (eventHorizonLINQ.EventModeID == EventModes.NoteEvent)
-            {
-                eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.LightSlateGray);
-                eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.StickyNote;
-                eventRow.EventTypeTextBlock.Text = "Note";
-                eventRow.BackgroundGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f7f8f9"));
-                eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Hidden;
-            }
-            else if (eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
-            {
-                eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.LightSlateGray);
-                eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Exchange;
-                eventRow.EventTypeTextBlock.Text = "Reply";
-                eventRow.BackgroundGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f7f8f9"));
-                eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                if (eventHorizonLINQ.EventTypeID < XMLReaderWriter.EventTypesList.Count)
-                {
-                    eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Color);
-                    eventRow.EventTypeFontAwesomeIcon.Icon = XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Icon;
-                    eventRow.EventTypeTextBlock.Text = XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Name;
-                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.Transparent);
-                    eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.White);
-                    eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Question;
-                    eventRow.EventTypeTextBlock.Text = "Error";
-                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.Transparent);
-                    eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
-                }
-            }
-
-            eventRow.CreatedDateTimeTextBlock.Text = eventHorizonLINQ.CreationDate.ToString("dd/MM/y HH:mm");
-
-            if (eventHorizonLINQ.EventModeID == EventModes.NoteEvent || eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
-            {
-                eventRow.SourceIDTextBlock.Text = "";
-            }
-            else
-            {
-                if (eventHorizonLINQ.SourceID < XMLReaderWriter.SourceTypesList.Count)
-                {
-                    eventRow.SourceTypeFontAwesomeIconBorder.Background = new SolidColorBrush(XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Color);
-                    eventRow.SourceTypeFontAwesomeIcon.Icon = XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Icon;
-                    eventRow.SourceIDTextBlock.Text = XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Name;
-                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.Transparent);
-                    eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    eventRow.SourceTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.White);
-                    eventRow.SourceTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Question;
-                    eventRow.SourceIDTextBlock.Text = "Error";
-                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.Transparent);
-                    eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
-                }
-            }
-
-            eventRow.DetailsTextBlock.Text = eventHorizonLINQ.Details;
-
-            if (eventHorizonLINQ.EventModeID != EventModes.NoteEvent && eventHorizonLINQ.EventModeID != EventModes.ReplyEvent) eventRow.FrequencyGrid.Children.Add(Frequency.GetFrequency(eventHorizonLINQ.FrequencyID));
-
-            eventRow.StatusGrid.Children.Add(StatusIcons.GetStatus(eventHorizonLINQ.StatusID));
-
-            if (eventHorizonLINQ.UserID < XMLReaderWriter.UsersList.Count)
-            {
-                eventRow.OriginUserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
-                eventRow.OriginUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
-            }
-            else
-            {
-                eventRow.OriginUserEllipse.Fill = new SolidColorBrush(Colors.White);
-                eventRow.OriginUserLabel.Content = eventHorizonLINQ.UserID;
-            }
-
-            if (eventHorizonLINQ.TargetUserID < XMLReaderWriter.UsersList.Count)
-            {
-                eventRow.TargetUserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.TargetUserID].Color);
-                eventRow.TargetUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.TargetUserID);
-            }
-            else
-            {
-                eventRow.TargetUserEllipse.Fill = new SolidColorBrush(Colors.White);
-                eventRow.TargetUserLabel.Content = eventHorizonLINQ.TargetUserID;
-            }
-
-            if (eventHorizonLINQ.TargetUserID < XMLReaderWriter.UsersList.Count)
-            {
-                if (eventHorizonLINQ.TargetUserID > 0)
-                    eventRow.TargetUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.TargetUserID);
-                else
-                {
-                    eventRow.TargetUserLabel.Content = "★";
-                    eventRow.TargetUserLabel.Margin = new Thickness(0, -3, 0, 0);
-                    eventRow.TargetUserLabel.FontSize = 14;
-                }
-            }
-            else
-            {
-                eventRow.TargetUserEllipse.Fill = new SolidColorBrush(Colors.White);
-                eventRow.TargetUserLabel.Content = eventHorizonLINQ.TargetUserID;
-            }
-
-            string totalDaysString;
-
-            if (eventHorizonLINQ.Attributes_TotalDays < 0)
-            {
-                if (eventHorizonLINQ.Attributes_TotalDays < -30)
-                    totalDaysString = "30";
-                else
-                    totalDaysString = Math.Abs(eventHorizonLINQ.Attributes_TotalDays).ToString();
-            }
-            else
-            {
-                if (eventHorizonLINQ.Attributes_TotalDays > 30)
-                    totalDaysString = "30";
-                else
-                    totalDaysString = eventHorizonLINQ.Attributes_TotalDays.ToString();
-            }
-
-            eventRow.TotalDaysEllipse.Fill = new SolidColorBrush(eventHorizonLINQ.Attributes_TotalDaysEllipseColor);
-            eventRow.TotalDaysLabel.Content = totalDaysString;
-
-            string targetDateTimeString = eventHorizonLINQ.TargetDate.ToString("dd/MM/y HH:mm");
-            DateTime targetDateTime = DateTime.MinValue;
-            if (DateTime.TryParse(targetDateTimeString, out targetDateTime))
-            {
-                if (targetDateTime.TimeOfDay == TimeSpan.Zero)
-                    targetDateTimeString = targetDateTime.ToString("dd/MM/y");
-                else
-                    targetDateTimeString = targetDateTime.ToString("dd/MM/y HH:mm");
-            }
-            else
-                Console.WriteLine("Unable to parse TargetDateTimeString '{0}'", targetDateTimeString);
-
-            eventRow.TargetDateTimeTextBlock.Text = targetDateTimeString;
-
-            eventRow.RepliesLabel.Content = eventHorizonLINQ.Attributes_Replies;
-
-            if (eventHorizonLINQ.Attributes_Replies == 0)
-            {
-                eventRow.RepliesButton.Opacity = 0.1;
-                eventRow.RepliesButton.IsEnabled = false;
-            }
-
-            if (eventHorizonLINQ.EventAttributeID == EventAttributes.LineItem)
-            {
-                eventRow.MorphEventRow();
-            }
-
-            eventRow.Tag = eventHorizonLINQ;
-
-            return eventRow;
-        } 
-
-        internal void LoadUsersIntoOnlineUsersStackPanel(StackPanel parentStackPanel)
-        {
-            DataTableManagement.GetUsersLastTimeOnline();
-
-            int UsersWhoJustCameOnlineCount = 0;
-
-            int UsersOnlineCount = 0;
-
-            foreach (User user in XMLReaderWriter.UsersList)
-            {
-                if (user != XMLReaderWriter.UsersList.First())
-                {
-                    if (!OnlineUsersStackPanelList.ContainsKey(user.ID))
-                    {
-                        StackPanel childStackPanel = GetUserAsTokenStackPanel(user);
-                        
-                        if (UsersLastTimeOnlineDictionary.ContainsKey(user.ID))
-                        {
-                            if (UsersLastTimeOnlineDictionary[user.ID] > (DateTime.Now - TimeSpan.FromMinutes(2)))
-                            {
-                                childStackPanel.Opacity = 1;
-
-                                UsersOnlineCount++;
-                            }
-                            else
-                            {
-                                childStackPanel.Opacity = 0.2;
-                            }
-
-                            OnlineUsersStackPanelList.Add(user.ID, childStackPanel);
-                            parentStackPanel.Children.Add(childStackPanel);
-                        }
-                    }
-                    else
-                    {
-                        if (UsersLastTimeOnlineDictionary.ContainsKey(user.ID))
-                        {
-                            if (UsersLastTimeOnlineDictionary[user.ID] > (DateTime.Now - TimeSpan.FromMinutes(2)))
-                            {
-                                if (user.ID != XMLReaderWriter.UserID && OnlineUsersStackPanelList[user.ID].Opacity != 1)
-                                {
-                                    UsersWhoJustCameOnlineCount++;
-                                }
-
-                                OnlineUsersStackPanelList[user.ID].Opacity = 1;
-
-                                UsersOnlineCount++;
-                            }
-                            else
-                            {
-                                OnlineUsersStackPanelList[user.ID].Opacity = 0.2;
-                            }
-                        }
-                    }
-                }
-
-                if (user == XMLReaderWriter.UsersList.Last()) // Check if its the last item
-                {
-                    usersOnline.NumberOfUsersOnlineLabel.Content = UsersOnlineCount + " of " + (XMLReaderWriter.UsersList.Count - 1);
-
-                    if (UsersWhoJustCameOnlineCount > 0)
-                    {
-                        MiscFunctions.PlayFile("Notification.mp3");
-                    }
-                }
-            }
-        }
-
-        internal StackPanel GetUserAsTokenStackPanel(User user, bool JustUsersToken = false)
-        {
-            StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal, Height = 30 };
-
-            Grid originUserIconEllipseGrid;
-            Ellipse originUserIconEllipse;
-
-            Color iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
-
-            if (user.ID > 0)
-                originUserIconEllipse = new Ellipse();
-            else
-                originUserIconEllipse = new Ellipse();
-
-            originUserIconEllipse.SetResourceReference(Control.StyleProperty, "EllipseToken_EllipseStyle");
-            originUserIconEllipse.Fill = new SolidColorBrush(iconEllipseColor);
-
-            originUserIconEllipseGrid = new Grid();
-
-            originUserIconEllipseGrid.SetResourceReference(Control.StyleProperty, "EllipseToken_GridStyle");
-
-            originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
-
-            Label originUserIconEllipseLabel;
-
-            if (user.ID > 0)
-            {
-                originUserIconEllipseLabel = new Label();
-                originUserIconEllipseLabel.Content = MiscFunctions.GetFirstCharsOfString(user.UserName);
-                originUserIconEllipseLabel.SetResourceReference(Control.StyleProperty, "EllipseToken_LabelStyle");
-            }
-            else
-            {
-                originUserIconEllipseLabel = new Label();
-                originUserIconEllipseLabel.Content = "★";
-                originUserIconEllipseLabel.SetResourceReference(Control.StyleProperty, "EllipseToken_LabelStyle");
-                originUserIconEllipseLabel.FontSize = 14;
-                originUserIconEllipseLabel.Margin = new Thickness(0, -3, 0, 0);
-                originUserIconEllipseLabel.MaxHeight = 24;
-                originUserIconEllipseLabel.Padding = new Thickness(0);
-            }
-
-            originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
-
-            TextBlock usersName = new TextBlock();
-            usersName.Text = user.UserName;
-            usersName.SetResourceReference(Control.StyleProperty, "EventTypeText_TextBlockStyle");
-
-            stackPanel.Children.Add(originUserIconEllipseGrid);
-
-            if (!JustUsersToken)
-            {
-                stackPanel.Children.Add(usersName);
-            }
-            else
-            {
-                stackPanel.Margin = new Thickness(0, 0, -5.5, 0);
-            }
-
-            return stackPanel;
-        }
- 
-        internal void LoadUsersIntoWelcome(Grid grid)
-        {
-            WrapPanel stackPanel = new WrapPanel { Orientation = Orientation.Horizontal };
-
-            int i = 1;
-            
-            foreach (User user in XMLReaderWriter.UsersList)
-            {
-                if (i > 1)
-                {
-                    Grid originUserIconEllipseGrid;
-
-                    originUserIconEllipseGrid = new Grid();
-
-                    originUserIconEllipseGrid.Children.Add(GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[user.ID], true));
- 
-                    stackPanel.Children.Add(originUserIconEllipseGrid);
-                }
-
-                i++;
-            }
-
-            grid.Children.Add(stackPanel);
-        }
-
-        public void LoadEventTypesIntoWelcome(Grid grid)
-        {
-            WrapPanel stackPanel = new WrapPanel { Orientation = Orientation.Horizontal };
-
-            int i = 1;
-            foreach (EventType eventType in XMLReaderWriter.EventTypesList)
-            {
-                if (i > 1)
-                {
-                    Border border = new Border { Width = 28, Height = 28, Background = new SolidColorBrush(eventType.Color), BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 2.3, 2.3), Padding = new Thickness(0) };
-
-                    border.Effect = new DropShadowEffect
-                    {
-                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                        Direction = 320,
-                        ShadowDepth = 1,
-                        Opacity = 0.6
-                    };
-
-                    FontAwesome.WPF.FontAwesome fai = new FontAwesome.WPF.FontAwesome { Icon = eventType.Icon, Width = 28, Height = 28, FontSize = 17, Foreground = new SolidColorBrush(Colors.White), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(0, 5, 0, 0) };
-
-                    border.Child = fai;
-
-                    stackPanel.Children.Add(border);
-                }
-
-                i++;
-            }
-            grid.Children.Add(stackPanel);
-        }
-        public void LoadSourceTypesIntoWelcome(Grid grid)
-        {
-            WrapPanel stackPanel = new WrapPanel { Orientation = Orientation.Horizontal };
-
-            int i = 1;
-            foreach (SourceType sourceType in XMLReaderWriter.SourceTypesList)
-            {
-                if (i > 1)
-                {
-                    Border border = new Border { Width = 28, Height = 28, Background = new SolidColorBrush(sourceType.Color), BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 2.3, 2.3), Padding = new Thickness(0) };
-
-                    border.Effect = new DropShadowEffect
-                    {
-                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                        Direction = 320,
-                        ShadowDepth = 1,
-                        Opacity = 0.6
-                    };
-
-                    FontAwesome.WPF.FontAwesome fai = new FontAwesome.WPF.FontAwesome { Icon = sourceType.Icon, Width = 28, Height = 28, FontSize = 17, Foreground = new SolidColorBrush(Colors.White), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(0, 5, 0, 0) };
-
-                    border.Child = fai;
-
-                    stackPanel.Children.Add(border);
-                }
-
-                i++;
-            }
-            grid.Children.Add(stackPanel);
-        }
-        
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
@@ -1345,6 +969,7 @@ namespace The_Oracle
                     break;
             }
         }
+
         private void LoadReportsVisualTree()
         {
             ListOfReports.Clear();
@@ -1362,6 +987,7 @@ namespace The_Oracle
                 ReportsVisualTreeListView.Items.Add(new TextBlock { Tag = ss.Id, Text = " " + ss.Name + " ", Style = (Style)FindResource("TreeViewItemTextBlock") });
             }
         }
+
         private void LoadHelpVisualTree()
         {
             ListOfHelp.Clear();
@@ -1432,6 +1058,7 @@ namespace The_Oracle
                 Console.WriteLine(ex.Message);
             }
         }
+
         private void HelpVisualTreeListView_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
@@ -1598,6 +1225,5 @@ namespace The_Oracle
             }
         }
 
-        
     }
 }

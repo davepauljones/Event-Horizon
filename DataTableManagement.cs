@@ -1224,7 +1224,7 @@ namespace The_Oracle
                                 conn.Open();
                                 using (OleDbDataReader reader = cmd.ExecuteReader())
                                 {
-                                    MainWindow.UsersLastTimeOnlineDictionary.Clear();
+                                    EventHorizonTokens.UsersLastTimeOnlineDictionary.Clear();
 
                                     while (reader.Read())
                                     {
@@ -1242,9 +1242,9 @@ namespace The_Oracle
                                             //Console.Write("LastTimeOnline = ");
                                             //Console.WriteLine(LastTimeOnlineString);
 
-                                            if (!MainWindow.UsersLastTimeOnlineDictionary.ContainsKey(UserID))
+                                            if (!EventHorizonTokens.UsersLastTimeOnlineDictionary.ContainsKey(UserID))
                                             {
-                                                MainWindow.UsersLastTimeOnlineDictionary.Add(UserID, LastTimeOnlineDateTime);
+                                                EventHorizonTokens.UsersLastTimeOnlineDictionary.Add(UserID, LastTimeOnlineDateTime);
                                             }
                                         }
                                         else
@@ -1280,7 +1280,7 @@ namespace The_Oracle
                                 connection.Open();
                                 using (SQLiteDataReader reader = command.ExecuteReader())
                                 {
-                                    MainWindow.UsersLastTimeOnlineDictionary.Clear();
+                                    EventHorizonTokens.UsersLastTimeOnlineDictionary.Clear();
 
                                     while (reader.Read())
                                     {
@@ -1298,9 +1298,9 @@ namespace The_Oracle
                                             //Console.Write("LastTimeOnline = ");
                                             //Console.WriteLine(LastTimeOnlineString);
 
-                                            if (!MainWindow.UsersLastTimeOnlineDictionary.ContainsKey(UserID))
+                                            if (!EventHorizonTokens.UsersLastTimeOnlineDictionary.ContainsKey(UserID))
                                             {
-                                                MainWindow.UsersLastTimeOnlineDictionary.Add(UserID, LastTimeOnlineDateTime);
+                                                EventHorizonTokens.UsersLastTimeOnlineDictionary.Add(UserID, LastTimeOnlineDateTime);
                                             }
                                         }
                                         else

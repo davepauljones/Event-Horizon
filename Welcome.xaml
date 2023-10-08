@@ -26,7 +26,7 @@
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="3" Opacity="0.6" />
         </Border.Effect>
         <Border CornerRadius="6" Background="Transparent" Opacity="1" BorderThickness="3" BorderBrush="Firebrick" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Margin="20">
-            <Border CornerRadius="6" Background="Transparent" Opacity="1" BorderThickness="3" BorderBrush="#3b71ca" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Margin="10">
+            <Border x:Name="InnerMainBorder" CornerRadius="6" Background="Transparent" Opacity="1" BorderThickness="3" BorderBrush="#3b71ca" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Margin="10">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="120"/>
@@ -44,11 +44,15 @@
                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="8" BlurRadius="15" Opacity="0.2" />
             </Grid.Effect>-->
 
-                    <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,0,0,0">
+                    <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                        <Grid x:Name="HeaderGrid"/>
+                    </Grid>
+
+                    <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
                         <local:EventHorizonLogo/>
                     </StackPanel>
 
-                    <Image Grid.Row="0" Grid.Column="2" Source="pack://application:,,/Images/gplv3-216x110.png" Stretch="UniformToFill" Width="216" Height="110" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,50,0"/>
+                    <Image Grid.Row="0" Grid.Column="2" Source="pack://application:,,/Images/gplv3-216x110.png" Stretch="UniformToFill" Width="216" Height="110" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
 
                     <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
                         <Grid.RowDefinitions>

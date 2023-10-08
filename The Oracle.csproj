@@ -141,6 +141,7 @@
     <Compile Include="EventHorizonEventTypes.cs" />
     <Compile Include="EventHorizonAttributes.cs" />
     <Compile Include="EventHorizonSources.cs" />
+    <Compile Include="EventHorizonTokens.cs" />
     <Compile Include="EventHorizonUsers.cs" />
     <Compile Include="EventRowStatusBar.xaml.cs">
       <DependentUpon>EventRowStatusBar.xaml</DependentUpon>
@@ -153,7 +154,6 @@
     </Compile>
     <Compile Include="MainWindowTitle.cs" />
     <Compile Include="EventHorizonDatabaseCreate.cs" />
-    <Compile Include="EventHorizonDatabaseFileWatcher.cs" />
     <Compile Include="EventHorizonDatabaseHealth.xaml.cs">
       <DependentUpon>EventHorizonDatabaseHealth.xaml</DependentUpon>
     </Compile>

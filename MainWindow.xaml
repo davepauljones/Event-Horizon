@@ -418,7 +418,7 @@
                             <Border.Effect>
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                             </Border.Effect>
-                            <ScrollViewer x:Name="ReminderListScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="1" Height="{Binding ElementName=ReminderGrid, Path=ActualHeight, Converter={StaticResource ListViewConverter}, ConverterParameter=10, Mode=OneWay}">
+                            <ScrollViewer x:Name="ReminderListScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="1" Height="{Binding ElementName=ReminderGrid, Path=ActualHeight, Converter={StaticResource ListViewConverter}, ConverterParameter=10, Mode=OneWay}" SizeChanged ="ReminderListScrollViewer_SizeChanged">
 
                                 <StackPanel Orientation="Vertical" Margin="6,0,6,0">
                                     <StackPanel Orientation="Horizontal" Margin="11,0,0,0">
