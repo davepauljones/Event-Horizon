@@ -649,4 +649,64 @@
         </Setter>
     </Style>
 
+    <Style x:Key="EventTypeToken_BorderStyle" TargetType="{x:Type Border}">
+        <Setter Property="Margin" Value="10,0,0,0"/>
+        <Setter Property="Width" Value="28"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="CornerRadius" Value="3"/>
+        <Setter Property="Background" Value="DodgerBlue"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" Opacity="1" ShadowDepth="1" Direction="320" BlurRadius="0.5"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="EventTypeToken_FontAwesomeStyle" TargetType="{x:Type fa:FontAwesome}">
+        <Setter Property="Margin" Value="0,5,0,0"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Width" Value="28"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style x:Key="EventTypeText_TextBlockStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="Margin" Value="5,0,0,0"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="Width" Value="144"/>
+        <Setter Property="Height" Value="18"/>
+        <Setter Property="MaxWidth" Value="144"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+
+    <Style x:Key="EllipseToken_GridStyle" TargetType="{x:Type Grid}">
+        <Setter Property="Margin" Value="5,1,5,0"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" Opacity="1" ShadowDepth="1" Direction="320" BlurRadius="0.5"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="EllipseToken_EllipseStyle" TargetType="{x:Type Ellipse}">
+        <Setter Property="Width" Value="26"/>
+        <Setter Property="Height" Value="26"/>
+        <Setter Property="Fill" Value="Pink"/>
+    </Style>
+    <Style x:Key="EllipseToken_LabelStyle" TargetType="{x:Type Label}">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+
 </ResourceDictionary>

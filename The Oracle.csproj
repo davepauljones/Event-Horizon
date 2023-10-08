@@ -166,6 +166,9 @@
     <Compile Include="EventHorizonRequesterNotification.xaml.cs">
       <DependentUpon>EventHorizonRequesterNotification.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UsersOnline.xaml.cs">
+      <DependentUpon>UsersOnline.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReportsWindow.xaml.cs">
       <DependentUpon>ReportsWindow.xaml</DependentUpon>
     </Compile>
@@ -240,6 +243,10 @@
     <Page Include="EventHorizonResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UsersOnline.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Now.xaml">
       <Generator>MSBuild:Compile</Generator>

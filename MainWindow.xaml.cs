@@ -27,6 +27,7 @@ namespace The_Oracle
         private Today today;
         private Now now;
         public EventHorizonDatabaseHealth eventHorizonDatabaseHealth;
+        private UsersOnline usersOnline;
 
         public static MainWindow mw;
         public static DateTime OracleDatabaseLastWriteTime = DateTime.Now;
@@ -74,7 +75,8 @@ namespace The_Oracle
             if (DateTime.Now.Second == XMLReaderWriter.UserID * 6)//use UserID as to offset actual second used to update
             {
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
-                UpdateUsersOnline();
+                //UpdateUsersOnline();
+                LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
             }
             CheckMyUnreadAndMyReminders();
             MainWindow.mw.eventHorizonDatabaseHealth.UpdateLastWriteLabel(false);
@@ -141,6 +143,9 @@ namespace The_Oracle
             eventHorizonDatabaseHealth = new EventHorizonDatabaseHealth();
             OracleDatabaseHealthGrid.Children.Add(eventHorizonDatabaseHealth);
 
+            usersOnline = new UsersOnline();
+            UsersOnlineGrid.Children.Add(usersOnline);
+
             if (EventHorizonDatabaseCreate.CheckIfDatabaseExists())
             {
                 Init_OracleDatabaseFileWatcher();
@@ -150,7 +155,9 @@ namespace The_Oracle
                 CheckMyUnreadAndMyReminders();
 
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
-                UpdateUsersOnline();
+
+                LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
+                //UpdateUsersOnline();
             }
 
             MainWindowIs_Loaded = true;
@@ -159,7 +166,8 @@ namespace The_Oracle
         public void RefreshXML()
         {
             LoadCurrentUserIntoGrid(CurrentUserGrid);
-            LoadUsersIntoUsersStackPanel();
+            //LoadUsersIntoUsersStackPanel();
+            LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
             AddItemsToEventTypeComboBox();
         }
 
@@ -468,7 +476,186 @@ namespace The_Oracle
             return eventRow;
         }
 
-        public Dictionary<Int32, Grid> UsersOnlineStatus = new Dictionary<int, Grid>();
+        public Dictionary<Int32, StackPanel> OnlineUsersStackPanelList = new Dictionary<int, StackPanel>();
+
+        public void LoadUsersIntoOnlineUsersStackPanel(StackPanel parentStackPanel)
+        {
+            //parentStackPanel.Children.Clear();
+
+            DataTableManagement.GetUsersLastTimeOnline();
+
+            int UsersOnlineCount = 0;
+
+            foreach (User user in XMLReaderWriter.UsersList)
+            {
+                if (user != XMLReaderWriter.UsersList.First())
+                {
+                    if (!OnlineUsersStackPanelList.ContainsKey(user.ID))
+                    {
+                        StackPanel childStackPanel = GetUserAsTokenStackPanel(user);
+                        
+                        if (UsersLastTimeOnlineDictionary.ContainsKey(user.ID))
+                        {
+                            if (UsersLastTimeOnlineDictionary[user.ID] > (DateTime.Now - TimeSpan.FromMinutes(2)))
+                            {
+                                childStackPanel.Opacity = 1;
+
+                                UsersOnlineCount++;
+                            }
+                            else
+                            {
+                                childStackPanel.Opacity = 0.2;
+                            }
+
+                            OnlineUsersStackPanelList.Add(user.ID, childStackPanel);
+                            parentStackPanel.Children.Add(childStackPanel);
+                        }                        
+                    }
+                    else
+                    {
+                        if (UsersLastTimeOnlineDictionary.ContainsKey(user.ID))
+                        {
+                            if (UsersLastTimeOnlineDictionary[user.ID] > (DateTime.Now - TimeSpan.FromMinutes(2)))
+                            {
+                                if (user.ID != XMLReaderWriter.UserID && OnlineUsersStackPanelList[user.ID].Opacity != 1) MiscFunctions.PlayFile("Notification.mp3");
+
+                                OnlineUsersStackPanelList[user.ID].Opacity = 1;
+
+                                UsersOnlineCount++;
+                            }
+                            else
+                            {
+                                OnlineUsersStackPanelList[user.ID].Opacity = 0.2;
+                            }
+                        }
+                    }  
+                }
+
+                if (user == XMLReaderWriter.UsersList.Last()) // Check if it's not the first item
+                    usersOnline.NumberOfUsersOnlineLabel.Content = UsersOnlineCount + " of " + (XMLReaderWriter.UsersList.Count - 1);
+            }
+        }
+
+        internal StackPanel GetUserAsTokenStackPanel(User user)
+        {
+            StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal, Height = 30 };
+
+            Grid originUserIconEllipseGrid;
+            Ellipse originUserIconEllipse;
+
+            Color iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
+
+            if (user.ID > 0)
+                originUserIconEllipse = new Ellipse();
+            else
+                originUserIconEllipse = new Ellipse();
+
+            originUserIconEllipse.SetResourceReference(Control.StyleProperty, "EllipseToken_EllipseStyle");
+            originUserIconEllipse.Fill = new SolidColorBrush(iconEllipseColor);
+
+            originUserIconEllipseGrid = new Grid();
+
+            originUserIconEllipseGrid.SetResourceReference(Control.StyleProperty, "EllipseToken_GridStyle");
+
+            originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
+
+            Label originUserIconEllipseLabel;
+
+            if (user.ID > 0)
+            {
+                originUserIconEllipseLabel = new Label();
+                originUserIconEllipseLabel.Content = MiscFunctions.GetFirstCharsOfString(user.UserName);
+                originUserIconEllipseLabel.SetResourceReference(Control.StyleProperty, "EllipseToken_LabelStyle");
+            }
+            else
+            {
+                originUserIconEllipseLabel = new Label();
+                originUserIconEllipseLabel.Content = "★";
+                originUserIconEllipseLabel.SetResourceReference(Control.StyleProperty, "EllipseToken_LabelStyle");
+                originUserIconEllipseLabel.FontSize = 14;
+                originUserIconEllipseLabel.Margin = new Thickness(0, -3, 0, 0);
+                originUserIconEllipseLabel.MaxHeight = 24;
+                originUserIconEllipseLabel.Padding = new Thickness(0);
+            }
+
+            originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
+
+            TextBlock usersName = new TextBlock();
+            usersName.Text = user.UserName;
+            usersName.SetResourceReference(Control.StyleProperty, "EventTypeText_TextBlockStyle");
+
+            stackPanel.Children.Add(originUserIconEllipseGrid);
+            stackPanel.Children.Add(usersName);
+
+            return stackPanel;
+        }
+
+        //public void LoadUsersOnlineIntoUsersOnlineStackPanel(StackPanel parentStackPanel)
+        //{
+        //    try
+        //    {
+        //        foreach (User user in XMLReaderWriter.UsersList)
+        //        {
+        //            StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
+
+        //            Grid originUserIconEllipseGrid;
+        //            Ellipse originUserIconEllipse;
+
+        //            Color iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
+
+        //            if (user.ID > 0)
+        //                originUserIconEllipse = new Ellipse();
+        //            else
+        //                originUserIconEllipse = new Ellipse();
+
+        //            originUserIconEllipse.SetResourceReference(Control.StyleProperty, "EllipseToken_EllipseStyle");
+        //            originUserIconEllipse.Fill = new SolidColorBrush(iconEllipseColor);
+
+        //            originUserIconEllipseGrid = new Grid();
+
+        //            originUserIconEllipseGrid.SetResourceReference(Control.StyleProperty, "EllipseToken_GridStyle");
+
+        //            originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
+
+        //            Label originUserIconEllipseLabel;
+
+        //            if (user.ID > 0)
+        //            {
+        //                originUserIconEllipseLabel = new Label();
+        //                originUserIconEllipseLabel.Content = MiscFunctions.GetFirstCharsOfString(user.UserName);
+        //                originUserIconEllipseLabel.SetResourceReference(Control.StyleProperty, "EllipseToken_LabelStyle");
+        //            }
+        //            else
+        //            {
+        //                originUserIconEllipseLabel = new Label();
+        //                originUserIconEllipseLabel.Content = "★";
+        //                originUserIconEllipseLabel.SetResourceReference(Control.StyleProperty, "EllipseToken_LabelStyle");
+        //                originUserIconEllipseLabel.FontSize = 14;
+        //                originUserIconEllipseLabel.Margin = new Thickness(0, -3, 0, 0);
+        //                originUserIconEllipseLabel.MaxHeight = 24;
+        //                originUserIconEllipseLabel.Padding = new Thickness(0);
+        //            }
+
+        //            originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
+
+        //            TextBlock usersName = new TextBlock();
+        //            usersName.Text = user.UserName;
+        //            usersName.SetResourceReference(Control.StyleProperty, "EventTypeText_TextBlockStyle");
+
+        //            stackPanel.Children.Add(originUserIconEllipseGrid);
+        //            stackPanel.Children.Add(usersName);
+
+        //            parentStackPanel.Children.Add(stackPanel);
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine("----------------------------------------");
+
+        //        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadUsersOnlineIntoUsersOnlineStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
+        //        msg.ShowDialog();
+        //    }
+        //}
 
         public void LoadCurrentUserIntoGrid(Grid grid)
         {
@@ -483,39 +670,46 @@ namespace The_Oracle
                     Grid originUserIconEllipseGrid;
                     Ellipse originUserIconEllipse;
 
-                    Color iconEllipseColor = Colors.White;
-
-                    iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
+                    Color iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
 
                     if (user.ID > 0)
-                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                        originUserIconEllipse = new Ellipse();// { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
                     else
-                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                        originUserIconEllipse = new Ellipse();// { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
 
-                    originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    originUserIconEllipse.SetResourceReference(Control.StyleProperty, "EllipseToken_EllipseStyle");
+                    originUserIconEllipse.Fill = new SolidColorBrush(iconEllipseColor);             
 
+                    originUserIconEllipseGrid = new Grid();// { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    
+                    originUserIconEllipseGrid.SetResourceReference(Control.StyleProperty, "EllipseToken_GridStyle");
+                    
                     originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
 
                     Label originUserIconEllipseLabel;
 
                     if (user.ID > 0)
-                        originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                    {
+                        originUserIconEllipseLabel = new Label();// { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+                        originUserIconEllipseLabel.Content = MiscFunctions.GetFirstCharsOfString(user.UserName);
+                        originUserIconEllipseLabel.SetResourceReference(Control.StyleProperty, "EllipseToken_LabelStyle");
+                    }
                     else
-                        originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
+                    {
+                        originUserIconEllipseLabel = new Label();// { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
+                        originUserIconEllipseLabel.Content = "★";
+                        originUserIconEllipseLabel.SetResourceReference(Control.StyleProperty, "EllipseToken_LabelStyle");
+                        originUserIconEllipseLabel.FontSize = 14;
+                        originUserIconEllipseLabel.Margin = new Thickness(0, -3, 0, 0);
+                        originUserIconEllipseLabel.MaxHeight = 24;
+                        originUserIconEllipseLabel.Padding = new Thickness(0);
+                    }
 
                     originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
 
-                    originUserIconEllipseGrid.Opacity = 1;
-
-                    originUserIconEllipseGrid.Effect = new DropShadowEffect
-                    {
-                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                        Direction = 320,
-                        ShadowDepth = 1,
-                        Opacity = 0.6
-                    };
-
-                    TextBlock usersName = new TextBlock { Text = user.UserName, Foreground = Brushes.Black, FontSize = 11, MaxWidth = 120, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
+                    TextBlock usersName = new TextBlock(); // { Text = user.UserName, Foreground = Brushes.Black, FontSize = 11, MaxWidth = 120, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
+                    usersName.Text = user.UserName;
+                    usersName.SetResourceReference(Control.StyleProperty, "EventTypeText_TextBlockStyle");
 
                     stackPanel.Children.Add(originUserIconEllipseGrid);
                     stackPanel.Children.Add(usersName);
@@ -641,106 +835,106 @@ namespace The_Oracle
             }
             grid.Children.Add(stackPanel);
         }
-        private void LoadUsersIntoUsersStackPanel()
-        {
-            try
-            {
-                UsersColumn1StackPanel.Children.Clear();
-                UsersColumn2StackPanel.Children.Clear();
-                UsersColumn3StackPanel.Children.Clear();
-                UsersColumn4StackPanel.Children.Clear();
-                UsersColumn5StackPanel.Children.Clear();
+        //private void LoadUsersIntoUsersStackPanel()
+        //{
+        //    try
+        //    {
+        //        UsersColumn1StackPanel.Children.Clear();
+        //        UsersColumn2StackPanel.Children.Clear();
+        //        UsersColumn3StackPanel.Children.Clear();
+        //        UsersColumn4StackPanel.Children.Clear();
+        //        UsersColumn5StackPanel.Children.Clear();
 
-                int i = 1;
-                foreach (User user in XMLReaderWriter.UsersList)
-                {
-                    if (user.ID > 0)
-                    {
-                        Grid originUserIconEllipseGrid;
-                        Ellipse originUserIconEllipse;
+        //        int i = 1;
+        //        foreach (User user in XMLReaderWriter.UsersList)
+        //        {
+        //            if (user.ID > 0)
+        //            {
+        //                Grid originUserIconEllipseGrid;
+        //                Ellipse originUserIconEllipse;
 
-                        Color iconEllipseColor = Colors.White;
+        //                Color iconEllipseColor = Colors.White;
 
-                        iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
+        //                iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
 
-                        if (user.ID > 0)
-                            originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                        else
-                            originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+        //                if (user.ID > 0)
+        //                    originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+        //                else
+        //                    originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
 
-                        originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+        //                originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
 
-                        originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
+        //                originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
 
-                        Label originUserIconEllipseLabel;
+        //                Label originUserIconEllipseLabel;
 
-                        if (user.ID > 0)
-                            originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                        else
-                            originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
+        //                if (user.ID > 0)
+        //                    originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+        //                else
+        //                    originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
 
-                        originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
+        //                originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
 
-                        originUserIconEllipseGrid.Opacity = 0.3;
-                        UsersOnlineStatus.Add(user.ID, originUserIconEllipseGrid);
+        //                originUserIconEllipseGrid.Opacity = 0.3;
+        //                UsersOnlineStatus.Add(user.ID, originUserIconEllipseGrid);
 
-                        originUserIconEllipseGrid.Effect = new DropShadowEffect
-                        {
-                            Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                            Direction = 320,
-                            ShadowDepth = 1,
-                            Opacity = 0.6
-                        };
+        //                originUserIconEllipseGrid.Effect = new DropShadowEffect
+        //                {
+        //                    Color = new Color { A = 255, R = 0, G = 0, B = 0 },
+        //                    Direction = 320,
+        //                    ShadowDepth = 1,
+        //                    Opacity = 0.6
+        //                };
 
-                        if (i < 4)
-                            UsersColumn1StackPanel.Children.Add(originUserIconEllipseGrid);
-                        else if (i > 3 && i < 7)
-                            UsersColumn2StackPanel.Children.Add(originUserIconEllipseGrid);
-                        else if (i > 6 && i < 10)
-                            UsersColumn3StackPanel.Children.Add(originUserIconEllipseGrid);
-                        else if (i > 9 && i < 13)
-                            UsersColumn4StackPanel.Children.Add(originUserIconEllipseGrid);
-                        else if (i > 12 && i < 16)
-                            UsersColumn5StackPanel.Children.Add(originUserIconEllipseGrid);
+        //                if (i < 4)
+        //                    UsersColumn1StackPanel.Children.Add(originUserIconEllipseGrid);
+        //                else if (i > 3 && i < 7)
+        //                    UsersColumn2StackPanel.Children.Add(originUserIconEllipseGrid);
+        //                else if (i > 6 && i < 10)
+        //                    UsersColumn3StackPanel.Children.Add(originUserIconEllipseGrid);
+        //                else if (i > 9 && i < 13)
+        //                    UsersColumn4StackPanel.Children.Add(originUserIconEllipseGrid);
+        //                else if (i > 12 && i < 16)
+        //                    UsersColumn5StackPanel.Children.Add(originUserIconEllipseGrid);
 
-                        i++;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("----------------------------------------");
+        //                i++;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine("----------------------------------------");
 
-                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadUsersIntoUsersStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
-                msg.ShowDialog();
-            }
-        }
+        //        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadUsersIntoUsersStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
+        //        msg.ShowDialog();
+        //    }
+        //}
 
-        private void UpdateUsersOnline()
-        {
-            DataTableManagement.GetUsersLastTimeOnline();
+        //private void UpdateUsersOnline()
+        //{
+        //    DataTableManagement.GetUsersLastTimeOnline();
 
-            foreach (User user in XMLReaderWriter.UsersList)
-            {
-                if (UsersOnlineStatus.ContainsKey(user.ID) && user.ID > 0)
-                {
-                    //Check if user was still online a minute ago, if so refresh user icon
-                    if (UsersLastTimeOnlineDictionary.ContainsKey(user.ID))
-                    {
-                        if (UsersLastTimeOnlineDictionary[user.ID] > (DateTime.Now - TimeSpan.FromMinutes(2)))
-                        {
-                            Grid usersIconGrid = UsersOnlineStatus[user.ID];
-                            usersIconGrid.Opacity = 1;
-                        }
-                        else
-                        {
-                            Grid usersIconGrid = UsersOnlineStatus[user.ID];
-                            usersIconGrid.Opacity = 0.3;
-                        }
-                    }
-                }
-            }
-        }
+        //    foreach (User user in XMLReaderWriter.UsersList)
+        //    {
+        //        if (UsersOnlineStatus.ContainsKey(user.ID) && user.ID > 0)
+        //        {
+        //            //Check if user was still online a minute ago, if so refresh user icon
+        //            if (UsersLastTimeOnlineDictionary.ContainsKey(user.ID))
+        //            {
+        //                if (UsersLastTimeOnlineDictionary[user.ID] > (DateTime.Now - TimeSpan.FromMinutes(2)))
+        //                {
+        //                    Grid usersIconGrid = UsersOnlineStatus[user.ID];
+        //                    usersIconGrid.Opacity = 1;
+        //                }
+        //                else
+        //                {
+        //                    Grid usersIconGrid = UsersOnlineStatus[user.ID];
+        //                    usersIconGrid.Opacity = 0.3;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
