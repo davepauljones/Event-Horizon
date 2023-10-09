@@ -20,11 +20,11 @@ namespace The_Oracle
     {
         int EventTypeID = 0;
 
-        private WidgetDateToday widgetDateToday;
-        private WidgetTimeNow widgetTimeNow;
-        public WidgetDatabaseHealth widgetDatabaseHealth;
-        public WidgetUsersOnline widgetUsersOnline;
-        public WidgetCurrentUser widgetCurrentUser;
+        internal WidgetDateToday widgetDateToday;
+        internal WidgetTimeNow widgetTimeNow;
+        internal WidgetDatabaseHealth widgetDatabaseHealth;
+        internal WidgetUsersOnline widgetUsersOnline;
+        internal WidgetCurrentUser widgetCurrentUser;
 
         public static MainWindow mw;
 
