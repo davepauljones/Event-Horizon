@@ -1,0 +1,162 @@
+<?xml version="1.0" standalone="yes"?>
+<EventHorizonDatabase>
+  
+  <Users>
+	<UserName>David Jones</UserName>
+	<Color>#FFA0B392</Color>
+  </Users>
+  <Users>
+	<UserName>Bill Gates</UserName>
+	<Color>#FF71B1D9</Color>
+  </Users>
+  <Users>
+	<UserName>Steve Jobs</UserName>
+	<Color>#FFAED8F2</Color>
+  </Users>
+  <Users>
+    <UserID>4</UserID>
+    <UserName>Elon Musk</UserName>
+	<Color>#FFF2DEA2</Color>
+  </Users>
+  <Users>
+    	<UserName>Mark Zuckerberg</UserName>
+	<Color>#FFF2CDC4</Color>
+  </Users>
+  <Users>
+	<UserName>Steve Wozniak</UserName>
+	<Color>#FF5F9595</Color>
+  </Users>
+  
+  <EventTypes>
+	<Name>Memo</Name>
+	<Icon>Pencil</Icon>
+	<Color>Crimson</Color>
+  </EventTypes>
+  <EventTypes>
+	<Name>Code Snippet</Name>
+	<Icon>Code</Icon>
+	<Color>Green</Color>
+  </EventTypes>
+  <EventTypes>
+	<Name>Ticket</Name>
+	<Icon>Ticket</Icon>
+	<Color>Crimson</Color>
+  </EventTypes>
+  <EventTypes>
+	<Name>Idea</Name>
+	<Icon>Question</Icon>
+	<Color>SlateBlue</Color>
+  </EventTypes>
+  <EventTypes>
+	<Name>Road Map</Name>
+	<Icon>Road</Icon>
+	<Color>SlateGray</Color>
+  </EventTypes>
+  <EventTypes>
+	<Name>Bug Fix</Name>
+	<Icon>Bug</Icon>
+	<Color>Firebrick</Color>
+  </EventTypes>
+  <EventTypes>
+	<Name>Implemented</Name>
+	<Icon>Code</Icon>
+	<Color>GoldenRod</Color>
+  </EventTypes>
+  <EventTypes>
+	<Name>Marketing</Name>
+	<Icon>Dollar</Icon>
+	<Color>Green</Color>
+  </EventTypes>
+  <EventTypes>
+	<Name>Sales</Name>
+	<Icon>Dollar</Icon>
+	<Color>GoldenRod</Color>
+  </EventTypes>
+  <EventTypes>
+	<Name>Business</Name>
+	<Icon>Briefcase</Icon>
+	<Color>DodgerBlue</Color>
+  </EventTypes>
+  <EventTypes>
+	<Name>YouTube</Name>
+	<Icon>Youtube</Icon>
+	<Color>Crimson</Color>
+  </EventTypes>
+  <EventTypes>
+	<Name>Product</Name>
+	<Icon>Gift</Icon>
+	<Color>DodgerBlue</Color>
+  </EventTypes>
+  <EventTypes>
+	<Name>EBook</Name>
+	<Icon>Book</Icon>
+	<Color>FireBrick</Color>
+  </EventTypes>
+  
+  <SourceTypes>
+	<Name>David Jones</Name>
+	<Icon>User</Icon>
+	<Color>#FFA0B392</Color>
+  </SourceTypes>
+  <SourceTypes>
+	<Name>Bill Gates</Name>
+	<Icon>User</Icon>
+	<Color>#FF71B1D9</Color>
+  </SourceTypes>
+  <SourceTypes>
+	<Name>Steve Jobs</Name>
+	<Icon>User</Icon>
+	<Color>#FFAED8F2</Color>
+  </SourceTypes>
+  <SourceTypes>
+	<Name>Elon Musk</Name>
+	<Icon>User</Icon>
+	<Color>#FFF2DEA2</Color>
+  </SourceTypes>
+  <SourceTypes>
+	<Name>Mark Zukerberg</Name>
+	<Icon>User</Icon>
+	<Color>#FFF2CDC4</Color>
+  </SourceTypes>
+  <SourceTypes>
+	<Name>Steve Wazniak</Name>
+	<Icon>User</Icon>
+	<Color>#FF5F9595</Color>
+  </SourceTypes>
+  <SourceTypes>
+	<Name>Recording Studio</Name>
+	<Icon>Headphones</Icon>
+	<Color>DodgerBlue</Color>
+  </SourceTypes>
+  <SourceTypes>
+	<Name>Electronics Lab</Name>
+	<Icon>Microchip</Icon>
+	<Color>ForestGreen</Color>
+  </SourceTypes>
+  <SourceTypes>
+	<Name>Retro Computers</Name>
+	<Icon>Desktop</Icon>
+	<Color>Orange</Color>
+  </SourceTypes>
+  <SourceTypes>
+	<Name>Programming</Name>
+	<Icon>Television</Icon>
+	<Color>DodgerBlue</Color>
+  </SourceTypes>
+  <SourceTypes>
+	<Name>Event Horizon</Name>
+	<Icon>Calendar</Icon>
+	<Color>Orange</Color>
+  </SourceTypes>
+  <SourceTypes>
+	<Name>UPAS</Name>
+	<Icon>Tasks</Icon>
+	<Color>LightSlateGray</Color>
+  </SourceTypes>
+  <SourceTypes>
+	<Name>UPAS Engine</Name>
+	<Icon>Subway</Icon>
+	<Color>Firebrick</Color>
+  </SourceTypes>
+  
+</EventHorizonDatabase>

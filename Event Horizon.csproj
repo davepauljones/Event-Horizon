@@ -19,7 +19,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
-    <PublishUrl>D:\EventHorizonRemoteDatabase\</PublishUrl>
+    <PublishUrl>D:\EventHorizonRemoteDatabase\Event Horizon Setup\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -33,8 +33,7 @@
     <ErrorReportUrl>https://github.com/davepauljones/Event-Horizon</ErrorReportUrl>
     <ProductName>Event Horizon</ProductName>
     <PublisherName>davepauljones</PublisherName>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -377,6 +376,12 @@
     </Content>
     <Content Include="Audio\notification.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLFiles\EventHorizonLocalSettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLFiles\EventHorizonRemoteSettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="EventHorizonIcon.ico" />
     <Resource Include="Images\EventHorizonIcon.ico" />
