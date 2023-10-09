@@ -6,8 +6,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Globalization;
-using System.IO;
-
 using System.Windows.Media.Imaging;
 using Xceed.Wpf.Toolkit;
 
@@ -79,15 +77,12 @@ namespace Event_Horizon
 
         private void ReminderListScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\EventHorizonLogoHLNNN.png"))
-            {
-                ImageBrush myBrush = new ImageBrush();
-                myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\EventHorizonLogoHLNNN.png", UriKind.Absolute));
-                myBrush.Stretch = Stretch.Uniform;
-                myBrush.Transform = new ScaleTransform(0.33, 0.33, 700, ReminderListScrollViewer.ActualHeight);
-                ReminderListScrollViewer.Background = myBrush;
-                ReminderListScrollViewer.Background.Opacity = 1;
-            }
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,/Images/EventHorizonLogoHLNNN.png", UriKind.Absolute));
+            myBrush.Stretch = Stretch.Uniform;
+            myBrush.Transform = new ScaleTransform(0.33, 0.33, 700, ReminderListScrollViewer.ActualHeight);
+            ReminderListScrollViewer.Background = myBrush;
+            ReminderListScrollViewer.Background.Opacity = 1;
         }
 
         public MainWindow()
@@ -198,7 +193,7 @@ namespace Event_Horizon
                 }
             }
 
-            if (notificationsAddedThisCycle > 0) MiscFunctions.PlayFile("Notification.mp3");
+            if (notificationsAddedThisCycle > 0) MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\Audio\\Notification.mp3");
         }
 
         public void RefreshLog(int listViewToPopulate)

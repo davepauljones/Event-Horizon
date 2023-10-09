@@ -298,9 +298,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="CopyEventHorizon.bat" />
-    <None Include="Resources\BlankDB.mdb" />
-    <None Include="Resources\OracleSettingsXML.xml" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -323,16 +320,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="EventHorizonLogoNewSmall.png" />
+    <Resource Include="Resources\EventHorizonLogoNewSmall.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\Debug\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\OracleDatabaseSettingsXML.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="EventHorizonIcon.ico" />
+    <Resource Include="Resources\EventHorizonIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="EventHorizonLocalSettings.xml" />
@@ -341,16 +332,55 @@
     <None Include="EventHorizonRemoteSettings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\EventHorizonRemoteDatabase.mdb" />
+    <Resource Include="Resources\EventHorizonRemoteDatabase.mdb" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\gplv3-216x110.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="EventHorizonLogoHLN.png" />
+    <Resource Include="Resources\EventHorizonLogoHLN.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="TreeBranch.png" />
+    <Resource Include="Resources\TreeBranch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\claves.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\notification.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\claves.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\notification.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\wormhole1020x1000.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\EventHorizonLogoHLNN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\EventHorizonLogoHLNNN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\EventHorizonLogoHLN.png" />
+    <Resource Include="Images\EventHorizonLogoHLNN.png" />
+    <Resource Include="Images\EventHorizonLogoHLNNN.png" />
+    <Resource Include="Images\TreeBranch.png" />
+    <Resource Include="Images\wormhole1020x1000.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Audio\claves.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Audio\notification.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="EventHorizonIcon.ico" />
+    <Resource Include="Images\EventHorizonIcon.ico" />
+    <Resource Include="Images\EventHorizonLogoNewSmall.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

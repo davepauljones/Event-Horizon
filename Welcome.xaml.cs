@@ -46,24 +46,17 @@ namespace Event_Horizon
         }
         private void Init()
         {
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\EventHorizonLogoHLNN.png"))
-            {
-                ImageBrush myBrush = new ImageBrush();
-                myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\EventHorizonLogoHLNN.png", UriKind.Absolute));
-                myBrush.Stretch = Stretch.Uniform;
-                myBrush.Transform = new ScaleTransform(1, 1,45,10);
-                HeaderGrid.Background = myBrush;
-                HeaderGrid.Background.Opacity = 1;
-            }
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,/Images/EventHorizonLogoHLNN.png", UriKind.Absolute));
+            myBrush.Stretch = Stretch.Uniform;
+            myBrush.Transform = new ScaleTransform(1, 1,45,10);
+            HeaderGrid.Background = myBrush;
+            HeaderGrid.Background.Opacity = 1;
 
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\wormhole1020x1000.png"))
-            {
-                ImageBrush myBrush = new ImageBrush();
-                myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\wormhole1020x1000.png", UriKind.Absolute));
-
-                InnerMainBorder.Background = myBrush;
-                InnerMainBorder.Background.Opacity = 1;
-            }
+            ImageBrush myBrush2 = new ImageBrush();
+            myBrush2.ImageSource = new BitmapImage(new Uri("pack://application:,,/Images/wormhole1020x1000.png", UriKind.Absolute));
+            InnerMainBorder.Background = myBrush2;
+            InnerMainBorder.Background.Opacity = 1;
 
             CheckPrerequisites();
         }

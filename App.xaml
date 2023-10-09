@@ -10,7 +10,7 @@
                 <ResourceDictionary Source="pack://application:,,,/EventHorizonResource.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-
+        
     </Application.Resources>
     
 </Application>

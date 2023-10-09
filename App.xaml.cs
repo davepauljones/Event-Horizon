@@ -22,7 +22,7 @@ namespace Event_Horizon
         protected override void OnStartup(StartupEventArgs e)
         {
             // Step 1 - Load the splash screen
-            SplashScreen splash = new SplashScreen("EventHorizonLogoHLN.png");
+            SplashScreen splash = new SplashScreen("/Images/EventHorizonLogoHLN.png");
             splash.Show(false, true);
 
             // Step 2 - Start a stop watch

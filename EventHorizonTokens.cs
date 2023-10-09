@@ -138,7 +138,7 @@ namespace Event_Horizon
 
                     if (UsersWhoJustCameOnlineCount > 0)
                     {
-                        MiscFunctions.PlayFile("Notification.mp3");
+                        MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\Audio\\Notification.mp3");
                     }
                 }
             }

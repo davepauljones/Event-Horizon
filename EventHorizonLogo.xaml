@@ -8,7 +8,7 @@
              d:DesignHeight="102" d:DesignWidth="230">
     <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
         <StackPanel Orientation="Vertical">
-            <Image Source="pack://application:,,/EventHorizonLogoNewSmall.png" Stretch="UniformToFill" Width="189" Height="34"/>
+            <Image Source="pack://application:,,/Images/EventHorizonLogoNewSmall.png" Stretch="UniformToFill" Width="189" Height="34"/>
             <Label x:Name="LicenceLabel" Content="By David Paul Jones GPL V3 ( 2023-2023 )" FontSize="10" HorizontalAlignment="Center"/>
             <TextBlock TextAlignment="Center" Margin="0,2,0,0">
                     <Hyperlink NavigateUri="https://github.com/davepauljones/Event-Horizon" RequestNavigate="Hyperlink_RequestNavigate">

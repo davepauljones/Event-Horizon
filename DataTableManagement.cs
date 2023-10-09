@@ -21,7 +21,7 @@ namespace Event_Horizon
         {
             List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();
 
-            MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\claves.wav");
+            MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\Audio\\claves.wav");
             MainWindow.mw.widgetDatabaseHealth.UpdateLastWriteLabel(true);
 
             switch (XMLReaderWriter.DatabaseSystem)

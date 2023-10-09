@@ -31,7 +31,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Source="TreeBranch.png" Stretch="UniformToFill" Opacity="1" Width="187" Height="398" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Source="pack://application:,,/Images/TreeBranch.png" Stretch="UniformToFill" Opacity="1" Width="187" Height="398" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                 <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="5" Opacity="0.56" Width="200" Height="{Binding ActualHeight, ElementName=MainWindowWindow}" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Rectangle.Fill>
