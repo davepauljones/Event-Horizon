@@ -8,7 +8,7 @@ using System.Windows;
 using System.Globalization;
 using System.Data.SQLite;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     public class DataTableManagement
     {

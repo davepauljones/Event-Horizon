@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     public class EventHorizonEvent : DataTable
     {

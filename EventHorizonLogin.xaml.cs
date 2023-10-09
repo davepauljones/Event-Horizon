@@ -5,7 +5,7 @@ using System.Windows.Input;
 using System.Media;
 using Microsoft.Win32;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     /// <summary>
     /// Interaction logic for EventHorizonLogin.xaml

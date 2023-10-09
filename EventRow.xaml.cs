@@ -6,7 +6,7 @@ using System.Windows.Media;
 using System.Globalization;
 using FontAwesome.WPF;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     /// <summary>
     /// Interaction logic for EventRow.xaml

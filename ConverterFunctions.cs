@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Globalization;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     public class HeightToParentConverter : IValueConverter
     {

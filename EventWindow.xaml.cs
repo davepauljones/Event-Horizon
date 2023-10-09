@@ -9,7 +9,7 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using System.Diagnostics;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     /// <summary>
     /// Interaction logic for EventWindow.xaml

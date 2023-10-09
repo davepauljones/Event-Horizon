@@ -11,7 +11,7 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using Xceed.Wpf.Toolkit;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

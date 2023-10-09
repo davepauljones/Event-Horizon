@@ -9,7 +9,7 @@ using System.Windows;
 using System.Threading;
 using System.Diagnostics;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     /// <summary>
     /// Interaction logic for App.xaml

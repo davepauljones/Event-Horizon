@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Windows.Threading;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     public class DatabasePoller
     {

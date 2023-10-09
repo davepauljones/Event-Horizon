@@ -13,7 +13,7 @@ using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
 using System.Windows.Shapes;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     /// <summary>
     /// Interaction logic for ReportsWindow.xaml

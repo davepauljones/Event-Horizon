@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2E598C3C-BF52-4885-AC31-3B66CD25A798}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>The_Oracle</RootNamespace>
+    <RootNamespace>Event_Horizon</RootNamespace>
     <AssemblyName>Event Horizon</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

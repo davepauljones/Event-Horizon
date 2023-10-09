@@ -6,7 +6,7 @@ using FontAwesome.WPF;
 using System.Windows.Media;
 using System.Collections;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     public class XMLReaderWriter
     {

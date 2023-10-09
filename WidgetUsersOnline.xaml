@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="The_Oracle.WidgetUsersOnline"
+﻿<UserControl x:Class="Event_Horizon.WidgetUsersOnline"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:The_Oracle"
+        xmlns:local="clr-namespace:Event_Horizon"
         mc:Ignorable="d"
         d:DesignHeight="358" d:DesignWidth="160" MaxHeight="358" MaxWidth="160">
     <Border CornerRadius="6" Background="#66ffffff" Height="358" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">

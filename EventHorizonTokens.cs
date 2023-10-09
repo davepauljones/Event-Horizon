@@ -7,7 +7,7 @@ using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     public class EventHorizonTokens
     {

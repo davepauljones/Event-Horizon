@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33801.447
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The Oracle", "The Oracle.csproj", "{2E598C3C-BF52-4885-AC31-3B66CD25A798}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Event Horizon", "Event Horizon.csproj", "{2E598C3C-BF52-4885-AC31-3B66CD25A798}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
