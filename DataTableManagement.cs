@@ -22,7 +22,7 @@ namespace The_Oracle
             List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();
 
             MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\claves.wav");
-            MainWindow.mw.eventHorizonDatabaseHealth.UpdateLastWriteLabel(true);
+            MainWindow.mw.widgetDatabaseHealth.UpdateLastWriteLabel(true);
 
             switch (XMLReaderWriter.DatabaseSystem)
             {

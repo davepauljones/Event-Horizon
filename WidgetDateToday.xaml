@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="The_Oracle.Today"
+﻿<UserControl x:Class="The_Oracle.WidgetDateToday"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         d:DesignHeight="220" d:DesignWidth="160" MaxHeight="220" MaxWidth="160">
 
-    <Border CornerRadius="6" Background="White" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
+    <Border CornerRadius="6" Background="#66ffffff" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
         <Border.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
         </Border.Effect>

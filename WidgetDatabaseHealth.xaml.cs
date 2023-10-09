@@ -6,11 +6,11 @@ using System.Windows.Media;
 namespace The_Oracle
 {
     /// <summary>
-    /// Interaction logic for EventHorizonDatabaseHealth.xaml
+    /// Interaction logic for WidgetDatabaseHealth.xaml
     /// </summary>
-    public partial class EventHorizonDatabaseHealth : UserControl
+    public partial class WidgetDatabaseHealth : UserControl
     {
-        public EventHorizonDatabaseHealth()
+        public WidgetDatabaseHealth()
         {
             InitializeComponent();
         }

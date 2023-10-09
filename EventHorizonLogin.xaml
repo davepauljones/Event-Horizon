@@ -40,8 +40,8 @@
         
         <Label Grid.Row="1" Grid.Column="1" Content="Select User" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
         
-        <ComboBox Grid.Row="1" Grid.Column="2" x:Name="SelectUserComboBox" IsEditable="False" IsReadOnly="True" Width="220" Height="40" Margin="12,0,24,0" HorizontalAlignment="Right"
-            Style="{DynamicResource FrequencyComboBoxStyle}"
+        <ComboBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" x:Name="SelectUserComboBox" IsEditable="False" IsReadOnly="True" Width="220" Height="40" Margin="12,0,24,4" HorizontalAlignment="Right"
+            VerticalAlignment="Bottom" Style="{DynamicResource FrequencyComboBoxStyle}"
             MinWidth="220" MaxWidth="220" ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="SelectUserComboBox_SelectionChanged">
             <ComboBox.Effect>
                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />

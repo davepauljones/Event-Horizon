@@ -154,8 +154,8 @@
     </Compile>
     <Compile Include="MainWindowTitle.cs" />
     <Compile Include="EventHorizonDatabaseCreate.cs" />
-    <Compile Include="EventHorizonDatabaseHealth.xaml.cs">
-      <DependentUpon>EventHorizonDatabaseHealth.xaml</DependentUpon>
+    <Compile Include="WidgetDatabaseHealth.xaml.cs">
+      <DependentUpon>WidgetDatabaseHealth.xaml</DependentUpon>
     </Compile>
     <Compile Include="EventHorizonBriefNotification.xaml.cs">
       <DependentUpon>EventHorizonBriefNotification.xaml</DependentUpon>
@@ -166,8 +166,11 @@
     <Compile Include="EventHorizonRequesterNotification.xaml.cs">
       <DependentUpon>EventHorizonRequesterNotification.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UsersOnline.xaml.cs">
-      <DependentUpon>UsersOnline.xaml</DependentUpon>
+    <Compile Include="WidgetCurrentUser.xaml.cs">
+      <DependentUpon>WidgetCurrentUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WidgetUsersOnline.xaml.cs">
+      <DependentUpon>WidgetUsersOnline.xaml</DependentUpon>
     </Compile>
     <Compile Include="ReportsWindow.xaml.cs">
       <DependentUpon>ReportsWindow.xaml</DependentUpon>
@@ -182,14 +185,14 @@
     <Compile Include="EventWindow.xaml.cs">
       <DependentUpon>EventWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Now.xaml.cs">
-      <DependentUpon>Now.xaml</DependentUpon>
+    <Compile Include="WidgetTimeNow.xaml.cs">
+      <DependentUpon>WidgetTimeNow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Welcome.xaml.cs">
       <DependentUpon>Welcome.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Today.xaml.cs">
-      <DependentUpon>Today.xaml</DependentUpon>
+    <Compile Include="WidgetDateToday.xaml.cs">
+      <DependentUpon>WidgetDateToday.xaml</DependentUpon>
     </Compile>
     <Compile Include="XMLReaderWriter.cs" />
     <Page Include="EventHorizonLogo.xaml">
@@ -220,7 +223,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EventHorizonDatabaseHealth.xaml">
+    <Page Include="WidgetDatabaseHealth.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -244,11 +247,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UsersOnline.xaml">
+    <Page Include="WidgetCurrentUser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Now.xaml">
+    <Page Include="WidgetUsersOnline.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WidgetTimeNow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -260,7 +267,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Today.xaml">
+    <Page Include="WidgetDateToday.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -319,9 +326,6 @@
     <None Include="Resources\OracleDatabaseSettingsXML.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="EventHorizonLogo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="EventHorizonIcon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -337,22 +341,10 @@
     <Resource Include="Images\gplv3-216x110.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\wormhole1000x600.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="EventHorizonLogoHLN.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="TreeBranch.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="waterfall.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="sea.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="acropolis.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

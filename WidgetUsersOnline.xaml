@@ -1,12 +1,12 @@
-﻿<UserControl x:Class="The_Oracle.UsersOnline"
+﻿<UserControl x:Class="The_Oracle.WidgetUsersOnline"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:The_Oracle"
         mc:Ignorable="d"
-        d:DesignHeight="420" d:DesignWidth="160" MaxHeight="420" MaxWidth="160">
-    <Border CornerRadius="6" Background="White" Height="410" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
+        d:DesignHeight="358" d:DesignWidth="160" MaxHeight="358" MaxWidth="160">
+    <Border CornerRadius="6" Background="#66ffffff" Height="358" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
         <Border.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
         </Border.Effect>
@@ -25,7 +25,7 @@
                 <Label Grid.Row="0" Content="Users Online" FontSize="20" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,2,0,0" Padding="0"/>
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Vertical" x:Name="UsersOnlineStackPanel" Margin="4,0,0,0"/>
-            <Label x:Name="NumberOfUsersOnlineLabel" Grid.Row="2" Content="0 of 0" FontSize="16" FontWeight="Bold" FontFamily="Tahoma" Foreground="IndianRed" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0" Padding="0"/>
+            <Label x:Name="NumberOfUsersOnlineLabel" Grid.Row="2" Content="0 of 0" FontSize="16" FontWeight="Bold" FontFamily="Tahoma" Foreground="DarkSlateGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0" Padding="0"/>
         </Grid>
     </Border>
     

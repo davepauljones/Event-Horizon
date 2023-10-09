@@ -4,11 +4,11 @@ using System.Windows.Controls;
 namespace The_Oracle
 {
     /// <summary>
-    /// Interaction logic for Today.xaml
+    /// Interaction logic for WidgetDateToday.xaml
     /// </summary>
-    public partial class Today : UserControl
+    public partial class WidgetDateToday : UserControl
     {
-        public Today()
+        public WidgetDateToday()
         {
             InitializeComponent();
 

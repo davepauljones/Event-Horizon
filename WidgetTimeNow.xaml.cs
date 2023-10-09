@@ -6,11 +6,11 @@ using System.Windows.Threading;
 namespace The_Oracle
 {
     /// <summary>
-    /// Interaction logic for Now.xaml
+    /// Interaction logic for WidgetTimeNow.xaml
     /// </summary>
-    public partial class Now : UserControl
+    public partial class WidgetTimeNow : UserControl
     {
-        public Now()
+        public WidgetTimeNow()
         {
             InitializeComponent();
 

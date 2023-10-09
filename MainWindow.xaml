@@ -259,10 +259,11 @@
                         </ScrollViewer>
                     </StackPanel>
                 </Grid>
-                <Grid Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2" x:Name="TodayGrid" VerticalAlignment="Top" Margin="0,10,5,0"/>
-                <Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2" x:Name="NowGrid" VerticalAlignment="Top" Margin="0,35,5,0"/>
-                <Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2" x:Name="OracleDatabaseHealthGrid" VerticalAlignment="Top" Margin="0,235,5,0"/>
-                <Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2" x:Name="UsersOnlineGrid" VerticalAlignment="Top" Margin="0,365,5,0"/>
+                <Grid Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2" x:Name="WidgetDateTodayGrid" VerticalAlignment="Top" Margin="0,10,5,0"/>
+                <Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2" x:Name="WidgetTimeNowGrid" VerticalAlignment="Top" Margin="0,35,5,0"/>
+                <Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2" x:Name="WidgetDatabaseHealthGrid" VerticalAlignment="Top" Margin="0,235,5,0"/>
+                <Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2" x:Name="WidgetCurrentUserGrid" VerticalAlignment="Top" Margin="0,365,5,0"/>
+                <Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2" x:Name="WidgetUsersOnlineGrid" VerticalAlignment="Top" Margin="0,455,5,0"/>
                 <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" x:Name="EventHorizonLogoGrid" VerticalAlignment="Top" Margin="0,10,0,10"/>
                 <Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="3" x:Name="WelcomeGrid" VerticalAlignment="Top" Margin="10" Panel.ZIndex="1000"/>
                 <Grid x:Name="EventTypeRadioButtonsGrid" Grid.Row="1" Grid.Column="2" Margin="0,10,0,0">
@@ -274,22 +275,8 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="114">
                                 <Border x:Name="EventOptionsBorder" CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="1358">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <StackPanel Orientation="Vertical" Margin="10,10,10,4">
+                                        <StackPanel Orientation="Vertical" Margin="10,10,250,4">
                                             <local:EventHorizonLogo/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="130" MaxWidth="130">
-                                            <Label Content="Current User" FontWeight="Medium" Margin="3,0,0,0"/>
-                                            <Grid x:Name="CurrentUserGrid" HorizontalAlignment="Left"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="110">
-                                            <Label Content="Users Online" FontWeight="Medium" Margin="3,0,0,0"/>
-                                            <StackPanel Orientation="Horizontal">
-                                                <StackPanel x:Name="UsersColumn1StackPanel" Orientation="Vertical" HorizontalAlignment="Left"/>
-                                                <StackPanel x:Name="UsersColumn2StackPanel" Orientation="Vertical" HorizontalAlignment="Left"/>
-                                                <StackPanel x:Name="UsersColumn3StackPanel" Orientation="Vertical" HorizontalAlignment="Left"/>
-                                                <StackPanel x:Name="UsersColumn4StackPanel" Orientation="Vertical" HorizontalAlignment="Left"/>
-                                                <StackPanel x:Name="UsersColumn5StackPanel" Orientation="Vertical" HorizontalAlignment="Left"/>
-                                            </StackPanel>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" Width="92">
                                             <Label Content="Days" ToolTip="Change the Time Span then click REFRESH" FontWeight="Medium" Margin="8,0,0,0"/>

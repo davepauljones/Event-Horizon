@@ -20,10 +20,11 @@ namespace The_Oracle
     {
         int EventTypeID = 0;
 
-        private Today today;
-        private Now now;
-        public EventHorizonDatabaseHealth eventHorizonDatabaseHealth;
-        public UsersOnline usersOnline;
+        private WidgetDateToday widgetDateToday;
+        private WidgetTimeNow widgetTimeNow;
+        public WidgetDatabaseHealth widgetDatabaseHealth;
+        public WidgetUsersOnline widgetUsersOnline;
+        public WidgetCurrentUser widgetCurrentUser;
 
         public static MainWindow mw;
 
@@ -48,7 +49,7 @@ namespace The_Oracle
         {
             this.Dispatcher.Invoke((Action)(() =>
             {
-                eventHorizonDatabaseHealth.UpdateLastWriteDateTime(DateTime.Now);
+                widgetDatabaseHealth.UpdateLastWriteDateTime(DateTime.Now);
 
                 if (DisplayMode == DisplayModes.Reminders)
                     RefreshLog(ListViews.Reminder);
@@ -59,19 +60,19 @@ namespace The_Oracle
 
         public void RunCycle()
         {
-            today.SyncDate();
-            now.SyncTime();
+            widgetDateToday.SyncDate();
+            widgetTimeNow.SyncTime();
 
             //Check Users online every 60 seconds only executes if second is 0
             if (DateTime.Now.Second == XMLReaderWriter.UserID * 6)//use UserID as to offset actual second used to update
             {
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
-                EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
+                EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(widgetUsersOnline.UsersOnlineStackPanel);
             }
             
             CheckMyUnreadAndMyReminders();
             
-            MainWindow.mw.eventHorizonDatabaseHealth.UpdateLastWriteLabel(false);
+            MainWindow.mw.widgetDatabaseHealth.UpdateLastWriteLabel(false);
             
             justLoaded = true;
         }
@@ -140,17 +141,20 @@ namespace The_Oracle
             LoadReportsVisualTree();
             LoadHelpVisualTree();
 
-            today = new Today();
-            TodayGrid.Children.Add(today);
+            widgetDateToday = new WidgetDateToday();
+            WidgetDateTodayGrid.Children.Add(widgetDateToday);
 
-            now = new Now();
-            NowGrid.Children.Add(now);
+            widgetTimeNow = new WidgetTimeNow();
+            WidgetTimeNowGrid.Children.Add(widgetTimeNow);
 
-            eventHorizonDatabaseHealth = new EventHorizonDatabaseHealth();
-            OracleDatabaseHealthGrid.Children.Add(eventHorizonDatabaseHealth);
+            widgetDatabaseHealth = new WidgetDatabaseHealth();
+            WidgetDatabaseHealthGrid.Children.Add(widgetDatabaseHealth);
 
-            usersOnline = new UsersOnline();
-            UsersOnlineGrid.Children.Add(usersOnline);
+            widgetUsersOnline = new WidgetUsersOnline();
+            WidgetUsersOnlineGrid.Children.Add(widgetUsersOnline);
+
+            widgetCurrentUser = new WidgetCurrentUser();
+            WidgetCurrentUserGrid.Children.Add(widgetCurrentUser);
 
             if (EventHorizonDatabaseCreate.CheckIfDatabaseExists())
             {
@@ -162,7 +166,7 @@ namespace The_Oracle
 
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
 
-                EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
+                EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(widgetUsersOnline.UsersOnlineStackPanel);
             }
 
             MainWindowIs_Loaded = true;
@@ -170,8 +174,8 @@ namespace The_Oracle
 
         public void RefreshXML()
         {
-            CurrentUserGrid.Children.Add(EventHorizonTokens.GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[XMLReaderWriter.UserID]));
-            EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(usersOnline.UsersOnlineStackPanel);
+            widgetCurrentUser.CurrentUserStackPanel.Children.Add(EventHorizonTokens.GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[XMLReaderWriter.UserID]));
+            EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(widgetUsersOnline.UsersOnlineStackPanel);
             AddItemsToEventTypeComboBox();
         }
 

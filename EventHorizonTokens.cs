@@ -134,7 +134,7 @@ namespace The_Oracle
 
                 if (user == XMLReaderWriter.UsersList.Last()) // Check if its the last item
                 {
-                    MainWindow.mw.usersOnline.NumberOfUsersOnlineLabel.Content = UsersOnlineCount + " of " + (XMLReaderWriter.UsersList.Count - 1);
+                    MainWindow.mw.widgetUsersOnline.NumberOfUsersOnlineLabel.Content = UsersOnlineCount + " of " + (XMLReaderWriter.UsersList.Count - 1);
 
                     if (UsersWhoJustCameOnlineCount > 0)
                     {
