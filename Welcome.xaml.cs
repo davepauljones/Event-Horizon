@@ -47,8 +47,8 @@ namespace Event_Horizon
         private void Init()
         {
             ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,/Images/EventHorizonLogoHLNN.png", UriKind.Absolute));
-            myBrush.Stretch = Stretch.Uniform;
+            myBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,/Images/EventHorizonLogoHLNNN.png", UriKind.Absolute));
+            myBrush.Stretch = Stretch.None;
             myBrush.Transform = new ScaleTransform(1, 1,45,10);
             HeaderGrid.Background = myBrush;
             HeaderGrid.Background.Opacity = 1;

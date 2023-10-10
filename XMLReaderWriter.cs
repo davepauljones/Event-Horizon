@@ -17,7 +17,7 @@ namespace Event_Horizon
         public static String DatabaseLocationString = AppDomain.CurrentDomain.BaseDirectory;
         public static List<User> UsersList = new List<User>();
         public static List<EventType> EventTypesList = new List<EventType>();
-        public static List<FunctionKeyEventType> FunctionKeyEventTypesList = new List<FunctionKeyEventType>();
+        //public static List<FunctionKeyEventType> FunctionKeyEventTypesList = new List<FunctionKeyEventType>();
         public static List<AttributeType> AttributeTypesList = new List<AttributeType>();
         public static List<SourceType> SourceTypesList = new List<SourceType>();
         public static TimeSpan UsersRefreshTimeSpan = TimeSpan.FromMilliseconds(100);
@@ -236,51 +236,61 @@ namespace Event_Horizon
                         switch (id)
                         {
                             case 1:
+                                MainWindow.mw.F1ButtonLabel.Content = et.Name;
+                                MainWindow.mw.F1FontAwesomeIcon.Icon = et.Icon;
+                                MainWindow.mw.F1FontAwesomeIconBorder.Background = new SolidColorBrush(et.Color);
+                                break;
+                            case 2:
+                                MainWindow.mw.F2ButtonLabel.Content = et.Name;
+                                MainWindow.mw.F2FontAwesomeIcon.Icon = et.Icon;
+                                MainWindow.mw.F2FontAwesomeIconBorder.Background = new SolidColorBrush(et.Color);
+                                break;
+                            case 3:
                                 MainWindow.mw.F3ButtonLabel.Content = et.Name;
                                 MainWindow.mw.F3FontAwesomeIcon.Icon = et.Icon;
                                 MainWindow.mw.F3FontAwesomeIconBorder.Background = new SolidColorBrush(et.Color);
                                 break;
-                            case 2:
+                            case 4:
                                 MainWindow.mw.F4ButtonLabel.Content = et.Name;
                                 MainWindow.mw.F4FontAwesomeIcon.Icon = et.Icon;
                                 MainWindow.mw.F4FontAwesomeIconBorder.Background = new SolidColorBrush(et.Color);
                                 break;
-                            case 3:
+                            case 5:
                                 MainWindow.mw.F5ButtonLabel.Content = et.Name;
                                 MainWindow.mw.F5FontAwesomeIcon.Icon = et.Icon;
                                 MainWindow.mw.F5FontAwesomeIconBorder.Background = new SolidColorBrush(et.Color);
                                 break;
-                            case 4:
+                            case 6:
                                 MainWindow.mw.F6ButtonLabel.Content = et.Name;
                                 MainWindow.mw.F6FontAwesomeIcon.Icon = et.Icon;
                                 MainWindow.mw.F6FontAwesomeIconBorder.Background = new SolidColorBrush(et.Color);
                                 break;
-                            case 5:
+                            case 7:
                                 MainWindow.mw.F7ButtonLabel.Content = et.Name;
                                 MainWindow.mw.F7FontAwesomeIcon.Icon = et.Icon;
                                 MainWindow.mw.F7FontAwesomeIconBorder.Background = new SolidColorBrush(et.Color);
                                 break;
-                            case 6:
+                            case 8:
                                 MainWindow.mw.F8ButtonLabel.Content = et.Name;
                                 MainWindow.mw.F8FontAwesomeIcon.Icon = et.Icon;
                                 MainWindow.mw.F8FontAwesomeIconBorder.Background = new SolidColorBrush(et.Color);
                                 break;
-                            case 7:
+                            case 9:
                                 MainWindow.mw.F9ButtonLabel.Content = et.Name;
                                 MainWindow.mw.F9FontAwesomeIcon.Icon = et.Icon;
                                 MainWindow.mw.F9FontAwesomeIconBorder.Background = new SolidColorBrush(et.Color);
                                 break;
-                            case 8:
+                            case 10:
                                 MainWindow.mw.F10ButtonLabel.Content = et.Name;
                                 MainWindow.mw.F10FontAwesomeIcon.Icon = et.Icon;
                                 MainWindow.mw.F10FontAwesomeIconBorder.Background = new SolidColorBrush(et.Color);
                                 break;
-                            case 9:
+                            case 11:
                                 MainWindow.mw.F11ButtonLabel.Content = et.Name;
                                 MainWindow.mw.F11FontAwesomeIcon.Icon = et.Icon;
                                 MainWindow.mw.F11FontAwesomeIconBorder.Background = new SolidColorBrush(et.Color);
                                 break;
-                            case 10:
+                            case 12:
                                 MainWindow.mw.F12ButtonLabel.Content = et.Name;
                                 MainWindow.mw.F12FontAwesomeIcon.Icon = et.Icon;
                                 MainWindow.mw.F12FontAwesomeIconBorder.Background = new SolidColorBrush(et.Color);

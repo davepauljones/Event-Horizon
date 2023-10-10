@@ -144,6 +144,9 @@
     <Compile Include="EventHorizonLogo.xaml.cs">
       <DependentUpon>EventHorizonLogo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WidgetLogo.xaml.cs">
+      <DependentUpon>WidgetLogo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EventHorizonEventTypes.cs" />
     <Compile Include="EventHorizonAttributes.cs" />
     <Compile Include="EventHorizonSources.cs" />
@@ -199,6 +202,10 @@
     </Compile>
     <Compile Include="XMLReaderWriter.cs" />
     <Page Include="EventHorizonLogo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WidgetLogo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -370,6 +377,7 @@
     <Content Include="Audio\notification.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\EventHorizonLogo189x23.png" />
     <Content Include="XMLFiles\EventHorizonLocalSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

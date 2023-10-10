@@ -308,4 +308,10 @@ namespace Event_Horizon
         public const int Delete = 2;
         public const int Help = 3;
     }
+    public struct FunctionKeyBanks
+    {
+        public const int Default = 0;
+        public const int LeftShift = 1;
+        public const int RightShift = 2;
+    }
 }
