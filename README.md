@@ -4,9 +4,9 @@
 
 Up coming Events odbc mdb & now SQLite database, single or multi-user, primary use is to get organized, XML Event Types &amp; XML Users List
 
-![Event Horizon Welcome](./EventHorizonImageWelcome.png)
+![Event Horizon Welcome](./Images/EventHorizonImageWelcome.png)
 
-![Alt Text](./EventHorizonImage.png)
+![Alt Text](./Images/EventHorizonImage.png)
 
 ## Table of Contents
 - [About](#about)
