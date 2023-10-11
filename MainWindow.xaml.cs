@@ -1729,6 +1729,14 @@ namespace Event_Horizon
             DataTableManagement.RowLimit = (int)RecordsIntegerUpDown.Value;
             Console.Write("DataTableManagement.RowLimit = ");
             Console.WriteLine(DataTableManagement.RowLimit);
+
+            if (MainWindowIs_Loaded)
+            {
+                if (DisplayMode == DisplayModes.Reminders)
+                    RefreshLog(ListViews.Reminder);
+                else
+                    RefreshLog(ListViews.Log);
+            }
         }
 
         private void OffsetIntegerUpDown_Spinned(object sender, SpinEventArgs e)
@@ -1736,6 +1744,14 @@ namespace Event_Horizon
             DataTableManagement.RowOffset = (int)OffsetIntegerUpDown.Value;
             Console.Write("DataTableManagement.RowOffset = ");
             Console.WriteLine(DataTableManagement.RowOffset);
+
+            if (MainWindowIs_Loaded)
+            {
+                if (DisplayMode == DisplayModes.Reminders)
+                    RefreshLog(ListViews.Reminder);
+                else
+                    RefreshLog(ListViews.Log);
+            }
         }
 
         private void RightMouseButton_Click(object sender, RoutedEventArgs e)
