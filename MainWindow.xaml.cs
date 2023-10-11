@@ -6,9 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Globalization;
-using System.Windows.Media.Imaging;
 using Xceed.Wpf.Toolkit;
-using FontAwesome.WPF;
 
 namespace Event_Horizon
 {
@@ -320,186 +318,50 @@ namespace Event_Horizon
             switch (e.Key)
             {
                 case Key.F1:
-                    switch (FunctionKeyBank)
-                    {
-                        case FunctionKeyBanks.Default:
-                            NewEventWindow(1);
-                            break;
-                        case FunctionKeyBanks.LeftShift:
-                            NewEventWindow(13);
-                            break;
-                        case FunctionKeyBanks.RightShift:
-                            NewEventWindow(25);
-                            break;
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(1);
                     break;
                 case Key.F2:
-                    switch (FunctionKeyBank)
-                    {
-                        case FunctionKeyBanks.Default:
-                            NewEventWindow(2);
-                            break;
-                        case FunctionKeyBanks.LeftShift:
-                            NewEventWindow(14);
-                            break;
-                        case FunctionKeyBanks.RightShift:
-                            NewEventWindow(26);
-                            break;
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(2);
                     break;
                 case Key.F3:
-                    switch (FunctionKeyBank)
-                    {
-                        case FunctionKeyBanks.Default:
-                            NewEventWindow(3);
-                            break;
-                        case FunctionKeyBanks.LeftShift:
-                            NewEventWindow(15);
-                            break;
-                        case FunctionKeyBanks.RightShift:
-                            NewEventWindow(27);
-                            break;
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(3);
                     break;
                 case Key.F4:
-                    switch (FunctionKeyBank)
-                    {
-                        case FunctionKeyBanks.Default:
-                            NewEventWindow(4);
-                            break;
-                        case FunctionKeyBanks.LeftShift:
-                            NewEventWindow(16);
-                            break;
-                        case FunctionKeyBanks.RightShift:
-                            NewEventWindow(28);
-                            break;
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(4);
                     break;
                 case Key.F5:
-                    switch (FunctionKeyBank)
-                    {
-                        case FunctionKeyBanks.Default:
-                            NewEventWindow(5);
-                            break;
-                        case FunctionKeyBanks.LeftShift:
-                            NewEventWindow(17);
-                            break;
-                        case FunctionKeyBanks.RightShift:
-                            NewEventWindow(29);
-                            break;
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(5);
                     break;
                 case Key.F6:
-                    switch (FunctionKeyBank)
-                    {
-                        case FunctionKeyBanks.Default:
-                            NewEventWindow(6);
-                            break;
-                        case FunctionKeyBanks.LeftShift:
-                            NewEventWindow(18);
-                            break;
-                        case FunctionKeyBanks.RightShift:
-                            NewEventWindow(30);
-                            break;
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(6);
                     break;
                 case Key.F7:
-                    switch (FunctionKeyBank)
-                    {
-                        case FunctionKeyBanks.Default:
-                            NewEventWindow(7);
-                            break;
-                        case FunctionKeyBanks.LeftShift:
-                            NewEventWindow(19);
-                            break;
-                        case FunctionKeyBanks.RightShift:
-                            NewEventWindow(31);
-                            break;
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(7);
                     break;
                 case Key.F8:
-                    switch (FunctionKeyBank)
-                    {
-                        case FunctionKeyBanks.Default:
-                            NewEventWindow(8);
-                            break;
-                        case FunctionKeyBanks.LeftShift:
-                            NewEventWindow(20);
-                            break;
-                        case FunctionKeyBanks.RightShift:
-                            NewEventWindow(32);
-                            break;
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(8);
                     break;
                 case Key.F9:
-                    switch (FunctionKeyBank)
-                    {
-                        case FunctionKeyBanks.Default:
-                            NewEventWindow(9);
-                            break;
-                        case FunctionKeyBanks.LeftShift:
-                            NewEventWindow(21);
-                            break;
-                        case FunctionKeyBanks.RightShift:
-                            NewEventWindow(33);
-                            break;
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(9);
                     break;
                 case Key.System:
                     if (e.SystemKey == Key.F10)
                     {
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                NewEventWindow(10);
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                NewEventWindow(22);
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                NewEventWindow(34);
-                                break;
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(10);
                     }
                     break;
                 case Key.F11:
-                    switch (FunctionKeyBank)
-                    {
-                        case FunctionKeyBanks.Default:
-                            NewEventWindow(11);
-                            break;
-                        case FunctionKeyBanks.LeftShift:
-                            NewEventWindow(23);
-                            break;
-                        case FunctionKeyBanks.RightShift:
-                            NewEventWindow(35);
-                            break;
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(11);
                     break;
                 case Key.F12:
-                    switch (FunctionKeyBank)
-                    {
-                        case FunctionKeyBanks.Default:
-                            NewEventWindow(12);
-                            break;
-                        case FunctionKeyBanks.LeftShift:
-                            NewEventWindow(24);
-                            break;
-                        case FunctionKeyBanks.RightShift:
-                            NewEventWindow(36);
-                            break;
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(12);
                     break;
                 case Key.Delete:
                     DeleteEventRow();
                     break;
-                case Key.LeftShift:// && (Keyboard.Modifiers & (ModifierKeys.Alt)) == (ModifierKeys.Alt))
-                    Console.WriteLine("Key.LeftShift");
-                    PopulateFunctionKeys(FunctionKeyBanks.LeftShift);
-                    break;
-                case Key.RightShift:// && (Keyboard.Modifiers & (ModifierKeys.Alt)) == (ModifierKeys.Alt))
-                    Console.WriteLine("Key.RightShift");
-                    PopulateFunctionKeys(FunctionKeyBanks.Default);
+                case Key.Pause:// && (Keyboard.Modifiers & (ModifierKeys.Alt)) == (ModifierKeys.Alt))
+                    Console.WriteLine("Key.Pause");
+                    FunctionKeyManager.ToggleFunctionKeyBank();
                     break;
             }
         }
@@ -516,290 +378,7 @@ namespace Event_Horizon
             }
         }
 
-        internal int FunctionKeyBank = FunctionKeyBanks.Default;
-
-        internal void PopulateFunctionKeys(int bank)
-        {
-            int functionKey = 0;
-
-            string DefaultEventTypeName = "Spare";
-            FontAwesomeIcon DefaultFontAwesomeIcon = FontAwesomeIcon.CircleOutline;
-            Color DefaultIconBorderBackground = Colors.DodgerBlue;
-            
-            MainWindow.mw.F1ButtonLabel.Content = DefaultEventTypeName;
-            MainWindow.mw.F1FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
-            MainWindow.mw.F1FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
-            
-            MainWindow.mw.F2ButtonLabel.Content = DefaultEventTypeName;
-            MainWindow.mw.F2FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
-            MainWindow.mw.F2FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
         
-            MainWindow.mw.F3ButtonLabel.Content = DefaultEventTypeName;
-            MainWindow.mw.F3FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
-            MainWindow.mw.F3FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
-            
-            MainWindow.mw.F4ButtonLabel.Content = DefaultEventTypeName;
-            MainWindow.mw.F4FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
-            MainWindow.mw.F4FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
-            
-            MainWindow.mw.F5ButtonLabel.Content = DefaultEventTypeName;
-            MainWindow.mw.F5FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
-            MainWindow.mw.F5FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
-            
-            MainWindow.mw.F6ButtonLabel.Content = DefaultEventTypeName;
-            MainWindow.mw.F6FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
-            MainWindow.mw.F6FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
-            
-            MainWindow.mw.F7ButtonLabel.Content = DefaultEventTypeName;
-            MainWindow.mw.F7FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
-            MainWindow.mw.F7FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
-            
-            MainWindow.mw.F8ButtonLabel.Content = DefaultEventTypeName;
-            MainWindow.mw.F8FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
-            MainWindow.mw.F8FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
-            
-            MainWindow.mw.F9ButtonLabel.Content = DefaultEventTypeName;
-            MainWindow.mw.F9FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
-            MainWindow.mw.F9FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
-            
-            MainWindow.mw.F10ButtonLabel.Content = DefaultEventTypeName;
-            MainWindow.mw.F10FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
-            MainWindow.mw.F10FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
-            
-            MainWindow.mw.F11ButtonLabel.Content = DefaultEventTypeName;
-            MainWindow.mw.F11FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
-            MainWindow.mw.F11FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
-            
-            MainWindow.mw.F12ButtonLabel.Content = DefaultEventTypeName;
-            MainWindow.mw.F12FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
-            MainWindow.mw.F12FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
-
-            switch (bank)
-            {
-                case FunctionKeyBanks.Default:
-                    FunctionKeyBank = FunctionKeyBanks.Default;
-
-                    foreach (EventType eventType in XMLReaderWriter.EventTypesList)
-                    {
-                        if (functionKey >= 1 && functionKey <= 12)
-                        {
-                            switch (functionKey)
-                            {
-                                case 1:
-                                    MainWindow.mw.F1ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F1FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F1FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 2:
-                                    MainWindow.mw.F2ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F2FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F2FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 3:
-                                    MainWindow.mw.F3ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F3FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F3FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 4:
-                                    MainWindow.mw.F4ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F4FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F4FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 5:
-                                    MainWindow.mw.F5ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F5FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F5FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 6:
-                                    MainWindow.mw.F6ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F6FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F6FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 7:
-                                    MainWindow.mw.F7ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F7FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F7FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 8:
-                                    MainWindow.mw.F8ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F8FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F8FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 9:
-                                    MainWindow.mw.F9ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F9FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F9FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 10:
-                                    MainWindow.mw.F10ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F10FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F10FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 11:
-                                    MainWindow.mw.F11ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F11FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F11FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 12:
-                                    MainWindow.mw.F12ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F12FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F12FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                            }
-                        }
-                        functionKey++;
-                    }
-                    break;
-                case FunctionKeyBanks.LeftShift:
-                    FunctionKeyBank = FunctionKeyBanks.LeftShift;
-
-                    foreach (EventType eventType in XMLReaderWriter.EventTypesList)
-                    {
-                        if (functionKey >= 13 && functionKey <= 24)
-                        {
-                            switch (functionKey)
-                            {
-                                case 13:
-                                    MainWindow.mw.F1ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F1FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F1FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 14:
-                                    MainWindow.mw.F2ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F2FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F2FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 15:
-                                    MainWindow.mw.F3ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F3FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F3FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 16:
-                                    MainWindow.mw.F4ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F4FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F4FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 17:
-                                    MainWindow.mw.F5ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F5FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F5FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 18:
-                                    MainWindow.mw.F6ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F6FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F6FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 19:
-                                    MainWindow.mw.F7ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F7FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F7FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 20:
-                                    MainWindow.mw.F8ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F8FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F8FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 21:
-                                    MainWindow.mw.F9ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F9FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F9FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 22:
-                                    MainWindow.mw.F10ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F10FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F10FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 23:
-                                    MainWindow.mw.F11ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F11FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F11FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 24:
-                                    MainWindow.mw.F12ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F12FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F12FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                            }
-                        }
-                        functionKey++;
-                    }
-                    break;
-                case FunctionKeyBanks.RightShift:
-                    FunctionKeyBank = FunctionKeyBanks.RightShift;
-
-                    foreach (EventType eventType in XMLReaderWriter.EventTypesList)
-                    {
-                        if (functionKey >= 25 && functionKey <= 36)
-                        {
-                            switch (functionKey)
-                            {
-                                case 25:
-                                    MainWindow.mw.F1ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F1FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F1FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 26:
-                                    MainWindow.mw.F2ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F2FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F2FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 27:
-                                    MainWindow.mw.F3ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F3FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F3FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 28:
-                                    MainWindow.mw.F4ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F4FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F4FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 29:
-                                    MainWindow.mw.F5ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F5FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F5FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 30:
-                                    MainWindow.mw.F6ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F6FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F6FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 31:
-                                    MainWindow.mw.F7ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F7FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F7FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 32:
-                                    MainWindow.mw.F8ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F8FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F8FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 33:
-                                    MainWindow.mw.F9ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F9FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F9FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 34:
-                                    MainWindow.mw.F10ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F10FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F10FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 35:
-                                    MainWindow.mw.F11ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F11FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F11FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                                case 36:
-                                    MainWindow.mw.F12ButtonLabel.Content = eventType.Name;
-                                    MainWindow.mw.F12FontAwesomeIcon.Icon = eventType.Icon;
-                                    MainWindow.mw.F12FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
-                                    break;
-                            }  
-                        }
-                        functionKey++;
-                    }
-                    break;
-            }
-        }
 
         private void DeleteEventRow()
         {
@@ -835,172 +414,40 @@ namespace Event_Horizon
                 switch (buttonID)
                 {
                     case 0:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                EventTypeComboBox.SelectedIndex = 1;
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                EventTypeComboBox.SelectedIndex = 13;
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                EventTypeComboBox.SelectedIndex = 25;
-                                break;
-                        }
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(1);
                         break;
                     case 1:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                EventTypeComboBox.SelectedIndex = 2;
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                EventTypeComboBox.SelectedIndex = 14;
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                EventTypeComboBox.SelectedIndex = 26;
-                                break;
-                        }
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(2);
                         break;
                     case 2:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                EventTypeComboBox.SelectedIndex = 3;
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                EventTypeComboBox.SelectedIndex = 15;
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                EventTypeComboBox.SelectedIndex = 27;
-                                break;
-                        }
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(3);
                         break;
                     case 3:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                EventTypeComboBox.SelectedIndex = 4;
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                EventTypeComboBox.SelectedIndex = 16;
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                EventTypeComboBox.SelectedIndex = 28;
-                                break;
-                        }
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(4);
                         break;
                     case 4:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                EventTypeComboBox.SelectedIndex = 5;
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                EventTypeComboBox.SelectedIndex = 17;
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                EventTypeComboBox.SelectedIndex = 29;
-                                break;
-                        }
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(5);
                         break;
                     case 5:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                EventTypeComboBox.SelectedIndex = 6;
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                EventTypeComboBox.SelectedIndex = 18;
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                EventTypeComboBox.SelectedIndex = 30;
-                                break;
-                        }
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(6);
                         break;
                     case 6:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                EventTypeComboBox.SelectedIndex = 7;
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                EventTypeComboBox.SelectedIndex = 19;
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                EventTypeComboBox.SelectedIndex = 31;
-                                break;
-                        }
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(7);
                         break;
                     case 7:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                EventTypeComboBox.SelectedIndex = 8;
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                EventTypeComboBox.SelectedIndex = 20;
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                EventTypeComboBox.SelectedIndex = 32;
-                                break;
-                        }
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(8);
                         break;
                     case 8:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                EventTypeComboBox.SelectedIndex = 9;
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                EventTypeComboBox.SelectedIndex = 21;
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                EventTypeComboBox.SelectedIndex = 33;
-                                break;
-                        }
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(9);
                         break;
                     case 9:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                EventTypeComboBox.SelectedIndex = 10;
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                EventTypeComboBox.SelectedIndex = 22;
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                EventTypeComboBox.SelectedIndex = 34;
-                                break;
-                        }
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(10);
                         break;
                     case 10:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                EventTypeComboBox.SelectedIndex = 11;
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                EventTypeComboBox.SelectedIndex = 23;
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                EventTypeComboBox.SelectedIndex = 35;
-                                break;
-                        }
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(11);
                         break;
                     case 11:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                EventTypeComboBox.SelectedIndex = 12;
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                EventTypeComboBox.SelectedIndex = 24;
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                EventTypeComboBox.SelectedIndex = 36;
-                                break;
-                        }
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(12);
                         break;
                 }
             }
@@ -1019,172 +466,40 @@ namespace Event_Horizon
                 switch (buttonID)
                 {
                     case 0:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                NewEventWindow(1);
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                NewEventWindow(13);
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                NewEventWindow(25);
-                                break;
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(1);
                         break;
                     case 1:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                NewEventWindow(2);
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                NewEventWindow(14);
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                NewEventWindow(26);
-                                break;
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(2);
                         break;
                     case 2:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                NewEventWindow(3);
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                NewEventWindow(15);
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                NewEventWindow(27);
-                                break;
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(3);
                         break;
                     case 3:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                NewEventWindow(4);
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                NewEventWindow(16);
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                NewEventWindow(28);
-                                break;
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(4);
                         break;
                     case 4:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                NewEventWindow(5);
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                NewEventWindow(17);
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                NewEventWindow(29);
-                                break;
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(5);
                         break;
                     case 5:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                NewEventWindow(6);
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                NewEventWindow(18);
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                NewEventWindow(30);
-                                break;
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(6);
                         break;
                     case 6:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                NewEventWindow(7);
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                NewEventWindow(19);
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                NewEventWindow(31);
-                                break;
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(7);
                         break;
                     case 7:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                NewEventWindow(8);
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                NewEventWindow(20);
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                NewEventWindow(32);
-                                break;
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(8);
                         break;
                     case 8:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                NewEventWindow(9);
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                NewEventWindow(21);
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                NewEventWindow(33);
-                                break;
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(9);
                         break;
                     case 9:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                NewEventWindow(10);
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                NewEventWindow(22);
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                NewEventWindow(34);
-                                break;
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(10);
                         break;
                     case 10:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                NewEventWindow(11);
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                NewEventWindow(23);
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                NewEventWindow(35);
-                                break;
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(11);
                         break;
                     case 11:
-                        switch (FunctionKeyBank)
-                        {
-                            case FunctionKeyBanks.Default:
-                                NewEventWindow(12);
-                                break;
-                            case FunctionKeyBanks.LeftShift:
-                                NewEventWindow(24);
-                                break;
-                            case FunctionKeyBanks.RightShift:
-                                NewEventWindow(36);
-                                break;
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(12);
                         break;
                 }
             }

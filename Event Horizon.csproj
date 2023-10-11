@@ -144,6 +144,7 @@
     <Compile Include="EventHorizonLogo.xaml.cs">
       <DependentUpon>EventHorizonLogo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FunctionKeyManager.cs" />
     <Compile Include="WidgetLogo.xaml.cs">
       <DependentUpon>WidgetLogo.xaml</DependentUpon>
     </Compile>

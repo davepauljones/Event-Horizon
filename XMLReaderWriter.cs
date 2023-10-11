@@ -17,7 +17,6 @@ namespace Event_Horizon
         public static String DatabaseLocationString = AppDomain.CurrentDomain.BaseDirectory;
         public static List<User> UsersList = new List<User>();
         public static List<EventType> EventTypesList = new List<EventType>();
-        //public static List<FunctionKeyEventType> FunctionKeyEventTypesList = new List<FunctionKeyEventType>();
         public static List<AttributeType> AttributeTypesList = new List<AttributeType>();
         public static List<SourceType> SourceTypesList = new List<SourceType>();
         public static TimeSpan UsersRefreshTimeSpan = TimeSpan.FromMilliseconds(100);
@@ -227,6 +226,8 @@ namespace Event_Horizon
                         EventTypesList.Add(new EventType { ID = id, Name = node["Name"].InnerText, Icon = GetUIFontAwesome(node["Icon"].InnerText), Color = (Color)ColorConverter.ConvertFromString(node["Color"].InnerText) });
                         id++;
                     }
+
+                    FunctionKeyManager.NumberOfFunctionKeyBanks = EventTypesList.Count / 12;
 
                     Console.WriteLine("EventTypes");
                     id = 0;

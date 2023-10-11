@@ -310,8 +310,15 @@ namespace Event_Horizon
     }
     public struct FunctionKeyBanks
     {
-        public const int Default = 0;
-        public const int LeftShift = 1;
-        public const int RightShift = 2;
+        public const int Bank0 = 0;
+        public const int Bank1 = 1;
+        public const int Bank2 = 2;
+        public const int Bank3 = 3;
+        public const int Bank4 = 4;
+        public const int Bank5 = 5;
+        public const int Bank6 = 6;
+        public const int Bank7 = 7;
+        public const int Bank8 = 8;
+        public const int Bank9 = 9;
     }
 }
