@@ -75,7 +75,7 @@ namespace Event_Horizon
             i.Margin = new Thickness(25, 0, 0, 0);
             i.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             i.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/EventHorizonLogoNewSmall.png"));
+            i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/Images/EventHorizonLogoNewSmall.png"));
 
             flowDoc.Blocks.Add(new BlockUIContainer(i));
 
@@ -213,7 +213,7 @@ namespace Event_Horizon
             i.Stretch = Stretch.Uniform;
             i.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             i.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/EventHorizonLogoNewSmall.png"));
+            i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/Images/EventHorizonLogoNewSmall.png"));
 
             flowDoc.Blocks.Add(new BlockUIContainer(i));
 

@@ -659,10 +659,10 @@ namespace Event_Horizon
             Console.Write("File Extension is ");
             Console.WriteLine(FileExtension);
 
+            PathFileNameImage.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/Images/EventHorizonLogoNewSmall.png"));
+            
             if (FileExtension == FileExtensionsImage.png || FileExtension == FileExtensionsImage.jpg || FileExtension == FileExtensionsImage.bmp)
             {
-                PathFileNameImage.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/EventHorizonLogoNewSmall.png"));
-
                 try
                 {
                     if (File.Exists(pathFileName))
@@ -679,6 +679,7 @@ namespace Event_Horizon
                 }
                 catch
                 {
+                    Console.WriteLine();
                     //UserPhoto.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,,/Images/face.jpg"));
                 }
             }

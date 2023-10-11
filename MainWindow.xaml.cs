@@ -78,12 +78,12 @@ namespace Event_Horizon
 
         private void ReminderListScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,/Images/EventHorizonLogoHLNNN.png", UriKind.Absolute));
-            myBrush.Stretch = Stretch.Uniform;
-            myBrush.Transform = new ScaleTransform(0.33, 0.33, 700, ReminderListScrollViewer.ActualHeight);
-            ReminderListScrollViewer.Background = myBrush;
-            ReminderListScrollViewer.Background.Opacity = 1;
+            //ImageBrush myBrush = new ImageBrush();
+            //myBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,/Images/EventHorizonLogoHLNNN.png", UriKind.Absolute));
+            //myBrush.Stretch = Stretch.Uniform;
+            //myBrush.Transform = new ScaleTransform(0.33, 0.33, 700, ReminderListScrollViewer.ActualHeight);
+            //ReminderListScrollViewer.Background = myBrush;
+            //ReminderListScrollViewer.Background.Opacity = 1;
         }
 
         public MainWindow()
@@ -320,43 +320,175 @@ namespace Event_Horizon
             switch (e.Key)
             {
                 case Key.F1:
-                    NewEventWindow(1);
+                    switch (FunctionKeyBank)
+                    {
+                        case FunctionKeyBanks.Default:
+                            NewEventWindow(1);
+                            break;
+                        case FunctionKeyBanks.LeftShift:
+                            NewEventWindow(13);
+                            break;
+                        case FunctionKeyBanks.RightShift:
+                            NewEventWindow(25);
+                            break;
+                    }
                     break;
                 case Key.F2:
-                    NewEventWindow(2);
+                    switch (FunctionKeyBank)
+                    {
+                        case FunctionKeyBanks.Default:
+                            NewEventWindow(2);
+                            break;
+                        case FunctionKeyBanks.LeftShift:
+                            NewEventWindow(14);
+                            break;
+                        case FunctionKeyBanks.RightShift:
+                            NewEventWindow(26);
+                            break;
+                    }
                     break;
                 case Key.F3:
-                    NewEventWindow(3);
+                    switch (FunctionKeyBank)
+                    {
+                        case FunctionKeyBanks.Default:
+                            NewEventWindow(3);
+                            break;
+                        case FunctionKeyBanks.LeftShift:
+                            NewEventWindow(15);
+                            break;
+                        case FunctionKeyBanks.RightShift:
+                            NewEventWindow(27);
+                            break;
+                    }
                     break;
                 case Key.F4:
-                    NewEventWindow(4);
+                    switch (FunctionKeyBank)
+                    {
+                        case FunctionKeyBanks.Default:
+                            NewEventWindow(4);
+                            break;
+                        case FunctionKeyBanks.LeftShift:
+                            NewEventWindow(16);
+                            break;
+                        case FunctionKeyBanks.RightShift:
+                            NewEventWindow(28);
+                            break;
+                    }
                     break;
                 case Key.F5:
-                    NewEventWindow(5);
+                    switch (FunctionKeyBank)
+                    {
+                        case FunctionKeyBanks.Default:
+                            NewEventWindow(5);
+                            break;
+                        case FunctionKeyBanks.LeftShift:
+                            NewEventWindow(17);
+                            break;
+                        case FunctionKeyBanks.RightShift:
+                            NewEventWindow(29);
+                            break;
+                    }
                     break;
                 case Key.F6:
-                    NewEventWindow(6);
+                    switch (FunctionKeyBank)
+                    {
+                        case FunctionKeyBanks.Default:
+                            NewEventWindow(6);
+                            break;
+                        case FunctionKeyBanks.LeftShift:
+                            NewEventWindow(18);
+                            break;
+                        case FunctionKeyBanks.RightShift:
+                            NewEventWindow(30);
+                            break;
+                    }
                     break;
                 case Key.F7:
-                    NewEventWindow(7);
+                    switch (FunctionKeyBank)
+                    {
+                        case FunctionKeyBanks.Default:
+                            NewEventWindow(7);
+                            break;
+                        case FunctionKeyBanks.LeftShift:
+                            NewEventWindow(19);
+                            break;
+                        case FunctionKeyBanks.RightShift:
+                            NewEventWindow(31);
+                            break;
+                    }
                     break;
                 case Key.F8:
-                    NewEventWindow(8);
+                    switch (FunctionKeyBank)
+                    {
+                        case FunctionKeyBanks.Default:
+                            NewEventWindow(8);
+                            break;
+                        case FunctionKeyBanks.LeftShift:
+                            NewEventWindow(20);
+                            break;
+                        case FunctionKeyBanks.RightShift:
+                            NewEventWindow(32);
+                            break;
+                    }
                     break;
                 case Key.F9:
-                    NewEventWindow(9);
+                    switch (FunctionKeyBank)
+                    {
+                        case FunctionKeyBanks.Default:
+                            NewEventWindow(9);
+                            break;
+                        case FunctionKeyBanks.LeftShift:
+                            NewEventWindow(21);
+                            break;
+                        case FunctionKeyBanks.RightShift:
+                            NewEventWindow(33);
+                            break;
+                    }
                     break;
                 case Key.System:
                     if (e.SystemKey == Key.F10)
                     {
-                        NewEventWindow(10);
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                NewEventWindow(10);
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                NewEventWindow(22);
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                NewEventWindow(34);
+                                break;
+                        }
                     }
                     break;
                 case Key.F11:
-                    NewEventWindow(11);
+                    switch (FunctionKeyBank)
+                    {
+                        case FunctionKeyBanks.Default:
+                            NewEventWindow(11);
+                            break;
+                        case FunctionKeyBanks.LeftShift:
+                            NewEventWindow(23);
+                            break;
+                        case FunctionKeyBanks.RightShift:
+                            NewEventWindow(35);
+                            break;
+                    }
                     break;
                 case Key.F12:
-                    NewEventWindow(12);
+                    switch (FunctionKeyBank)
+                    {
+                        case FunctionKeyBanks.Default:
+                            NewEventWindow(12);
+                            break;
+                        case FunctionKeyBanks.LeftShift:
+                            NewEventWindow(24);
+                            break;
+                        case FunctionKeyBanks.RightShift:
+                            NewEventWindow(36);
+                            break;
+                    }
                     break;
                 case Key.Delete:
                     DeleteEventRow();
@@ -703,40 +835,172 @@ namespace Event_Horizon
                 switch (buttonID)
                 {
                     case 0:
-                        EventTypeComboBox.SelectedIndex = 1;
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                EventTypeComboBox.SelectedIndex = 1;
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                EventTypeComboBox.SelectedIndex = 13;
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                EventTypeComboBox.SelectedIndex = 25;
+                                break;
+                        }
                         break;
                     case 1:
-                        EventTypeComboBox.SelectedIndex = 2;
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                EventTypeComboBox.SelectedIndex = 2;
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                EventTypeComboBox.SelectedIndex = 14;
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                EventTypeComboBox.SelectedIndex = 26;
+                                break;
+                        }
                         break;
                     case 2:
-                        EventTypeComboBox.SelectedIndex = 3;
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                EventTypeComboBox.SelectedIndex = 3;
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                EventTypeComboBox.SelectedIndex = 15;
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                EventTypeComboBox.SelectedIndex = 27;
+                                break;
+                        }
                         break;
                     case 3:
-                        EventTypeComboBox.SelectedIndex = 4;
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                EventTypeComboBox.SelectedIndex = 4;
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                EventTypeComboBox.SelectedIndex = 16;
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                EventTypeComboBox.SelectedIndex = 28;
+                                break;
+                        }
                         break;
                     case 4:
-                        EventTypeComboBox.SelectedIndex = 5;
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                EventTypeComboBox.SelectedIndex = 5;
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                EventTypeComboBox.SelectedIndex = 17;
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                EventTypeComboBox.SelectedIndex = 29;
+                                break;
+                        }
                         break;
                     case 5:
-                        EventTypeComboBox.SelectedIndex = 6;
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                EventTypeComboBox.SelectedIndex = 6;
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                EventTypeComboBox.SelectedIndex = 18;
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                EventTypeComboBox.SelectedIndex = 30;
+                                break;
+                        }
                         break;
                     case 6:
-                        EventTypeComboBox.SelectedIndex = 7;
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                EventTypeComboBox.SelectedIndex = 7;
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                EventTypeComboBox.SelectedIndex = 19;
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                EventTypeComboBox.SelectedIndex = 31;
+                                break;
+                        }
                         break;
                     case 7:
-                        EventTypeComboBox.SelectedIndex = 8;
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                EventTypeComboBox.SelectedIndex = 8;
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                EventTypeComboBox.SelectedIndex = 20;
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                EventTypeComboBox.SelectedIndex = 32;
+                                break;
+                        }
                         break;
                     case 8:
-                        EventTypeComboBox.SelectedIndex = 9;
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                EventTypeComboBox.SelectedIndex = 9;
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                EventTypeComboBox.SelectedIndex = 21;
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                EventTypeComboBox.SelectedIndex = 33;
+                                break;
+                        }
                         break;
                     case 9:
-                        EventTypeComboBox.SelectedIndex = 10;
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                EventTypeComboBox.SelectedIndex = 10;
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                EventTypeComboBox.SelectedIndex = 22;
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                EventTypeComboBox.SelectedIndex = 34;
+                                break;
+                        }
                         break;
                     case 10:
-                        EventTypeComboBox.SelectedIndex = 11;
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                EventTypeComboBox.SelectedIndex = 11;
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                EventTypeComboBox.SelectedIndex = 23;
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                EventTypeComboBox.SelectedIndex = 35;
+                                break;
+                        }
                         break;
                     case 11:
-                        EventTypeComboBox.SelectedIndex = 12;
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                EventTypeComboBox.SelectedIndex = 12;
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                EventTypeComboBox.SelectedIndex = 24;
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                EventTypeComboBox.SelectedIndex = 36;
+                                break;
+                        }
                         break;
                 }
             }
@@ -783,34 +1047,144 @@ namespace Event_Horizon
                         }
                         break;
                     case 2:
-                        NewEventWindow(3);
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                NewEventWindow(3);
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                NewEventWindow(15);
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                NewEventWindow(27);
+                                break;
+                        }
                         break;
                     case 3:
-                        NewEventWindow(4);
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                NewEventWindow(4);
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                NewEventWindow(16);
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                NewEventWindow(28);
+                                break;
+                        }
                         break;
                     case 4:
-                        NewEventWindow(5);
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                NewEventWindow(5);
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                NewEventWindow(17);
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                NewEventWindow(29);
+                                break;
+                        }
                         break;
                     case 5:
-                        NewEventWindow(6);
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                NewEventWindow(6);
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                NewEventWindow(18);
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                NewEventWindow(30);
+                                break;
+                        }
                         break;
                     case 6:
-                        NewEventWindow(7);
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                NewEventWindow(7);
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                NewEventWindow(19);
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                NewEventWindow(31);
+                                break;
+                        }
                         break;
                     case 7:
-                        NewEventWindow(8);
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                NewEventWindow(8);
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                NewEventWindow(20);
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                NewEventWindow(32);
+                                break;
+                        }
                         break;
                     case 8:
-                        NewEventWindow(9);
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                NewEventWindow(9);
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                NewEventWindow(21);
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                NewEventWindow(33);
+                                break;
+                        }
                         break;
                     case 9:
-                        NewEventWindow(10);
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                NewEventWindow(10);
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                NewEventWindow(22);
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                NewEventWindow(34);
+                                break;
+                        }
                         break;
                     case 10:
-                        NewEventWindow(11);
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                NewEventWindow(11);
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                NewEventWindow(23);
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                NewEventWindow(35);
+                                break;
+                        }
                         break;
                     case 11:
-                        NewEventWindow(12);
+                        switch (FunctionKeyBank)
+                        {
+                            case FunctionKeyBanks.Default:
+                                NewEventWindow(12);
+                                break;
+                            case FunctionKeyBanks.LeftShift:
+                                NewEventWindow(24);
+                                break;
+                            case FunctionKeyBanks.RightShift:
+                                NewEventWindow(36);
+                                break;
+                        }
                         break;
                 }
             }
@@ -990,28 +1364,44 @@ namespace Event_Horizon
                         EventTypeComboBox.SelectedIndex = 0;
                         EventTypeID = EventTypeComboBox.SelectedIndex;
                         SearchTextBox.Text = string.Empty;
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
+
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
                         break;
                     case 1:
                         SearchTextBox.Text = string.Empty;
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
+
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
                         break;
                     case 2:
-                        //Just Refresh
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
+
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
                         break;
                     case 3:
                         EventWindow newEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ(), null);
                         newEventWindow.Show();
                         break;
                 }
-            }
-
-            if (MainWindowIs_Loaded)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
-
-                ReminderListScrollViewer.ScrollToTop();
             }
         }
 
