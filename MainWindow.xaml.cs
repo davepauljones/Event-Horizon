@@ -74,16 +74,6 @@ namespace Event_Horizon
             justLoaded = true;
         }
 
-        private void ReminderListScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //ImageBrush myBrush = new ImageBrush();
-            //myBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,/Images/EventHorizonLogoHLNNN.png", UriKind.Absolute));
-            //myBrush.Stretch = Stretch.Uniform;
-            //myBrush.Transform = new ScaleTransform(0.33, 0.33, 700, ReminderListScrollViewer.ActualHeight);
-            //ReminderListScrollViewer.Background = myBrush;
-            //ReminderListScrollViewer.Background.Opacity = 1;
-        }
-
         public MainWindow()
         {
             InitializeComponent();

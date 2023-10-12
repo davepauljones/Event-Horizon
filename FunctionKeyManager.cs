@@ -113,61 +113,73 @@ namespace Event_Horizon
                     MainWindow.mw.F1ButtonLabel.Content = eventType.Name;
                     MainWindow.mw.F1FontAwesomeIcon.Icon = eventType.Icon;
                     MainWindow.mw.F1FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
+                    MainWindow.mw.F1FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case 2:
                     MainWindow.mw.F2ButtonLabel.Content = eventType.Name;
                     MainWindow.mw.F2FontAwesomeIcon.Icon = eventType.Icon;
                     MainWindow.mw.F2FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
+                    MainWindow.mw.F2FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case 3:
                     MainWindow.mw.F3ButtonLabel.Content = eventType.Name;
                     MainWindow.mw.F3FontAwesomeIcon.Icon = eventType.Icon;
                     MainWindow.mw.F3FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
+                    MainWindow.mw.F3FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case 4:
                     MainWindow.mw.F4ButtonLabel.Content = eventType.Name;
                     MainWindow.mw.F4FontAwesomeIcon.Icon = eventType.Icon;
                     MainWindow.mw.F4FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
+                    MainWindow.mw.F4FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case 5:
                     MainWindow.mw.F5ButtonLabel.Content = eventType.Name;
                     MainWindow.mw.F5FontAwesomeIcon.Icon = eventType.Icon;
                     MainWindow.mw.F5FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
+                    MainWindow.mw.F5FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case 6:
                     MainWindow.mw.F6ButtonLabel.Content = eventType.Name;
                     MainWindow.mw.F6FontAwesomeIcon.Icon = eventType.Icon;
                     MainWindow.mw.F6FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
+                    MainWindow.mw.F6FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case 7:
                     MainWindow.mw.F7ButtonLabel.Content = eventType.Name;
                     MainWindow.mw.F7FontAwesomeIcon.Icon = eventType.Icon;
                     MainWindow.mw.F7FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
+                    MainWindow.mw.F7FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case 8:
                     MainWindow.mw.F8ButtonLabel.Content = eventType.Name;
                     MainWindow.mw.F8FontAwesomeIcon.Icon = eventType.Icon;
                     MainWindow.mw.F8FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
+                    MainWindow.mw.F8FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case 9:
                     MainWindow.mw.F9ButtonLabel.Content = eventType.Name;
                     MainWindow.mw.F9FontAwesomeIcon.Icon = eventType.Icon;
                     MainWindow.mw.F9FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
+                    MainWindow.mw.F9FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case 10:
                     MainWindow.mw.F10ButtonLabel.Content = eventType.Name;
                     MainWindow.mw.F10FontAwesomeIcon.Icon = eventType.Icon;
                     MainWindow.mw.F10FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
+                    MainWindow.mw.F10FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case 11:
                     MainWindow.mw.F11ButtonLabel.Content = eventType.Name;
                     MainWindow.mw.F11FontAwesomeIcon.Icon = eventType.Icon;
                     MainWindow.mw.F11FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
+                    MainWindow.mw.F11FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Visible;
                     break;
                 case 12:
                     MainWindow.mw.F12ButtonLabel.Content = eventType.Name;
                     MainWindow.mw.F12FontAwesomeIcon.Icon = eventType.Icon;
                     MainWindow.mw.F12FontAwesomeIconBorder.Background = new SolidColorBrush(eventType.Color);
+                    MainWindow.mw.F12FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Visible;
                     break;
             }
         }
@@ -176,57 +188,69 @@ namespace Event_Horizon
         {
             int functionKey = 0;
 
-            string DefaultEventTypeName = "Spare";
-            FontAwesomeIcon DefaultFontAwesomeIcon = FontAwesomeIcon.CircleOutline;
-            Color DefaultIconBorderBackground = Colors.DodgerBlue;
+            string DefaultEventTypeName = "";
+            FontAwesomeIcon DefaultFontAwesomeIcon = FontAwesomeIcon.None;
+            Color DefaultIconBorderBackground = Colors.Transparent;
 
             MainWindow.mw.F1ButtonLabel.Content = DefaultEventTypeName;
             MainWindow.mw.F1FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
             MainWindow.mw.F1FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
+            MainWindow.mw.F1FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Hidden;
 
             MainWindow.mw.F2ButtonLabel.Content = DefaultEventTypeName;
             MainWindow.mw.F2FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
             MainWindow.mw.F2FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
+            MainWindow.mw.F2FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Hidden;
 
             MainWindow.mw.F3ButtonLabel.Content = DefaultEventTypeName;
             MainWindow.mw.F3FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
             MainWindow.mw.F3FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
+            MainWindow.mw.F3FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Hidden;
 
             MainWindow.mw.F4ButtonLabel.Content = DefaultEventTypeName;
             MainWindow.mw.F4FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
             MainWindow.mw.F4FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
+            MainWindow.mw.F4FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Hidden;
 
             MainWindow.mw.F5ButtonLabel.Content = DefaultEventTypeName;
             MainWindow.mw.F5FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
             MainWindow.mw.F5FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
+            MainWindow.mw.F5FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Hidden;
 
             MainWindow.mw.F6ButtonLabel.Content = DefaultEventTypeName;
             MainWindow.mw.F6FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
             MainWindow.mw.F6FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
+            MainWindow.mw.F6FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Hidden;
 
             MainWindow.mw.F7ButtonLabel.Content = DefaultEventTypeName;
             MainWindow.mw.F7FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
             MainWindow.mw.F7FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
+            MainWindow.mw.F7FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Hidden;
 
             MainWindow.mw.F8ButtonLabel.Content = DefaultEventTypeName;
             MainWindow.mw.F8FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
             MainWindow.mw.F8FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
+            MainWindow.mw.F8FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Hidden;
 
             MainWindow.mw.F9ButtonLabel.Content = DefaultEventTypeName;
             MainWindow.mw.F9FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
             MainWindow.mw.F9FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
+            MainWindow.mw.F9FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Hidden;
 
             MainWindow.mw.F10ButtonLabel.Content = DefaultEventTypeName;
             MainWindow.mw.F10FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
             MainWindow.mw.F10FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
+            MainWindow.mw.F10FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Hidden;
 
             MainWindow.mw.F11ButtonLabel.Content = DefaultEventTypeName;
             MainWindow.mw.F11FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
             MainWindow.mw.F11FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
+            MainWindow.mw.F11FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Hidden;
 
             MainWindow.mw.F12ButtonLabel.Content = DefaultEventTypeName;
             MainWindow.mw.F12FontAwesomeIcon.Icon = DefaultFontAwesomeIcon;
             MainWindow.mw.F12FontAwesomeIconBorder.Background = new SolidColorBrush(DefaultIconBorderBackground);
+            MainWindow.mw.F12FontAwesomeIconBorder.Visibility = System.Windows.Visibility.Hidden;
 
             switch (bank)
             {

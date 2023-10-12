@@ -666,7 +666,7 @@
         <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>
         <Setter Property="Effect">
             <Setter.Value>
-                <DropShadowEffect Color="DarkSlateGray" Opacity="1" ShadowDepth="2" Direction="130" BlurRadius="0.5"/>
+                <DropShadowEffect Color="DarkSlateGray" Opacity="1" ShadowDepth="1.5" Direction="140" BlurRadius="0.5"/>
             </Setter.Value>
         </Setter>
     </Style>

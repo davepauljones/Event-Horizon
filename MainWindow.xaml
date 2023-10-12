@@ -345,7 +345,7 @@
                                                         <StackPanel.Effect>
                                                             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                                                         </StackPanel.Effect>
-                                                        <ComboBox x:Name="EventTypeComboBox" Style="{DynamicResource FrequencyComboBoxStyle}" ItemContainerStyle="{DynamicResource theComboBoxItem}" Background="#66FFFFFF" Width="280" Height="40" IsEditable="False" SelectionChanged="EventTypeComboBox_SelectionChanged"/>
+                                                        <ComboBox x:Name="EventTypeComboBox" Style="{DynamicResource FrequencyComboBoxStyle}" ItemContainerStyle="{DynamicResource theComboBoxItem}" Background="#66ffffff" Width="280" Height="40" IsEditable="False" SelectionChanged="EventTypeComboBox_SelectionChanged"/>
                                                     </StackPanel>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
@@ -375,7 +375,7 @@
                             <Border.Effect>
                                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                             </Border.Effect>
-                            <ScrollViewer x:Name="ReminderListScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="1" Height="{Binding ElementName=ReminderGrid, Path=ActualHeight, Converter={StaticResource ListViewConverter}, ConverterParameter=10, Mode=OneWay}" SizeChanged ="ReminderListScrollViewer_SizeChanged">
+                            <ScrollViewer x:Name="ReminderListScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="1" Height="{Binding ElementName=ReminderGrid, Path=ActualHeight, Converter={StaticResource ListViewConverter}, ConverterParameter=10, Mode=OneWay}">
 
                                 <StackPanel Orientation="Vertical" Margin="6,0,6,0">
                                     <StackPanel Orientation="Horizontal" Margin="11,0,0,0">
