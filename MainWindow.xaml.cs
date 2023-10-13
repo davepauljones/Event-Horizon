@@ -866,7 +866,7 @@ namespace Event_Horizon
             HelpVisualTreeListView.Items.Clear();
 
             ListOfHelp.Add(new SelectionIdString { Id = 0, Name = "Event Status" });
-            ListOfHelp.Add(new SelectionIdString { Id = 1, Name = "Foo" });
+            ListOfHelp.Add(new SelectionIdString { Id = 1, Name = "Event Function Keys" });
             ListOfHelp.Add(new SelectionIdString { Id = 2, Name = "FooBar" });
 
             NumberOfHelpTextBlock.Text = ListOfHelp.Count.ToString();
@@ -965,8 +965,8 @@ namespace Event_Horizon
                             REPORTS = new ReportsWindow(null, null, Helps.EventStatus);
                             REPORTS.Show();
                             break;
-                        case Helps.Foo:
-                            REPORTS = new ReportsWindow(null, null, Helps.Foo);
+                        case Helps.EventFunctionKeys:
+                            REPORTS = new ReportsWindow(null, null, Helps.EventFunctionKeys);
                             REPORTS.Show();
                             break;
                         case Helps.FooBar:
