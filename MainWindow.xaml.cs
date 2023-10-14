@@ -153,6 +153,8 @@ namespace Event_Horizon
                 EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(widgetUsersOnline.UsersOnlineStackPanel);
             }
 
+            TestButtonStackPanel.Children.Add(FunctionKeyManager.CreateFunctionKey("F22", FontAwesome.WPF.FontAwesomeIcon.Child, "Child"));
+
             MainWindowIs_Loaded = true;
         }
 

@@ -278,7 +278,8 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="114">
                                 <Border x:Name="EventOptionsBorder" CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="1358">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <StackPanel Orientation="Vertical" Width="92" Margin="480,0,0,0">
+                                        <StackPanel x:Name="TestButtonStackPanel" Width="135" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10"/>
+                                        <StackPanel Orientation="Vertical" Width="92" Margin="328,0,0,0">
                                             <Label Content="Days" ToolTip="Change the Time Span then click REFRESH" FontWeight="Medium" Margin="8,0,0,0"/>
                                             <RadioButton Tag="0" GroupName="TimeSpanRadioButton" Content = "Overdue" Background="#FFe60000" Margin="10,-4,0,0" Checked="TimeSpanRadioButton_Checked"/>
                                             <RadioButton Tag="1" GroupName="TimeSpanRadioButton" Content = "3 Days" Background="#FFff7800" Margin="10,-2,0,0" Checked="TimeSpanRadioButton_Checked"/>

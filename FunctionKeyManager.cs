@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FontAwesome.WPF;
+﻿using FontAwesome.WPF;
 using System.Windows.Media;
+using System.Windows.Controls;
+using System.Windows;
+using System.Windows.Media.Effects;
 
 namespace Event_Horizon
 {
@@ -22,6 +20,63 @@ namespace Event_Horizon
             }
             else
                 PopulateFunctionKeys(FunctionKeyBanks.Bank0);
+        }
+
+        internal static Button CreateFunctionKey(string functionKeyNumberString, FontAwesomeIcon fontAwesomeIcon, string functionKeyLabelString)
+        {
+            Button button = new Button();
+
+            button.Height = 60;
+            button.SetResourceReference(Control.StyleProperty, "EventHorizonButtonStyle");
+            button.Margin = new System.Windows.Thickness(10, 0, 8.9, 0);
+
+            StackPanel outerStackPanel = new StackPanel { Orientation = Orientation.Vertical };
+            StackPanel innerStackPanel = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = System.Windows.HorizontalAlignment.Center };
+            Label functionKeyNumberLabel = new Label { Content = functionKeyNumberString, FontSize = 22, Margin = new System.Windows.Thickness(0,-4,0,0), Foreground = new SolidColorBrush(Colors.White), FontWeight = FontWeights.Black, HorizontalAlignment = HorizontalAlignment.Center };
+            Border border = new Border { Margin = new Thickness(10, 4, 0, 0) };
+            border.SetResourceReference(Control.StyleProperty, "EventTypeTokenFunctionKey_BorderStyle");
+            FontAwesome.WPF.FontAwesome fa = new FontAwesome.WPF.FontAwesome { Icon = fontAwesomeIcon };
+            fa.SetResourceReference(Control.StyleProperty, "EventTypeToken_FontAwesomeStyle");
+            Label functionKeyLabelLabel = new Label { Content = functionKeyLabelString, FontSize = 14, Margin = new System.Windows.Thickness(0, -7, 0, 0), Foreground = new SolidColorBrush(Colors.White), HorizontalAlignment = HorizontalAlignment.Center };
+
+            border.Child = fa;
+            innerStackPanel.Children.Add(functionKeyNumberLabel);
+            innerStackPanel.Children.Add(border);
+            outerStackPanel.Children.Add(innerStackPanel);
+            outerStackPanel.Children.Add(functionKeyLabelLabel);
+            button.Content = outerStackPanel;
+
+            return button;
+        }
+        internal static Button CreateHelpFunctionKey(string functionKeyNumberString, FontAwesomeIcon fontAwesomeIcon, string functionKeyLabelString, Color color)
+        {
+            Button button = new Button { Background = new SolidColorBrush(Colors.LightSlateGray) };
+
+            button.Height = 60;
+            button.SetResourceReference(Control.StyleProperty, "EventHorizonButtonStyle");
+            button.Margin = new System.Windows.Thickness(6, 0, 8.9, 0);
+
+            StackPanel outerStackPanel = new StackPanel { Orientation = Orientation.Vertical };
+            StackPanel innerStackPanel = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = System.Windows.HorizontalAlignment.Center };
+            
+            Label functionKeyNumberLabel = new Label { Content = functionKeyNumberString, FontSize = 22, Margin = new System.Windows.Thickness(0, -4, 0, 0), Foreground = new SolidColorBrush(Colors.White), FontWeight = FontWeights.Black, HorizontalAlignment = HorizontalAlignment.Center };
+            
+            Border border = new Border { Margin = new Thickness(10, 4, 0, 0), Background = new SolidColorBrush(color) };
+            border.SetResourceReference(Control.StyleProperty, "EventTypeTokenFunctionKeyHelpReport_BorderStyle");
+
+            FontAwesome.WPF.FontAwesome fa = new FontAwesome.WPF.FontAwesome { Icon = fontAwesomeIcon, Margin = new Thickness(0,6,0,0) };
+            fa.SetResourceReference(Control.StyleProperty, "EventTypeToken_FontAwesomeStyle");
+            
+            Label functionKeyLabelLabel = new Label { Content = functionKeyLabelString, FontSize = 14, Margin = new System.Windows.Thickness(0, -7, 0, 0), Foreground = new SolidColorBrush(Colors.White), HorizontalAlignment = HorizontalAlignment.Center };
+
+            border.Child = fa;
+            innerStackPanel.Children.Add(functionKeyNumberLabel);
+            innerStackPanel.Children.Add(border);
+            outerStackPanel.Children.Add(innerStackPanel);
+            outerStackPanel.Children.Add(functionKeyLabelLabel);
+            button.Content = outerStackPanel;
+
+            return button;
         }
 
         internal static void GetEventTypeFromFunctionKey(int functionKey)
