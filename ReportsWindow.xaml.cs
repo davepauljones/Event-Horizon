@@ -72,7 +72,7 @@ namespace Event_Horizon
             i.Width = 425;
             i.Height = 51;
             i.Stretch = Stretch.Uniform;
-            i.Margin = new Thickness(25, 0, 0, 0);
+            i.Margin = new Thickness(50, 0, 0, 0);
             i.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             i.VerticalAlignment = System.Windows.VerticalAlignment.Center;
             i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/Images/EventHorizonLogoHLNNN.png"));
@@ -86,18 +86,12 @@ namespace Event_Horizon
             Grid g4 = new Grid { Margin = new Thickness(5) };
             Grid g5 = new Grid { Margin = new Thickness(5) };
 
-            StackPanel sp = new StackPanel { Margin = new Thickness(20, 0, 0, 0) };
+            StackPanel sp = new StackPanel { Margin = new Thickness(50, 0, 0, 0) };
 
-            Label helpHeadingLabel = new Label { Content = "Help", Margin = new Thickness(5, 20, 0, 0), FontWeight = FontWeights.Bold, FontSize = 22, HorizontalContentAlignment = HorizontalAlignment.Left };
+            Label helpHeadingLabel = new Label { Content = "Keyboard", Margin = new Thickness(5, 10, 0, 0), FontWeight = FontWeights.Bold, FontSize = 22, HorizontalContentAlignment = HorizontalAlignment.Left };
             sp.Children.Add(helpHeadingLabel);
 
-            Label statusHelpHeadingLabel = new Label { Content = "Event Function Keys", Margin = new Thickness(5, 20, 0, 0), FontWeight = FontWeights.Bold, FontSize = 22 };
-            sp.Children.Add(statusHelpHeadingLabel);
-
-            TextBlock statusIntroductionTextBlock = new TextBlock { Text = "Event Horizon's function Key have some unique features, detailed here so you can use Event Horizon to its full potential.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
-            sp.Children.Add(statusIntroductionTextBlock);
-
-            Label statusHeadingLabel = new Label { Content = "Function Key Legend", Margin = new Thickness(5, 3, 0, 0), FontWeight = FontWeights.Bold };
+            Label statusHeadingLabel = new Label { Content = "Example Function keys", Margin = new Thickness(5, 3, 0, 0), FontWeight = FontWeights.Normal };
             sp.Children.Add(statusHeadingLabel);
 
             StackPanel sp1 = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 20, 0, 0) };
@@ -111,19 +105,79 @@ namespace Event_Horizon
             g3.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F3", FontAwesome.WPF.FontAwesomeIcon.Bug, "Bug Fix", Colors.Firebrick));
             sp1.Children.Add(g3);
 
-            Label spacerLabel = new Label { Content = "...........", Margin = new Thickness(5, 3, 0, 0), FontWeight = FontWeights.Bold, VerticalAlignment = VerticalAlignment.Bottom };
+            Label spacerLabel = new Label { Content = "....... ", Margin = new Thickness(5, 3, 0, 0), FontWeight = FontWeights.Bold, VerticalAlignment = VerticalAlignment.Bottom };
             sp1.Children.Add(spacerLabel);
 
-            g4.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F11", FontAwesome.WPF.FontAwesomeIcon.Dollar, "Product", Colors.DodgerBlue));
+            g4.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F11", FontAwesome.WPF.FontAwesomeIcon.Gift, "Product", Colors.DodgerBlue));
             sp1.Children.Add(g4);
 
-            g5.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F12", FontAwesome.WPF.FontAwesomeIcon.Bug, "Marketing", Colors.Green));
+            g5.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F12", FontAwesome.WPF.FontAwesomeIcon.Dollar, "Marketing", Colors.Green));
             sp1.Children.Add(g5);
 
             sp.Children.Add(sp1);
 
+            TextBlock introductionTextBlock = new TextBlock { Text = "Event Horizon uses the function keys and other keys to facilitate in creating, searching and filtering events.", Margin = new Thickness(10, 20, 50, 10), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(introductionTextBlock);
+
+            Grid g6 = new Grid { Margin = new Thickness(5,20,0,0), HorizontalAlignment = HorizontalAlignment.Left };
+            g6.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F11", FontAwesome.WPF.FontAwesomeIcon.Gift, "Product", Colors.DodgerBlue));
+            sp.Children.Add(g6);
+
+            TextBlock paragraph1TextBlock = new TextBlock { Text = "To create a new Product event [ LEFT-CLICK ] or press the equivalent function key.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(paragraph1TextBlock);
+
+            Grid g7 = new Grid { Margin = new Thickness(5, 20, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            g7.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F3", FontAwesome.WPF.FontAwesomeIcon.Bug, "Bug Fix", Colors.Firebrick));
+            sp.Children.Add(g7);
+
+            TextBlock paragraph2TextBlock = new TextBlock { Text = "To filter to a Bug Fix event [ RIGHT-CLICK ] or select event type Bug Fix from the drop down combo box.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(paragraph2TextBlock);
+
+            StackPanel comboStackPanel = new StackPanel { Margin = new Thickness(5, 0, 0, 0) };
+            comboStackPanel.Children.Add(FunctionKeyManager.CreateEventTypeComboBox("Event Type", new EventType { ID = 0, Icon = FontAwesome.WPF.FontAwesomeIcon.Bug, Color = Colors.Firebrick, Name = "Bug Fix" } ));
+            sp.Children.Add(comboStackPanel);
+
+            TextBlock paragraph3TextBlock = new TextBlock { Text = "To clear the filter, click the [ ALL BUTTON ]", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(paragraph3TextBlock);
+
+            StackPanel allButtonStackPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            allButtonStackPanel.Children.Add(FunctionKeyManager.CreateButton("ALL"));
+            sp.Children.Add(allButtonStackPanel);
+
+            TextBlock paragraph5TextBlock = new TextBlock { Text = "Event Horizon has a search input box, that is case sensitive, [ CLICK INTO ] the search box, start typing a few characters and press return.\n\nThe event list will filter on any matching events that have the entered text within there respective details fields.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(paragraph5TextBlock);
+
+            StackPanel searchTextBoxStackPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            searchTextBoxStackPanel.Children.Add(FunctionKeyManager.CreateSearchTextBox("Search Details", "Bug"));
+            sp.Children.Add(searchTextBoxStackPanel);
+
+            TextBlock paragraph4TextBlock = new TextBlock { Text = "To clear the search filter, click the [ CLEAR BUTTON ]", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(paragraph4TextBlock);
+
+            StackPanel clearButtonStackPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            clearButtonStackPanel.Children.Add(FunctionKeyManager.CreateButton("CLEAR"));
+            sp.Children.Add(clearButtonStackPanel);
+
             buic.Child = sp;
             flowDoc.Blocks.Add(buic);
+
+            
+            BlockUIContainer buicPage2 = new BlockUIContainer();
+            StackPanel spPage2 = new StackPanel { Margin = new Thickness(50, 0, 0, 0) };
+
+            TextBlock paragraph6TextBlock = new TextBlock { Text = "The delete key is used to delete an event, in order to delete an event, you must be the originator of the event and the event must not contain any notes or replies.\n\nThe prefered way is not to delete an event, but to set its status to archeived instead, see status help for more info.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph6TextBlock);
+
+            StackPanel deleteKeyStackPanel = new StackPanel { Margin = new Thickness(0, 10, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            deleteKeyStackPanel.Children.Add(FunctionKeyManager.CreateButton("Delete", 70, 60));
+            spPage2.Children.Add(deleteKeyStackPanel);
+
+            TextBlock paragraph7TextBlock = new TextBlock { Text = "To delete an event, highlight an event and press [ DELETE KEY ]", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph7TextBlock);
+
+            buicPage2.Child = spPage2;
+            flowDoc.Blocks.Add(buicPage2);
+
 
             var package = Package.Open(new MemoryStream(), FileMode.Create, FileAccess.ReadWrite);
             var packUri = new Uri("pack://temp.xps");
@@ -171,11 +225,8 @@ namespace Event_Horizon
 
             StackPanel sp = new StackPanel { Margin = new Thickness(20, 0, 0, 0) };
 
-            Label helpHeadingLabel = new Label { Content = "Help", Margin = new Thickness(5, 20, 0, 0), FontWeight = FontWeights.Bold, FontSize = 22, HorizontalContentAlignment = HorizontalAlignment.Left };
+            Label helpHeadingLabel = new Label { Content = "Event Status Help", Margin = new Thickness(5, 20, 0, 0), FontWeight = FontWeights.Bold, FontSize = 22, HorizontalContentAlignment = HorizontalAlignment.Left };
             sp.Children.Add(helpHeadingLabel);
-
-            Label statusHelpHeadingLabel = new Label { Content = "Event Status", Margin = new Thickness(5, 20, 0, 0), FontWeight = FontWeights.Bold, FontSize = 22 };
-            sp.Children.Add(statusHelpHeadingLabel);
 
             TextBlock statusIntroductionTextBlock = new TextBlock { Text = "Event Horizon keeps track of events by assigning a Status to the event during the various stages of the events life span.\nThis acts a visual aid for all users, but especially useful as feedback for the origin user, the origin user can quickly determine whether the target user has responded to the notification and or read the event.\nStatus 'Active, Notified & Read' are automatic, Status 'Active, Notified, Read & Archived' is manual.\nThe origin user who created the event, can at any time, override the event's Status by manually setting the events Status, ie. When a target user has not given a response to the event, the origin user can change the event's Status back to 'Active', this will result in the target user getting a new notification, as though the event was just created and the cycle starts over.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
             sp.Children.Add(statusIntroductionTextBlock);

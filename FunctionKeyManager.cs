@@ -1,4 +1,5 @@
 ﻿using FontAwesome.WPF;
+using System;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows;
@@ -20,6 +21,92 @@ namespace Event_Horizon
             }
             else
                 PopulateFunctionKeys(FunctionKeyBanks.Bank0);
+        }
+
+        internal static Button CreateButton(string buttonContentString, int width=60, int height=30)
+        {
+            Button button = new Button { Background = new SolidColorBrush(Colors.LightSlateGray) };
+
+            button.Height = 60;
+            button.SetResourceReference(Control.StyleProperty, "EventHorizonButtonStyle");
+            //button.Margin = new System.Windows.Thickness(6, 0, 8.9, 0);
+            button.Width = width;
+            button.Height = height;
+
+            StackPanel outerStackPanel = new StackPanel { Orientation = Orientation.Vertical };
+            StackPanel innerStackPanel = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = System.Windows.HorizontalAlignment.Center };
+
+            Label functionKeyLabelLabel = new Label { Content = buttonContentString, FontSize = 14, Margin = new System.Windows.Thickness(0, 0, 0, 0), Foreground = new SolidColorBrush(Colors.White), HorizontalAlignment = HorizontalAlignment.Center };
+
+            outerStackPanel.Children.Add(innerStackPanel);
+            outerStackPanel.Children.Add(functionKeyLabelLabel);
+            button.Content = outerStackPanel;
+
+            return button;
+        }
+
+        internal static StackPanel CreateSearchTextBox(string textBoxHeadingString, string textBoxTextString)
+        {
+            StackPanel outerStackPanel = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Left };
+
+            Label comboBoxHeadingLabel = new Label { Content = textBoxHeadingString, VerticalAlignment = VerticalAlignment.Center, FontWeight = FontWeights.Medium, Margin = new Thickness(5, 8, 0, 0) };
+
+            StackPanel innerStackPanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 10, 0, 0) };
+
+            Border border = new Border { CornerRadius = new CornerRadius(6), BorderBrush = new SolidColorBrush(Colors.DodgerBlue), Background = new SolidColorBrush(Colors.Transparent), BorderThickness = new Thickness(1),  Width = 280, Margin = new Thickness(0,0,0,0) };
+
+            Grid grid = new Grid();
+
+            grid.Children.Add(border);
+
+            Grid innerGrid = new Grid { Margin = new Thickness(0, 0, 0, 0) };
+
+            Label textBoxTextLabel = new Label { Content = textBoxTextString, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center, FontSize = 18, FontWeight = FontWeights.Medium, Margin = new Thickness(6, 4, 4, 4), Width = 266, Height = 30 };
+
+            innerGrid.Children.Add(textBoxTextLabel);
+
+            grid.Children.Add(innerGrid);
+
+            innerStackPanel.Children.Add(grid);
+
+            outerStackPanel.Children.Add(comboBoxHeadingLabel);
+
+            outerStackPanel.Children.Add(innerStackPanel);
+
+            return outerStackPanel;
+        }
+
+        internal static StackPanel CreateEventTypeComboBox(string comboBoxHeadingString, EventType eventType)
+        {
+            StackPanel outerStackPanel = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Left };
+            
+            Label comboBoxHeadingLabel = new Label { Content = comboBoxHeadingString, VerticalAlignment = VerticalAlignment.Center, FontWeight = FontWeights.Medium, Margin = new Thickness(0, 8, 0, 0) };
+            
+            StackPanel innerStackPanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 10, 0, 0) };
+            
+            ComboBox comboBox = new ComboBox { Background = new SolidColorBrush(Colors.Transparent), Width = 280, Height = 40 };
+            comboBox.SetResourceReference(Control.StyleProperty, "FrequencyComboBoxStyle");
+            comboBox.ItemContainerStyle = (Style)Application.Current.Resources["theComboBoxItem"];
+
+            comboBox.SelectedItem = 0;
+
+            Grid grid = new Grid();
+
+            grid.Children.Add(comboBox);
+
+            Grid innerGrid = new Grid { Margin = new Thickness(10, 4, 0, 0) };
+
+            innerGrid.Children.Add(EventHorizonEventTypes.GetEventTypeStackPanel(eventType, true));
+
+            grid.Children.Add(innerGrid);
+
+            innerStackPanel.Children.Add(grid);
+
+            outerStackPanel.Children.Add(comboBoxHeadingLabel);
+
+            outerStackPanel.Children.Add(innerStackPanel);
+
+            return outerStackPanel;
         }
 
         internal static Button CreateFunctionKey(string functionKeyNumberString, FontAwesomeIcon fontAwesomeIcon, string functionKeyLabelString)

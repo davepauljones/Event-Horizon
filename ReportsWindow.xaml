@@ -4,13 +4,48 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Event_Horizon"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Name="ReportWindowWindow"
         Title="Event Horizon Print Preview" WindowState="Maximized" Width="1100">
-    <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Background="#FF145883">
-        <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" Background="#FF145883">
-            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <DocumentViewer x:Name="PreviewD" Style="{StaticResource DocumentViewerStyle}"/>
-            </Grid>
+    <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
+
+        <Rectangle Opacity="0.56" Width="200" Height="{Binding ActualHeight, ElementName=ReportWindowWindow}" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="DodgerBlue" Offset="0.10" />
+                    <GradientStop Color="Transparent" Offset="0.70" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Opacity="0.56" Width="200" Height="{Binding ActualHeight, ElementName=ReportWindowWindow}" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="Transparent" Offset="0.10" />
+                    <GradientStop Color="DodgerBlue" Offset="0.70" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Opacity="0.56" Width="{Binding ActualWidth, ElementName=ReportWindowWindow}" Height="600" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                    <GradientStop Color="DodgerBlue" Offset="0.8" />
+                    <GradientStop Color="Transparent" Offset="0.40" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Opacity="1" Width="{Binding ActualWidth, ElementName=ReportWindowWindow}" Height="330" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="Transparent" Offset="0.40" />
+                    <GradientStop Color="ForestGreen" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        
+        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <DocumentViewer x:Name="PreviewD" Style="{StaticResource DocumentViewerStyle}"/>
         </Grid>
     </Grid>
 </Window>

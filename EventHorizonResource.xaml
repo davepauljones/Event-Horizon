@@ -233,6 +233,7 @@
         <Setter Property="Width" Value="105"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
         <Setter Property="Margin" Value="10,6,6,6"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -530,7 +531,7 @@
                         <Grid KeyboardNavigation.TabNavigation="Local">
 
                             <Grid.Background>
-                                <SolidColorBrush Color="#FF145883" />
+                                <SolidColorBrush Color="Transparent" />
                             </Grid.Background>
 
                             <Grid.RowDefinitions>
@@ -542,7 +543,7 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 
                                 <StackPanel Style="{DynamicResource ArduVerticalButtonStackPanel}">
-                                    <Button Style="{DynamicResource OracleButtonStyle}" ToolTip="Print Report"
+                                    <Button Style="{DynamicResource EventHorizonButtonStyle}" ToolTip="Print Report"
                                                 Command="ApplicationCommands.Print" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}">
                                         <StackPanel Style="{DynamicResource ArduButtonIconStackPanel}">
                                             <fa:FontAwesome Icon="Print" Style="{DynamicResource ArduButtonIcon}"/>
