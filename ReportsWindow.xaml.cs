@@ -116,42 +116,49 @@ namespace Event_Horizon
 
             sp.Children.Add(sp1);
 
-            TextBlock introductionTextBlock = new TextBlock { Text = "Event Horizon uses the function keys and other keys to facilitate in creating, searching and filtering events.", Margin = new Thickness(10, 20, 50, 10), TextWrapping = TextWrapping.Wrap };
+            TextBlock introductionTextBlock = new TextBlock { Text = "Event Horizon uses the function keys and other keys to facilitate in creating, searching and filtering events.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
             sp.Children.Add(introductionTextBlock);
 
             Grid g6 = new Grid { Margin = new Thickness(5,20,0,0), HorizontalAlignment = HorizontalAlignment.Left };
             g6.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F11", FontAwesome.WPF.FontAwesomeIcon.Gift, "Product", Colors.DodgerBlue));
             sp.Children.Add(g6);
 
-            TextBlock paragraph1TextBlock = new TextBlock { Text = "To create a new Product event [ LEFT-CLICK ] or press the equivalent function key.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
+            TextBlock paragraph1TextBlock = new TextBlock { Text = "To create a new Product event [LEFT-CLICK] or press the equivalent function key.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
             sp.Children.Add(paragraph1TextBlock);
 
             Grid g7 = new Grid { Margin = new Thickness(5, 20, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
             g7.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F3", FontAwesome.WPF.FontAwesomeIcon.Bug, "Bug Fix", Colors.Firebrick));
             sp.Children.Add(g7);
 
-            TextBlock paragraph2TextBlock = new TextBlock { Text = "To filter to a Bug Fix event [ RIGHT-CLICK ] or select event type Bug Fix from the drop down combo box.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
+            TextBlock paragraph2TextBlock = new TextBlock { Text = "To filter to a Bug Fix event [RIGHT-CLICK] or select event type Bug Fix from the drop-down combo box.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
             sp.Children.Add(paragraph2TextBlock);
 
             StackPanel comboStackPanel = new StackPanel { Margin = new Thickness(5, 0, 0, 0) };
             comboStackPanel.Children.Add(FunctionKeyManager.CreateEventTypeComboBox("Event Type", new EventType { ID = 0, Icon = FontAwesome.WPF.FontAwesomeIcon.Bug, Color = Colors.Firebrick, Name = "Bug Fix" } ));
             sp.Children.Add(comboStackPanel);
 
-            TextBlock paragraph3TextBlock = new TextBlock { Text = "To clear the filter, click the [ ALL BUTTON ]", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            TextBlock paragraph3TextBlock = new TextBlock { Text = "To clear the filter, click the [ALL] button", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
             sp.Children.Add(paragraph3TextBlock);
 
             StackPanel allButtonStackPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
             allButtonStackPanel.Children.Add(FunctionKeyManager.CreateButton("ALL"));
             sp.Children.Add(allButtonStackPanel);
 
-            TextBlock paragraph5TextBlock = new TextBlock { Text = "Event Horizon has a search input box, that is case sensitive, [ CLICK INTO ] the search box, start typing a few characters and press return.\n\nThe event list will filter on any matching events that have the entered text within there respective details fields.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            Rectangle separator = new Rectangle();
+            separator.SetResourceReference(Control.StyleProperty, "SeparatorLineRectangleStyle");
+            sp.Children.Add(separator);
+
+            TextBlock searchKeyHeadingTextBlock = new TextBlock { Text = "Search Text Box", FontWeight = FontWeights.Bold, Margin = new Thickness(10, 30, 0, 0), TextWrapping = TextWrapping.NoWrap };
+            sp.Children.Add(searchKeyHeadingTextBlock);
+
+            TextBlock paragraph5TextBlock = new TextBlock { Text = "Event Horizon has a search input box, that is case-sensitive, [CLICK] into the search box, start typing a few characters and press return.\n\nThe event list will filter on any matching events that have the entered text within their respective details fields.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
             sp.Children.Add(paragraph5TextBlock);
 
             StackPanel searchTextBoxStackPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
             searchTextBoxStackPanel.Children.Add(FunctionKeyManager.CreateSearchTextBox("Search Details", "Bug"));
             sp.Children.Add(searchTextBoxStackPanel);
 
-            TextBlock paragraph4TextBlock = new TextBlock { Text = "To clear the search filter, click the [ CLEAR BUTTON ]", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            TextBlock paragraph4TextBlock = new TextBlock { Text = "To clear the search filter, click the [CLEAR] button", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
             sp.Children.Add(paragraph4TextBlock);
 
             StackPanel clearButtonStackPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
@@ -163,17 +170,71 @@ namespace Event_Horizon
 
             
             BlockUIContainer buicPage2 = new BlockUIContainer();
-            StackPanel spPage2 = new StackPanel { Margin = new Thickness(50, 0, 0, 0) };
+            StackPanel spPage2 = new StackPanel { Margin = new Thickness(50, 40, 0, 0) };
 
-            TextBlock paragraph6TextBlock = new TextBlock { Text = "The delete key is used to delete an event, in order to delete an event, you must be the originator of the event and the event must not contain any notes or replies.\n\nThe prefered way is not to delete an event, but to set its status to archeived instead, see status help for more info.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            TextBlock deleteKeyHeadingTextBlock = new TextBlock { Text = "Delete key", FontWeight = FontWeights.Bold, Margin = new Thickness(10, 0, 0, 0), TextWrapping = TextWrapping.NoWrap };
+            spPage2.Children.Add(deleteKeyHeadingTextBlock);
+
+            TextBlock paragraph6TextBlock = new TextBlock { Text = "The delete key is used to delete an event, in order to delete an event, you must be the originator of the event and the event must not contain any notes or replies.\n\nThe preferred way is not to delete an event, but to set its status to archived instead, see status help for more info.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
             spPage2.Children.Add(paragraph6TextBlock);
 
             StackPanel deleteKeyStackPanel = new StackPanel { Margin = new Thickness(0, 10, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
             deleteKeyStackPanel.Children.Add(FunctionKeyManager.CreateButton("Delete", 70, 60));
             spPage2.Children.Add(deleteKeyStackPanel);
 
-            TextBlock paragraph7TextBlock = new TextBlock { Text = "To delete an event, highlight an event and press [ DELETE KEY ]", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            TextBlock paragraph7TextBlock = new TextBlock { Text = "To delete an event, highlight an event and press [DELETE] key", Margin = new Thickness(10, 10, 50, 0), TextWrapping = TextWrapping.Wrap };
             spPage2.Children.Add(paragraph7TextBlock);
+
+            Rectangle separator1 = new Rectangle();
+            separator1.SetResourceReference(Control.StyleProperty, "SeparatorLineRectangleStyle");
+            spPage2.Children.Add(separator1);
+
+            TextBlock pauseKeyHeadingTextBlock = new TextBlock { Text = "Pause key", FontWeight = FontWeights.Bold, Margin = new Thickness(10, 30, 0, 0), TextWrapping = TextWrapping.NoWrap };
+            spPage2.Children.Add(pauseKeyHeadingTextBlock);
+
+            TextBlock paragraph8TextBlock = new TextBlock { Text = "The pause key is used to toggle the function key bank, when Event Horizon starts, event types are loaded into the function keys in banks of 12.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph8TextBlock);
+
+            StackPanel pauseKeyStackPanel = new StackPanel { Margin = new Thickness(0, 10, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            pauseKeyStackPanel.Children.Add(FunctionKeyManager.CreateButton("Pause", 70, 60));
+            spPage2.Children.Add(pauseKeyStackPanel);
+
+            TextBlock paragraph9TextBlock = new TextBlock { Text = "To switch function key banks, press [PAUSE] key", Margin = new Thickness(10, 10, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph9TextBlock);
+
+            Rectangle separator2 = new Rectangle();
+            separator2.SetResourceReference(Control.StyleProperty, "SeparatorLineRectangleStyle");
+            spPage2.Children.Add(separator2);
+
+            TextBlock refreshButtonHeadingTextBlock = new TextBlock { Text = "Refresh Button", FontWeight = FontWeights.Bold, Margin = new Thickness(10, 30, 0, 0), TextWrapping = TextWrapping.NoWrap };
+            spPage2.Children.Add(refreshButtonHeadingTextBlock);
+
+            TextBlock paragraph10TextBlock = new TextBlock { Text = "The refresh button is used to update the event list base on current filter criteria, where changes have been made to limit and step settings.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph10TextBlock);
+
+            StackPanel refreshButtonStackPanel = new StackPanel { Margin = new Thickness(0, 10, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            refreshButtonStackPanel.Children.Add(FunctionKeyManager.CreateButton("REFRESH", 70));
+            spPage2.Children.Add(refreshButtonStackPanel);
+
+            TextBlock paragraph11TextBlock = new TextBlock { Text = "To refresh the event list, [CLICK] the refresh button.", Margin = new Thickness(10, 10, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph11TextBlock);
+
+            Rectangle separator3 = new Rectangle();
+            separator3.SetResourceReference(Control.StyleProperty, "SeparatorLineRectangleStyle");
+            spPage2.Children.Add(separator3);
+
+            TextBlock newButtonHeadingTextBlock = new TextBlock { Text = "New Button", FontWeight = FontWeights.Bold, Margin = new Thickness(10, 30, 0, 0), TextWrapping = TextWrapping.NoWrap };
+            spPage2.Children.Add(newButtonHeadingTextBlock);
+
+            TextBlock paragraph12TextBlock = new TextBlock { Text = "The new button is used to create a new event. The event window opens in new main event mode, you must choose an event type using the drop-down combo box.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph12TextBlock);
+
+            StackPanel refreshKeyStackPanel = new StackPanel { Margin = new Thickness(0, 10, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            refreshKeyStackPanel.Children.Add(FunctionKeyManager.CreateButton("NEW"));
+            spPage2.Children.Add(refreshKeyStackPanel);
+
+            TextBlock paragraph13TextBlock = new TextBlock { Text = "To create a new event, [CLICK] the new button.", Margin = new Thickness(10, 10, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph13TextBlock);
 
             buicPage2.Child = spPage2;
             flowDoc.Blocks.Add(buicPage2);

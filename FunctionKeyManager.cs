@@ -49,7 +49,7 @@ namespace Event_Horizon
         {
             StackPanel outerStackPanel = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Left };
 
-            Label comboBoxHeadingLabel = new Label { Content = textBoxHeadingString, VerticalAlignment = VerticalAlignment.Center, FontWeight = FontWeights.Medium, Margin = new Thickness(5, 8, 0, 0) };
+            Label comboBoxHeadingLabel = new Label { Content = textBoxHeadingString, VerticalAlignment = VerticalAlignment.Center, FontWeight = FontWeights.Medium, Margin = new Thickness(5, 11, 0, 0) };
 
             StackPanel innerStackPanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 10, 0, 0) };
 
@@ -80,7 +80,7 @@ namespace Event_Horizon
         {
             StackPanel outerStackPanel = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Left };
             
-            Label comboBoxHeadingLabel = new Label { Content = comboBoxHeadingString, VerticalAlignment = VerticalAlignment.Center, FontWeight = FontWeights.Medium, Margin = new Thickness(0, 8, 0, 0) };
+            Label comboBoxHeadingLabel = new Label { Content = comboBoxHeadingString, VerticalAlignment = VerticalAlignment.Center, FontWeight = FontWeights.Medium, Margin = new Thickness(0, 11, 0, 0) };
             
             StackPanel innerStackPanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 10, 0, 0) };
             
@@ -94,7 +94,7 @@ namespace Event_Horizon
 
             grid.Children.Add(comboBox);
 
-            Grid innerGrid = new Grid { Margin = new Thickness(10, 4, 0, 0) };
+            Grid innerGrid = new Grid { Margin = new Thickness(10, 3, 0, 0) };
 
             innerGrid.Children.Add(EventHorizonEventTypes.GetEventTypeStackPanel(eventType, true));
 
