@@ -535,114 +535,13 @@
                             </Grid.Background>
 
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="100" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ScrollViewer Grid.Row="0" CanContentScroll="true" HorizontalScrollBarVisibility="Auto" x:Name="PART_ContentHost" IsTabStop="true" Margin="10,-20,10,10"/>
 
-                                <StackPanel Style="{DynamicResource ArduVerticalButtonStackPanel}">
-                                    <Button Style="{DynamicResource EventHorizonButtonStyle}" ToolTip="Print Report"
-                                                Command="ApplicationCommands.Print" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-                                        <StackPanel Style="{DynamicResource ArduButtonIconStackPanel}">
-                                            <fa:FontAwesome Icon="Print" Style="{DynamicResource ArduButtonIcon}"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <Label Content="Print" Style="{DynamicResource ArduButtonLabel}"/>
-                                </StackPanel>
-
-                                <StackPanel Style="{DynamicResource ArduVerticalButtonStackPanel}">
-                                    <Button Style="{DynamicResource OracleButtonStyle}" ToolTip="Increase Zoom"
-                                                Command="NavigationCommands.IncreaseZoom" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-                                        <StackPanel Style="{DynamicResource ArduButtonIconStackPanel}">
-                                            <fa:FontAwesome Icon="Expand" Style="{DynamicResource ArduButtonIcon}"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <Label Content="Zoom In" Style="{DynamicResource ArduButtonLabel}"/>
-                                </StackPanel>
-
-                                <StackPanel Style="{DynamicResource ArduVerticalButtonStackPanel}">
-                                    <Button Style="{DynamicResource OracleButtonStyle}" ToolTip="Decrease Zoom"
-                                                Command="NavigationCommands.DecreaseZoom" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-                                        <StackPanel Style="{DynamicResource ArduButtonIconStackPanel}">
-                                            <fa:FontAwesome Icon="Compress" Style="{DynamicResource ArduButtonIcon}"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <Label Content="Zoom Out" Style="{DynamicResource ArduButtonLabel}"/>
-                                </StackPanel>
-
-                                <StackPanel Style="{DynamicResource ArduVerticalButtonStackPanel}">
-                                    <Button Style="{DynamicResource OracleButtonStyle}" ToolTip="Actual Size"
-                                                Command="NavigationCommands.Zoom" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" CommandParameter="100.0">
-                                        <StackPanel Style="{DynamicResource ArduButtonIconStackPanel}">
-                                            <fa:FontAwesome Icon="FileOutline" Style="{DynamicResource ArduButtonIcon}"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <Label Content="Zoom Actual" Style="{DynamicResource ArduButtonLabel}"/>
-                                </StackPanel>
-
-                                <StackPanel Style="{DynamicResource ArduVerticalButtonStackPanel}">
-                                    <Button Style="{DynamicResource OracleButtonStyle}" ToolTip="Fit to Width"
-                                                Command="DocumentViewer.FitToWidthCommand" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-                                        <StackPanel Style="{DynamicResource ArduButtonIconStackPanel}">
-                                            <fa:FontAwesome Icon="FileOutline" Style="{DynamicResource ArduButtonIcon}"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <Label Content="Zoom Width" Style="{DynamicResource ArduButtonLabel}"/>
-                                </StackPanel>
-
-                                <StackPanel Style="{DynamicResource ArduVerticalButtonStackPanel}">
-                                    <Button Style="{DynamicResource OracleButtonStyle}" ToolTip="Whole Page"
-                                                Command="DocumentViewer.FitToMaxPagesAcrossCommand" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" CommandParameter="1" >
-                                        <StackPanel Style="{DynamicResource ArduButtonIconStackPanel}">
-                                            <fa:FontAwesome Icon="FileOutline" Style="{DynamicResource ArduButtonIcon}"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <Label Content="Whole Page" Style="{DynamicResource ArduButtonLabel}"/>
-                                </StackPanel>
-
-                                <StackPanel Style="{DynamicResource ArduVerticalButtonStackPanel}">
-                                    <Button Style="{DynamicResource OracleButtonStyle}" ToolTip="Two Pages"
-                                                Command="DocumentViewer.FitToMaxPagesAcrossCommand" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" CommandParameter="2" >
-                                        <StackPanel Style="{DynamicResource ArduButtonIconStackPanel}">
-                                            <fa:FontAwesome Icon="Copy" Style="{DynamicResource ArduButtonIcon}"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <Label Content="2 Pages" Style="{DynamicResource ArduButtonLabel}"/>
-                                </StackPanel>
-
-                            </StackPanel>
-
-                            <!--<Button Command="ApplicationCommands.Print" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" Content="Print" />-->
-                            <!--<ToolBar ToolBarTray.IsLocked="True" KeyboardNavigation.TabNavigation="Continue">
-                                -->
-                            <!--<Button Command="ApplicationCommands.Print" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" Content="Print" />-->
-                            <!--
-
-                                
-
-                                <Button Command="ApplicationCommands.Copy" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" Content="Copy" />
-                                <Separator />
-                                <Button Command="NavigationCommands.IncreaseZoom" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" Content="Zoom In" />
-                                <Button Command="NavigationCommands.DecreaseZoom" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" Content="Zoom Out" />
-                                <Separator />
-                                <Button Command="NavigationCommands.Zoom" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" CommandParameter="100.0" Content="Actual Size" />
-                                <Button Command="DocumentViewer.FitToWidthCommand" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" Content="Fit to Width" />
-                                <Button Command="DocumentViewer.FitToMaxPagesAcrossCommand" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" CommandParameter="1" Content="Whole Page" />
-                                <Button Command="DocumentViewer.FitToMaxPagesAcrossCommand" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" CommandParameter="2" Content="Two Pages" />
-                            </ToolBar>-->
-
-                            <ScrollViewer Grid.Row="1" CanContentScroll="true" HorizontalScrollBarVisibility="Auto" x:Name="PART_ContentHost" IsTabStop="true" Margin="10,-20,10,10">
-                                <!--<ScrollViewer.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="{DynamicResource ControlLightColor}" Offset="0" />
-                                        <GradientStop Color="{DynamicResource ControlMediumColor}" Offset="1" />
-                                    </LinearGradientBrush>
-                                </ScrollViewer.Background>-->
-                            </ScrollViewer>
-
-                            <ContentControl Grid.Row="2" x:Name="PART_FindToolBarHost"/>
+                            <ContentControl Grid.Row="1" x:Name="PART_FindToolBarHost"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>

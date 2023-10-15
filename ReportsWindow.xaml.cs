@@ -769,6 +769,34 @@ namespace Event_Horizon
             PreviewD.Document = Document;
         }
 
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.F1://Print
+                    PreviewD.Print();
+                    break;
+                case Key.F2://Zoom In
+                    PreviewD.IncreaseZoom();
+                    break;
+                case Key.F3://Zoom Out
+                    PreviewD.DecreaseZoom();
+                    break;
+                case Key.F4://Zoom Actual
+                    PreviewD.Zoom = 100;
+                    break;
+                case Key.F5://Zoom Width
+                    PreviewD.FitToWidth();
+                    break;
+                case Key.F6://Whole Page
+                    PreviewD.FitToMaxPagesAcross(1);
+                    break;
+                case Key.F7://Two Pages
+                    PreviewD.FitToMaxPagesAcross(2);
+                    break;
+            }
+        }
+
         private void Reports_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (WindowState == WindowState.Maximized) WindowState = WindowState.Normal;
@@ -778,5 +806,6 @@ namespace Event_Horizon
         {
 
         }
+
     }
 }

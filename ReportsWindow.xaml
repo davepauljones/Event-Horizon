@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         xmlns:local="clr-namespace:Event_Horizon"
-        mc:Ignorable="d" Name="ReportWindowWindow"
+        mc:Ignorable="d" Name="ReportWindowWindow" KeyDown="Window_KeyDown"
         Title="Event Horizon Print Preview" WindowState="Maximized" Width="1100">
     <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
 
@@ -45,7 +46,118 @@
         </Rectangle>
         
         <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <DocumentViewer x:Name="PreviewD" Style="{StaticResource DocumentViewerStyle}"/>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,20">
+                <StackPanel.Effect>
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                </StackPanel.Effect>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Print Report" Command="ApplicationCommands.Print" CommandTarget="{Binding ElementName=PreviewD}">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="F1" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
+                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0">
+                                    <fa:FontAwesome Icon="Print" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                                </Border>
+                            </StackPanel>
+                            <Label Content="Print" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Increase Zoom" Command="NavigationCommands.IncreaseZoom" CommandTarget="{Binding ElementName=PreviewD}">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="F2" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
+                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0">
+                                    <fa:FontAwesome Icon="Expand" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                                </Border>
+                            </StackPanel>
+                            <Label Content="Zoom In" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Decrease Zoom" Command="NavigationCommands.DecreaseZoom" CommandTarget="{Binding ElementName=PreviewD}">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="F3" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
+                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0">
+                                    <fa:FontAwesome Icon="Compress" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                                </Border>
+                            </StackPanel>
+                            <Label Content="Zoom Out" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Actual Size" Command="NavigationCommands.Zoom" CommandTarget="{Binding ElementName=PreviewD}" CommandParameter="100.0">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="F4" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
+                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0">
+                                    <fa:FontAwesome Icon="FileOutline" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                                </Border>
+                            </StackPanel>
+                            <Label Content="Zoom Actual" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Fit to Width" Command="DocumentViewer.FitToWidthCommand" CommandTarget="{Binding ElementName=PreviewD}">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="F5" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
+                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0">
+                                    <fa:FontAwesome Icon="FileOutline" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                                </Border>
+                            </StackPanel>
+                            <Label Content="Zoom Width" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Whole Page" Command="DocumentViewer.FitToMaxPagesAcrossCommand" CommandTarget="{Binding ElementName=PreviewD}" CommandParameter="1" >
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="F6" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
+                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0">
+                                    <fa:FontAwesome Icon="FileOutline" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                                </Border>
+                            </StackPanel>
+                            <Label Content="Whole Page" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Two Pages" Command="DocumentViewer.FitToMaxPagesAcrossCommand" CommandTarget="{Binding ElementName=PreviewD}" CommandParameter="2" >
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="F7" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
+                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0">
+                                    <fa:FontAwesome Icon="Copy" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                                </Border>
+                            </StackPanel>
+                            <Label Content="2 Pages" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+            </StackPanel>
+            <DocumentViewer Grid.Row="1" x:Name="PreviewD" Style="{StaticResource DocumentViewerStyle}"/>
         </Grid>
     </Grid>
 </Window>
