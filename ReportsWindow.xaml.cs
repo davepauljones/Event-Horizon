@@ -54,10 +54,117 @@ namespace Event_Horizon
                 case Helps.EventFunctionKeys:
                     GenerateHelpReport_EventFunctionKeys();
                     break;
+                case Helps.SectionalDoorCheckList:
+                    GenerateSectionalDoorCheckList();
+                    break;
                 case Helps.FooBar:
-                    GenerateHelpReport_EventStatus();
+                    
                     break;
             }
+        }
+
+        private void GenerateSectionalDoorCheckList()
+        {
+            FlowDocument flowDoc;
+            // Create the parent FlowDocument...
+            flowDoc = new FlowDocument();
+
+            flowDoc.ColumnWidth = 10000;
+
+            Image i = new Image();
+            i.Width = 425;
+            i.Height = 51;
+            i.Stretch = Stretch.Uniform;
+            i.Margin = new Thickness(50, 0, 0, 0);
+            i.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            i.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+            i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/Images/EventHorizonLogoHLNNN.png"));
+
+            flowDoc.Blocks.Add(new BlockUIContainer(i));
+
+            BlockUIContainer buic = new BlockUIContainer();
+            
+            //***Start of block
+            StackPanel sp = new StackPanel { Margin = new Thickness(50, 0, 0, 0) };
+
+            // Create the Table...
+            Table table1 = new Table();
+            // ...and add it to the FlowDocument Blocks collection.
+            flowDoc.Blocks.Add(table1);
+
+            // Set some global formatting properties for the table.
+            table1.CellSpacing = 10;
+            table1.Background = Brushes.White;
+
+            // Create 6 columns and add them to the table's Columns collection.
+            int numberOfColumns = 6;
+            for (int x = 0; x < numberOfColumns; x++)
+            {
+                table1.Columns.Add(new TableColumn());
+
+                // Set alternating background colors for the middle colums.
+                if (x % 2 == 0)
+                    table1.Columns[x].Background = Brushes.Beige;
+                else
+                    table1.Columns[x].Background = Brushes.LightSteelBlue;
+            }
+
+            // Create and add an empty TableRowGroup to hold the table's Rows.
+            table1.RowGroups.Add(new TableRowGroup());
+
+            // Add the first (title) row.
+            table1.RowGroups[0].Rows.Add(new TableRow());
+
+            // Alias the current working row for easy reference.
+            TableRow currentRow = table1.RowGroups[0].Rows[0];
+
+            // Global formatting for the title row.
+            currentRow.Background = Brushes.Silver;
+            currentRow.FontSize = 40;
+            currentRow.FontWeight = System.Windows.FontWeights.Bold;
+
+            // Add the header row with content,
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("2004 Sales Project"))));
+            // and set the row to span all 6 columns.
+            currentRow.Cells[0].ColumnSpan = 6;
+
+            // Add the second (header) row.
+            table1.RowGroups[0].Rows.Add(new TableRow());
+            currentRow = table1.RowGroups[0].Rows[1];
+
+            // Global formatting for the header row.
+            currentRow.FontSize = 18;
+            currentRow.FontWeight = FontWeights.Bold;
+
+            // Add cells with content to the second row.
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Product"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Quarter 1"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Quarter 2"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Quarter 3"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Quarter 4"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("TOTAL"))));
+
+            //***End of block
+            buic.Child = sp;
+            flowDoc.Blocks.Add(buic);
+
+            //***Finish
+            var package = Package.Open(new MemoryStream(), FileMode.Create, FileAccess.ReadWrite);
+            var packUri = new Uri("pack://temp.xps");
+            PackageStore.RemovePackage(packUri);
+            PackageStore.AddPackage(packUri, package);
+
+            xpsDocument = new XpsDocument(package, CompressionOption.SuperFast, packUri.ToString());
+
+            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
+
+            writer.Write(((IDocumentPaginatorSource)flowDoc).DocumentPaginator);
+
+            Document = xpsDocument.GetFixedDocumentSequence();
+
+            xpsDocument.Close();
+
+            PreviewD.Document = Document;
         }
 
         private void GenerateHelpReport_EventFunctionKeys()

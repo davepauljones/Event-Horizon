@@ -299,7 +299,8 @@ namespace Event_Horizon
         public const int None = 99;
         public const int EventStatus = 0;
         public const int EventFunctionKeys = 1;
-        public const int FooBar = 2;
+        public const int SectionalDoorCheckList = 2;
+        public const int FooBar = 3;
     }
     public struct EventRowContextMenu
     {

@@ -869,7 +869,8 @@ namespace Event_Horizon
 
             ListOfHelp.Add(new SelectionIdString { Id = 0, Name = "Event Status" });
             ListOfHelp.Add(new SelectionIdString { Id = 1, Name = "Event Function Keys" });
-            ListOfHelp.Add(new SelectionIdString { Id = 2, Name = "FooBar" });
+            ListOfHelp.Add(new SelectionIdString { Id = 2, Name = "Sectional Door Check-List" });
+            ListOfHelp.Add(new SelectionIdString { Id = 3, Name = "FooBar" });
 
             NumberOfHelpTextBlock.Text = ListOfHelp.Count.ToString();
 
@@ -969,6 +970,10 @@ namespace Event_Horizon
                             break;
                         case Helps.EventFunctionKeys:
                             REPORTS = new ReportsWindow(null, null, Helps.EventFunctionKeys);
+                            REPORTS.Show();
+                            break;
+                        case Helps.SectionalDoorCheckList:
+                            REPORTS = new ReportsWindow(null, null, Helps.SectionalDoorCheckList);
                             REPORTS.Show();
                             break;
                         case Helps.FooBar:
