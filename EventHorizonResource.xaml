@@ -608,7 +608,69 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+    <Style x:Key="Button_ButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#66ffffff"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Width" Value="105"/>
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="Margin" Value="0,0,8.9,0"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1b3866"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#0068cd"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="ButtonBold_LabelStyle" TargetType="{x:Type Label}">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontWeight" Value="Black"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style x:Key="Button_BorderStyle" TargetType="{x:Type Border}">
+        <Setter Property="Width" Value="31"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+        <Setter Property="CornerRadius" Value="3"/>
+        <Setter Property="Background" Value="DodgerBlue"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="TextOptions.TextRenderingMode" Value="Grayscale"/>
+        <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="DarkSlateGray" Opacity="1" ShadowDepth="1.5" Direction="140" BlurRadius="0.5"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="Button_LabelStyle" TargetType="{x:Type Label}">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
     <Style x:Key="EventTypeToken_BorderStyle" TargetType="{x:Type Border}">
         <Setter Property="Margin" Value="10,0,0,0"/>
         <Setter Property="Width" Value="28"/>

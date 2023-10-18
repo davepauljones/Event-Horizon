@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Globalization;
 using Xceed.Wpf.Toolkit;
+using System.Windows.Automation.Peers;
 
 namespace Event_Horizon
 {
@@ -153,7 +154,8 @@ namespace Event_Horizon
                 EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(widgetUsersOnline.UsersOnlineStackPanel);
             }
 
-            TestButtonStackPanel.Children.Add(FunctionKeyManager.CreateFunctionKey("F22", FontAwesome.WPF.FontAwesomeIcon.Child, "Child"));
+            //TestButtonStackPanel.Children.Add(FunctionKeyManager.CreateFunctionKey("DEL", FontAwesome.WPF.FontAwesomeIcon.Eraser, "Delete"));
+            //TestButtonStackPanel.Children.Add(FunctionKeyManager.CreateFunctionKey("TOG", FontAwesome.WPF.FontAwesomeIcon.ToggleDown, "Pause"));
 
             MainWindowIs_Loaded = true;
         }
@@ -352,7 +354,51 @@ namespace Event_Horizon
                     DeleteEventRow();
                     break;
                 case Key.Pause:// && (Keyboard.Modifiers & (ModifierKeys.Alt)) == (ModifierKeys.Alt))
-                    Console.WriteLine("Key.Pause");
+                    //Console.WriteLine("Key.Pause");
+                    FunctionKeyManager.ToggleFunctionKeyBank();
+                    break;
+                case Key.A:
+                    EventTypeComboBox.SelectedIndex = 0;
+                    EventTypeID = EventTypeComboBox.SelectedIndex;
+                    SearchTextBox.Text = string.Empty;
+                    if (MainWindowIs_Loaded)
+                    {
+                        if (DisplayMode == DisplayModes.Reminders)
+                            RefreshLog(ListViews.Reminder);
+                        else
+                            RefreshLog(ListViews.Log);
+
+                        ReminderListScrollViewer.ScrollToTop();
+                    }
+                    break;
+                case Key.C:
+                    SearchTextBox.Text = string.Empty;
+                    if (MainWindowIs_Loaded)
+                    {
+                        if (DisplayMode == DisplayModes.Reminders)
+                            RefreshLog(ListViews.Reminder);
+                        else
+                            RefreshLog(ListViews.Log);
+
+                        ReminderListScrollViewer.ScrollToTop();
+                    }
+                    break;
+                case Key.N:
+                    EventWindow newEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ(), null);
+                    newEventWindow.Show();
+                    break;
+                case Key.R:
+                    if (MainWindowIs_Loaded)
+                    {
+                        if (DisplayMode == DisplayModes.Reminders)
+                            RefreshLog(ListViews.Reminder);
+                        else
+                            RefreshLog(ListViews.Log);
+
+                        ReminderListScrollViewer.ScrollToTop();
+                    }
+                    break;
+                case Key.T:
                     FunctionKeyManager.ToggleFunctionKeyBank();
                     break;
             }
@@ -492,6 +538,53 @@ namespace Event_Horizon
                         break;
                     case 11:
                         FunctionKeyManager.GetEventTypeFromFunctionKey(12);
+                        break;
+                    case 15:
+                        EventTypeComboBox.SelectedIndex = 0;
+                        EventTypeID = EventTypeComboBox.SelectedIndex;
+                        SearchTextBox.Text = string.Empty;
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
+
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
+                        break;
+                    case 16:
+                        SearchTextBox.Text = string.Empty;
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
+
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
+                        break;
+                    case 17:
+                        EventWindow newEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ(), null);
+                        newEventWindow.Show();
+                        break;
+                    case 18:
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
+
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
+                        break;
+                    case 19:
+                        DeleteEventRow();
+                        break;
+                    case 20:
+                        FunctionKeyManager.ToggleFunctionKeyBank();
                         break;
                 }
             }
@@ -681,33 +774,7 @@ namespace Event_Horizon
                             ReminderListScrollViewer.ScrollToTop();
                         }
                         break;
-                    case 1:
-                        SearchTextBox.Text = string.Empty;
-                        if (MainWindowIs_Loaded)
-                        {
-                            if (DisplayMode == DisplayModes.Reminders)
-                                RefreshLog(ListViews.Reminder);
-                            else
-                                RefreshLog(ListViews.Log);
 
-                            ReminderListScrollViewer.ScrollToTop();
-                        }
-                        break;
-                    case 2:
-                        if (MainWindowIs_Loaded)
-                        {
-                            if (DisplayMode == DisplayModes.Reminders)
-                                RefreshLog(ListViews.Reminder);
-                            else
-                                RefreshLog(ListViews.Log);
-
-                            ReminderListScrollViewer.ScrollToTop();
-                        }
-                        break;
-                    case 3:
-                        EventWindow newEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ(), null);
-                        newEventWindow.Show();
-                        break;
                 }
             }
         }

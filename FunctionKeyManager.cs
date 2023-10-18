@@ -147,7 +147,16 @@ namespace Event_Horizon
             StackPanel innerStackPanel = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = System.Windows.HorizontalAlignment.Center };
             
             Label functionKeyNumberLabel = new Label { Content = functionKeyNumberString, FontSize = 22, Margin = new System.Windows.Thickness(0, -4, 0, 0), Foreground = new SolidColorBrush(Colors.White), FontWeight = FontWeights.Black, HorizontalAlignment = HorizontalAlignment.Center };
-            
+
+            Grid grid = new Grid();
+            Border blackBorder = new Border { Margin = new Thickness(9, 3, 0, 0) };
+            blackBorder.SetResourceReference(Control.StyleProperty, "EventTypeTokenFunctionKeyHelpReport_BorderStyle");
+            blackBorder.BorderBrush = new SolidColorBrush(Colors.Black);
+            blackBorder.BorderThickness = new Thickness(1, 1, 0, 0);
+            blackBorder.Width = 33;
+            blackBorder.Height = 30;
+            blackBorder.Background = new SolidColorBrush(Colors.Transparent);
+
             Border border = new Border { Margin = new Thickness(10, 4, 0, 0), Background = new SolidColorBrush(color) };
             border.SetResourceReference(Control.StyleProperty, "EventTypeTokenFunctionKeyHelpReport_BorderStyle");
 
@@ -158,7 +167,9 @@ namespace Event_Horizon
 
             border.Child = fa;
             innerStackPanel.Children.Add(functionKeyNumberLabel);
-            innerStackPanel.Children.Add(border);
+            grid.Children.Add(blackBorder);
+            grid.Children.Add(border);
+            innerStackPanel.Children.Add(grid);
             outerStackPanel.Children.Add(innerStackPanel);
             outerStackPanel.Children.Add(functionKeyLabelLabel);
             button.Content = outerStackPanel;
