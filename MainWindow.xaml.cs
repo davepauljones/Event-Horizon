@@ -358,48 +358,63 @@ namespace Event_Horizon
                     FunctionKeyManager.ToggleFunctionKeyBank();
                     break;
                 case Key.A:
-                    EventTypeComboBox.SelectedIndex = 0;
-                    EventTypeID = EventTypeComboBox.SelectedIndex;
-                    SearchTextBox.Text = string.Empty;
-                    if (MainWindowIs_Loaded)
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
                     {
-                        if (DisplayMode == DisplayModes.Reminders)
-                            RefreshLog(ListViews.Reminder);
-                        else
-                            RefreshLog(ListViews.Log);
+                        EventTypeComboBox.SelectedIndex = 0;
+                        EventTypeID = EventTypeComboBox.SelectedIndex;
+                        SearchTextBox.Text = string.Empty;
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
 
-                        ReminderListScrollViewer.ScrollToTop();
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
                     }
                     break;
                 case Key.C:
-                    SearchTextBox.Text = string.Empty;
-                    if (MainWindowIs_Loaded)
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
                     {
-                        if (DisplayMode == DisplayModes.Reminders)
-                            RefreshLog(ListViews.Reminder);
-                        else
-                            RefreshLog(ListViews.Log);
+                        SearchTextBox.Text = string.Empty;
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
 
-                        ReminderListScrollViewer.ScrollToTop();
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
                     }
                     break;
                 case Key.N:
-                    EventWindow newEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ(), null);
-                    newEventWindow.Show();
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        EventWindow newEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ(), null);
+                        newEventWindow.Show();
+                    }
                     break;
                 case Key.R:
-                    if (MainWindowIs_Loaded)
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
                     {
-                        if (DisplayMode == DisplayModes.Reminders)
-                            RefreshLog(ListViews.Reminder);
-                        else
-                            RefreshLog(ListViews.Log);
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
 
-                        ReminderListScrollViewer.ScrollToTop();
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
                     }
                     break;
                 case Key.T:
-                    FunctionKeyManager.ToggleFunctionKeyBank();
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        FunctionKeyManager.ToggleFunctionKeyBank();
+                    }
                     break;
             }
         }
@@ -1074,18 +1089,24 @@ namespace Event_Horizon
                     {
                         case RowLimitModes.NoLimit:
                             DataTableManagement.RowLimitMode = RowLimitModes.NoLimit;
-                            RecordsIntegerUpDown.IsEnabled = false;
-                            OffsetIntegerUpDown.IsEnabled = false;
+                            LimitUp.IsEnabled = false;
+                            LimitDown.IsEnabled = false;
+                            StepUp.IsEnabled = false;
+                            StepDown.IsEnabled = false;
                             break;
                         case RowLimitModes.LimitOnly:
                             DataTableManagement.RowLimitMode = RowLimitModes.LimitOnly;
-                            RecordsIntegerUpDown.IsEnabled = true;
-                            OffsetIntegerUpDown.IsEnabled = false;
+                            LimitUp.IsEnabled = true;
+                            LimitDown.IsEnabled = true;
+                            StepUp.IsEnabled = false;
+                            StepDown.IsEnabled = false;
                             break;
                         case RowLimitModes.LimitWithOffset:
                             DataTableManagement.RowLimitMode = RowLimitModes.LimitWithOffset;
-                            RecordsIntegerUpDown.IsEnabled = true;
-                            OffsetIntegerUpDown.IsEnabled = true;
+                            LimitUp.IsEnabled = true;
+                            LimitDown.IsEnabled = true;
+                            StepUp.IsEnabled = true;
+                            StepDown.IsEnabled = true;
                             break;
                     }
                 }
@@ -1100,36 +1121,6 @@ namespace Event_Horizon
                     else
                         RefreshLog(ListViews.Log);
                 }
-            }
-        }
-
-        private void RecordsIntegerUpDown_Spinned(object sender, SpinEventArgs e)
-        {
-            DataTableManagement.RowLimit = (int)RecordsIntegerUpDown.Value;
-            Console.Write("DataTableManagement.RowLimit = ");
-            Console.WriteLine(DataTableManagement.RowLimit);
-
-            if (MainWindowIs_Loaded)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
-            }
-        }
-
-        private void OffsetIntegerUpDown_Spinned(object sender, SpinEventArgs e)
-        {
-            DataTableManagement.RowOffset = (int)OffsetIntegerUpDown.Value;
-            Console.Write("DataTableManagement.RowOffset = ");
-            Console.WriteLine(DataTableManagement.RowOffset);
-
-            if (MainWindowIs_Loaded)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
             }
         }
 
@@ -1187,5 +1178,135 @@ namespace Event_Horizon
             }
         }
 
+        private int _LimitValue = 30;
+
+        public int LimitValue
+        {
+            get { return _LimitValue; }
+            set
+            {
+                _LimitValue = value;
+                LimitTextBox.Text = value.ToString();
+            }
+        }
+
+        private void LimitUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (LimitValue <= 270)
+            {
+                LimitValue += 30;
+            }
+            else
+            {
+                LimitValue = 300;
+            }
+        }
+
+        private void LimitDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (LimitValue >= 60)
+            {
+                LimitValue -= 30;
+            }
+            else
+            {
+                LimitValue = 30;
+            }
+        }
+
+        private void LimitTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (LimitTextBox == null)
+            {
+                return;
+            }
+
+            if (!int.TryParse(LimitTextBox.Text, out _LimitValue))
+            {
+                LimitTextBox.Text = _LimitValue.ToString();
+            }
+        }
+        
+        private int _StepValue = 0;
+
+        public int StepValue
+        {
+            get { return _StepValue; }
+            set
+            {
+                _StepValue = value;
+                StepTextBox.Text = value.ToString();
+            }
+        }
+
+        private void StepUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (StepValue <= 270)
+            {
+                StepValue += 30;
+                OffsetValueChanged();
+            }
+            else
+            {
+                StepValue = 300;
+                OffsetValueChanged();
+            }
+        }
+
+        private void StepDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (StepValue >= 30)
+            {
+                StepValue -= 30;
+                OffsetValueChanged();
+            }
+            else
+            {
+                StepValue = 0;
+                OffsetValueChanged();
+            }
+        }
+
+        private void StepTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (StepTextBox == null)
+            {
+                return;
+            }
+
+            if (!int.TryParse(StepTextBox.Text, out _StepValue))
+            {
+                StepTextBox.Text = _StepValue.ToString();
+            }
+        }
+        private void LimitValueChanged()
+        {
+            DataTableManagement.RowLimit = _LimitValue;
+            Console.Write("DataTableManagement.RowLimit = ");
+            Console.WriteLine(DataTableManagement.RowLimit);
+
+            if (MainWindowIs_Loaded)
+            {
+                if (DisplayMode == DisplayModes.Reminders)
+                    RefreshLog(ListViews.Reminder);
+                else
+                    RefreshLog(ListViews.Log);
+            }
+        }
+
+        private void OffsetValueChanged()
+        {
+            DataTableManagement.RowOffset = _StepValue;
+            Console.Write("DataTableManagement.RowOffset = ");
+            Console.WriteLine(DataTableManagement.RowOffset);
+
+            if (MainWindowIs_Loaded)
+            {
+                if (DisplayMode == DisplayModes.Reminders)
+                    RefreshLog(ListViews.Reminder);
+                else
+                    RefreshLog(ListViews.Log);
+            }
+        }
     }
 }

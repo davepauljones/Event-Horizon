@@ -57,105 +57,125 @@
                 <StackPanel.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </StackPanel.Effect>
-
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Print Report" Command="ApplicationCommands.Print" CommandTarget="{Binding ElementName=PreviewD}">
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="F1" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
-                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0" Background="Firebrick">
-                                    <fa:FontAwesome Icon="Print" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-                                </Border>
-                            </StackPanel>
-                            <Label Content="Print" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Increase Zoom" Command="NavigationCommands.IncreaseZoom" CommandTarget="{Binding ElementName=PreviewD}">
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="F2" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
-                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0" Background="DodgerBlue">
-                                    <fa:FontAwesome Icon="Expand" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-                                </Border>
-                            </StackPanel>
-                            <Label Content="Zoom In" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Decrease Zoom" Command="NavigationCommands.DecreaseZoom" CommandTarget="{Binding ElementName=PreviewD}">
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="F3" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
-                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0" Background="DodgerBlue">
-                                    <fa:FontAwesome Icon="Compress" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-                                </Border>
-                            </StackPanel>
-                            <Label Content="Zoom Out" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Actual Size" Command="NavigationCommands.Zoom" CommandTarget="{Binding ElementName=PreviewD}" CommandParameter="100.0">
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="F4" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
-                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0" Background="ForestGreen">
-                                    <fa:FontAwesome Icon="FileOutline" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-                                </Border>
-                            </StackPanel>
-                            <Label Content="Zoom Actual" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Fit to Width" Command="DocumentViewer.FitToWidthCommand" CommandTarget="{Binding ElementName=PreviewD}">
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="F5" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
-                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0" Background="ForestGreen">
-                                    <fa:FontAwesome Icon="FileOutline" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-                                </Border>
-                            </StackPanel>
-                            <Label Content="Zoom Width" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Whole Page" Command="DocumentViewer.FitToMaxPagesAcrossCommand" CommandTarget="{Binding ElementName=PreviewD}" CommandParameter="1" >
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="F6" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
-                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0" Background="Goldenrod">
-                                    <fa:FontAwesome Icon="FileOutline" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-                                </Border>
-                            </StackPanel>
-                            <Label Content="Whole Page" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <Button Style="{DynamicResource EventHorizonButtonStyle}" Height="60" Margin="10,0,8.9,0" ToolTip="Two Pages" Command="DocumentViewer.FitToMaxPagesAcrossCommand" CommandTarget="{Binding ElementName=PreviewD}" CommandParameter="2" >
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="F7" FontSize="22" Margin="0,-4,0,0" Foreground="White" FontWeight="Black" HorizontalAlignment="Center"/>
-                                <Border Style="{DynamicResource EventTypeTokenFunctionKey_BorderStyle}" Margin="10,4,0,0" Background="Violet">
-                                    <fa:FontAwesome Icon="Copy" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-                                </Border>
-                            </StackPanel>
-                            <Label Content="2 Pages" FontSize="14" Margin="0,-7,0,0" Foreground="White" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-
+                <Button Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" ToolTip="Print Report" Command="ApplicationCommands.Print" CommandTarget="{Binding ElementName=PreviewD}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="38"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="18"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="F1" Style="{DynamicResource ButtonBold_LabelStyle}" Foreground="White"/>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource Button_BorderStyle}" Background="Firebrick">
+                            <fa:FontAwesome Icon="Print" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                        </Border>
+                        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Print" Style="{DynamicResource Button_LabelStyle}" Foreground="White"/>
+                    </Grid>
+                </Button>
+                <Button Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" ToolTip="Increase Zoom" Command="NavigationCommands.IncreaseZoom" CommandTarget="{Binding ElementName=PreviewD}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="38"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="18"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="F2" Style="{DynamicResource ButtonBold_LabelStyle}"/>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource Button_BorderStyle}" Background="DodgerBlue">
+                            <fa:FontAwesome Icon="Expand" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                        </Border>
+                        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Zoom In" Style="{DynamicResource Button_LabelStyle}"/>
+                    </Grid>
+                </Button>
+                <Button Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" ToolTip="Decrease Zoom" Command="NavigationCommands.DecreaseZoom" CommandTarget="{Binding ElementName=PreviewD}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="38"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="18"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="F3" Style="{DynamicResource ButtonBold_LabelStyle}"/>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource Button_BorderStyle}" Background="DodgerBlue">
+                            <fa:FontAwesome Icon="Compress" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                        </Border>
+                        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Zoom Out" Style="{DynamicResource Button_LabelStyle}"/>
+                    </Grid>
+                </Button>
+                <Button Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" ToolTip="Actual Size" Command="NavigationCommands.Zoom" CommandTarget="{Binding ElementName=PreviewD}" CommandParameter="100.0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="38"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="18"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="F4" Style="{DynamicResource ButtonBold_LabelStyle}"/>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource Button_BorderStyle}" Background="ForestGreen">
+                            <fa:FontAwesome Icon="FileOutline" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                        </Border>
+                        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Zoom Actual" Style="{DynamicResource Button_LabelStyle}"/>
+                    </Grid>
+                </Button>
+                <Button Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" ToolTip="Fit to Width" Command="DocumentViewer.FitToWidthCommand" CommandTarget="{Binding ElementName=PreviewD}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="38"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="18"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="F5" Style="{DynamicResource ButtonBold_LabelStyle}"/>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource Button_BorderStyle}" Background="ForestGreen">
+                            <fa:FontAwesome Icon="FileOutline" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                        </Border>
+                        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Zoom Width" Style="{DynamicResource Button_LabelStyle}"/>
+                    </Grid>
+                </Button>
+                <Button Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" ToolTip="Whole Page" Command="DocumentViewer.FitToMaxPagesAcrossCommand" CommandTarget="{Binding ElementName=PreviewD}" CommandParameter="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="38"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="18"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="F6" Style="{DynamicResource ButtonBold_LabelStyle}"/>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource Button_BorderStyle}" Background="Goldenrod">
+                            <fa:FontAwesome Icon="FileOutline" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                        </Border>
+                        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Whole Page" Style="{DynamicResource Button_LabelStyle}"/>
+                    </Grid>
+                </Button>
+                <Button Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,10,0" ToolTip="Two Pages" Command="DocumentViewer.FitToMaxPagesAcrossCommand" CommandTarget="{Binding ElementName=PreviewD}" CommandParameter="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="38"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="18"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="F7" Style="{DynamicResource ButtonBold_LabelStyle}"/>
+                        <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource Button_BorderStyle}" Background="Violet">
+                            <fa:FontAwesome Icon="Copy" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+                        </Border>
+                        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="2 Pages" Style="{DynamicResource Button_LabelStyle}"/>
+                    </Grid>
+                </Button>
             </StackPanel>
             <DocumentViewer Grid.Row="1" x:Name="PreviewD" Style="{StaticResource DocumentViewerStyle}"/>
         </Grid>
