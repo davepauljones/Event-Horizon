@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
-using System.IO;
-using System.Windows.Media.Effects;
-using FontAwesome.WPF;
 using System.Globalization;
 using Xceed.Wpf.Toolkit;
+using System.Windows.Automation.Peers;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -22,22 +18,17 @@ namespace The_Oracle
     {
         int EventTypeID = 0;
 
-        public Int32 LastRecordCount = 0;
-
-        private Today today;
-        private Now now;
-        public EventHorizonDatabaseHealth eventHorizonDatabaseHealth;
+        internal WidgetDateToday widgetDateToday;
+        internal WidgetTimeNow widgetTimeNow;
+        internal WidgetDatabaseHealth widgetDatabaseHealth;
+        internal WidgetUsersOnline widgetUsersOnline;
+        internal WidgetCurrentUser widgetCurrentUser;
 
         public static MainWindow mw;
-        public static DateTime OracleDatabaseLastWriteTime = DateTime.Now;
-
-        public delegate void OnOracleDatabaseChanged(object source, FileSystemEventArgs e);
 
         public bool justLoaded = false;
 
         public List<EventHorizonLINQ> EventHorizonLINQList;
-
-        public static Dictionary<Int32, DateTime> UsersLastTimeOnlineDictionary = new Dictionary<int, DateTime>();
 
         private static DatabasePoller databasePoller;
 
@@ -56,30 +47,32 @@ namespace The_Oracle
         {
             this.Dispatcher.Invoke((Action)(() =>
             {
-                eventHorizonDatabaseHealth.UpdateLastWriteDateTime(DateTime.Now);
+                widgetDatabaseHealth.UpdateLastWriteDateTime(DateTime.Now);
 
                 if (DisplayMode == DisplayModes.Reminders)
                     RefreshLog(ListViews.Reminder);
                 else
                     RefreshLog(ListViews.Log);
-
-                justLoaded = true;
             }));
         }
 
         public void RunCycle()
         {
-            today.SyncDate();
-            now.SyncTime();
+            widgetDateToday.SyncDate();
+            widgetTimeNow.SyncTime();
 
             //Check Users online every 60 seconds only executes if second is 0
             if (DateTime.Now.Second == XMLReaderWriter.UserID * 6)//use UserID as to offset actual second used to update
             {
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
-                UpdateUsersOnline();
+                EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(widgetUsersOnline.UsersOnlineStackPanel);
             }
+            
             CheckMyUnreadAndMyReminders();
-            MainWindow.mw.eventHorizonDatabaseHealth.UpdateLastWriteLabel(false);
+            
+            MainWindow.mw.widgetDatabaseHealth.UpdateLastWriteLabel(false);
+            
+            justLoaded = true;
         }
 
         public MainWindow()
@@ -133,14 +126,20 @@ namespace The_Oracle
             LoadReportsVisualTree();
             LoadHelpVisualTree();
 
-            today = new Today();
-            TodayGrid.Children.Add(today);
+            widgetDateToday = new WidgetDateToday();
+            WidgetDateTodayGrid.Children.Add(widgetDateToday);
 
-            now = new Now();
-            NowGrid.Children.Add(now);
+            widgetTimeNow = new WidgetTimeNow();
+            WidgetTimeNowGrid.Children.Add(widgetTimeNow);
 
-            eventHorizonDatabaseHealth = new EventHorizonDatabaseHealth();
-            OracleDatabaseHealthGrid.Children.Add(eventHorizonDatabaseHealth);
+            widgetDatabaseHealth = new WidgetDatabaseHealth();
+            WidgetDatabaseHealthGrid.Children.Add(widgetDatabaseHealth);
+
+            widgetUsersOnline = new WidgetUsersOnline();
+            WidgetUsersOnlineGrid.Children.Add(widgetUsersOnline);
+
+            widgetCurrentUser = new WidgetCurrentUser();
+            WidgetCurrentUserGrid.Children.Add(widgetCurrentUser);
 
             if (EventHorizonDatabaseCreate.CheckIfDatabaseExists())
             {
@@ -151,16 +150,20 @@ namespace The_Oracle
                 CheckMyUnreadAndMyReminders();
 
                 DataTableManagement.InsertOrUpdateLastTimeOnline(XMLReaderWriter.UserID);
-                UpdateUsersOnline();
+
+                EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(widgetUsersOnline.UsersOnlineStackPanel);
             }
+
+            //TestButtonStackPanel.Children.Add(FunctionKeyManager.CreateFunctionKey("DEL", FontAwesome.WPF.FontAwesomeIcon.Eraser, "Delete"));
+            //TestButtonStackPanel.Children.Add(FunctionKeyManager.CreateFunctionKey("TOG", FontAwesome.WPF.FontAwesomeIcon.ToggleDown, "Pause"));
 
             MainWindowIs_Loaded = true;
         }
 
         public void RefreshXML()
         {
-            LoadCurrentUserIntoGrid(CurrentUserGrid);
-            LoadUsersIntoUsersStackPanel();
+            widgetCurrentUser.CurrentUserStackPanel.Children.Add(EventHorizonTokens.GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[XMLReaderWriter.UserID]));
+            EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(widgetUsersOnline.UsersOnlineStackPanel);
             AddItemsToEventTypeComboBox();
         }
 
@@ -183,7 +186,7 @@ namespace The_Oracle
                 }
             }
 
-            if (notificationsAddedThisCycle > 0) MiscFunctions.PlayFile("Notification.mp3");
+            if (notificationsAddedThisCycle > 0) MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\Audio\\Notification.mp3");
         }
 
         public void RefreshLog(int listViewToPopulate)
@@ -201,7 +204,7 @@ namespace The_Oracle
 
                     eventHorizonLINQ.Attributes_Replies = eventHorizonLINQRepliesList.Count;
 
-                    EventRow eventRow = CreateEventLogRow(eventHorizonLINQ);
+                    EventRow eventRow = EventRow.CreateEventLogRow(eventHorizonLINQ);
 
                     if (eventHorizonLINQ.EventModeID == EventModes.MainEvent)
                     {
@@ -217,7 +220,7 @@ namespace The_Oracle
 
                         foreach (EventHorizonLINQ eventHorizonLINQRow in eventHorizonLINQRepliesList)
                         {
-                            EventRow er = CreateEventLogRow(eventHorizonLINQRow);
+                            EventRow er = EventRow.CreateEventLogRow(eventHorizonLINQRow);
 
                             eventRow.RepliesListView.Items.Add(er);
 
@@ -304,568 +307,131 @@ namespace The_Oracle
             return Return_EventHorizonLINQ;
         }
 
-        private EventRow CreateEventLogRow(EventHorizonLINQ eventHorizonLINQ)
-        {
-            EventRow eventRow = new EventRow(eventHorizonLINQ);
-
-            eventRow.EventIDTextBlock.Text = eventHorizonLINQ.ID.ToString("D5");
-
-            if (eventHorizonLINQ.EventModeID == EventModes.NoteEvent)
-            {
-                eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.LightSlateGray);
-                eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.StickyNote;
-                eventRow.EventTypeTextBlock.Text = "Note";
-                eventRow.BackgroundGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f7f8f9"));
-                eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Hidden;
-            }
-            else if (eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
-            {
-                eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.LightSlateGray);
-                eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Exchange;
-                eventRow.EventTypeTextBlock.Text = "Reply";
-                eventRow.BackgroundGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f7f8f9"));
-                eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                if (eventHorizonLINQ.EventTypeID < XMLReaderWriter.EventTypesList.Count)
-                {
-                    eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Color);
-                    eventRow.EventTypeFontAwesomeIcon.Icon = XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Icon;
-                    eventRow.EventTypeTextBlock.Text = XMLReaderWriter.EventTypesList[eventHorizonLINQ.EventTypeID].Name;
-                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
-                    eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    eventRow.EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.White);
-                    eventRow.EventTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Question;
-                    eventRow.EventTypeTextBlock.Text = "Error";
-                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
-                    eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
-                }
-            }
-
-            eventRow.CreatedDateTimeTextBlock.Text = eventHorizonLINQ.CreationDate.ToString("dd/MM/y HH:mm");
-
-            if (eventHorizonLINQ.EventModeID == EventModes.NoteEvent || eventHorizonLINQ.EventModeID == EventModes.ReplyEvent)
-            {
-                eventRow.SourceIDTextBlock.Text = "";
-            }
-            else
-            {
-                if (eventHorizonLINQ.SourceID < XMLReaderWriter.SourceTypesList.Count)
-                {
-                    eventRow.SourceTypeFontAwesomeIconBorder.Background = new SolidColorBrush(XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Color);
-                    eventRow.SourceTypeFontAwesomeIcon.Icon = XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Icon;
-                    eventRow.SourceIDTextBlock.Text = XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Name;
-                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
-                    eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    eventRow.SourceTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.White);
-                    eventRow.SourceTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Question;
-                    eventRow.SourceIDTextBlock.Text = "Error";
-                    eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.White);
-                    eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
-                }
-            }
-
-            eventRow.DetailsTextBlock.Text = eventHorizonLINQ.Details;
-
-            if (eventHorizonLINQ.EventModeID != EventModes.NoteEvent && eventHorizonLINQ.EventModeID != EventModes.ReplyEvent) eventRow.FrequencyGrid.Children.Add(Frequency.GetFrequency(eventHorizonLINQ.FrequencyID));
-
-            eventRow.StatusGrid.Children.Add(StatusIcons.GetStatus(eventHorizonLINQ.StatusID));
-
-            if (eventHorizonLINQ.UserID < XMLReaderWriter.UsersList.Count)
-            {
-                eventRow.OriginUserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
-                eventRow.OriginUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
-            }
-            else
-            {
-                eventRow.OriginUserEllipse.Fill = new SolidColorBrush(Colors.White);
-                eventRow.OriginUserLabel.Content = eventHorizonLINQ.UserID;
-            }
-
-            if (eventHorizonLINQ.TargetUserID < XMLReaderWriter.UsersList.Count)
-            {
-                eventRow.TargetUserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.TargetUserID].Color);
-                eventRow.TargetUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.TargetUserID);
-            }
-            else
-            {
-                eventRow.TargetUserEllipse.Fill = new SolidColorBrush(Colors.White);
-                eventRow.TargetUserLabel.Content = eventHorizonLINQ.TargetUserID;
-            }
-
-            if (eventHorizonLINQ.TargetUserID < XMLReaderWriter.UsersList.Count)
-            {
-                if (eventHorizonLINQ.TargetUserID > 0)
-                    eventRow.TargetUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.TargetUserID);
-                else
-                {
-                    eventRow.TargetUserLabel.Content = "★";
-                    eventRow.TargetUserLabel.Margin = new Thickness(0, -3, 0, 0);
-                    eventRow.TargetUserLabel.FontSize = 14;
-                }
-            }
-            else
-            {
-                eventRow.TargetUserEllipse.Fill = new SolidColorBrush(Colors.White);
-                eventRow.TargetUserLabel.Content = eventHorizonLINQ.TargetUserID;
-            }
-
-            string totalDaysString;
-
-            if (eventHorizonLINQ.Attributes_TotalDays < 0)
-            {
-                if (eventHorizonLINQ.Attributes_TotalDays < -30)
-                    totalDaysString = "30";
-                else
-                    totalDaysString = Math.Abs(eventHorizonLINQ.Attributes_TotalDays).ToString();
-            }
-            else
-            {
-                if (eventHorizonLINQ.Attributes_TotalDays > 30)
-                    totalDaysString = "30";
-                else
-                    totalDaysString = eventHorizonLINQ.Attributes_TotalDays.ToString();
-            }
-
-            eventRow.TotalDaysEllipse.Fill = new SolidColorBrush(eventHorizonLINQ.Attributes_TotalDaysEllipseColor);
-            eventRow.TotalDaysLabel.Content = totalDaysString;
-
-            string targetDateTimeString = eventHorizonLINQ.TargetDate.ToString("dd/MM/y HH:mm");
-            DateTime targetDateTime = DateTime.MinValue;
-            if (DateTime.TryParse(targetDateTimeString, out targetDateTime))
-            {
-                if (targetDateTime.TimeOfDay == TimeSpan.Zero)
-                    targetDateTimeString = targetDateTime.ToString("dd/MM/y");
-                else
-                    targetDateTimeString = targetDateTime.ToString("dd/MM/y HH:mm");
-            }
-            else
-                Console.WriteLine("Unable to parse TargetDateTimeString '{0}'", targetDateTimeString);
-
-            eventRow.TargetDateTimeTextBlock.Text = targetDateTimeString;
-
-            eventRow.RepliesLabel.Content = eventHorizonLINQ.Attributes_Replies;
-
-            if (eventHorizonLINQ.Attributes_Replies == 0)
-            {
-                eventRow.RepliesButton.Opacity = 0.1;
-                eventRow.RepliesButton.IsEnabled = false;
-            }
-
-            if (eventHorizonLINQ.EventAttributeID == EventAttributes.LineItem)
-            {
-                eventRow.MorphEventRow();
-            }
-
-            eventRow.Tag = eventHorizonLINQ;
-
-            return eventRow;
-        }
-
-        public Dictionary<Int32, Grid> UsersOnlineStatus = new Dictionary<int, Grid>();
-
-        public void LoadCurrentUserIntoGrid(Grid grid)
-        {
-            try
-            {
-                StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
-
-                if (XMLReaderWriter.UsersList[XMLReaderWriter.UserID] != null)
-                {
-                    User user = XMLReaderWriter.UsersList[XMLReaderWriter.UserID];
-
-                    Grid originUserIconEllipseGrid;
-                    Ellipse originUserIconEllipse;
-
-                    Color iconEllipseColor = Colors.White;
-
-                    iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
-
-                    if (user.ID > 0)
-                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                    else
-                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                    originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                    originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
-
-                    Label originUserIconEllipseLabel;
-
-                    if (user.ID > 0)
-                        originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                    else
-                        originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
-
-                    originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
-
-                    originUserIconEllipseGrid.Opacity = 1;
-
-                    originUserIconEllipseGrid.Effect = new DropShadowEffect
-                    {
-                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                        Direction = 320,
-                        ShadowDepth = 1,
-                        Opacity = 0.6
-                    };
-
-                    TextBlock usersName = new TextBlock { Text = user.UserName, Foreground = Brushes.Black, FontSize = 11, MaxWidth = 120, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
-
-                    stackPanel.Children.Add(originUserIconEllipseGrid);
-                    stackPanel.Children.Add(usersName);
-                }
-                grid.Children.Add(stackPanel);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("----------------------------------------");
-
-                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadCurrentUserIntoUserStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
-                msg.ShowDialog();
-            }
-        }
-        public void LoadUsersIntoWelcome(Grid grid)
-        {
-            WrapPanel stackPanel = new WrapPanel { Orientation = Orientation.Horizontal };
-
-            int i = 1;
-            foreach (User user in XMLReaderWriter.UsersList)
-            {
-                if (i > 1)
-                {
-                    Grid originUserIconEllipseGrid;
-                    Ellipse originUserIconEllipse;
-
-                    Color iconEllipseColor = Colors.White;
-
-                    iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
-
-                    if (user.ID > 0)
-                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                    else
-                        originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                    originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                    originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
-
-                    Label originUserIconEllipseLabel;
-
-                    if (user.ID > 0)
-                        originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                    else
-                        originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
-
-                    originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
-
-                    originUserIconEllipseGrid.Opacity = 1;
-
-                    originUserIconEllipseGrid.Effect = new DropShadowEffect
-                    {
-                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                        Direction = 320,
-                        ShadowDepth = 1,
-                        Opacity = 0.6
-                    };
-
-                    stackPanel.Children.Add(originUserIconEllipseGrid);
-                }
-
-                i++;
-            }
-            grid.Children.Add(stackPanel);
-        }
-        public void LoadEventTypesIntoWelcome(Grid grid)
-        {
-            WrapPanel stackPanel = new WrapPanel { Orientation = Orientation.Horizontal };
-
-            int i = 1;
-            foreach (EventType eventType in XMLReaderWriter.EventTypesList)
-            {
-                if (i > 1)
-                {
-                    Border border = new Border { Width = 28, Height = 28, Background = new SolidColorBrush(eventType.Color), BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 2.3, 2.3), Padding = new Thickness(0) };
-
-                    border.Effect = new DropShadowEffect
-                    {
-                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                        Direction = 320,
-                        ShadowDepth = 1,
-                        Opacity = 0.6
-                    };
-
-                    FontAwesome.WPF.FontAwesome fai = new FontAwesome.WPF.FontAwesome { Icon = eventType.Icon, Width = 28, Height = 28, FontSize = 17, Foreground = new SolidColorBrush(Colors.White), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(0, 5, 0, 0) };
-
-                    border.Child = fai;
-
-                    stackPanel.Children.Add(border);
-                }
-
-                i++;
-            }
-            grid.Children.Add(stackPanel);
-        }
-        public void LoadSourceTypesIntoWelcome(Grid grid)
-        {
-            WrapPanel stackPanel = new WrapPanel { Orientation = Orientation.Horizontal };
-
-            int i = 1;
-            foreach (SourceType sourceType in XMLReaderWriter.SourceTypesList)
-            {
-                if (i > 1)
-                {
-                    Border border = new Border { Width = 28, Height = 28, Background = new SolidColorBrush(sourceType.Color), BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 2.3, 2.3), Padding = new Thickness(0) };
-
-                    border.Effect = new DropShadowEffect
-                    {
-                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                        Direction = 320,
-                        ShadowDepth = 1,
-                        Opacity = 0.6
-                    };
-
-                    FontAwesome.WPF.FontAwesome fai = new FontAwesome.WPF.FontAwesome { Icon = sourceType.Icon, Width = 28, Height = 28, FontSize = 17, Foreground = new SolidColorBrush(Colors.White), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(0, 5, 0, 0) };
-
-                    border.Child = fai;
-
-                    stackPanel.Children.Add(border);
-                }
-
-                i++;
-            }
-            grid.Children.Add(stackPanel);
-        }
-        private void LoadUsersIntoUsersStackPanel()
-        {
-            try
-            {
-                UsersColumn1StackPanel.Children.Clear();
-                UsersColumn2StackPanel.Children.Clear();
-                UsersColumn3StackPanel.Children.Clear();
-                UsersColumn4StackPanel.Children.Clear();
-                UsersColumn5StackPanel.Children.Clear();
-
-                int i = 1;
-                foreach (User user in XMLReaderWriter.UsersList)
-                {
-                    if (user.ID > 0)
-                    {
-                        Grid originUserIconEllipseGrid;
-                        Ellipse originUserIconEllipse;
-
-                        Color iconEllipseColor = Colors.White;
-
-                        iconEllipseColor = XMLReaderWriter.UsersList[user.ID].Color;
-
-                        if (user.ID > 0)
-                            originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                        else
-                            originUserIconEllipse = new Ellipse { Width = 24, Height = 24, Fill = new SolidColorBrush(iconEllipseColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                        originUserIconEllipseGrid = new Grid { Margin = new Thickness(3, 1, 3, 3), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-
-                        originUserIconEllipseGrid.Children.Add(originUserIconEllipse);
-
-                        Label originUserIconEllipseLabel;
-
-                        if (user.ID > 0)
-                            originUserIconEllipseLabel = new Label { Content = MiscFunctions.GetFirstCharsOfString(user.UserName), Foreground = Brushes.Black, FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
-                        else
-                            originUserIconEllipseLabel = new Label { Content = "★", Foreground = Brushes.Black, FontSize = 14, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, -3, 0, 0), MaxHeight = 24, Padding = new Thickness(0) };
-
-                        originUserIconEllipseGrid.Children.Add(originUserIconEllipseLabel);
-
-                        originUserIconEllipseGrid.Opacity = 0.3;
-                        UsersOnlineStatus.Add(user.ID, originUserIconEllipseGrid);
-
-                        originUserIconEllipseGrid.Effect = new DropShadowEffect
-                        {
-                            Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                            Direction = 320,
-                            ShadowDepth = 1,
-                            Opacity = 0.6
-                        };
-
-                        if (i < 4)
-                            UsersColumn1StackPanel.Children.Add(originUserIconEllipseGrid);
-                        else if (i > 3 && i < 7)
-                            UsersColumn2StackPanel.Children.Add(originUserIconEllipseGrid);
-                        else if (i > 6 && i < 10)
-                            UsersColumn3StackPanel.Children.Add(originUserIconEllipseGrid);
-                        else if (i > 9 && i < 13)
-                            UsersColumn4StackPanel.Children.Add(originUserIconEllipseGrid);
-                        else if (i > 12 && i < 16)
-                            UsersColumn5StackPanel.Children.Add(originUserIconEllipseGrid);
-
-                        i++;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("----------------------------------------");
-
-                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadUsersIntoUsersStackPanel - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
-                msg.ShowDialog();
-            }
-        }
-
-        private void UpdateUsersOnline()
-        {
-            DataTableManagement.GetUsersLastTimeOnline();
-
-            foreach (User user in XMLReaderWriter.UsersList)
-            {
-                if (UsersOnlineStatus.ContainsKey(user.ID) && user.ID > 0)
-                {
-                    //Check if user was still online a minute ago, if so refresh user icon
-                    if (UsersLastTimeOnlineDictionary.ContainsKey(user.ID))
-                    {
-                        if (UsersLastTimeOnlineDictionary[user.ID] > (DateTime.Now - TimeSpan.FromMinutes(2)))
-                        {
-                            Grid usersIconGrid = UsersOnlineStatus[user.ID];
-                            usersIconGrid.Opacity = 1;
-                        }
-                        else
-                        {
-                            Grid usersIconGrid = UsersOnlineStatus[user.ID];
-                            usersIconGrid.Opacity = 0.3;
-                        }
-                    }
-                }
-            }
-        }
-
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
                 case Key.F1:
-                    EventWindow newEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ(), null);
-                    newEventWindow.Show();
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(1);
                     break;
                 case Key.F2:
-                    if (eventHorizonLINQ_SelectedItem != null)
-                    {
-                        EventWindow editEventWindow = new EventWindow(this, EventWindowModes.NewNote, eventHorizonLINQ_SelectedItem, null);
-                        editEventWindow.Show();
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(2);
                     break;
                 case Key.F3:
-                    if (XMLReaderWriter.EventTypesList.Count > 1)
-                    {
-                        EventWindow F3NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                        {
-                            EventTypeID = XMLReaderWriter.EventTypesList[1].ID,
-                        }, null);
-                        F3NewEventWindow.Show();
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(3);
                     break;
                 case Key.F4:
-                    if (XMLReaderWriter.EventTypesList.Count > 2)
-                    {
-                        EventWindow F4NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                        {
-                            EventTypeID = XMLReaderWriter.EventTypesList[2].ID,
-                        }, null);
-                        F4NewEventWindow.Show();
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(4);
                     break;
                 case Key.F5:
-                    if (XMLReaderWriter.EventTypesList.Count > 3)
-                    {
-                        EventWindow F5NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                        {
-                            EventTypeID = XMLReaderWriter.EventTypesList[3].ID,
-                        }, null);
-                        F5NewEventWindow.Show();
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(5);
                     break;
                 case Key.F6:
-                    if (XMLReaderWriter.EventTypesList.Count > 4)
-                    {
-                        EventWindow F6NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                        {
-                            EventTypeID = XMLReaderWriter.EventTypesList[4].ID,
-                        }, null);
-                        F6NewEventWindow.Show();
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(6);
                     break;
                 case Key.F7:
-                    if (XMLReaderWriter.EventTypesList.Count > 5)
-                    {
-                        EventWindow F7NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                        {
-                            EventTypeID = XMLReaderWriter.EventTypesList[5].ID,
-                        }, null);
-                        F7NewEventWindow.Show();
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(7);
                     break;
                 case Key.F8:
-                    if (XMLReaderWriter.EventTypesList.Count > 6)
-                    {
-                        EventWindow F8NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                        {
-                            EventTypeID = XMLReaderWriter.EventTypesList[6].ID,
-                        }, null);
-                        F8NewEventWindow.Show();
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(8);
                     break;
                 case Key.F9:
-                    if (XMLReaderWriter.EventTypesList.Count > 7)
-                    {
-                        EventWindow F9NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                        {
-                            EventTypeID = XMLReaderWriter.EventTypesList[7].ID,
-                        }, null);
-                        F9NewEventWindow.Show();
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(9);
                     break;
                 case Key.System:
                     if (e.SystemKey == Key.F10)
                     {
-                        if (XMLReaderWriter.EventTypesList.Count > 8)
-                        {
-                            EventWindow F10NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                            {
-                                EventTypeID = XMLReaderWriter.EventTypesList[8].ID,
-                            }, null);
-                            F10NewEventWindow.Show();
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(10);
                     }
                     break;
                 case Key.F11:
-                    if (XMLReaderWriter.EventTypesList.Count > 9)
-                    {
-                        EventWindow F11NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                        {
-                            EventTypeID = XMLReaderWriter.EventTypesList[9].ID,
-                        }, null);
-                        F11NewEventWindow.Show();
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(11);
                     break;
                 case Key.F12:
-                    if (XMLReaderWriter.EventTypesList.Count > 10)
-                    {
-                        EventWindow F12NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                        {
-                            EventTypeID = XMLReaderWriter.EventTypesList[10].ID,
-                        }, null);
-                        F12NewEventWindow.Show();
-                    }
+                    FunctionKeyManager.GetEventTypeFromFunctionKey(12);
                     break;
                 case Key.Delete:
                     DeleteEventRow();
                     break;
+                case Key.Pause:// && (Keyboard.Modifiers & (ModifierKeys.Alt)) == (ModifierKeys.Alt))
+                    //Console.WriteLine("Key.Pause");
+                    FunctionKeyManager.ToggleFunctionKeyBank();
+                    break;
+                case Key.A:
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        EventTypeComboBox.SelectedIndex = 0;
+                        EventTypeID = EventTypeComboBox.SelectedIndex;
+                        SearchTextBox.Text = string.Empty;
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
+
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
+                    }
+                    break;
+                case Key.C:
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        SearchTextBox.Text = string.Empty;
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
+
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
+                    }
+                    break;
+                case Key.N:
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        EventWindow newEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ(), null);
+                        newEventWindow.Show();
+                    }
+                    break;
+                case Key.R:
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
+
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
+                    }
+                    break;
+                case Key.T:
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        FunctionKeyManager.ToggleFunctionKeyBank();
+                    }
+                    break;
             }
         }
+
+        internal void NewEventWindow(int eventType)
+        {
+            if (XMLReaderWriter.EventTypesList.Count > eventType)
+            {
+                EventWindow eventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
+                {
+                    EventTypeID = XMLReaderWriter.EventTypesList[eventType].ID,
+                }, null);
+                eventWindow.Show();
+            }
+        }
+
+        
 
         private void DeleteEventRow()
         {
@@ -901,40 +467,40 @@ namespace The_Oracle
                 switch (buttonID)
                 {
                     case 0:
-                        EventTypeComboBox.SelectedIndex = 0;
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(1);
                         break;
                     case 1:
-                        EventTypeComboBox.SelectedIndex = 0;
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(2);
                         break;
                     case 2:
-                        EventTypeComboBox.SelectedIndex = 1;
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(3);
                         break;
                     case 3:
-                        EventTypeComboBox.SelectedIndex = 2;
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(4);
                         break;
                     case 4:
-                        EventTypeComboBox.SelectedIndex = 3;
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(5);
                         break;
                     case 5:
-                        EventTypeComboBox.SelectedIndex = 4;
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(6);
                         break;
                     case 6:
-                        EventTypeComboBox.SelectedIndex = 5;
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(7);
                         break;
                     case 7:
-                        EventTypeComboBox.SelectedIndex = 6;
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(8);
                         break;
                     case 8:
-                        EventTypeComboBox.SelectedIndex = 7;
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(9);
                         break;
                     case 9:
-                        EventTypeComboBox.SelectedIndex = 8;
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(10);
                         break;
                     case 10:
-                        EventTypeComboBox.SelectedIndex = 9;
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(11);
                         break;
                     case 11:
-                        EventTypeComboBox.SelectedIndex = 10;
+                        FunctionKeyManager.SetEventTypeFromFunctionKey(12);
                         break;
                 }
             }
@@ -950,122 +516,90 @@ namespace The_Oracle
 
             if (button != null && success)
             {
-
                 switch (buttonID)
                 {
                     case 0:
-                        EventWindow newEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                        {
-                            EventTypeID = XMLReaderWriter.EventTypesList[0].ID,
-                        }, null);
-                        newEventWindow.Show();
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(1);
                         break;
                     case 1:
-                        if (eventHorizonLINQ_SelectedItem != null)
-                        {
-                            EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ_SelectedItem, null);
-                            editEventWindow.Show();
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(2);
                         break;
                     case 2:
-                        if (XMLReaderWriter.EventTypesList.Count > 1)
-                        {
-                            EventWindow F3NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                            {
-                                EventTypeID = XMLReaderWriter.EventTypesList[1].ID,
-                            }, null);
-                            F3NewEventWindow.Show();
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(3);
                         break;
                     case 3:
-                        if (XMLReaderWriter.EventTypesList.Count > 2)
-                        {
-                            EventWindow F4NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                            {
-                                EventTypeID = XMLReaderWriter.EventTypesList[2].ID,
-                            }, null);
-                            F4NewEventWindow.Show();
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(4);
                         break;
                     case 4:
-                        if (XMLReaderWriter.EventTypesList.Count > 3)
-                        {
-                            EventWindow F5NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                            {
-                                EventTypeID = XMLReaderWriter.EventTypesList[3].ID,
-                            }, null);
-                            F5NewEventWindow.Show();
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(5);
                         break;
                     case 5:
-                        if (XMLReaderWriter.EventTypesList.Count > 4)
-                        {
-                            EventWindow F6NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                            {
-                                EventTypeID = XMLReaderWriter.EventTypesList[4].ID,
-                            }, null);
-                            F6NewEventWindow.Show();
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(6);
                         break;
                     case 6:
-                        if (XMLReaderWriter.EventTypesList.Count > 5)
-                        {
-                            EventWindow F7NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                            {
-                                EventTypeID = XMLReaderWriter.EventTypesList[5].ID,
-                            }, null);
-                            F7NewEventWindow.Show();
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(7);
                         break;
                     case 7:
-                        if (XMLReaderWriter.EventTypesList.Count > 6)
-                        {
-                            EventWindow F8NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                            {
-                                EventTypeID = XMLReaderWriter.EventTypesList[6].ID,
-                            }, null);
-                            F8NewEventWindow.Show();
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(8);
                         break;
                     case 8:
-                        if (XMLReaderWriter.EventTypesList.Count > 7)
-                        {
-                            EventWindow F9NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                            {
-                                EventTypeID = XMLReaderWriter.EventTypesList[7].ID,
-                            }, null);
-                            F9NewEventWindow.Show();
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(9);
                         break;
                     case 9:
-                        if (XMLReaderWriter.EventTypesList.Count > 8)
-                        {
-                            EventWindow F10NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                            {
-                                EventTypeID = XMLReaderWriter.EventTypesList[8].ID,
-                            }, null);
-                            F10NewEventWindow.Show();
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(10);
                         break;
                     case 10:
-                        if (XMLReaderWriter.EventTypesList.Count > 9)
-                        {
-                            EventWindow F11NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                            {
-                                EventTypeID = XMLReaderWriter.EventTypesList[9].ID,
-                            }, null);
-                            F11NewEventWindow.Show();
-                        }
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(11);
                         break;
                     case 11:
-                        if (XMLReaderWriter.EventTypesList.Count > 10)
+                        FunctionKeyManager.GetEventTypeFromFunctionKey(12);
+                        break;
+                    case 15:
+                        EventTypeComboBox.SelectedIndex = 0;
+                        EventTypeID = EventTypeComboBox.SelectedIndex;
+                        SearchTextBox.Text = string.Empty;
+                        if (MainWindowIs_Loaded)
                         {
-                            EventWindow F12NewEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ
-                            {
-                                EventTypeID = XMLReaderWriter.EventTypesList[10].ID,
-                            }, null);
-                            F12NewEventWindow.Show();
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
+
+                            ReminderListScrollViewer.ScrollToTop();
                         }
+                        break;
+                    case 16:
+                        SearchTextBox.Text = string.Empty;
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
+
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
+                        break;
+                    case 17:
+                        EventWindow newEventWindow = new EventWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ(), null);
+                        newEventWindow.Show();
+                        break;
+                    case 18:
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
+
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
+                        break;
+                    case 19:
+                        DeleteEventRow();
+                        break;
+                    case 20:
+                        FunctionKeyManager.ToggleFunctionKeyBank();
                         break;
                 }
             }
@@ -1245,24 +779,18 @@ namespace The_Oracle
                         EventTypeComboBox.SelectedIndex = 0;
                         EventTypeID = EventTypeComboBox.SelectedIndex;
                         SearchTextBox.Text = string.Empty;
+                        if (MainWindowIs_Loaded)
+                        {
+                            if (DisplayMode == DisplayModes.Reminders)
+                                RefreshLog(ListViews.Reminder);
+                            else
+                                RefreshLog(ListViews.Log);
+
+                            ReminderListScrollViewer.ScrollToTop();
+                        }
                         break;
-                    case 1:
-                        SearchTextBox.Text = string.Empty;
-                        break;
-                    case 2:
-                        //Just Refresh
-                        break;
+
                 }
-            }
-
-            if (MainWindowIs_Loaded)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
-
-                ReminderListScrollViewer.ScrollToTop();
             }
         }
 
@@ -1397,6 +925,7 @@ namespace The_Oracle
                     break;
             }
         }
+
         private void LoadReportsVisualTree()
         {
             ListOfReports.Clear();
@@ -1414,14 +943,16 @@ namespace The_Oracle
                 ReportsVisualTreeListView.Items.Add(new TextBlock { Tag = ss.Id, Text = " " + ss.Name + " ", Style = (Style)FindResource("TreeViewItemTextBlock") });
             }
         }
+
         private void LoadHelpVisualTree()
         {
             ListOfHelp.Clear();
             HelpVisualTreeListView.Items.Clear();
 
             ListOfHelp.Add(new SelectionIdString { Id = 0, Name = "Event Status" });
-            ListOfHelp.Add(new SelectionIdString { Id = 1, Name = "Foo" });
-            ListOfHelp.Add(new SelectionIdString { Id = 2, Name = "FooBar" });
+            ListOfHelp.Add(new SelectionIdString { Id = 1, Name = "Event Function Keys" });
+            ListOfHelp.Add(new SelectionIdString { Id = 2, Name = "Sectional Door Check-List" });
+            ListOfHelp.Add(new SelectionIdString { Id = 3, Name = "FooBar" });
 
             NumberOfHelpTextBlock.Text = ListOfHelp.Count.ToString();
 
@@ -1484,6 +1015,7 @@ namespace The_Oracle
                 Console.WriteLine(ex.Message);
             }
         }
+
         private void HelpVisualTreeListView_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
@@ -1518,8 +1050,12 @@ namespace The_Oracle
                             REPORTS = new ReportsWindow(null, null, Helps.EventStatus);
                             REPORTS.Show();
                             break;
-                        case Helps.Foo:
-                            REPORTS = new ReportsWindow(null, null, Helps.Foo);
+                        case Helps.EventFunctionKeys:
+                            REPORTS = new ReportsWindow(null, null, Helps.EventFunctionKeys);
+                            REPORTS.Show();
+                            break;
+                        case Helps.SectionalDoorCheckList:
+                            REPORTS = new ReportsWindow(null, null, Helps.SectionalDoorCheckList);
                             REPORTS.Show();
                             break;
                         case Helps.FooBar:
@@ -1553,18 +1089,24 @@ namespace The_Oracle
                     {
                         case RowLimitModes.NoLimit:
                             DataTableManagement.RowLimitMode = RowLimitModes.NoLimit;
-                            RecordsIntegerUpDown.IsEnabled = false;
-                            OffsetIntegerUpDown.IsEnabled = false;
+                            LimitUp.IsEnabled = false;
+                            LimitDown.IsEnabled = false;
+                            StepUp.IsEnabled = false;
+                            StepDown.IsEnabled = false;
                             break;
                         case RowLimitModes.LimitOnly:
                             DataTableManagement.RowLimitMode = RowLimitModes.LimitOnly;
-                            RecordsIntegerUpDown.IsEnabled = true;
-                            OffsetIntegerUpDown.IsEnabled = false;
+                            LimitUp.IsEnabled = true;
+                            LimitDown.IsEnabled = true;
+                            StepUp.IsEnabled = false;
+                            StepDown.IsEnabled = false;
                             break;
                         case RowLimitModes.LimitWithOffset:
                             DataTableManagement.RowLimitMode = RowLimitModes.LimitWithOffset;
-                            RecordsIntegerUpDown.IsEnabled = true;
-                            OffsetIntegerUpDown.IsEnabled = true;
+                            LimitUp.IsEnabled = true;
+                            LimitDown.IsEnabled = true;
+                            StepUp.IsEnabled = true;
+                            StepDown.IsEnabled = true;
                             break;
                     }
                 }
@@ -1580,20 +1122,6 @@ namespace The_Oracle
                         RefreshLog(ListViews.Log);
                 }
             }
-        }
-
-        private void RecordsIntegerUpDown_Spinned(object sender, SpinEventArgs e)
-        {
-            DataTableManagement.RowLimit = (int)RecordsIntegerUpDown.Value;
-            Console.Write("DataTableManagement.RowLimit = ");
-            Console.WriteLine(DataTableManagement.RowLimit);
-        }
-
-        private void OffsetIntegerUpDown_Spinned(object sender, SpinEventArgs e)
-        {
-            DataTableManagement.RowOffset = (int)OffsetIntegerUpDown.Value;
-            Console.Write("DataTableManagement.RowOffset = ");
-            Console.WriteLine(DataTableManagement.RowOffset);
         }
 
         private void RightMouseButton_Click(object sender, RoutedEventArgs e)
@@ -1650,6 +1178,135 @@ namespace The_Oracle
             }
         }
 
+        private int _LimitValue = 30;
+
+        public int LimitValue
+        {
+            get { return _LimitValue; }
+            set
+            {
+                _LimitValue = value;
+                LimitTextBox.Text = value.ToString();
+            }
+        }
+
+        private void LimitUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (LimitValue <= 270)
+            {
+                LimitValue += 30;
+            }
+            else
+            {
+                LimitValue = 300;
+            }
+        }
+
+        private void LimitDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (LimitValue >= 60)
+            {
+                LimitValue -= 30;
+            }
+            else
+            {
+                LimitValue = 30;
+            }
+        }
+
+        private void LimitTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (LimitTextBox == null)
+            {
+                return;
+            }
+
+            if (!int.TryParse(LimitTextBox.Text, out _LimitValue))
+            {
+                LimitTextBox.Text = _LimitValue.ToString();
+            }
+        }
         
+        private int _StepValue = 0;
+
+        public int StepValue
+        {
+            get { return _StepValue; }
+            set
+            {
+                _StepValue = value;
+                StepTextBox.Text = value.ToString();
+            }
+        }
+
+        private void StepUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (StepValue <= 270)
+            {
+                StepValue += 30;
+                OffsetValueChanged();
+            }
+            else
+            {
+                StepValue = 300;
+                OffsetValueChanged();
+            }
+        }
+
+        private void StepDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (StepValue >= 30)
+            {
+                StepValue -= 30;
+                OffsetValueChanged();
+            }
+            else
+            {
+                StepValue = 0;
+                OffsetValueChanged();
+            }
+        }
+
+        private void StepTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (StepTextBox == null)
+            {
+                return;
+            }
+
+            if (!int.TryParse(StepTextBox.Text, out _StepValue))
+            {
+                StepTextBox.Text = _StepValue.ToString();
+            }
+        }
+        private void LimitValueChanged()
+        {
+            DataTableManagement.RowLimit = _LimitValue;
+            Console.Write("DataTableManagement.RowLimit = ");
+            Console.WriteLine(DataTableManagement.RowLimit);
+
+            if (MainWindowIs_Loaded)
+            {
+                if (DisplayMode == DisplayModes.Reminders)
+                    RefreshLog(ListViews.Reminder);
+                else
+                    RefreshLog(ListViews.Log);
+            }
+        }
+
+        private void OffsetValueChanged()
+        {
+            DataTableManagement.RowOffset = _StepValue;
+            Console.Write("DataTableManagement.RowOffset = ");
+            Console.WriteLine(DataTableManagement.RowOffset);
+
+            if (MainWindowIs_Loaded)
+            {
+                if (DisplayMode == DisplayModes.Reminders)
+                    RefreshLog(ListViews.Reminder);
+                else
+                    RefreshLog(ListViews.Log);
+            }
+        }
     }
 }

@@ -5,11 +5,11 @@ using System.Windows.Media;
 using System.Windows.Media.Effects;
 using FontAwesome.WPF;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     public class EventHorizonEventTypes
     {
-        public static StackPanel GetEventTypeStackPanel(EventType eventType)
+        public static StackPanel GetEventTypeStackPanel(EventType eventType, bool overrideEffect = false)
         {
             StackPanel stackPanel = new StackPanel();
 
@@ -17,8 +17,9 @@ namespace The_Oracle
 
             Grid eventTypeIconEllipseGrid;
 
-            Color iconColor = XMLReaderWriter.EventTypesList[eventType.ID].Color;
-            FontAwesomeIcon fontAwesomeIcon = XMLReaderWriter.EventTypesList[eventType.ID].Icon;
+            Color iconColor = eventType.Color;
+
+            FontAwesomeIcon fontAwesomeIcon = eventType.Icon;
 
             Border iconBorder = new Border { Width = 28, Height = 28, BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(3), Background = new SolidColorBrush(iconColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(1,2,0,0), Padding = new Thickness(0) };
 
@@ -32,15 +33,23 @@ namespace The_Oracle
 
             eventTypeIconEllipseGrid.Opacity = 1;
 
-            eventTypeIconEllipseGrid.Effect = new DropShadowEffect
+            if (!overrideEffect)
             {
-                Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                Direction = 320,
-                ShadowDepth = 1,
-                Opacity = 0.6
-            };
+                eventTypeIconEllipseGrid.Effect = new DropShadowEffect
+                {
+                    Color = new Color { A = 255, R = 0, G = 0, B = 0 },
+                    Direction = 320,
+                    ShadowDepth = 1,
+                    Opacity = 0.6
+                };
+            }
 
-            TextBlock eventTypeName = new TextBlock { Text = eventType.Name, Foreground = Brushes.Black, FontSize = 18, MaxWidth = 170, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
+            TextBlock eventTypeName;
+
+            if (!overrideEffect)
+                eventTypeName = new TextBlock { Text = eventType.Name, Foreground = Brushes.Black, FontSize = 18, MaxWidth = 170, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
+            else
+                eventTypeName = new TextBlock { Text = eventType.Name, Foreground = Brushes.Black, FontSize = 18, MaxWidth = 170, Margin = new Thickness(4, 7, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
 
             stackPanel.Tag = eventType.Name;
 

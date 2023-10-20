@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     public static class MainWindowTitle
     {

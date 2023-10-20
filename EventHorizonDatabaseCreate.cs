@@ -4,7 +4,7 @@ using System.IO;
 using System.Data.SQLite;
 using Microsoft.Win32;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     public class EventHorizonDatabaseCreate
     {

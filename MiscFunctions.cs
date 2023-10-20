@@ -5,7 +5,7 @@ using System.Windows.Media;
 using System.IO;
 using System.Diagnostics;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     public class MiscFunctions
     {

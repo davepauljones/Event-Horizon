@@ -8,7 +8,7 @@ using System.Windows;
 using System.Globalization;
 using System.Data.SQLite;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     public class DataTableManagement
     {
@@ -21,8 +21,8 @@ namespace The_Oracle
         {
             List<EventHorizonLINQ> _EventHorizonLINQReturnList = new List<EventHorizonLINQ>();
 
-            MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\claves.wav");
-            MainWindow.mw.eventHorizonDatabaseHealth.UpdateLastWriteLabel(true);
+            MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\Audio\\claves.wav");
+            MainWindow.mw.widgetDatabaseHealth.UpdateLastWriteLabel(true);
 
             switch (XMLReaderWriter.DatabaseSystem)
             {
@@ -1224,7 +1224,7 @@ namespace The_Oracle
                                 conn.Open();
                                 using (OleDbDataReader reader = cmd.ExecuteReader())
                                 {
-                                    MainWindow.UsersLastTimeOnlineDictionary.Clear();
+                                    EventHorizonTokens.UsersLastTimeOnlineDictionary.Clear();
 
                                     while (reader.Read())
                                     {
@@ -1242,9 +1242,9 @@ namespace The_Oracle
                                             //Console.Write("LastTimeOnline = ");
                                             //Console.WriteLine(LastTimeOnlineString);
 
-                                            if (!MainWindow.UsersLastTimeOnlineDictionary.ContainsKey(UserID))
+                                            if (!EventHorizonTokens.UsersLastTimeOnlineDictionary.ContainsKey(UserID))
                                             {
-                                                MainWindow.UsersLastTimeOnlineDictionary.Add(UserID, LastTimeOnlineDateTime);
+                                                EventHorizonTokens.UsersLastTimeOnlineDictionary.Add(UserID, LastTimeOnlineDateTime);
                                             }
                                         }
                                         else
@@ -1280,7 +1280,7 @@ namespace The_Oracle
                                 connection.Open();
                                 using (SQLiteDataReader reader = command.ExecuteReader())
                                 {
-                                    MainWindow.UsersLastTimeOnlineDictionary.Clear();
+                                    EventHorizonTokens.UsersLastTimeOnlineDictionary.Clear();
 
                                     while (reader.Read())
                                     {
@@ -1298,9 +1298,9 @@ namespace The_Oracle
                                             //Console.Write("LastTimeOnline = ");
                                             //Console.WriteLine(LastTimeOnlineString);
 
-                                            if (!MainWindow.UsersLastTimeOnlineDictionary.ContainsKey(UserID))
+                                            if (!EventHorizonTokens.UsersLastTimeOnlineDictionary.ContainsKey(UserID))
                                             {
-                                                MainWindow.UsersLastTimeOnlineDictionary.Add(UserID, LastTimeOnlineDateTime);
+                                                EventHorizonTokens.UsersLastTimeOnlineDictionary.Add(UserID, LastTimeOnlineDateTime);
                                             }
                                         }
                                         else

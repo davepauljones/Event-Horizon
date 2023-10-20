@@ -2,7 +2,7 @@
 using System.Windows.Navigation;
 using System.Diagnostics;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     /// <summary>
     /// Interaction logic for EventHorizonLogo.xaml

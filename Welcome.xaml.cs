@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Threading.Tasks;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     /// <summary>
     /// Interaction logic for Welcome.xaml
@@ -46,14 +46,17 @@ namespace The_Oracle
         }
         private void Init()
         {
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\wormhole1020x1000.png"))
-            {
-                ImageBrush myBrush = new ImageBrush();
-                myBrush.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\wormhole1020x1000.png", UriKind.Absolute));
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,/Images/EventHorizonLogoHLNNN.png", UriKind.Absolute));
+            myBrush.Stretch = Stretch.None;
+            myBrush.Transform = new ScaleTransform(1, 1,45,10);
+            HeaderGrid.Background = myBrush;
+            HeaderGrid.Background.Opacity = 1;
 
-                MainBorder.Background = myBrush;
-                MainBorder.Background.Opacity = 1;
-            }
+            ImageBrush myBrush2 = new ImageBrush();
+            myBrush2.ImageSource = new BitmapImage(new Uri("pack://application:,,/Images/wormhole1020x1000.png", UriKind.Absolute));
+            InnerMainBorder.Background = myBrush2;
+            InnerMainBorder.Background.Opacity = 1;
 
             CheckPrerequisites();
         }
@@ -508,7 +511,7 @@ namespace The_Oracle
                 {
                     result = true;
 
-                    MainWindow.mw.LoadUsersIntoWelcome(InstalledUsersGrid);
+                    EventHorizonTokens.LoadUsersIntoWelcome(InstalledUsersGrid);
                 }
                 else
                 {
@@ -547,7 +550,7 @@ namespace The_Oracle
                 {
                     result = true;
 
-                    MainWindow.mw.LoadCurrentUserIntoGrid(InstalledCurrentUserGrid);
+                    InstalledCurrentUserGrid.Children.Add(EventHorizonTokens.GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[XMLReaderWriter.UserID]));
                 }
                 else
                 {
@@ -586,7 +589,7 @@ namespace The_Oracle
                 {
                     result = true;
 
-                    MainWindow.mw.LoadEventTypesIntoWelcome(InstalledEventTypesGrid);
+                    EventHorizonTokens.LoadEventTypesIntoWelcome(InstalledEventTypesGrid);
                 }
                 else
                 {
@@ -627,7 +630,7 @@ namespace The_Oracle
                 {
                     result = true;
 
-                    MainWindow.mw.LoadSourceTypesIntoWelcome(InstalledSourceTypesGrid);
+                    EventHorizonTokens.LoadSourceTypesIntoWelcome(InstalledSourceTypesGrid);
                 }
                 else
                 {

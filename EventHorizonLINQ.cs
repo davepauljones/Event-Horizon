@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     public class EventHorizonLINQ : ICloneable
     {

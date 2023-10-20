@@ -2,7 +2,7 @@
 using FontAwesome.WPF;
 using System.Windows.Media;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     public class User
     {
@@ -298,8 +298,9 @@ namespace The_Oracle
     {
         public const int None = 99;
         public const int EventStatus = 0;
-        public const int Foo = 1;
-        public const int FooBar = 2;
+        public const int EventFunctionKeys = 1;
+        public const int SectionalDoorCheckList = 2;
+        public const int FooBar = 3;
     }
     public struct EventRowContextMenu
     {
@@ -307,5 +308,18 @@ namespace The_Oracle
         public const int Spare = 1;
         public const int Delete = 2;
         public const int Help = 3;
+    }
+    public struct FunctionKeyBanks
+    {
+        public const int Bank0 = 0;
+        public const int Bank1 = 1;
+        public const int Bank2 = 2;
+        public const int Bank3 = 3;
+        public const int Bank4 = 4;
+        public const int Bank5 = 5;
+        public const int Bank6 = 6;
+        public const int Bank7 = 7;
+        public const int Bank8 = 8;
+        public const int Bank9 = 9;
     }
 }

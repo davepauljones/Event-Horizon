@@ -1,9 +1,0 @@
-<?xml version="1.0" standalone="yes"?>
-<Oracle>
-  <Settings>
-    <UserID>15</UserID>
-    <UserName>David Jones</UserName>
-    <DatabaseLocation>N:\OracleData</DatabaseLocation>
-    <HoverDatabaseLocation>N:\HoverData</HoverDatabaseLocation>
-  </Settings>
-</Oracle>

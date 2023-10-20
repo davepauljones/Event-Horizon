@@ -13,7 +13,7 @@ using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
 using System.Windows.Shapes;
 
-namespace The_Oracle
+namespace Event_Horizon
 {
     /// <summary>
     /// Interaction logic for ReportsWindow.xaml
@@ -49,18 +49,21 @@ namespace The_Oracle
                         GenerateReport();
                     break;
                 case Helps.EventStatus:
-                    GenerateHelpReport();
+                    GenerateHelpReport_EventStatus();
                     break;
-                case Helps.Foo:
-                    GenerateHelpReport();
+                case Helps.EventFunctionKeys:
+                    GenerateHelpReport_EventFunctionKeys();
+                    break;
+                case Helps.SectionalDoorCheckList:
+                    GenerateSectionalDoorCheckList();
                     break;
                 case Helps.FooBar:
-                    GenerateHelpReport();
+                    
                     break;
             }
         }
 
-        private void GenerateHelpReport()
+        private void GenerateSectionalDoorCheckList()
         {
             FlowDocument flowDoc;
             // Create the parent FlowDocument...
@@ -69,13 +72,315 @@ namespace The_Oracle
             flowDoc.ColumnWidth = 10000;
 
             Image i = new Image();
-            i.Width = 189;
-            i.Height = 34;
+            i.Width = 425;
+            i.Height = 51;
+            i.Stretch = Stretch.Uniform;
+            i.Margin = new Thickness(50, 0, 0, 0);
+            i.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            i.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+            i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/Images/EventHorizonLogoHLNNN.png"));
+
+            flowDoc.Blocks.Add(new BlockUIContainer(i));
+
+            BlockUIContainer buic = new BlockUIContainer();
+            
+            //***Start of block
+            StackPanel sp = new StackPanel { Margin = new Thickness(50, 0, 0, 0) };
+
+            // Create the Table...
+            Table table1 = new Table();
+            // ...and add it to the FlowDocument Blocks collection.
+            flowDoc.Blocks.Add(table1);
+
+            // Set some global formatting properties for the table.
+            table1.CellSpacing = 10;
+            table1.Background = Brushes.White;
+
+            // Create 6 columns and add them to the table's Columns collection.
+            int numberOfColumns = 6;
+            for (int x = 0; x < numberOfColumns; x++)
+            {
+                table1.Columns.Add(new TableColumn());
+
+                // Set alternating background colors for the middle colums.
+                if (x % 2 == 0)
+                    table1.Columns[x].Background = Brushes.Beige;
+                else
+                    table1.Columns[x].Background = Brushes.LightSteelBlue;
+            }
+
+            // Create and add an empty TableRowGroup to hold the table's Rows.
+            table1.RowGroups.Add(new TableRowGroup());
+
+            // Add the first (title) row.
+            table1.RowGroups[0].Rows.Add(new TableRow());
+
+            // Alias the current working row for easy reference.
+            TableRow currentRow = table1.RowGroups[0].Rows[0];
+
+            // Global formatting for the title row.
+            currentRow.Background = Brushes.Silver;
+            currentRow.FontSize = 40;
+            currentRow.FontWeight = System.Windows.FontWeights.Bold;
+
+            // Add the header row with content,
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("2004 Sales Project"))));
+            // and set the row to span all 6 columns.
+            currentRow.Cells[0].ColumnSpan = 6;
+
+            // Add the second (header) row.
+            table1.RowGroups[0].Rows.Add(new TableRow());
+            currentRow = table1.RowGroups[0].Rows[1];
+
+            // Global formatting for the header row.
+            currentRow.FontSize = 18;
+            currentRow.FontWeight = FontWeights.Bold;
+
+            // Add cells with content to the second row.
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Product"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Quarter 1"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Quarter 2"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Quarter 3"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Quarter 4"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("TOTAL"))));
+
+            //***End of block
+            buic.Child = sp;
+            flowDoc.Blocks.Add(buic);
+
+            //***Finish
+            var package = Package.Open(new MemoryStream(), FileMode.Create, FileAccess.ReadWrite);
+            var packUri = new Uri("pack://temp.xps");
+            PackageStore.RemovePackage(packUri);
+            PackageStore.AddPackage(packUri, package);
+
+            xpsDocument = new XpsDocument(package, CompressionOption.SuperFast, packUri.ToString());
+
+            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
+
+            writer.Write(((IDocumentPaginatorSource)flowDoc).DocumentPaginator);
+
+            Document = xpsDocument.GetFixedDocumentSequence();
+
+            xpsDocument.Close();
+
+            PreviewD.Document = Document;
+        }
+
+        private void GenerateHelpReport_EventFunctionKeys()
+        {
+            FlowDocument flowDoc;
+            // Create the parent FlowDocument...
+            flowDoc = new FlowDocument();
+
+            flowDoc.ColumnWidth = 10000;
+
+            Image i = new Image();
+            i.Width = 425;
+            i.Height = 51;
+            i.Stretch = Stretch.Uniform;
+            i.Margin = new Thickness(50, 0, 0, 0);
+            i.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            i.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+            i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/Images/EventHorizonLogoHLNNN.png"));
+
+            flowDoc.Blocks.Add(new BlockUIContainer(i));
+
+            BlockUIContainer buic = new BlockUIContainer();
+            Grid g1 = new Grid { Margin = new Thickness(5) };
+            Grid g2 = new Grid { Margin = new Thickness(5) };
+            Grid g3 = new Grid { Margin = new Thickness(5) };
+            Grid g4 = new Grid { Margin = new Thickness(5) };
+            Grid g5 = new Grid { Margin = new Thickness(5) };
+
+            StackPanel sp = new StackPanel { Margin = new Thickness(50, 0, 0, 0) };
+
+            Label helpHeadingLabel = new Label { Content = "Keyboard", Margin = new Thickness(5, 10, 0, 0), FontWeight = FontWeights.Bold, FontSize = 22, HorizontalContentAlignment = HorizontalAlignment.Left };
+            sp.Children.Add(helpHeadingLabel);
+
+            Label statusHeadingLabel = new Label { Content = "Example Function keys", Margin = new Thickness(5, 3, 0, 0), FontWeight = FontWeights.Normal };
+            sp.Children.Add(statusHeadingLabel);
+
+            StackPanel sp1 = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 20, 0, 0) };
+            
+            g1.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F1", FontAwesome.WPF.FontAwesomeIcon.Pencil, "Memo", Colors.Crimson));
+            sp1.Children.Add(g1);
+
+            g2.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F2", FontAwesome.WPF.FontAwesomeIcon.Road, "Road Map", Colors.LightSteelBlue));
+            sp1.Children.Add(g2);
+
+            g3.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F3", FontAwesome.WPF.FontAwesomeIcon.Bug, "Bug Fix", Colors.Firebrick));
+            sp1.Children.Add(g3);
+
+            Label spacerLabel = new Label { Content = "....... ", Margin = new Thickness(5, 3, 0, 0), FontWeight = FontWeights.Bold, VerticalAlignment = VerticalAlignment.Bottom };
+            sp1.Children.Add(spacerLabel);
+
+            g4.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F11", FontAwesome.WPF.FontAwesomeIcon.Gift, "Product", Colors.DodgerBlue));
+            sp1.Children.Add(g4);
+
+            g5.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F12", FontAwesome.WPF.FontAwesomeIcon.Dollar, "Marketing", Colors.Green));
+            sp1.Children.Add(g5);
+
+            sp.Children.Add(sp1);
+
+            TextBlock introductionTextBlock = new TextBlock { Text = "Event Horizon uses the function keys and other keys to facilitate in creating, searching and filtering events.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(introductionTextBlock);
+
+            Grid g6 = new Grid { Margin = new Thickness(5,20,0,0), HorizontalAlignment = HorizontalAlignment.Left };
+            g6.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F11", FontAwesome.WPF.FontAwesomeIcon.Gift, "Product", Colors.DodgerBlue));
+            sp.Children.Add(g6);
+
+            TextBlock paragraph1TextBlock = new TextBlock { Text = "To create a new Product event [LEFT-CLICK] or press the equivalent function key.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(paragraph1TextBlock);
+
+            Grid g7 = new Grid { Margin = new Thickness(5, 20, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            g7.Children.Add(FunctionKeyManager.CreateHelpFunctionKey("F3", FontAwesome.WPF.FontAwesomeIcon.Bug, "Bug Fix", Colors.Firebrick));
+            sp.Children.Add(g7);
+
+            TextBlock paragraph2TextBlock = new TextBlock { Text = "To filter to a Bug Fix event [RIGHT-CLICK] or select event type Bug Fix from the drop-down combo box.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(paragraph2TextBlock);
+
+            StackPanel comboStackPanel = new StackPanel { Margin = new Thickness(5, 0, 0, 0) };
+            comboStackPanel.Children.Add(FunctionKeyManager.CreateEventTypeComboBox("Event Type", new EventType { ID = 0, Icon = FontAwesome.WPF.FontAwesomeIcon.Bug, Color = Colors.Firebrick, Name = "Bug Fix" } ));
+            sp.Children.Add(comboStackPanel);
+
+            TextBlock paragraph3TextBlock = new TextBlock { Text = "To clear the filter, click the [ALL] button", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(paragraph3TextBlock);
+
+            StackPanel allButtonStackPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            allButtonStackPanel.Children.Add(FunctionKeyManager.CreateButton("ALL"));
+            sp.Children.Add(allButtonStackPanel);
+
+            Rectangle separator = new Rectangle();
+            separator.SetResourceReference(Control.StyleProperty, "SeparatorLineRectangleStyle");
+            sp.Children.Add(separator);
+
+            TextBlock searchKeyHeadingTextBlock = new TextBlock { Text = "Search Text Box", FontWeight = FontWeights.Bold, Margin = new Thickness(10, 30, 0, 0), TextWrapping = TextWrapping.NoWrap };
+            sp.Children.Add(searchKeyHeadingTextBlock);
+
+            TextBlock paragraph5TextBlock = new TextBlock { Text = "Event Horizon has a search input box, that is case-sensitive, [CLICK] into the search box, start typing a few characters and press return.\n\nThe event list will filter on any matching events that have the entered text within their respective details fields.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(paragraph5TextBlock);
+
+            StackPanel searchTextBoxStackPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            searchTextBoxStackPanel.Children.Add(FunctionKeyManager.CreateSearchTextBox("Search Details", "Bug"));
+            sp.Children.Add(searchTextBoxStackPanel);
+
+            TextBlock paragraph4TextBlock = new TextBlock { Text = "To clear the search filter, click the [CLEAR] button", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            sp.Children.Add(paragraph4TextBlock);
+
+            StackPanel clearButtonStackPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            clearButtonStackPanel.Children.Add(FunctionKeyManager.CreateButton("CLEAR"));
+            sp.Children.Add(clearButtonStackPanel);
+
+            buic.Child = sp;
+            flowDoc.Blocks.Add(buic);
+
+            
+            BlockUIContainer buicPage2 = new BlockUIContainer();
+            StackPanel spPage2 = new StackPanel { Margin = new Thickness(50, 40, 0, 0) };
+
+            TextBlock deleteKeyHeadingTextBlock = new TextBlock { Text = "Delete key", FontWeight = FontWeights.Bold, Margin = new Thickness(10, 0, 0, 0), TextWrapping = TextWrapping.NoWrap };
+            spPage2.Children.Add(deleteKeyHeadingTextBlock);
+
+            TextBlock paragraph6TextBlock = new TextBlock { Text = "The delete key is used to delete an event, in order to delete an event, you must be the originator of the event and the event must not contain any notes or replies.\n\nThe preferred way is not to delete an event, but to set its status to archived instead, see status help for more info.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph6TextBlock);
+
+            StackPanel deleteKeyStackPanel = new StackPanel { Margin = new Thickness(0, 10, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            deleteKeyStackPanel.Children.Add(FunctionKeyManager.CreateButton("Delete", 70, 60));
+            spPage2.Children.Add(deleteKeyStackPanel);
+
+            TextBlock paragraph7TextBlock = new TextBlock { Text = "To delete an event, highlight an event and press [DELETE] key", Margin = new Thickness(10, 10, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph7TextBlock);
+
+            Rectangle separator1 = new Rectangle();
+            separator1.SetResourceReference(Control.StyleProperty, "SeparatorLineRectangleStyle");
+            spPage2.Children.Add(separator1);
+
+            TextBlock pauseKeyHeadingTextBlock = new TextBlock { Text = "Pause key", FontWeight = FontWeights.Bold, Margin = new Thickness(10, 30, 0, 0), TextWrapping = TextWrapping.NoWrap };
+            spPage2.Children.Add(pauseKeyHeadingTextBlock);
+
+            TextBlock paragraph8TextBlock = new TextBlock { Text = "The pause key is used to toggle the function key bank, when Event Horizon starts, event types are loaded into the function keys in banks of 12.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph8TextBlock);
+
+            StackPanel pauseKeyStackPanel = new StackPanel { Margin = new Thickness(0, 10, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            pauseKeyStackPanel.Children.Add(FunctionKeyManager.CreateButton("Pause", 70, 60));
+            spPage2.Children.Add(pauseKeyStackPanel);
+
+            TextBlock paragraph9TextBlock = new TextBlock { Text = "To switch function key banks, press [PAUSE] key", Margin = new Thickness(10, 10, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph9TextBlock);
+
+            Rectangle separator2 = new Rectangle();
+            separator2.SetResourceReference(Control.StyleProperty, "SeparatorLineRectangleStyle");
+            spPage2.Children.Add(separator2);
+
+            TextBlock refreshButtonHeadingTextBlock = new TextBlock { Text = "Refresh Button", FontWeight = FontWeights.Bold, Margin = new Thickness(10, 30, 0, 0), TextWrapping = TextWrapping.NoWrap };
+            spPage2.Children.Add(refreshButtonHeadingTextBlock);
+
+            TextBlock paragraph10TextBlock = new TextBlock { Text = "The refresh button is used to update the event list base on current filter criteria, where changes have been made to limit and step settings.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph10TextBlock);
+
+            StackPanel refreshButtonStackPanel = new StackPanel { Margin = new Thickness(0, 10, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            refreshButtonStackPanel.Children.Add(FunctionKeyManager.CreateButton("REFRESH", 70));
+            spPage2.Children.Add(refreshButtonStackPanel);
+
+            TextBlock paragraph11TextBlock = new TextBlock { Text = "To refresh the event list, [CLICK] the refresh button.", Margin = new Thickness(10, 10, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph11TextBlock);
+
+            Rectangle separator3 = new Rectangle();
+            separator3.SetResourceReference(Control.StyleProperty, "SeparatorLineRectangleStyle");
+            spPage2.Children.Add(separator3);
+
+            TextBlock newButtonHeadingTextBlock = new TextBlock { Text = "New Button", FontWeight = FontWeights.Bold, Margin = new Thickness(10, 30, 0, 0), TextWrapping = TextWrapping.NoWrap };
+            spPage2.Children.Add(newButtonHeadingTextBlock);
+
+            TextBlock paragraph12TextBlock = new TextBlock { Text = "The new button is used to create a new event. The event window opens in new main event mode, you must choose an event type using the drop-down combo box.", Margin = new Thickness(10, 20, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph12TextBlock);
+
+            StackPanel refreshKeyStackPanel = new StackPanel { Margin = new Thickness(0, 10, 0, 0), HorizontalAlignment = HorizontalAlignment.Left };
+            refreshKeyStackPanel.Children.Add(FunctionKeyManager.CreateButton("NEW"));
+            spPage2.Children.Add(refreshKeyStackPanel);
+
+            TextBlock paragraph13TextBlock = new TextBlock { Text = "To create a new event, [CLICK] the new button.", Margin = new Thickness(10, 10, 50, 0), TextWrapping = TextWrapping.Wrap };
+            spPage2.Children.Add(paragraph13TextBlock);
+
+            buicPage2.Child = spPage2;
+            flowDoc.Blocks.Add(buicPage2);
+
+
+            var package = Package.Open(new MemoryStream(), FileMode.Create, FileAccess.ReadWrite);
+            var packUri = new Uri("pack://temp.xps");
+            PackageStore.RemovePackage(packUri);
+            PackageStore.AddPackage(packUri, package);
+
+            xpsDocument = new XpsDocument(package, CompressionOption.SuperFast, packUri.ToString());
+
+            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
+
+            writer.Write(((IDocumentPaginatorSource)flowDoc).DocumentPaginator);
+
+            Document = xpsDocument.GetFixedDocumentSequence();
+
+            xpsDocument.Close();
+
+            PreviewD.Document = Document;
+        }
+
+        private void GenerateHelpReport_EventStatus()
+        {
+            FlowDocument flowDoc;
+            // Create the parent FlowDocument...
+            flowDoc = new FlowDocument();
+
+            flowDoc.ColumnWidth = 10000;
+
+            Image i = new Image();
+            i.Width = 425;
+            i.Height = 51;
             i.Stretch = Stretch.Uniform;
             i.Margin = new Thickness(25, 0, 0, 0);
             i.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             i.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/EventHorizonLogoNewSmall.png"));
+            i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/Images/EventHorizonLogoHLNNN.png"));
 
             flowDoc.Blocks.Add(new BlockUIContainer(i));
 
@@ -88,11 +393,8 @@ namespace The_Oracle
 
             StackPanel sp = new StackPanel { Margin = new Thickness(20, 0, 0, 0) };
 
-            Label helpHeadingLabel = new Label { Content = "Event Horizon - Help", Margin = new Thickness(5, 20, 0, 0), FontWeight = FontWeights.Bold, FontSize = 22, HorizontalContentAlignment = HorizontalAlignment.Center };
+            Label helpHeadingLabel = new Label { Content = "Event Status Help", Margin = new Thickness(5, 20, 0, 0), FontWeight = FontWeights.Bold, FontSize = 22, HorizontalContentAlignment = HorizontalAlignment.Left };
             sp.Children.Add(helpHeadingLabel);
-
-            Label statusHelpHeadingLabel = new Label { Content = "Event Status", Margin = new Thickness(5, 20, 0, 0), FontWeight = FontWeights.Bold, FontSize = 22 };
-            sp.Children.Add(statusHelpHeadingLabel);
 
             TextBlock statusIntroductionTextBlock = new TextBlock { Text = "Event Horizon keeps track of events by assigning a Status to the event during the various stages of the events life span.\nThis acts a visual aid for all users, but especially useful as feedback for the origin user, the origin user can quickly determine whether the target user has responded to the notification and or read the event.\nStatus 'Active, Notified & Read' are automatic, Status 'Active, Notified, Read & Archived' is manual.\nThe origin user who created the event, can at any time, override the event's Status by manually setting the events Status, ie. When a target user has not given a response to the event, the origin user can change the event's Status back to 'Active', this will result in the target user getting a new notification, as though the event was just created and the cycle starts over.", Margin = new Thickness(10, 10, 50, 10), TextWrapping = TextWrapping.Wrap };
             sp.Children.Add(statusIntroductionTextBlock);
@@ -213,7 +515,7 @@ namespace The_Oracle
             i.Stretch = Stretch.Uniform;
             i.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             i.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/EventHorizonLogoNewSmall.png"));
+            i.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/Images/EventHorizonLogoNewSmall.png"));
 
             flowDoc.Blocks.Add(new BlockUIContainer(i));
 
@@ -635,6 +937,34 @@ namespace The_Oracle
             PreviewD.Document = Document;
         }
 
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.F1://Print
+                    PreviewD.Print();
+                    break;
+                case Key.F2://Zoom In
+                    PreviewD.IncreaseZoom();
+                    break;
+                case Key.F3://Zoom Out
+                    PreviewD.DecreaseZoom();
+                    break;
+                case Key.F4://Zoom Actual
+                    PreviewD.Zoom = 100;
+                    break;
+                case Key.F5://Zoom Width
+                    PreviewD.FitToWidth();
+                    break;
+                case Key.F6://Whole Page
+                    PreviewD.FitToMaxPagesAcross(1);
+                    break;
+                case Key.F7://Two Pages
+                    PreviewD.FitToMaxPagesAcross(2);
+                    break;
+            }
+        }
+
         private void Reports_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (WindowState == WindowState.Maximized) WindowState = WindowState.Normal;
@@ -644,5 +974,6 @@ namespace The_Oracle
         {
 
         }
+
     }
 }

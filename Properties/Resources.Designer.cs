@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace The_Oracle.Properties {
+namespace Event_Horizon.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace The_Oracle.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("The_Oracle.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Event_Horizon.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,21 +57,6 @@ namespace The_Oracle.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to echo on
-        ///echo &quot;Copying Event Horizon.exe to Users Folders&quot;
-        ///copy &quot;C:\My Solutions\Event Horizon\bin\Debug\Event Horizon.exe&quot; &quot;C:\Oracle Bill Gates\&quot;
-        ///copy &quot;C:\My Solutions\Event Horizon\bin\Debug\Event Horizon.exe&quot; &quot;C:\Oracle Mark Zuckerberg\&quot;
-        ///copy &quot;C:\My Solutions\Event Horizon\bin\Debug\Event Horizon.exe&quot; &quot;D:\Oracle Elon Musk\&quot;
-        ///copy &quot;C:\My Solutions\Event Horizon\bin\Debug\Event Horizon.exe&quot; &quot;D:\Oracle Steve Jobs\&quot;
-        ///copy &quot;C:\My Solutions\Event Horizon\bin\Debug\Event Horizon.exe&quot; &quot;D:\Oracle Steve Waznia [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string CopyEventHorizon {
-            get {
-                return ResourceManager.GetString("CopyEventHorizon", resourceCulture);
             }
         }
         
