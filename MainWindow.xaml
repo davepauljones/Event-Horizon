@@ -388,11 +388,58 @@
                                 <Grid Margin="10,0,0,0">
                                     <!-- Create a Path for the Outer Rounded Rectangle -->
                                     <Path Fill="#66ffffff">
-                                        <Path.Data>
+                                        <!--<Path Data="M10,0 L340,0 Q100,0 100,10 L100,40 Q100,50 90,50 L10,50 Q0,50 0,40 L0,10 Q0,0 10,0" Fill="#66ffffff"/>-->
+                                        <!--<Path.Data>
                                             <GeometryGroup>
                                                 <RectangleGeometry Rect="0,0,340,114" RadiusX="6" RadiusY="6"/>
                                                 <RectangleGeometry Rect="113,16,214,93" RadiusX="6" RadiusY="6"/>
+                                                <RectangleGeometry Rect="113,16,51,45" RadiusX="6" RadiusY="6"/>
                                             </GeometryGroup>
+                                        </Path.Data>-->
+                                        <!--<Path.Data>
+                                            <PathGeometry>
+                                                <PathGeometry.Figures>
+                                                    <PathFigure StartPoint="6,0">
+                                                        <LineSegment Point="328,0" />
+                                                        <BezierSegment Point1="334,0" Point2="334,6" Point3="334,6" />
+                                                        <LineSegment Point="334,109" />
+                                                        <BezierSegment Point1="334,115" Point2="328,115" Point3="294,115" />
+                                                        <LineSegment Point="6,115" />
+                                                        <BezierSegment Point1="0,109" Point2="0,109" Point3="0,103" />
+                                                        <LineSegment Point="0,6" />
+                                                        <BezierSegment Point1="0,0" Point2="6,0" Point3="6,0" />
+                                                    </PathFigure>
+                                                </PathGeometry.Figures>
+                                            </PathGeometry>
+                                        </Path.Data>-->
+                                        <Path.Data>
+                                            <CombinedGeometry GeometryCombineMode="Exclude">
+                                                <CombinedGeometry.Geometry1>
+                                                    <PathGeometry>
+                                                        <PathFigure StartPoint="6,0">
+                                                            <LineSegment Point="328,0" />
+                                                            <BezierSegment Point1="334,0" Point2="334,6" Point3="334,6" />
+                                                            <LineSegment Point="334,109" />
+                                                            <BezierSegment Point1="334,115" Point2="328,115" Point3="294,115" />
+                                                            <LineSegment Point="6,115" />
+                                                            <BezierSegment Point1="0,109" Point2="0,109" Point3="0,103" />
+                                                            <LineSegment Point="0,6" />
+                                                            <BezierSegment Point1="0,0" Point2="6,0" Point3="6,0" />
+                                                        </PathFigure>
+                                                    </PathGeometry>
+                                                </CombinedGeometry.Geometry1>
+                                                <CombinedGeometry.Geometry2>
+                                                    <PathGeometry>
+                                                        <PathFigure StartPoint="110,18">
+                                                            <LineSegment Point="110,106" />
+                                                            <!--<BezierSegment Point1="110,0" Point2="110,18" Point3="116,18" />-->
+                                                            <LineSegment Point="294,106" />
+                                                            <LineSegment Point="294,18" />
+                                                            <LineSegment Point="18,18" />
+                                                        </PathFigure>
+                                                    </PathGeometry>
+                                                </CombinedGeometry.Geometry2>
+                                            </CombinedGeometry>
                                         </Path.Data>
                                     </Path>
                                     <StackPanel Orientation="Horizontal" Margin="6,0,0,0">
@@ -412,8 +459,8 @@
                                     <StackPanel Orientation="Horizontal" Margin="110,10,0,0">
                                         <Grid x:Name="LimitGrid" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="60"/>
-                                                <ColumnDefinition Width="50"/>
+                                                <ColumnDefinition Width="56"/>
+                                                <ColumnDefinition Width="32"/>
                                             </Grid.ColumnDefinitions>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
@@ -431,7 +478,7 @@
                                         <Grid x:Name="StepGrid" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="60"/>
-                                                <ColumnDefinition Width="50"/>
+                                                <ColumnDefinition Width="32"/>
                                             </Grid.ColumnDefinitions>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
