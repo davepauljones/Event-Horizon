@@ -14,8 +14,15 @@ namespace Event_Horizon
     {
         public static EventHorizonEvent EventHorizon_Event = new EventHorizonEvent();
         public static int RowLimitMode = RowLimitModes.LimitOnly;
-        public static Int32 RowLimit = 30;
-        public static Int32 RowOffset = 30;
+        public static Int32 RowLimitStep = 30;
+        public static Int32 RowLimit = RowLimitStep;
+        public static Int32 RowLimitMin = 30;
+        public static Int32 RowLimitMax = 300;
+        public static Int32 RowOffsetStep = 30;
+        public static Int32 RowOffset = 0;
+        public static Int32 RowOffsetMin = 0;
+        public static Int32 RowOffsetMax = 300;
+        public static Double RowLimitRowStepControlsDisabledOpacity = 0.7;
 
         public static List<EventHorizonLINQ> GetEvents(int listViewToPopulate, Int32 eventTypeID, Int32 filterMode, Int32 displayMode, string searchString)
         {
