@@ -156,7 +156,6 @@ namespace Event_Horizon
 
             //TestButtonStackPanel.Children.Add(FunctionKeyManager.CreateFunctionKey("DEL", FontAwesome.WPF.FontAwesomeIcon.Eraser, "Delete"));
             //TestButtonStackPanel.Children.Add(FunctionKeyManager.CreateFunctionKey("TOG", FontAwesome.WPF.FontAwesomeIcon.ToggleDown, "Pause"));
-            Init_RowLimitRowStepControls();
 
             MainWindowIs_Loaded = true;
         }
@@ -1090,85 +1089,85 @@ namespace Event_Horizon
                     {
                         case RowLimitModes.NoLimit:
                             DataTableManagement.RowLimitMode = RowLimitModes.NoLimit;
-                            LimitGrid.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                            LimitGrid.IsEnabled = false;
+                            LCARS_UserControl.LimitGrid.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                            LCARS_UserControl.LimitGrid.IsEnabled = false;
 
                             if (DataTableManagement.RowLimit <= 0)
-                                LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                                LCARS_UserControl.LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
                             else if (DataTableManagement.RowLimit >= DataTableManagement.RowLimitMax)
-                                LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                                LCARS_UserControl.LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
 
-                            LimitDown.Opacity = 1;
-                            LimitUp.Opacity = 1;
-                            StepDown.Opacity = 1;
-                            StepUp.Opacity = 1;
+                            LCARS_UserControl.LimitDown.Opacity = 1;
+                            LCARS_UserControl.LimitUp.Opacity = 1;
+                            //StepDown.Opacity = 1;
+                            //StepUp.Opacity = 1;
 
-                            StepGrid.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                            StepGrid.IsEnabled = false;
+                            //StepGrid.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                            //StepGrid.IsEnabled = false;
                             break;
                         case RowLimitModes.LimitOnly:
                             DataTableManagement.RowLimitMode = RowLimitModes.LimitOnly;
-                            LimitGrid.Opacity = 1;
-                            LimitGrid.IsEnabled = true;
+                            LCARS_UserControl.LimitGrid.Opacity = 1;
+                            LCARS_UserControl.LimitGrid.IsEnabled = true;
 
                             if (DataTableManagement.RowLimit <= 0)
-                                LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                                LCARS_UserControl.LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
                             else if (DataTableManagement.RowLimit >= DataTableManagement.RowLimitMax)
-                                LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                                LCARS_UserControl.LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
 
-                            LimitDown.Opacity = 1;
-                            LimitUp.Opacity = 1;
-                            StepDown.Opacity = 1;
-                            StepUp.Opacity = 1;
+                            LCARS_UserControl.LimitDown.Opacity = 1;
+                            LCARS_UserControl.LimitUp.Opacity = 1;
+                            //StepDown.Opacity = 1;
+                            //StepUp.Opacity = 1;
 
-                            StepGrid.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                            StepGrid.IsEnabled = false;
+                            //StepGrid.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                            //StepGrid.IsEnabled = false;
 
                             if (DataTableManagement.RowLimit <= DataTableManagement.RowLimitMin)
                             {
-                                LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                                LimitDown.IsEnabled = false;
+                                LCARS_UserControl.LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                                LCARS_UserControl.LimitDown.IsEnabled = false;
                             }
                             else if (DataTableManagement.RowLimit >= DataTableManagement.RowLimitMax)
                             {
-                                LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                                LimitUp.IsEnabled = false;
+                                LCARS_UserControl.LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                                LCARS_UserControl.LimitUp.IsEnabled = false;
                             }
                             break;
                         case RowLimitModes.LimitWithOffset:
                             DataTableManagement.RowLimitMode = RowLimitModes.LimitWithOffset;
-                            LimitGrid.Opacity = 1;
-                            LimitGrid.IsEnabled = true;
+                            LCARS_UserControl.LimitGrid.Opacity = 1;
+                            LCARS_UserControl.LimitGrid.IsEnabled = true;
 
                             if (DataTableManagement.RowLimit <= 0)
-                                LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                                LCARS_UserControl.LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
                             else if (DataTableManagement.RowLimit >= DataTableManagement.RowLimitMax)
-                                LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                                LCARS_UserControl.LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
 
-                            StepGrid.Opacity = 1;
-                            StepGrid.IsEnabled = true;
+                            //StepGrid.Opacity = 1;
+                            //StepGrid.IsEnabled = true;
 
                             if (DataTableManagement.RowLimit <= DataTableManagement.RowLimitMin)
                             {
-                                LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                                LimitDown.IsEnabled = false;
+                                LCARS_UserControl.LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                                LCARS_UserControl.LimitDown.IsEnabled = false;
                             }
                             else if (DataTableManagement.RowLimit >= DataTableManagement.RowLimitMax)
                             {
-                                LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                                LimitUp.IsEnabled = false;
+                                LCARS_UserControl.LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                                LCARS_UserControl.LimitUp.IsEnabled = false;
                             }
 
-                            if (DataTableManagement.RowOffset <= 0)
-                            {
-                                StepDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                                StepDown.IsEnabled = false;
-                            }
-                            else if (DataTableManagement.RowOffset >= DataTableManagement.RowOffsetMax)
-                            {
-                                StepUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                                StepUp.IsEnabled = false;
-                            }
+                            //if (DataTableManagement.RowOffset <= 0)
+                            //{
+                            //    StepDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                            //    StepDown.IsEnabled = false;
+                            //}
+                            //else if (DataTableManagement.RowOffset >= DataTableManagement.RowOffsetMax)
+                            //{
+                            //    StepUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+                            //    StepUp.IsEnabled = false;
+                            //}
                             break;
                     }
                 }
@@ -1240,182 +1239,182 @@ namespace Event_Horizon
             }
         }
 
-        private int _LimitValue = DataTableManagement.RowLimitMin;
+        //private int _LimitValue = DataTableManagement.RowLimitMin;
 
-        public void Init_RowLimitRowStepControls()
-        {
-            LimitValue = DataTableManagement.RowLimitMin;
-            LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-            LimitDown.IsEnabled = false;
+        //public void Init_RowLimitRowStepControls()
+        //{
+        //    LimitValue = DataTableManagement.RowLimitMin;
+        //    LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+        //    LimitDown.IsEnabled = false;
 
-            StepValue = DataTableManagement.RowOffsetMin;
-            StepGrid.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-            StepGrid.IsEnabled = false;
-        }
+        //    StepValue = DataTableManagement.RowOffsetMin;
+        //    StepGrid.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+        //    StepGrid.IsEnabled = false;
+        //}
 
-        public int LimitValue
-        {
-            get { return _LimitValue; }
-            set
-            {
-                _LimitValue = value;
-                LimitTextBox.Text = value.ToString();
-            }
-        }
+        //public int LimitValue
+        //{
+        //    get { return _LimitValue; }
+        //    set
+        //    {
+        //        _LimitValue = value;
+        //        LimitTextBox.Text = value.ToString();
+        //    }
+        //}
 
-        private void LimitUp_Click(object sender, RoutedEventArgs e)
-        {
-            if (LimitValue <= DataTableManagement.RowLimitMax - DataTableManagement.RowLimitStep*2)
-            {
-                LimitValue += DataTableManagement.RowLimitStep;
-                LimitValueChanged();
-            }
-            else
-            {
-                LimitValue = DataTableManagement.RowLimitMax;
-                LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                LimitUp.IsEnabled = false;
-                LimitValueChanged();
-            }
+        //private void LimitUp_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (LimitValue <= DataTableManagement.RowLimitMax - DataTableManagement.RowLimitStep*2)
+        //    {
+        //        LimitValue += DataTableManagement.RowLimitStep;
+        //        LimitValueChanged();
+        //    }
+        //    else
+        //    {
+        //        LimitValue = DataTableManagement.RowLimitMax;
+        //        LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+        //        LimitUp.IsEnabled = false;
+        //        LimitValueChanged();
+        //    }
 
-            if (DataTableManagement.RowLimit >= DataTableManagement.RowLimitMin + DataTableManagement.RowLimitStep && DataTableManagement.RowLimit <= DataTableManagement.RowLimitMax - DataTableManagement.RowLimitStep)
-            {
-                LimitDown.Opacity = 1;
-                LimitDown.IsEnabled = true;
-            }
-        }
+        //    if (DataTableManagement.RowLimit >= DataTableManagement.RowLimitMin + DataTableManagement.RowLimitStep && DataTableManagement.RowLimit <= DataTableManagement.RowLimitMax - DataTableManagement.RowLimitStep)
+        //    {
+        //        LimitDown.Opacity = 1;
+        //        LimitDown.IsEnabled = true;
+        //    }
+        //}
 
-        private void LimitDown_Click(object sender, RoutedEventArgs e)
-        {
-            if (LimitValue >= DataTableManagement.RowLimitMin + DataTableManagement.RowLimitStep * 2)
-            {
-                LimitValue -= DataTableManagement.RowLimitStep;
-                LimitValueChanged();
-            }
-            else
-            {
-                LimitValue = DataTableManagement.RowLimitMin;
-                LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                LimitDown.IsEnabled = false;
-                LimitValueChanged();
-            }
+        //private void LimitDown_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (LimitValue >= DataTableManagement.RowLimitMin + DataTableManagement.RowLimitStep * 2)
+        //    {
+        //        LimitValue -= DataTableManagement.RowLimitStep;
+        //        LimitValueChanged();
+        //    }
+        //    else
+        //    {
+        //        LimitValue = DataTableManagement.RowLimitMin;
+        //        LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+        //        LimitDown.IsEnabled = false;
+        //        LimitValueChanged();
+        //    }
 
-            if (DataTableManagement.RowLimit <= DataTableManagement.RowLimitMax - DataTableManagement.RowLimitStep)
-            {
-                LimitUp.Opacity = 1;
-                LimitUp.IsEnabled = true;
-            }
-        }
+        //    if (DataTableManagement.RowLimit <= DataTableManagement.RowLimitMax - DataTableManagement.RowLimitStep)
+        //    {
+        //        LimitUp.Opacity = 1;
+        //        LimitUp.IsEnabled = true;
+        //    }
+        //}
 
-        private void LimitTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (LimitTextBox == null)
-            {
-                return;
-            }
+        //private void LimitTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (LimitTextBox == null)
+        //    {
+        //        return;
+        //    }
 
-            if (!int.TryParse(LimitTextBox.Text, out _LimitValue))
-            {
-                LimitTextBox.Text = _LimitValue.ToString();
-            }
-        }
+        //    if (!int.TryParse(LimitTextBox.Text, out _LimitValue))
+        //    {
+        //        LimitTextBox.Text = _LimitValue.ToString();
+        //    }
+        //}
         
-        private int _StepValue = DataTableManagement.RowOffsetMin;
+        //private int _StepValue = DataTableManagement.RowOffsetMin;
 
-        public int StepValue
-        {
-            get { return _StepValue; }
-            set
-            {
-                _StepValue = value;
-                StepTextBox.Text = value.ToString();
-            }
-        }
+        //public int StepValue
+        //{
+        //    get { return _StepValue; }
+        //    set
+        //    {
+        //        _StepValue = value;
+        //        StepTextBox.Text = value.ToString();
+        //    }
+        //}
 
-        private void StepUp_Click(object sender, RoutedEventArgs e)
-        {
-            if (StepValue <= DataTableManagement.RowOffsetMax - DataTableManagement.RowOffsetStep * 2)
-            {
-                StepValue += DataTableManagement.RowOffsetStep;
-                OffsetValueChanged();
-            }
-            else
-            {
-                StepValue = DataTableManagement.RowOffsetMax;
-                StepUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                StepUp.IsEnabled = false;
-                OffsetValueChanged();
-            }
+        //private void StepUp_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (StepValue <= DataTableManagement.RowOffsetMax - DataTableManagement.RowOffsetStep * 2)
+        //    {
+        //        StepValue += DataTableManagement.RowOffsetStep;
+        //        OffsetValueChanged();
+        //    }
+        //    else
+        //    {
+        //        StepValue = DataTableManagement.RowOffsetMax;
+        //        StepUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+        //        StepUp.IsEnabled = false;
+        //        OffsetValueChanged();
+        //    }
 
-            if (DataTableManagement.RowOffset >= DataTableManagement.RowOffsetMin + DataTableManagement.RowOffsetStep && DataTableManagement.RowOffset <= DataTableManagement.RowOffsetMax - DataTableManagement.RowOffsetStep)
-            {
-                StepDown.Opacity = 1;
-                StepDown.IsEnabled = true;
-            }
-        }
+        //    if (DataTableManagement.RowOffset >= DataTableManagement.RowOffsetMin + DataTableManagement.RowOffsetStep && DataTableManagement.RowOffset <= DataTableManagement.RowOffsetMax - DataTableManagement.RowOffsetStep)
+        //    {
+        //        StepDown.Opacity = 1;
+        //        StepDown.IsEnabled = true;
+        //    }
+        //}
 
-        private void StepDown_Click(object sender, RoutedEventArgs e)
-        {
-            if (StepValue >= DataTableManagement.RowOffsetStep + DataTableManagement.RowOffsetStep * 2)
-            {
-                StepValue -= DataTableManagement.RowOffsetStep;
-                OffsetValueChanged();
-            }
-            else
-            {
-                StepValue = DataTableManagement.RowOffsetMin;
-                StepDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                StepDown.IsEnabled = false;
-                OffsetValueChanged();
-            }
+        //private void StepDown_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (StepValue >= DataTableManagement.RowOffsetStep + DataTableManagement.RowOffsetStep * 2)
+        //    {
+        //        StepValue -= DataTableManagement.RowOffsetStep;
+        //        OffsetValueChanged();
+        //    }
+        //    else
+        //    {
+        //        StepValue = DataTableManagement.RowOffsetMin;
+        //        StepDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
+        //        StepDown.IsEnabled = false;
+        //        OffsetValueChanged();
+        //    }
 
-            if (DataTableManagement.RowOffset <= DataTableManagement.RowOffsetMax - DataTableManagement.RowOffsetStep)
-            {
-                StepUp.Opacity = 1;
-                StepUp.IsEnabled = true;
-            }
-        }
+        //    if (DataTableManagement.RowOffset <= DataTableManagement.RowOffsetMax - DataTableManagement.RowOffsetStep)
+        //    {
+        //        StepUp.Opacity = 1;
+        //        StepUp.IsEnabled = true;
+        //    }
+        //}
 
-        private void StepTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (StepTextBox == null)
-            {
-                return;
-            }
+        //private void StepTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (StepTextBox == null)
+        //    {
+        //        return;
+        //    }
 
-            if (!int.TryParse(StepTextBox.Text, out _StepValue))
-            {
-                StepTextBox.Text = _StepValue.ToString();
-            }
-        }
-        private void LimitValueChanged()
-        {
-            DataTableManagement.RowLimit = _LimitValue;
-            Console.Write("DataTableManagement.RowLimit = ");
-            Console.WriteLine(DataTableManagement.RowLimit);
+        //    if (!int.TryParse(StepTextBox.Text, out _StepValue))
+        //    {
+        //        StepTextBox.Text = _StepValue.ToString();
+        //    }
+        //}
+        //private void LimitValueChanged()
+        //{
+        //    DataTableManagement.RowLimit = _LimitValue;
+        //    Console.Write("DataTableManagement.RowLimit = ");
+        //    Console.WriteLine(DataTableManagement.RowLimit);
 
-            if (MainWindowIs_Loaded)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
-            }
-        }
+        //    if (MainWindowIs_Loaded)
+        //    {
+        //        if (DisplayMode == DisplayModes.Reminders)
+        //            RefreshLog(ListViews.Reminder);
+        //        else
+        //            RefreshLog(ListViews.Log);
+        //    }
+        //}
 
-        private void OffsetValueChanged()
-        {
-            DataTableManagement.RowOffset = _StepValue;
-            Console.Write("DataTableManagement.RowOffset = ");
-            Console.WriteLine(DataTableManagement.RowOffset);
+        //private void OffsetValueChanged()
+        //{
+        //    DataTableManagement.RowOffset = _StepValue;
+        //    Console.Write("DataTableManagement.RowOffset = ");
+        //    Console.WriteLine(DataTableManagement.RowOffset);
 
-            if (MainWindowIs_Loaded)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
-            }
-        }
+        //    if (MainWindowIs_Loaded)
+        //    {
+        //        if (DisplayMode == DisplayModes.Reminders)
+        //            RefreshLog(ListViews.Reminder);
+        //        else
+        //            RefreshLog(ListViews.Log);
+        //    }
+        //}
     }
 }

@@ -4,47 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Event_Horizon"
-             mc:Ignorable="d" Name="MainWindowWindow"
+             mc:Ignorable="d" Name="MainWindowWindow" Background="ForestGreen"
              d:DesignHeight="116" d:DesignWidth="179">
     <Grid>
-        <Rectangle Opacity="0.56" Width="200" Height="{Binding ActualHeight, ElementName=MainWindowWindow}" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Rectangle.Fill>
-                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                    <GradientStop Color="DodgerBlue" Offset="0.10" />
-                    <GradientStop Color="Transparent" Offset="0.70" />
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Rectangle Opacity="0.56" Width="200" Height="{Binding ActualHeight, ElementName=MainWindowWindow}" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <Rectangle.Fill>
-                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                    <GradientStop Color="Transparent" Offset="0.10" />
-                    <GradientStop Color="DodgerBlue" Offset="0.70" />
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-
-        <Rectangle Opacity="0.56" Width="{Binding ActualWidth, ElementName=MainWindowWindow}" Height="600" HorizontalAlignment="Left" VerticalAlignment="Top" >
-            <Rectangle.Fill>
-                <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
-                    <GradientStop Color="DodgerBlue" Offset="0.8" />
-                    <GradientStop Color="Transparent" Offset="0.40" />
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-
-        <Rectangle Opacity="1" Width="{Binding ActualWidth, ElementName=MainWindowWindow}" Height="330" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-            <Rectangle.Fill>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Color="Transparent" Offset="0.40" />
-                    <GradientStop Color="ForestGreen" Offset="1.0" />
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
         <Grid>
-            <Grid.Effect>
+            <!--<Grid.Effect>
                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
-            </Grid.Effect>
+            </Grid.Effect>-->
             <Path Fill="#66ffffff" HorizontalAlignment="Left">
                 <Path.Data>
                     <CombinedGeometry GeometryCombineMode="Exclude">
@@ -84,7 +50,7 @@
                 </Path.Data>
             </Path>
             <Label x:Name="ControlTitleLabel" Content="Record Limit" Style="{DynamicResource Button_LabelStyle}" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,6,0,0"/>
-            <StackPanel Orientation="Horizontal" Margin="77,20,0,0" Visibility="Visible">
+            <StackPanel Orientation="Horizontal" Margin="77,14,0,0" Visibility="Visible">
                 <Grid x:Name="LimitGrid" Height="90" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="56"/>
@@ -94,14 +60,11 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <!--<Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource UpDownButtonLabel_BorderStyle}">
-                                                <Label Content="Limit" Style="{DynamicResource Button_LabelStyle}" Foreground="White"/>
-                                            </Border>-->
                     <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource UpDownButtonTextBox_BorderStyle}" BorderBrush="Transparent">
-                        <TextBox x:Name="LimitTextBox" x:FieldModifier="private" Text="30" Style="{DynamicResource UpDownButtonTextBox_TextBoxStyle}" Foreground="White" TextChanged="LimitTextBox_TextChanged"/>
+                        <TextBox x:Name="LimitTextBox" Text="30" Style="{DynamicResource UpDownButtonTextBox_TextBoxStyle}" Foreground="White" TextChanged="LimitTextBox_TextChanged"/>
                     </Border>
-                    <Button Grid.Column="1" Grid.Row="0" x:Name="LimitUp" x:FieldModifier="private" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▲" Margin="4,1,1,3" VerticalAlignment="Bottom" Click="LimitUp_Click"/>
-                    <Button Grid.Column="1" Grid.Row="1" x:Name="LimitDown" x:FieldModifier="private" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▼" Margin="4,2,1,1" VerticalAlignment="Top" Click="LimitDown_Click"/>
+                    <Button Grid.Column="1" Grid.Row="0" x:Name="LimitUp" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▲" Margin="4,1,1,3" VerticalAlignment="Bottom" Click="LimitUp_Click"/>
+                    <Button Grid.Column="1" Grid.Row="1" x:Name="LimitDown" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▼" Margin="4,2,1,1" VerticalAlignment="Top" Click="LimitDown_Click"/>
                 </Grid>
             </StackPanel>
         </Grid>
