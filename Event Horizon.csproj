@@ -145,6 +145,9 @@
       <DependentUpon>EventHorizonLogo.xaml</DependentUpon>
     </Compile>
     <Compile Include="FunctionKeyManager.cs" />
+    <Compile Include="LCARS_TopHeader.xaml.cs">
+      <DependentUpon>LCARS_TopHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WidgetLogo.xaml.cs">
       <DependentUpon>WidgetLogo.xaml</DependentUpon>
     </Compile>
@@ -205,6 +208,14 @@
     <Page Include="EventHorizonLogo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LCARS_Definitions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LCARS_TopHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WidgetLogo.xaml">
       <SubType>Designer</SubType>

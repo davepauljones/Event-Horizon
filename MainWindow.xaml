@@ -416,26 +416,33 @@
                                             <CombinedGeometry GeometryCombineMode="Exclude">
                                                 <CombinedGeometry.Geometry1>
                                                     <PathGeometry>
-                                                        <PathFigure StartPoint="6,0">
-                                                            <LineSegment Point="328,0" />
-                                                            <BezierSegment Point1="334,0" Point2="334,6" Point3="334,6" />
-                                                            <LineSegment Point="334,109" />
-                                                            <BezierSegment Point1="334,115" Point2="328,115" Point3="294,115" />
-                                                            <LineSegment Point="6,115" />
-                                                            <BezierSegment Point1="0,109" Point2="0,109" Point3="0,103" />
-                                                            <LineSegment Point="0,6" />
-                                                            <BezierSegment Point1="0,0" Point2="6,0" Point3="6,0" />
+                                                        <PathFigure StartPoint="{StaticResource LCARS_TopLeft}">
+                                                            <LineSegment Point="{StaticResource LCARS_TopRightCornerStart}"/>
+                                                            <BezierSegment Point1="{StaticResource LCARS_TopRightCornerStart}" Point2="{StaticResource LCARS_TopRight}" Point3="{StaticResource LCARS_TopRightCornerFinish}"/>
+                                                            <LineSegment Point="{StaticResource LCARS_BottomRightCornerStart}"/>
+                                                            <BezierSegment Point1="{StaticResource LCARS_BottomRightCornerStart}" Point2="{StaticResource LCARS_BottomRight}" Point3="{StaticResource LCARS_BottomRightCornerFinish}"/>
+                                                            <LineSegment Point="{StaticResource LCARS_BottomLeftCornerStart}"/>
+                                                            <BezierSegment Point1="{StaticResource LCARS_BottomLeftCornerStart}" Point2="{StaticResource LCARS_BottomLeft}" Point3="{StaticResource LCARS_BottomLeftCornerFinish}"/>
+                                                            <LineSegment Point="{StaticResource LCARS_TopLeftCornerStart}"/>
+                                                            <BezierSegment Point1="{StaticResource LCARS_TopLeftCornerStart}" Point2="{StaticResource LCARS_TopLeft}" Point3="{StaticResource LCARS_TopLeftCornerFinish}"/>
                                                         </PathFigure>
                                                     </PathGeometry>
                                                 </CombinedGeometry.Geometry1>
                                                 <CombinedGeometry.Geometry2>
                                                     <PathGeometry>
-                                                        <PathFigure StartPoint="110,18">
-                                                            <LineSegment Point="110,106" />
-                                                            <!--<BezierSegment Point1="110,0" Point2="110,18" Point3="116,18" />-->
-                                                            <LineSegment Point="294,106" />
-                                                            <LineSegment Point="294,18" />
-                                                            <LineSegment Point="18,18" />
+                                                        <PathFigure StartPoint="{StaticResource LCARS_InnerTopLeft}">
+                                                            <LineSegment Point="{StaticResource LCARS_InnerTopRightCornerStart}"/>
+                                                            <BezierSegment Point1="{StaticResource LCARS_InnerTopRightCornerStart}" Point2="{StaticResource LCARS_InnerTopRight}" Point3="{StaticResource LCARS_InnerTopRightCornerFinish}"/>
+                                                            <LineSegment Point="{StaticResource LCARS_InnerBottomRightCornerStart}"/>
+                                                            <BezierSegment Point1="{StaticResource LCARS_InnerBottomRightCornerStart}" Point2="{StaticResource LCARS_InnerBottomRight}" Point3="{StaticResource LCARS_InnerBottomRightCornerFinish}"/>
+                                                            <LineSegment Point="{StaticResource LCARS_InnerBottomLeftCornerStart}"/>
+                                                            <BezierSegment Point1="{StaticResource LCARS_InnerBottomLeftCornerStart}" Point2="{StaticResource LCARS_InnerBottomLeft}" Point3="{StaticResource LCARS_InnerBottomLeftCornerFinish}"/>
+                                                            <LineSegment Point="{StaticResource LCARS_InnerMiddleLeftCornerStart}"/>
+                                                            <BezierSegment Point1="{StaticResource LCARS_InnerMiddleLeftCornerStart}" Point2="{StaticResource LCARS_InnerMiddleLeft}" Point3="{StaticResource LCARS_InnerMiddleLeftCornerFinish}"/>
+                                                            <LineSegment Point="{StaticResource LCARS_InnerMiddleMiddleCornerStart}"/>
+                                                            <BezierSegment Point1="{StaticResource LCARS_InnerMiddleMiddleCornerStart}" Point2="{StaticResource LCARS_InnerMiddleMiddle}" Point3="{StaticResource LCARS_InnerMiddleMiddleCornerFinish}"/>
+                                                            <LineSegment Point="{StaticResource LCARS_InnerTopLeftCornerStart}"/>
+                                                            <BezierSegment Point1="{StaticResource LCARS_InnerTopLeftCornerStart}" Point2="{StaticResource LCARS_InnerTopLeft}" Point3="{StaticResource LCARS_InnerTopLeftCornerFinish}"/>
                                                         </PathFigure>
                                                     </PathGeometry>
                                                 </CombinedGeometry.Geometry2>
@@ -456,24 +463,24 @@
                                             </StackPanel>
                                         </Grid>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="110,10,0,0">
+                                    <StackPanel Orientation="Horizontal" Margin="110,10,0,0" Visibility="Visible">
                                         <Grid x:Name="LimitGrid" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="56"/>
-                                                <ColumnDefinition Width="32"/>
+                                                <ColumnDefinition Width="36"/>
                                             </Grid.ColumnDefinitions>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
-                                            <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource UpDownButtonLabel_BorderStyle}">
+                                            <!--<Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource UpDownButtonLabel_BorderStyle}">
                                                 <Label Content="Limit" Style="{DynamicResource Button_LabelStyle}" Foreground="White"/>
-                                            </Border>
+                                            </Border>-->
                                             <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource UpDownButtonTextBox_BorderStyle}" BorderBrush="Transparent">
                                                 <TextBox x:Name="LimitTextBox" x:FieldModifier="private" Text="30" Style="{DynamicResource UpDownButtonTextBox_TextBoxStyle}" Foreground="White" TextChanged="LimitTextBox_TextChanged"/>
                                             </Border>
-                                            <Button Grid.Column="1" Grid.Row="0" x:Name="LimitUp" x:FieldModifier="private" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▲" VerticalAlignment="Bottom" Click="LimitUp_Click"/>
-                                            <Button Grid.Column="1" Grid.Row="1" x:Name="LimitDown" x:FieldModifier="private" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▼" VerticalAlignment="Top" Click="LimitDown_Click"/>
+                                            <Button Grid.Column="1" Grid.Row="0" x:Name="LimitUp" x:FieldModifier="private" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▲" Margin="4,1,1,3" VerticalAlignment="Bottom" Click="LimitUp_Click"/>
+                                            <Button Grid.Column="1" Grid.Row="1" x:Name="LimitDown" x:FieldModifier="private" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▼" Margin="4,2,1,1" VerticalAlignment="Top" Click="LimitDown_Click"/>
                                         </Grid>
                                         <Grid x:Name="StepGrid" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <Grid.ColumnDefinitions>
@@ -484,9 +491,9 @@
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
-                                            <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource UpDownButtonLabel_BorderStyle}">
+                                            <!--<Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource UpDownButtonLabel_BorderStyle}">
                                                 <Label Content="Step" Style="{DynamicResource Button_LabelStyle}" Foreground="White"/>
-                                            </Border>
+                                            </Border>-->
                                             <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource UpDownButtonTextBox_BorderStyle}" BorderBrush="Transparent">
                                                 <TextBox x:Name="StepTextBox" x:FieldModifier="private" Text="0" Style="{DynamicResource UpDownButtonTextBox_TextBoxStyle}" Foreground="White" TextChanged="StepTextBox_TextChanged"/>
                                             </Border>

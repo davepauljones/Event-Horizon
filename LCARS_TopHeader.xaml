@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="Event_Horizon.LCARS_TopHeader"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Event_Horizon"
+             mc:Ignorable="d" Name="MainWindowWindow"
+             d:DesignHeight="116" d:DesignWidth="179">
+    <Grid>
+        <Rectangle Opacity="0.56" Width="200" Height="{Binding ActualHeight, ElementName=MainWindowWindow}" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="DodgerBlue" Offset="0.10" />
+                    <GradientStop Color="Transparent" Offset="0.70" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle Opacity="0.56" Width="200" Height="{Binding ActualHeight, ElementName=MainWindowWindow}" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="Transparent" Offset="0.10" />
+                    <GradientStop Color="DodgerBlue" Offset="0.70" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Opacity="0.56" Width="{Binding ActualWidth, ElementName=MainWindowWindow}" Height="600" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                    <GradientStop Color="DodgerBlue" Offset="0.8" />
+                    <GradientStop Color="Transparent" Offset="0.40" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Opacity="1" Width="{Binding ActualWidth, ElementName=MainWindowWindow}" Height="330" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="Transparent" Offset="0.40" />
+                    <GradientStop Color="ForestGreen" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Grid>
+            <Grid.Effect>
+                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
+            </Grid.Effect>
+            <Path Fill="#66ffffff" HorizontalAlignment="Left">
+                <Path.Data>
+                    <CombinedGeometry GeometryCombineMode="Exclude">
+                        <CombinedGeometry.Geometry1>
+                            <PathGeometry>
+                                <PathFigure StartPoint="{StaticResource LCARS_TopLeft}">
+                                    <LineSegment Point="{StaticResource LCARS_TopRightCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_TopRightCornerStart}" Point2="{StaticResource LCARS_TopRight}" Point3="{StaticResource LCARS_TopRightCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_BottomRightCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_BottomRightCornerStart}" Point2="{StaticResource LCARS_BottomRight}" Point3="{StaticResource LCARS_BottomRightCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_BottomLeftCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_BottomLeftCornerStart}" Point2="{StaticResource LCARS_BottomLeft}" Point3="{StaticResource LCARS_BottomLeftCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_TopLeftCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_TopLeftCornerStart}" Point2="{StaticResource LCARS_TopLeft}" Point3="{StaticResource LCARS_TopLeftCornerFinish}"/>
+                                </PathFigure>
+                            </PathGeometry>
+                        </CombinedGeometry.Geometry1>
+                        <CombinedGeometry.Geometry2>
+                            <PathGeometry>
+                                <PathFigure StartPoint="{StaticResource LCARS_InnerTopLeft}">
+                                    <LineSegment Point="{StaticResource LCARS_InnerTopRightCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_InnerTopRightCornerStart}" Point2="{StaticResource LCARS_InnerTopRight}" Point3="{StaticResource LCARS_InnerTopRightCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_InnerBottomRightCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_InnerBottomRightCornerStart}" Point2="{StaticResource LCARS_InnerBottomRight}" Point3="{StaticResource LCARS_InnerBottomRightCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_InnerBottomLeftCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_InnerBottomLeftCornerStart}" Point2="{StaticResource LCARS_InnerBottomLeft}" Point3="{StaticResource LCARS_InnerBottomLeftCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_InnerMiddleLeftCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_InnerMiddleLeftCornerStart}" Point2="{StaticResource LCARS_InnerMiddleLeft}" Point3="{StaticResource LCARS_InnerMiddleLeftCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_InnerMiddleMiddleCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_InnerMiddleMiddleCornerStart}" Point2="{StaticResource LCARS_InnerMiddleMiddle}" Point3="{StaticResource LCARS_InnerMiddleMiddleCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_InnerTopLeftCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_InnerTopLeftCornerStart}" Point2="{StaticResource LCARS_InnerTopLeft}" Point3="{StaticResource LCARS_InnerTopLeftCornerFinish}"/>
+                                </PathFigure>
+                            </PathGeometry>
+                        </CombinedGeometry.Geometry2>
+                    </CombinedGeometry>
+                </Path.Data>
+            </Path>
+            <Label x:Name="ControlTitleLabel" Content="Record Limit" Style="{DynamicResource Button_LabelStyle}" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,6,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="77,20,0,0" Visibility="Visible">
+                <Grid x:Name="LimitGrid" Height="90" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="56"/>
+                        <ColumnDefinition Width="36"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--<Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource UpDownButtonLabel_BorderStyle}">
+                                                <Label Content="Limit" Style="{DynamicResource Button_LabelStyle}" Foreground="White"/>
+                                            </Border>-->
+                    <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource UpDownButtonTextBox_BorderStyle}" BorderBrush="Transparent">
+                        <TextBox x:Name="LimitTextBox" x:FieldModifier="private" Text="30" Style="{DynamicResource UpDownButtonTextBox_TextBoxStyle}" Foreground="White" TextChanged="LimitTextBox_TextChanged"/>
+                    </Border>
+                    <Button Grid.Column="1" Grid.Row="0" x:Name="LimitUp" x:FieldModifier="private" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▲" Margin="4,1,1,3" VerticalAlignment="Bottom" Click="LimitUp_Click"/>
+                    <Button Grid.Column="1" Grid.Row="1" x:Name="LimitDown" x:FieldModifier="private" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▼" Margin="4,2,1,1" VerticalAlignment="Top" Click="LimitDown_Click"/>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

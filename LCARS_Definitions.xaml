@@ -1,0 +1,50 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Point x:Key="LCARS_TopLeft">0,0</Point>
+    <Point x:Key="LCARS_TopRight">178,0</Point>
+    <Point x:Key="LCARS_BottomRight">178,115</Point>
+    <Point x:Key="LCARS_BottomLeft">0,115</Point>
+
+    <Point x:Key="LCARS_TopLeftCornerStart">0,6</Point>
+    <Point x:Key="LCARS_TopLeftCornerFinish">6,0</Point>
+
+    <Point x:Key="LCARS_TopRightCornerStart">172,0</Point>
+    <Point x:Key="LCARS_TopRightCornerFinish">178,6</Point>
+
+    <Point x:Key="LCARS_BottomRightCornerStart">178,109</Point>
+    <Point x:Key="LCARS_BottomRightCornerFinish">172,115</Point>
+
+    <Point x:Key="LCARS_BottomLeftCornerStart">6,115</Point>
+    <Point x:Key="LCARS_BottomLeftCornerFinish">0,109</Point>
+
+
+    <Point x:Key="LCARS_InnerTopLeft">131,18</Point>
+    <Point x:Key="LCARS_InnerTopRight">173,18</Point>
+    <Point x:Key="LCARS_InnerMiddleLeft">77,62</Point>
+    <Point x:Key="LCARS_InnerMiddleMiddle">131,62</Point>
+    <Point x:Key="LCARS_InnerBottomRight">173,111</Point>
+    <Point x:Key="LCARS_InnerBottomLeft">77,111</Point>
+
+    <Point x:Key="LCARS_InnerTopLeftCornerStart">131,24</Point>
+    <Point x:Key="LCARS_InnerTopLeftCornerFinish">137,18</Point>
+
+    <Point x:Key="LCARS_InnerTopRightCornerStart">167,18</Point>
+    <Point x:Key="LCARS_InnerTopRightCornerFinish">173,24</Point>
+
+    <Point x:Key="LCARS_InnerBottomRightCornerStart">173,105</Point>
+    <Point x:Key="LCARS_InnerBottomRightCornerFinish">167,111</Point>
+
+    <Point x:Key="LCARS_InnerBottomLeftCornerStart">83,111</Point>
+    <Point x:Key="LCARS_InnerBottomLeftCornerFinish">77,105</Point>
+
+    <Point x:Key="LCARS_InnerMiddleLeftCornerStart">77,68</Point>
+    <Point x:Key="LCARS_InnerMiddleLeftCornerFinish">83,62</Point>
+
+    <Point x:Key="LCARS_InnerMiddleMiddleCornerStart">125,62</Point>
+    <Point x:Key="LCARS_InnerMiddleMiddleCornerFinish">131,56</Point>
+
+    <Point x:Key="LCARS_InnerMiddleTopCornerStart">131,18</Point>
+    <Point x:Key="LCARS_InnerMiddleTopCornerFinish">50,69</Point>
+
+</ResourceDictionary>
