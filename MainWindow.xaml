@@ -11,7 +11,6 @@
     <Window.Resources>
         <local:HeightToParentConverter x:Key="ListViewConverter"/>
         <local:WidgetLogo x:Key="EventHorizonLogoUserControl"/>
-        <local:LCARS_TopHeader x:Key="LCARS"/>
     </Window.Resources>
     <Border x:Name="MainWindowBorder" Background="White">
         <Grid x:Name="MainWindowGrid" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled" >
@@ -383,24 +382,25 @@
                                                     <RadioButton Tag="0" GroupName="DisplayModeRadioButton" Content = "By New" Margin="10,-2,0,0" Checked="DisplayModeRadioButton_Checked"/>
                                                 </StackPanel>
                                             </Grid>
-                                            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-10,0,0">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="*"/>
-                                                    <RowDefinition Height="*"/>
-                                                </Grid.RowDefinitions>
-                                                <Label Grid.Row="0" Content="Records To View" Style="{DynamicResource Button_LabelStyle}" Foreground="Black"/>
-                                                <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0">
-                                                    <RadioButton Tag="0" GroupName="RecordsToViewRadioButton" Content = "No Limit" Checked="RecordsToViewRadioButton_Checked"/>
-                                                    <RadioButton Tag="1" GroupName="RecordsToViewRadioButton" Content = "Limit Only" IsChecked="True" Checked="RecordsToViewRadioButton_Checked"/>
-                                                    <RadioButton Tag="2" GroupName="RecordsToViewRadioButton" Content = "Limit + Offset" Checked="RecordsToViewRadioButton_Checked"/>
-                                                </StackPanel>
-                                            </Grid>
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>
-                                <Grid Margin="10,0,0,0">
-                                    <local:LCARS_TopHeader x:Name="LCARS_UserControl"/>
-                                </Grid>
+                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="100" Margin="10,0,0,0">
+                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Row="0" Content="Record View" Style="{DynamicResource Button_LabelStyle}" Foreground="Black"/>
+                                        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0">
+                                            <RadioButton Tag="0" GroupName="RecordsToViewRadioButton" Content = "No Limit" Checked="RecordsToViewRadioButton_Checked"/>
+                                            <RadioButton Tag="1" GroupName="RecordsToViewRadioButton" Content = "Limit Only" Checked="RecordsToViewRadioButton_Checked"/>
+                                            <RadioButton Tag="2" GroupName="RecordsToViewRadioButton" Content = "Limit + Offset" IsChecked="True" Checked="RecordsToViewRadioButton_Checked"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Grid x:Name="LimitUserControlGrid" Width="112" Margin="7,0,0,0"/>
+                                <Grid x:Name="StepUserControlGrid" Width="112" Margin="7,0,0,0"/>
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="40" Margin="0,0,0,14">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,0,0,0">

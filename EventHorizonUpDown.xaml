@@ -1,16 +1,13 @@
-﻿<UserControl x:Class="Event_Horizon.LCARS_TopHeader"
+﻿<UserControl x:Class="Event_Horizon.EventHorizonUpDown"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Event_Horizon"
              mc:Ignorable="d" Name="MainWindowWindow" Background="ForestGreen"
-             d:DesignHeight="116" d:DesignWidth="179">
+             d:DesignHeight="114" d:DesignWidth="112">
     <Grid>
         <Grid>
-            <!--<Grid.Effect>
-                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
-            </Grid.Effect>-->
             <Path Fill="#66ffffff" HorizontalAlignment="Left">
                 <Path.Data>
                     <CombinedGeometry GeometryCombineMode="Exclude">
@@ -49,9 +46,9 @@
                     </CombinedGeometry>
                 </Path.Data>
             </Path>
-            <Label x:Name="ControlTitleLabel" Content="Record Limit" Style="{DynamicResource Button_LabelStyle}" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,6,0,0"/>
-            <StackPanel Orientation="Horizontal" Margin="77,14,0,0" Visibility="Visible">
-                <Grid x:Name="LimitGrid" Height="90" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Label x:Name="TitleLabel" Content="Title" Style="{DynamicResource Button_LabelStyle}" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="57" Margin="4,19,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="8,13,0,0" Visibility="Visible">
+                <Grid x:Name="UpDownGrid" Height="90" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="56"/>
                         <ColumnDefinition Width="36"/>
@@ -61,10 +58,10 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Border Grid.Column="0" Grid.Row="1" Style="{DynamicResource UpDownButtonTextBox_BorderStyle}" BorderBrush="Transparent">
-                        <TextBox x:Name="LimitTextBox" Text="30" Style="{DynamicResource UpDownButtonTextBox_TextBoxStyle}" Foreground="White" TextChanged="LimitTextBox_TextChanged"/>
+                        <TextBox x:Name="UpDownValueTextBox" Text="30" Style="{DynamicResource UpDownButtonTextBox_TextBoxStyle}" Foreground="White" TextChanged="LimitTextBox_TextChanged"/>
                     </Border>
-                    <Button Grid.Column="1" Grid.Row="0" x:Name="LimitUp" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▲" Margin="4,1,1,3" VerticalAlignment="Bottom" Click="LimitUp_Click"/>
-                    <Button Grid.Column="1" Grid.Row="1" x:Name="LimitDown" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▼" Margin="4,2,1,1" VerticalAlignment="Top" Click="LimitDown_Click"/>
+                    <Button Grid.Column="1" Grid.Row="0" x:Name="UpButton" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▲" Margin="4,1,1,3" VerticalAlignment="Bottom" Click="UpButton_Click"/>
+                    <Button Grid.Column="1" Grid.Row="1" x:Name="DownButton" Style="{DynamicResource UpDownButton_ButtonStyle}" Content="▼" Margin="4,2,1,1" VerticalAlignment="Top" Click="DownButton_Click"/>
                 </Grid>
             </StackPanel>
         </Grid>

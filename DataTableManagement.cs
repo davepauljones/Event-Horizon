@@ -22,7 +22,6 @@ namespace Event_Horizon
         public static Int32 RowOffset = 0;
         public static Int32 RowOffsetMin = 0;
         public static Int32 RowOffsetMax = 300;
-        public static Double RowLimitRowStepControlsDisabledOpacity = 0.7;
 
         public static List<EventHorizonLINQ> GetEvents(int listViewToPopulate, Int32 eventTypeID, Int32 filterMode, Int32 displayMode, string searchString)
         {

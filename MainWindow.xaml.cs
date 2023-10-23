@@ -23,6 +23,8 @@ namespace Event_Horizon
         internal WidgetDatabaseHealth widgetDatabaseHealth;
         internal WidgetUsersOnline widgetUsersOnline;
         internal WidgetCurrentUser widgetCurrentUser;
+        internal EventHorizonUpDown limitUpDown;
+        internal EventHorizonUpDown stepUpDown;
 
         public static MainWindow mw;
 
@@ -157,7 +159,25 @@ namespace Event_Horizon
             //TestButtonStackPanel.Children.Add(FunctionKeyManager.CreateFunctionKey("DEL", FontAwesome.WPF.FontAwesomeIcon.Eraser, "Delete"));
             //TestButtonStackPanel.Children.Add(FunctionKeyManager.CreateFunctionKey("TOG", FontAwesome.WPF.FontAwesomeIcon.ToggleDown, "Pause"));
 
+            limitUpDown = new EventHorizonUpDown("Limit",DataTableManagement.RowLimit, DataTableManagement.RowLimitMin, DataTableManagement.RowLimitMax, DataTableManagement.RowLimitStep, LimitUpDownCallbackFunction);
+            LimitUserControlGrid.Children.Add(limitUpDown);
+            stepUpDown = new EventHorizonUpDown("Offset" ,DataTableManagement.RowOffset, DataTableManagement.RowOffsetMin, DataTableManagement.RowOffsetMax, DataTableManagement.RowOffsetStep, StepUpDownCallbackFunction);
+            StepUserControlGrid.Children.Add(stepUpDown);
+
             MainWindowIs_Loaded = true;
+        }
+
+        internal void LimitUpDownCallbackFunction(int value)
+        {
+            Console.Write("LimitUpDownCallbackFunction = ");
+            Console.WriteLine(value);
+            DataTableManagement.RowLimit = value;
+        }
+        internal void StepUpDownCallbackFunction(int value)
+        {
+            Console.Write("StepUpDownCallbackFunction = ");
+            Console.WriteLine(value);
+            DataTableManagement.RowOffset = value;
         }
 
         public void RefreshXML()
@@ -1089,85 +1109,18 @@ namespace Event_Horizon
                     {
                         case RowLimitModes.NoLimit:
                             DataTableManagement.RowLimitMode = RowLimitModes.NoLimit;
-                            LCARS_UserControl.LimitGrid.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                            LCARS_UserControl.LimitGrid.IsEnabled = false;
-
-                            if (DataTableManagement.RowLimit <= 0)
-                                LCARS_UserControl.LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                            else if (DataTableManagement.RowLimit >= DataTableManagement.RowLimitMax)
-                                LCARS_UserControl.LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-
-                            LCARS_UserControl.LimitDown.Opacity = 1;
-                            LCARS_UserControl.LimitUp.Opacity = 1;
-                            //StepDown.Opacity = 1;
-                            //StepUp.Opacity = 1;
-
-                            //StepGrid.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                            //StepGrid.IsEnabled = false;
+                            limitUpDown.IsControlEnabled(false);
+                            stepUpDown.IsControlEnabled(false);
                             break;
                         case RowLimitModes.LimitOnly:
                             DataTableManagement.RowLimitMode = RowLimitModes.LimitOnly;
-                            LCARS_UserControl.LimitGrid.Opacity = 1;
-                            LCARS_UserControl.LimitGrid.IsEnabled = true;
-
-                            if (DataTableManagement.RowLimit <= 0)
-                                LCARS_UserControl.LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                            else if (DataTableManagement.RowLimit >= DataTableManagement.RowLimitMax)
-                                LCARS_UserControl.LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-
-                            LCARS_UserControl.LimitDown.Opacity = 1;
-                            LCARS_UserControl.LimitUp.Opacity = 1;
-                            //StepDown.Opacity = 1;
-                            //StepUp.Opacity = 1;
-
-                            //StepGrid.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                            //StepGrid.IsEnabled = false;
-
-                            if (DataTableManagement.RowLimit <= DataTableManagement.RowLimitMin)
-                            {
-                                LCARS_UserControl.LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                                LCARS_UserControl.LimitDown.IsEnabled = false;
-                            }
-                            else if (DataTableManagement.RowLimit >= DataTableManagement.RowLimitMax)
-                            {
-                                LCARS_UserControl.LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                                LCARS_UserControl.LimitUp.IsEnabled = false;
-                            }
+                            limitUpDown.IsControlEnabled(true);
+                            stepUpDown.IsControlEnabled(false);
                             break;
                         case RowLimitModes.LimitWithOffset:
                             DataTableManagement.RowLimitMode = RowLimitModes.LimitWithOffset;
-                            LCARS_UserControl.LimitGrid.Opacity = 1;
-                            LCARS_UserControl.LimitGrid.IsEnabled = true;
-
-                            if (DataTableManagement.RowLimit <= 0)
-                                LCARS_UserControl.LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                            else if (DataTableManagement.RowLimit >= DataTableManagement.RowLimitMax)
-                                LCARS_UserControl.LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-
-                            //StepGrid.Opacity = 1;
-                            //StepGrid.IsEnabled = true;
-
-                            if (DataTableManagement.RowLimit <= DataTableManagement.RowLimitMin)
-                            {
-                                LCARS_UserControl.LimitDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                                LCARS_UserControl.LimitDown.IsEnabled = false;
-                            }
-                            else if (DataTableManagement.RowLimit >= DataTableManagement.RowLimitMax)
-                            {
-                                LCARS_UserControl.LimitUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                                LCARS_UserControl.LimitUp.IsEnabled = false;
-                            }
-
-                            //if (DataTableManagement.RowOffset <= 0)
-                            //{
-                            //    StepDown.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                            //    StepDown.IsEnabled = false;
-                            //}
-                            //else if (DataTableManagement.RowOffset >= DataTableManagement.RowOffsetMax)
-                            //{
-                            //    StepUp.Opacity = DataTableManagement.RowLimitRowStepControlsDisabledOpacity;
-                            //    StepUp.IsEnabled = false;
-                            //}
+                            limitUpDown.IsControlEnabled(true);
+                            stepUpDown.IsControlEnabled(true);
                             break;
                     }
                 }
