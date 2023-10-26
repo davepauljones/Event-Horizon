@@ -6,9 +6,9 @@ using System.Windows.Media;
 namespace Event_Horizon
 {
     /// <summary>
-    /// Interaction logic for EventHorizonUpDown.xaml
+    /// Interaction logic for EventHorizonLCARSUpDown.xaml
     /// </summary>
-    public partial class EventHorizonUpDown : UserControl
+    public partial class EventHorizonLCARSUpDown : UserControl
     {
         // Define a property to set a value from the parent control
         public int UpDownValue
@@ -68,7 +68,7 @@ namespace Event_Horizon
 
         UpDownCallbackDelegate Callback;
 
-        public EventHorizonUpDown(string heading, int valueToUpDown, int valueToUpDownMin, int valueToUpDownMax, int valueToUpDownStep, UpDownCallbackDelegate callback)
+        public EventHorizonLCARSUpDown(string heading, int valueToUpDown, int valueToUpDownMin, int valueToUpDownMax, int valueToUpDownStep, UpDownCallbackDelegate callback)
         {
             InitializeComponent();
 

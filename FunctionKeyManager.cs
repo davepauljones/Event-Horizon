@@ -255,7 +255,7 @@ namespace Event_Horizon
                     break;
             }
 
-            MainWindow.mw.EventTypeComboBox.SelectedIndex = functionKeyAssignedEvent;
+            MainWindow.mw.eventHorizonSearch.EventTypeComboBox.SelectedIndex = functionKeyAssignedEvent;
         }
 
         internal static void LoadBank(int functionKey, EventType eventType)

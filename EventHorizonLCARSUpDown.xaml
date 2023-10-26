@@ -1,31 +1,33 @@
-﻿<UserControl x:Class="Event_Horizon.EventHorizonUpDown"
+﻿<UserControl x:Class="Event_Horizon.EventHorizonLCARSUpDown"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Event_Horizon"
-             mc:Ignorable="d" Name="MainWindowWindow" Background="ForestGreen"
-             d:DesignHeight="114" d:DesignWidth="112">
+             mc:Ignorable="d" Name="MainWindowWindow" Background="Transparent"
+             d:DesignHeight="114" d:DesignWidth="228">
     <Grid>
         <Grid>
-            <Path Fill="#66ffffff" HorizontalAlignment="Left">
+            <Path Fill="#ffcc33" HorizontalAlignment="Left">
                 <Path.Data>
                     <CombinedGeometry GeometryCombineMode="Exclude">
                         <CombinedGeometry.Geometry1>
                             <PathGeometry>
-                                <PathFigure StartPoint="{StaticResource LCARS_TopLeft}">
-                                    <LineSegment Point="{StaticResource LCARS_TopRightCornerStart}"/>
-                                    <BezierSegment Point1="{StaticResource LCARS_TopRightCornerStart}" Point2="{StaticResource LCARS_TopRight}" Point3="{StaticResource LCARS_TopRightCornerFinish}"/>
-                                    <LineSegment Point="{StaticResource LCARS_BottomRightCornerStart}"/>
-                                    <BezierSegment Point1="{StaticResource LCARS_BottomRightCornerStart}" Point2="{StaticResource LCARS_BottomRight}" Point3="{StaticResource LCARS_BottomRightCornerFinish}"/>
-                                    <LineSegment Point="{StaticResource LCARS_BottomLeftCornerStart}"/>
-                                    <BezierSegment Point1="{StaticResource LCARS_BottomLeftCornerStart}" Point2="{StaticResource LCARS_BottomLeft}" Point3="{StaticResource LCARS_BottomLeftCornerFinish}"/>
-                                    <LineSegment Point="{StaticResource LCARS_TopLeftCornerStart}"/>
-                                    <BezierSegment Point1="{StaticResource LCARS_TopLeftCornerStart}" Point2="{StaticResource LCARS_TopLeft}" Point3="{StaticResource LCARS_TopLeftCornerFinish}"/>
+                                <PathFigure StartPoint="{StaticResource LCARS_LHTop_TopLeft}">
+                                    <LineSegment Point="{StaticResource LCARS_LHTop_TopRightCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_LHTop_TopRightCornerStart}" Point2="{StaticResource LCARS_LHTop_TopRight}" Point3="{StaticResource LCARS_LHTop_TopRightCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_LHTop_BottomRightCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_LHTop_BottomRightCornerStart}" Point2="{StaticResource LCARS_LHTop_BottomRight}" Point3="{StaticResource LCARS_LHTop_BottomRightCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_LHTop_BottomMiddleCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_LHTop_BottomMiddleCornerStart}" Point2="{StaticResource LCARS_LHTop_BottomMiddle}" Point3="{StaticResource LCARS_LHTop_BottomMiddleCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_LHTop_BottomLeftCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_LHTop_BottomLeftCornerStart}" Point2="{StaticResource LCARS_LHTop_BottomLeft}" Point3="{StaticResource LCARS_LHTop_BottomLeftCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_LHTop_TopLeftCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_LHTop_TopLeftCornerStart}" Point2="{StaticResource LCARS_LHTop_TopLeft}" Point3="{StaticResource LCARS_LHTop_TopLeftCornerFinish}"/>
                                 </PathFigure>
                             </PathGeometry>
                         </CombinedGeometry.Geometry1>
-                        <CombinedGeometry.Geometry2>
+                        <!--<CombinedGeometry.Geometry2>
                             <PathGeometry>
                                 <PathFigure StartPoint="{StaticResource LCARS_InnerTopLeft}">
                                     <LineSegment Point="{StaticResource LCARS_InnerTopRightCornerStart}"/>
@@ -42,12 +44,12 @@
                                     <BezierSegment Point1="{StaticResource LCARS_InnerTopLeftCornerStart}" Point2="{StaticResource LCARS_InnerTopLeft}" Point3="{StaticResource LCARS_InnerTopLeftCornerFinish}"/>
                                 </PathFigure>
                             </PathGeometry>
-                        </CombinedGeometry.Geometry2>
+                        </CombinedGeometry.Geometry2>-->
                     </CombinedGeometry>
                 </Path.Data>
             </Path>
-            <Label x:Name="TitleLabel" Content="Title" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="57" Margin="4,19,0,0"/>
-            <StackPanel Orientation="Horizontal" Margin="8,13,0,0" Visibility="Visible">
+            <Label x:Name="TitleLabel" Content="TITLE" Style="{DynamicResource Button_LabelStyle}" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="57" Margin="4,86,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="8,13,0,0" Visibility="Hidden">
                 <Grid x:Name="UpDownGrid" Height="90" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="56"/>

@@ -401,25 +401,9 @@
                                 </Border>
                                 <Grid x:Name="LimitUserControlGrid" Width="112" Margin="7,0,0,0"/>
                                 <Grid x:Name="StepUserControlGrid" Width="112" Margin="7,0,0,0"/>
+                                <Grid x:Name="SearchEventTypeControlGrid" Width="309" Margin="7,0,0,0"/>
                                 <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="40" Margin="0,0,0,14">
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,0,0,0">
-                                            <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="110" Height="40" Margin="0,0,6,0">
-                                                <Label Content="Search Details" Style="{DynamicResource Button_LabelStyle}" Foreground="Black"/>
-                                            </Border>
-                                            <Border CornerRadius="6" BorderBrush="#3b71ca" Background="#66ffffff" BorderThickness="1" Height="40" Width="80" MaxWidth="80">
-                                                <TextBox x:Name="SearchTextBox" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0" KeyDown="SearchTextBox_OnKeyDown"/>
-                                            </Border>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,0,0,0">
-                                            <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="90" Height="40" Margin="0,0,6,0">
-                                                    <Label Content="Event Type" Style="{DynamicResource Button_LabelStyle}" Foreground="Black"/>
-                                                </Border>
-                                            <StackPanel Orientation="Horizontal">
-                                                <ComboBox x:Name="EventTypeComboBox" Style="{DynamicResource FrequencyComboBoxStyle}" ItemContainerStyle="{DynamicResource theComboBoxItem}" Background="#66ffffff" Width="280" Height="40" IsEditable="False" SelectionChanged="EventTypeComboBox_SelectionChanged"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </StackPanel>
+                                    
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                                         <Button Tag="15" Style="{DynamicResource Button_ButtonStyle }" Margin="10,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
@@ -489,7 +473,7 @@
                                                 <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Refresh List" Style="{DynamicResource Button_LabelStyle}"/>
                                             </Grid>
                                         </Button>
-                                        <Button Tag="19" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                        <!--<Button Tag="19" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="60"/>
@@ -505,8 +489,8 @@
                                                 </Border>
                                                 <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Delete Key" Style="{DynamicResource Button_LabelStyle}"/>
                                             </Grid>
-                                        </Button>
-                                        <Button Tag="20" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,0,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                        </Button>-->
+                                        <!--<Button Tag="20" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,0,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="60"/>
@@ -522,7 +506,7 @@
                                                 </Border>
                                                 <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Toggle Bank" Style="{DynamicResource Button_LabelStyle}"/>
                                             </Grid>
-                                        </Button>
+                                        </Button>-->
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
