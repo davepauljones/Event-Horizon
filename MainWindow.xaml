@@ -347,55 +347,70 @@
                         </StackPanel.Effect>
                         <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="114">
-                                <Border x:Name="EventOptionsBorder" CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="324">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <StackPanel Orientation="Vertical" Width="76">
-                                            <Label Content="Days" ToolTip="Change the Time Span then click REFRESH" FontWeight="Medium" Margin="8,0,0,0"/>
-                                            <RadioButton Tag="0" GroupName="TimeSpanRadioButton" Content = "Overdue" Background="#FFe60000" Margin="10,-4,0,0" Checked="TimeSpanRadioButton_Checked"/>
-                                            <RadioButton Tag="1" GroupName="TimeSpanRadioButton" Content = "3 Days" Background="#FFff7800" Margin="10,-2,0,0" Checked="TimeSpanRadioButton_Checked"/>
-                                            <RadioButton Tag="2" GroupName="TimeSpanRadioButton" Content = "7 Days" Background="#FF4cbb17" Margin="10,-2,0,0" Checked="TimeSpanRadioButton_Checked"/>
-                                            <RadioButton Tag="3" GroupName="TimeSpanRadioButton" Content = "14 Days" Background="#FF9fee79" Margin="10,-2,0,0" IsChecked="True" Checked="TimeSpanRadioButton_Checked"/>
-                                            <RadioButton Tag="4" GroupName="TimeSpanRadioButton" Content = "28 Days" Background="#FFcff6bb" Margin="10,-2,0,0" Checked="TimeSpanRadioButton_Checked"/>
-                                            <RadioButton Tag="5" GroupName="TimeSpanRadioButton" Content = "60 Days" Background="#FFe7fadd" Margin="10,-2,0,0" Checked="TimeSpanRadioButton_Checked"/>
-                                            <RadioButton Tag="6" GroupName="TimeSpanRadioButton" Content = "90 Days" Background="#FFf3fced" Margin="10,-2,0,0" Checked="TimeSpanRadioButton_Checked"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Vertical" VerticalAlignment="Top">
-                                            <Label Content="User Filter Mode" FontWeight="Medium" Margin="7,0,0,0"/>
-                                            <RadioButton Tag="0" GroupName="FilterModeRadioButton" Content = "All Users" Margin="10,-4,0,0" Checked="FilterModeRadioButton_Checked"/>
-                                            <RadioButton Tag="1" GroupName="FilterModeRadioButton" Content = "Origin is Me" Margin="10,-2,0,0" Checked="FilterModeRadioButton_Checked"/>
-                                            <RadioButton Tag="2" GroupName="FilterModeRadioButton" Content = "Origin or Target is Me" Margin="10,-2,0,0" IsChecked="True" Checked="FilterModeRadioButton_Checked"/>
-                                            <RadioButton Tag="3" GroupName="FilterModeRadioButton" Content = "Origin and Target is Me" Margin="10,-2,0,0" Checked="FilterModeRadioButton_Checked"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Vertical" VerticalAlignment="Top" MinWidth="180">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="*"/>
-                                                    <RowDefinition Height="*"/>
-                                                </Grid.RowDefinitions>
-                                                <Label Grid.Column="0" Grid.Row="0" Content="Display Mode" FontWeight="Medium" Margin="7,0,0,0"/>
-                                                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical">
-                                                    <RadioButton Tag="1" GroupName="DisplayModeRadioButton" Content = "Reminders" Margin="10,-4,0,0" IsChecked="True" Checked="DisplayModeRadioButton_Checked"/>
-                                                    <RadioButton Tag="0" GroupName="DisplayModeRadioButton" Content = "By New" Margin="10,-2,0,0" Checked="DisplayModeRadioButton_Checked"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </StackPanel>
+                                
+                                <Border x:Name="EventOptionsBorder" CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="80" Margin="0,0,0,0">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Label Content="Days" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="14,16,0,0"/>
+                                            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,4,0,0">
+                                                <RadioButton Tag="0" GroupName="TimeSpanRadioButton" Content = "Overdue" Background="#FFe60000" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
+                                                <RadioButton Tag="1" GroupName="TimeSpanRadioButton" Content = "3 Days" Background="#FFff7800" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
+                                                <RadioButton Tag="2" GroupName="TimeSpanRadioButton" Content = "7 Days" Background="#FF4cbb17" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
+                                                <RadioButton Tag="3" GroupName="TimeSpanRadioButton" Content = "14 Days" Background="#FF9fee79" Foreground="White" IsChecked="True" Checked="TimeSpanRadioButton_Checked"/>
+                                                <RadioButton Tag="4" GroupName="TimeSpanRadioButton" Content = "28 Days" Background="#FFcff6bb" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
+                                                <RadioButton Tag="5" GroupName="TimeSpanRadioButton" Content = "60 Days" Background="#FFe7fadd" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
+                                                <RadioButton Tag="6" GroupName="TimeSpanRadioButton" Content = "90 Days" Background="#FFf3fced" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
+                                            </StackPanel>
+                                        </Grid>
                                     </StackPanel>
                                 </Border>
-                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="100" Margin="10,0,0,0">
+                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="148" Margin="10,0,0,0">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Label Content="Filter" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="14,16,0,0"/>
+                                            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
+                                                <RadioButton Tag="0" GroupName="FilterModeRadioButton" Content = "All Users" Foreground="White" Checked="FilterModeRadioButton_Checked"/>
+                                                <RadioButton Tag="1" GroupName="FilterModeRadioButton" Content = "Origin is Me" Foreground="White" Checked="FilterModeRadioButton_Checked"/>
+                                                <RadioButton Tag="2" GroupName="FilterModeRadioButton" Content = "Origin or Target is Me" Foreground="White" IsChecked="True" Checked="FilterModeRadioButton_Checked"/>
+                                                <RadioButton Tag="3" GroupName="FilterModeRadioButton" Content = "Origint &amp; Target is Me" Foreground="White" Checked="FilterModeRadioButton_Checked"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </StackPanel>
+                                </Border>
+                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="88" Margin="10,0,0,0">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Label Content="Mode" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="14,16,0,0"/>
+                                            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
+                                                <RadioButton Tag="1" GroupName="DisplayModeRadioButton" Content = "Reminders" Foreground="White" IsChecked="True" Checked="DisplayModeRadioButton_Checked"/>
+                                                <RadioButton Tag="0" GroupName="DisplayModeRadioButton" Content = "By New" Foreground="White" Checked="DisplayModeRadioButton_Checked"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </StackPanel>
+                                </Border>
+                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="104" Margin="10,0,0,0">
                                     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <Label Grid.Row="0" Content="Record View" Style="{DynamicResource Button_LabelStyle}" Foreground="Black"/>
-                                        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0">
-                                            <RadioButton Tag="0" GroupName="RecordsToViewRadioButton" Content = "No Limit" Checked="RecordsToViewRadioButton_Checked"/>
-                                            <RadioButton Tag="1" GroupName="RecordsToViewRadioButton" Content = "Limit Only" Checked="RecordsToViewRadioButton_Checked"/>
-                                            <RadioButton Tag="2" GroupName="RecordsToViewRadioButton" Content = "Limit + Offset" IsChecked="True" Checked="RecordsToViewRadioButton_Checked"/>
+                                        <Label Content="Records" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="14,16,0,0"/>
+                                        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
+                                            <RadioButton Tag="0" GroupName="RecordsToViewRadioButton" Content = "No Limit" Foreground="White" Checked="RecordsToViewRadioButton_Checked"/>
+                                            <RadioButton Tag="1" GroupName="RecordsToViewRadioButton" Content = "Limit Only" Foreground="White" Checked="RecordsToViewRadioButton_Checked"/>
+                                            <RadioButton Tag="2" GroupName="RecordsToViewRadioButton" Content = "Limit &amp; Offset" Foreground="White" IsChecked="True" Checked="RecordsToViewRadioButton_Checked"/>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
@@ -403,9 +418,8 @@
                                 <Grid x:Name="StepUserControlGrid" Width="112" Margin="7,0,0,0"/>
                                 <Grid x:Name="SearchEventTypeControlGrid" Width="309" Margin="7,0,0,0"/>
                                 <StackPanel Orientation="Vertical">
-                                    
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                        <Button Tag="15" Style="{DynamicResource Button_ButtonStyle }" Margin="10,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,0,0,0">
+                                        <Button Tag="15" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="60"/>
@@ -422,7 +436,7 @@
                                                 <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="All Types" Style="{DynamicResource Button_LabelStyle}"/>
                                             </Grid>
                                         </Button>
-                                        <Button Tag="16" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                        <Button Tag="16" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="60"/>
@@ -439,7 +453,7 @@
                                                 <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Clear Search" Style="{DynamicResource Button_LabelStyle}"/>
                                             </Grid>
                                         </Button>
-                                        <Button Tag="17" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                        <Button Tag="17" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="60"/>
@@ -456,6 +470,8 @@
                                                 <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="New Event" Style="{DynamicResource Button_LabelStyle}"/>
                                             </Grid>
                                         </Button>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,4,0,0">
                                         <Button Tag="18" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -473,7 +489,7 @@
                                                 <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Refresh List" Style="{DynamicResource Button_LabelStyle}"/>
                                             </Grid>
                                         </Button>
-                                        <!--<Button Tag="19" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                        <Button Tag="19" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="60"/>
@@ -489,8 +505,8 @@
                                                 </Border>
                                                 <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Delete Key" Style="{DynamicResource Button_LabelStyle}"/>
                                             </Grid>
-                                        </Button>-->
-                                        <!--<Button Tag="20" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,0,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                        </Button>
+                                        <Button Tag="20" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="60"/>
@@ -506,7 +522,7 @@
                                                 </Border>
                                                 <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Toggle Bank" Style="{DynamicResource Button_LabelStyle}"/>
                                             </Grid>
-                                        </Button>-->
+                                        </Button>
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
