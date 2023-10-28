@@ -5,6 +5,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Windows.Input;
+using System.Collections.Generic;
 
 namespace Event_Horizon.View
 {
@@ -196,14 +197,8 @@ namespace Event_Horizon.View
 
         private Size MeasureString(string candidate, Label label)
         {
-            var formattedText = new FormattedText(
-                candidate,
-                System.Globalization.CultureInfo.CurrentCulture,
-                FlowDirection.LeftToRight,
-                new Typeface(label.FontFamily, label.FontStyle, label.FontWeight, label.FontStretch),
-                label.FontSize,
-                Brushes.Black,
-                new NumberSubstitution(), TextFormattingMode.Display);
+            var formattedText = new FormattedText(candidate, System.Globalization.CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface(label.FontFamily, label.FontStyle, label.FontWeight, label.FontStretch),
+                label.FontSize, Brushes.Black, new NumberSubstitution(), TextFormattingMode.Display);
 
             return new Size(formattedText.Width, formattedText.Height);
         }
@@ -319,6 +314,8 @@ namespace Event_Horizon.View
 
             double labelsDialWidth = (LabelDialRadius > 0.0) ? 2.0 * LabelDialRadius : 1.2 * _ellipseOuterDial.Width;
 
+            int index = 0;
+
             for (int iMajor = 0; iMajor < NumberOfMajorTicks; ++iMajor, majorAngleInRadians += majorArc)
             {
                 // Major tick
@@ -378,7 +375,16 @@ namespace Event_Horizon.View
 
                 Label label = new Label();
                 string text = (MinimumValue + (iMajor * MajorTickIncrement)).ToString();
+
+                List<string> tickString = new List<string> { "0", "3", "7", "14", "28", "60", "90", "0", "0,", "0", "0" };
+
+                text = tickString[index];
+                Console.Write("index = ");
+                Console.WriteLine(index);
+                Console.Write("text = ");
+                Console.WriteLine(tickString[index]);
                 label.Content = text;
+
                 label.HorizontalAlignment = HorizontalAlignment.Center;
                 label.VerticalAlignment = VerticalAlignment.Center;
                 label.Foreground = FontBrush;
@@ -394,6 +400,8 @@ namespace Event_Horizon.View
                 _grid.Children.Add(label);
 
                 UpdateMarkerPosition();
+
+                index++;
             }
         }
 

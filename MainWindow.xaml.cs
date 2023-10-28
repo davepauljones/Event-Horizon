@@ -664,52 +664,89 @@ namespace Event_Horizon
 
         public TimeSpan ReminderListTimeSpan = new TimeSpan(1, 0, 0, 0);
 
-        private void TimeSpanRadioButton_Checked(object sender, RoutedEventArgs e)
+        public void SetReminderListTimeSpan()
         {
-            RadioButton radioButton = e.OriginalSource as RadioButton;
-
-            int buttonID = 0;
-
-            bool success = Int32.TryParse(radioButton.Tag.ToString(), out buttonID);
-
-            if (radioButton != null && success)
+            switch (ReminderTimeSpanUserControl._dialTemperature.Value)
             {
-                switch (buttonID)
-                {
-                    case ReminderListTimeSpans.OverDue:
-                        ReminderListTimeSpan = new TimeSpan(0, 0, 0, 0);
-                        break;
-                    case ReminderListTimeSpans.TimeSpan_1to3_Day:
-                        ReminderListTimeSpan = new TimeSpan(4, 0, 0, 0);
-                        break;
-                    case ReminderListTimeSpans.TimeSpan_4to7_Days:
-                        ReminderListTimeSpan = new TimeSpan(8, 0, 0, 0);
-                        break;
-                    case ReminderListTimeSpans.TimeSpan_8to14_Days:
-                        ReminderListTimeSpan = new TimeSpan(15, 0, 0, 0);
-                        break;
-                    case ReminderListTimeSpans.TimeSpan_15to28_Days:
-                        ReminderListTimeSpan = new TimeSpan(29, 0, 0, 0);
-                        break;
-                    case ReminderListTimeSpans.TimeSpan_29to60_Days:
-                        ReminderListTimeSpan = new TimeSpan(60, 0, 0, 0);
-                        break;
-                    case ReminderListTimeSpans.TimeSpan_61to90_Days:
-                        ReminderListTimeSpan = new TimeSpan(90, 0, 0, 0);
-                        break;
-                }
+                case ReminderListTimeSpans.OverDue:
+                    ReminderListTimeSpan = new TimeSpan(0, 0, 0, 0);
+                    break;
+                case ReminderListTimeSpans.TimeSpan_1to3_Day:
+                    ReminderListTimeSpan = new TimeSpan(4, 0, 0, 0);
+                    break;
+                case ReminderListTimeSpans.TimeSpan_4to7_Days:
+                    ReminderListTimeSpan = new TimeSpan(8, 0, 0, 0);
+                    break;
+                case ReminderListTimeSpans.TimeSpan_8to14_Days:
+                    ReminderListTimeSpan = new TimeSpan(15, 0, 0, 0);
+                    break;
+                case ReminderListTimeSpans.TimeSpan_15to28_Days:
+                    ReminderListTimeSpan = new TimeSpan(29, 0, 0, 0);
+                    break;
+                case ReminderListTimeSpans.TimeSpan_29to60_Days:
+                    ReminderListTimeSpan = new TimeSpan(60, 0, 0, 0);
+                    break;
+                case ReminderListTimeSpans.TimeSpan_61to90_Days:
+                    ReminderListTimeSpan = new TimeSpan(90, 0, 0, 0);
+                    break;
             }
 
-            if (MainWindowIs_Loaded)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
+            //if (MainWindowIs_Loaded)
+            //{
+            //    if (DisplayMode == DisplayModes.Reminders)
+            //        RefreshLog(ListViews.Reminder);
+            //    else
+            //        RefreshLog(ListViews.Log);
 
-                ReminderListScrollViewer.ScrollToTop();
-            }
+            //    ReminderListScrollViewer.ScrollToTop();
+            //}
         }
+        //private void TimeSpanRadioButton_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    RadioButton radioButton = e.OriginalSource as RadioButton;
+
+        //    int buttonID = 0;
+
+        //    bool success = Int32.TryParse(radioButton.Tag.ToString(), out buttonID);
+
+        //    if (radioButton != null && success)
+        //    {
+        //        switch (buttonID)
+        //        {
+        //            case ReminderListTimeSpans.OverDue:
+        //                ReminderListTimeSpan = new TimeSpan(0, 0, 0, 0);
+        //                break;
+        //            case ReminderListTimeSpans.TimeSpan_1to3_Day:
+        //                ReminderListTimeSpan = new TimeSpan(4, 0, 0, 0);
+        //                break;
+        //            case ReminderListTimeSpans.TimeSpan_4to7_Days:
+        //                ReminderListTimeSpan = new TimeSpan(8, 0, 0, 0);
+        //                break;
+        //            case ReminderListTimeSpans.TimeSpan_8to14_Days:
+        //                ReminderListTimeSpan = new TimeSpan(15, 0, 0, 0);
+        //                break;
+        //            case ReminderListTimeSpans.TimeSpan_15to28_Days:
+        //                ReminderListTimeSpan = new TimeSpan(29, 0, 0, 0);
+        //                break;
+        //            case ReminderListTimeSpans.TimeSpan_29to60_Days:
+        //                ReminderListTimeSpan = new TimeSpan(60, 0, 0, 0);
+        //                break;
+        //            case ReminderListTimeSpans.TimeSpan_61to90_Days:
+        //                ReminderListTimeSpan = new TimeSpan(90, 0, 0, 0);
+        //                break;
+        //        }
+        //    }
+
+        //    if (MainWindowIs_Loaded)
+        //    {
+        //        if (DisplayMode == DisplayModes.Reminders)
+        //            RefreshLog(ListViews.Reminder);
+        //        else
+        //            RefreshLog(ListViews.Log);
+
+        //        ReminderListScrollViewer.ScrollToTop();
+        //    }
+        //}
 
         public int FilterMode = FilterModes.None;
 
@@ -1185,6 +1222,28 @@ namespace Event_Horizon
                         {
                             Console.WriteLine(ex.Message);
                         }
+                        break;
+                }
+            }
+        }
+
+        private void FunctionKeyBank_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            Button button = e.OriginalSource as Button;
+
+            int buttonID = 0;
+
+            bool success = Int32.TryParse(button.Tag.ToString(), out buttonID);
+
+            if (button != null && success)
+            {
+                switch (buttonID)
+                {
+                    case 0:
+                        FunctionKeyManager.GoLeftFunctionKeyBank();
+                        break;
+                    case 1:
+                        FunctionKeyManager.GoRightFunctionKeyBank();
                         break;
                 }
             }

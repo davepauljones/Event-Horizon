@@ -37,7 +37,7 @@ namespace Event_Horizon
             }
         }
 
-        private int _output = 20;
+        private int _output = 3;
         public int Output
         {
             get
@@ -48,6 +48,7 @@ namespace Event_Horizon
             {
                 _output = value;
                 NotifyPropertyChanged("Output");
+                MainWindow.mw.SetReminderListTimeSpan();
             }
         }
 

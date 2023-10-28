@@ -17,6 +17,7 @@ namespace Event_Horizon
             {
                 case EventFrequencys.Common_OneTime:
                     frequenceyGrid.Children.Add(CreateFrequencyVisual(1, 1, 96, 23, 0, 0, "#f7f8f9", "ONCE", showDropShadow));
+                    frequenceyGrid.Visibility = Visibility.Hidden;
                     break;
                 case EventFrequencys.Common_Quarterly:
                     frequenceyGrid.Children.Add(CreateFrequencyVisual(4, 1, 20.25, 23, 5, 0, "#FF6cab98", "QUARTERLY", showDropShadow));

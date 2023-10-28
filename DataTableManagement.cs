@@ -379,8 +379,11 @@ namespace Event_Horizon
                 int totalDays = Convert.ToInt32((targetDateTime.Date - DateTime.Today).Days);
                 Color iconEllipeColor = Colors.Pink;
 
-                if ((DateTime.Today + timeSpan) > targetDateTime.Date)
-                {
+                Console.Write("totalDays = ");
+                Console.WriteLine(totalDays);
+
+                //if ((DateTime.Today + timeSpan) > targetDateTime.Date)
+                //{
                     switch (totalDays)
                     {
                         case int n when (n <= 0):
@@ -402,7 +405,7 @@ namespace Event_Horizon
                             iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe7fadd");
                             break;
                     }
-                }
+                //}
 
                 eventHorizonLINQ.Source_ID = eventHorizonLINQ.ID;
 

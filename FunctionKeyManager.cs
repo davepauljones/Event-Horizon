@@ -22,6 +22,50 @@ namespace Event_Horizon
             else
                 PopulateFunctionKeys(FunctionKeyBanks.Bank0);
         }
+        internal static void GoLeftFunctionKeyBank()
+        {
+            if (FunctionKeyBank > 0)
+            {
+                FunctionKeyBank--;
+                PopulateFunctionKeys(FunctionKeyBank);
+            }
+
+            if (FunctionKeyBank > FunctionKeyBanks.Bank0)
+            {
+                MainWindow.mw.LeftBankButton.Foreground = new SolidColorBrush(Colors.White);
+                MainWindow.mw.LeftBankButton.IsEnabled = true;
+            }
+            else
+            {
+                MainWindow.mw.LeftBankButton.Foreground = new SolidColorBrush(Colors.Firebrick);
+                MainWindow.mw.LeftBankButton.IsEnabled = false;
+            }
+
+            MainWindow.mw.RightBankButton.Foreground = new SolidColorBrush(Colors.White);
+            MainWindow.mw.RightBankButton.IsEnabled = true;
+        }
+        internal static void GoRightFunctionKeyBank()
+        {
+            if (FunctionKeyBank < NumberOfFunctionKeyBanks)
+            {
+                FunctionKeyBank++;
+                PopulateFunctionKeys(FunctionKeyBank);
+            }
+
+            if (FunctionKeyBank < NumberOfFunctionKeyBanks)
+            {
+                MainWindow.mw.RightBankButton.Foreground = new SolidColorBrush(Colors.White);
+                MainWindow.mw.RightBankButton.IsEnabled = true;
+            }
+            else
+            {
+                MainWindow.mw.RightBankButton.Foreground = new SolidColorBrush(Colors.Firebrick);
+                MainWindow.mw.RightBankButton.IsEnabled = false;
+            }
+
+            MainWindow.mw.LeftBankButton.Foreground = new SolidColorBrush(Colors.White);
+            MainWindow.mw.LeftBankButton.IsEnabled = true;
+        }
 
         internal static Button CreateButton(string buttonContentString, int width=60, int height=30)
         {

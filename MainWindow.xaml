@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Event_Horizon"
+        xmlns:view="clr-namespace:Event_Horizon.View"
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d"
         Icon="EventHorizonIcon.ico" Name="MainWindowWindow"
@@ -125,7 +126,9 @@
                         </StackPanel.Effect>
                         <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
                             <StackPanel x:Name="EventStackPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                                <Button Tag="0" Style="{DynamicResource Button_ButtonStyle }" Margin="10,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button x:Name="LeftBankButton" Tag="0" Style="{DynamicResource Button_ButtonStyle }" Content="&lt;" FontWeight="ExtraBold" FontSize="20" Width="16" Margin="7,0,5,0" Click="FunctionKeyBank_ButtonClick"/>
+                                
+                                <Button Tag="0" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,5,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="60"/>
@@ -142,7 +145,7 @@
                                         <Label Grid.Column="0" Grid.Row="1" x:Name="F1ButtonLabel" Grid.ColumnSpan="2" Content="Spare" Style="{DynamicResource Button_LabelStyle}"/>
                                     </Grid>
                                 </Button>
-                                <Button Tag="1" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="1" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,5,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="60"/>
@@ -159,7 +162,7 @@
                                         <Label Grid.Column="0" Grid.Row="1" x:Name="F2ButtonLabel" Grid.ColumnSpan="2" Content="Spare" Style="{DynamicResource Button_LabelStyle}"/>
                                     </Grid>
                                 </Button>
-                                <Button Tag="2" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="2" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,5,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="60"/>
@@ -176,7 +179,7 @@
                                         <Label Grid.Column="0" Grid.Row="1" x:Name="F3ButtonLabel" Grid.ColumnSpan="2" Content="Spare" Style="{DynamicResource Button_LabelStyle}"/>
                                     </Grid>
                                 </Button>
-                                <Button Tag="3" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="3" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,5,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="60"/>
@@ -193,7 +196,7 @@
                                         <Label Grid.Column="0" Grid.Row="1" x:Name="F4ButtonLabel" Grid.ColumnSpan="2" Content="Spare" Style="{DynamicResource Button_LabelStyle}"/>
                                     </Grid>
                                 </Button>
-                                <Button Tag="4" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="4" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,5,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="60"/>
@@ -210,7 +213,7 @@
                                         <Label Grid.Column="0" Grid.Row="1" x:Name="F5ButtonLabel" Grid.ColumnSpan="2" Content="Spare" Style="{DynamicResource Button_LabelStyle}"/>
                                     </Grid>
                                 </Button>
-                                <Button Tag="5" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="5" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,5,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="60"/>
@@ -227,7 +230,7 @@
                                         <Label Grid.Column="0" Grid.Row="1" x:Name="F6ButtonLabel" Grid.ColumnSpan="2" Content="Spare" Style="{DynamicResource Button_LabelStyle}"/>
                                     </Grid>
                                 </Button>
-                                <Button Tag="6" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="6" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,5,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="60"/>
@@ -244,7 +247,7 @@
                                         <Label Grid.Column="0" Grid.Row="1" x:Name="F7ButtonLabel" Grid.ColumnSpan="2" Content="Spare" Style="{DynamicResource Button_LabelStyle}"/>
                                     </Grid>
                                 </Button>
-                                <Button Tag="7" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="7" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,5,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="60"/>
@@ -261,7 +264,7 @@
                                         <Label Grid.Column="0" Grid.Row="1" x:Name="F8ButtonLabel" Grid.ColumnSpan="2" Content="Spare" Style="{DynamicResource Button_LabelStyle}"/>
                                     </Grid>
                                 </Button>
-                                <Button Tag="8" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="8" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,5,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="60"/>
@@ -278,7 +281,7 @@
                                         <Label Grid.Column="0" Grid.Row="1" x:Name="F9ButtonLabel" Grid.ColumnSpan="2" Content="Spare" Style="{DynamicResource Button_LabelStyle}"/>
                                     </Grid>
                                 </Button>
-                                <Button Tag="9" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="9" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,5,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="60"/>
@@ -295,7 +298,7 @@
                                         <Label Grid.Column="0" Grid.Row="1" x:Name="F10ButtonLabel" Grid.ColumnSpan="2" Content="Spare" Style="{DynamicResource Button_LabelStyle}"/>
                                     </Grid>
                                 </Button>
-                                <Button Tag="10" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="10" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,5,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="60"/>
@@ -312,7 +315,7 @@
                                         <Label Grid.Column="0" Grid.Row="1" x:Name="F11ButtonLabel" Grid.ColumnSpan="2" Content="Spare" Style="{DynamicResource Button_LabelStyle}"/>
                                     </Grid>
                                 </Button>
-                                <Button Tag="11" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,8.9,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                <Button Tag="11" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,5,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="60"/>
@@ -329,6 +332,7 @@
                                         <Label Grid.Column="0" Grid.Row="1" x:Name="F12ButtonLabel" Grid.ColumnSpan="2" Content="Spare" Style="{DynamicResource Button_LabelStyle}"/>
                                     </Grid>
                                 </Button>
+                                <Button x:Name="RightBankButton" Tag="1" Style="{DynamicResource Button_ButtonStyle }" Content=">" FontWeight="ExtraBold" FontSize="20" Width="16" Margin="0,0,6,0" Click="FunctionKeyBank_ButtonClick"/>
                             </StackPanel>
                         </ScrollViewer>
                     </StackPanel>
@@ -348,7 +352,7 @@
                         <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="114">
                                 
-                                <Border x:Name="EventOptionsBorder" CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="80" Margin="0,0,0,0">
+                                <!--<Border x:Name="EventOptionsBorder" CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="80" Margin="0,0,0,0">
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                                         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
                                             <Grid.RowDefinitions>
@@ -357,7 +361,7 @@
                                             </Grid.RowDefinitions>
                                             <Label Content="Days" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="14,16,0,0"/>
                                             <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
-                                                <RadioButton Tag="0" GroupName="TimeSpanRadioButton" Content = "Overdue" Background="#FFe60000" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
+                                                <RadioButton Tag="0" GroupName="TimeSpanRadioButton" Content = "Overdue" Background="Crimson" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
                                                 <RadioButton Tag="1" GroupName="TimeSpanRadioButton" Content = "3 Days" Background="#FFff7800" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
                                                 <RadioButton Tag="2" GroupName="TimeSpanRadioButton" Content = "7 Days" Background="#FF4cbb17" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
                                                 <RadioButton Tag="3" GroupName="TimeSpanRadioButton" Content = "14 Days" Background="#FF9fee79" Foreground="White" IsChecked="True" Checked="TimeSpanRadioButton_Checked"/>
@@ -367,7 +371,7 @@
                                             </StackPanel>
                                         </Grid>
                                     </StackPanel>
-                                </Border>
+                                </Border>-->
                                 <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="148" Margin="10,0,0,0">
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                                         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
@@ -385,7 +389,7 @@
                                         </Grid>
                                     </StackPanel>
                                 </Border>
-                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="88" Margin="10,0,0,0">
+                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="88" Margin="6,0,0,0">
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                                         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
                                             <Grid.RowDefinitions>
@@ -400,7 +404,7 @@
                                         </Grid>
                                     </StackPanel>
                                 </Border>
-                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="104" Margin="10,0,0,0">
+                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="104" Margin="6,0,0,0">
                                     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
@@ -414,15 +418,15 @@
                                         </StackPanel>
                                     </Grid>
                                 </Border>
-                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="114" Margin="10,0,0,0">
-                                    <local:ArcSliderUserControl />
+                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="116" Margin="6,0,0,0">
+                                    <local:ArcSliderUserControl x:Name="ReminderTimeSpanUserControl" />
                                 </Border>
-                                <Grid x:Name="LimitUserControlGrid" Width="112" Margin="7,0,0,0"/>
-                                <Grid x:Name="StepUserControlGrid" Width="112" Margin="7,0,0,0"/>
-                                <Grid x:Name="SearchEventTypeControlGrid" Width="309" Margin="7,0,0,0"/>
+                                <Grid x:Name="LimitUserControlGrid" Width="112" Margin="6,0,0,0"/>
+                                <Grid x:Name="StepUserControlGrid" Width="112" Margin="6,0,0,0"/>
+                                <Grid x:Name="SearchEventTypeControlGrid" Width="309" Margin="6,0,0,0"/>
                                 <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,0,0,0">
-                                        <Button Tag="15" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="6,0,0,0">
+                                        <Button Tag="15" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,6,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="60"/>
@@ -439,7 +443,7 @@
                                                 <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="All Types" Style="{DynamicResource Button_LabelStyle}"/>
                                             </Grid>
                                         </Button>
-                                        <Button Tag="16" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                        <Button Tag="16" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,6,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="60"/>
@@ -456,7 +460,7 @@
                                                 <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Clear Search" Style="{DynamicResource Button_LabelStyle}"/>
                                             </Grid>
                                         </Button>
-                                        <Button Tag="17" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                        <Button Tag="17" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,10,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="60"/>
@@ -475,7 +479,7 @@
                                         </Button>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,4,0,0">
-                                        <Button Tag="18" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                        <Button Tag="18" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,6,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="60"/>
@@ -492,7 +496,7 @@
                                                 <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Refresh List" Style="{DynamicResource Button_LabelStyle}"/>
                                             </Grid>
                                         </Button>
-                                        <Button Tag="19" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                        <Button Tag="19" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,6,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="60"/>
@@ -509,7 +513,7 @@
                                                 <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Delete Key" Style="{DynamicResource Button_LabelStyle}"/>
                                             </Grid>
                                         </Button>
-                                        <Button Tag="20" Style="{DynamicResource Button_ButtonStyle }" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                        <Button Tag="20" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,10,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="60"/>

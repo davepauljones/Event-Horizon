@@ -197,6 +197,12 @@ namespace Event_Horizon
                     eventRow.SourceIDTextBlock.Text = XMLReaderWriter.SourceTypesList[eventHorizonLINQ.SourceID].Name;
                     eventRow.BackgroundGrid.Background = new SolidColorBrush(Colors.Transparent);
                     eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Visible;
+
+                    if (eventHorizonLINQ.SourceID == 0)
+                    {
+                        eventRow.SourceIDTextBlock.Text = string.Empty;
+                        eventRow.SourceTypeFontAwesomeIconBorder.Visibility = Visibility.Hidden;
+                    }
                 }
                 else
                 {

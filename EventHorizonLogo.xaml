@@ -22,7 +22,7 @@
                         buy me a coffee on Patreon
                     </Hyperlink>
                 </TextBlock>
-                <Label Content="408 Man Hours" Foreground="DarkSlateGray" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <Label Content="424 Man Hours" Foreground="DarkSlateGray" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center"/>
             </StackPanel>
 
         </StackPanel>

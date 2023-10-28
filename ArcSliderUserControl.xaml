@@ -5,26 +5,90 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Event_Horizon"
              xmlns:view="clr-namespace:Event_Horizon.View"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
             Width="113" Height="113">
-    <Grid>
-        <view:RotaryControl Grid.Row="0" Grid.Column="3" x:Name="_dialTemperature" Value="{Binding Temperature, Mode=TwoWay}" FontBrush="Black" FontSize="20" Foreground="Black" Background="Transparent">
-            <view:RotaryControl.MinimumValue>20</view:RotaryControl.MinimumValue>
-            <view:RotaryControl.NumberOfMajorTicks>9</view:RotaryControl.NumberOfMajorTicks>
-            <view:RotaryControl.MajorTickIncrement>10</view:RotaryControl.MajorTickIncrement>
-            <view:RotaryControl.MajorTickBrush>White</view:RotaryControl.MajorTickBrush>
-            <view:RotaryControl.NumberOfMinorTicks>4</view:RotaryControl.NumberOfMinorTicks>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <view:RotaryControl x:Name="_dialTemperature" Value="{Binding Output, Mode=TwoWay}" FontBrush="White" FontSize="36" Foreground="Black" Background="Transparent">
+            <view:RotaryControl.MinimumValue>0</view:RotaryControl.MinimumValue>
+            <view:RotaryControl.NumberOfMajorTicks>7</view:RotaryControl.NumberOfMajorTicks>
+            <view:RotaryControl.MajorTickIncrement>1</view:RotaryControl.MajorTickIncrement>
+            <view:RotaryControl.MajorTickBrush>Black</view:RotaryControl.MajorTickBrush>
+            <view:RotaryControl.MajorTickWidth>4</view:RotaryControl.MajorTickWidth>
+            <view:RotaryControl.NumberOfMinorTicks>0</view:RotaryControl.NumberOfMinorTicks>
             <view:RotaryControl.MinorTickBrush>White</view:RotaryControl.MinorTickBrush>
-            <view:RotaryControl.OuterDialFill>SteelBlue</view:RotaryControl.OuterDialFill>
+
+            <view:RotaryControl.SegmentThickness>20</view:RotaryControl.SegmentThickness>
+            <view:RotaryControl.SegmentRadius>60</view:RotaryControl.SegmentRadius>
+            
+            <view:RotaryControl.Segments>
+                <x:Array Type="{x:Type view:RotaryControlSegment}">
+                    <view:RotaryControlSegment Fill="#FFe60000" AngleInDegrees="50"/>
+                    <view:RotaryControlSegment Fill="#FFff7800" AngleInDegrees="50"/>
+                    <view:RotaryControlSegment Fill="#FF4cbb17" AngleInDegrees="50"/>
+                    <view:RotaryControlSegment Fill="#FF9fee79" AngleInDegrees="50"/>
+                    <view:RotaryControlSegment Fill="#FFcff6bb" AngleInDegrees="50"/>
+                    <view:RotaryControlSegment Fill="#FFe7fadd" AngleInDegrees="50"/>
+                </x:Array>
+            </view:RotaryControl.Segments>
+
+            <view:RotaryControl.OuterDialFill>Transparent</view:RotaryControl.OuterDialFill>
             <view:RotaryControl.OuterDialBorder>Transparent</view:RotaryControl.OuterDialBorder>
             <view:RotaryControl.OuterDialBorderThickness>1</view:RotaryControl.OuterDialBorderThickness>
-            <view:RotaryControl.InnerDialRadius>60</view:RotaryControl.InnerDialRadius>
+            <view:RotaryControl.InnerDialRadius>40</view:RotaryControl.InnerDialRadius>
+            <view:RotaryControl.PointerFill>
+                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                    <GradientStop Color="Orange" Offset="0"/>
+                    <GradientStop Color="Firebrick" Offset="1.0"/>
+                </LinearGradientBrush>
+            </view:RotaryControl.PointerFill>
+        <view:RotaryControl.LayoutTransform>
+                <ScaleTransform  ScaleX="0.4" ScaleY="0.4"/>
+            </view:RotaryControl.LayoutTransform>
+        </view:RotaryControl>
+        <!--<view:RotaryControl x:Name="_dialOutput" Grid.Row="0" Grid.Column="5" FontSize="18" FontBrush="Black" Foreground="DarkRed" Background="Transparent" Value="{Binding Output, Mode=TwoWay}">
+
+            <view:RotaryControl.NumberOfMajorTicks>13</view:RotaryControl.NumberOfMajorTicks>
+            <view:RotaryControl.MajorTickIncrement>7</view:RotaryControl.MajorTickIncrement>
+            <view:RotaryControl.MajorTickBrush>White</view:RotaryControl.MajorTickBrush>
+            <view:RotaryControl.NumberOfMinorTicks>0</view:RotaryControl.NumberOfMinorTicks>
+            <view:RotaryControl.MinorTickBrush>White</view:RotaryControl.MinorTickBrush>
+
+            <view:RotaryControl.SegmentThickness>20</view:RotaryControl.SegmentThickness>
+            <view:RotaryControl.SegmentRadius>67</view:RotaryControl.SegmentRadius>
+            <view:RotaryControl.Segments>
+                <x:Array Type="{x:Type view:RotaryControlSegment}" >
+                    <view:RotaryControlSegment Fill="YellowGreen" AngleInDegrees="91"/>
+                    <view:RotaryControlSegment Fill="Gold" AngleInDegrees="30"/>
+                    <view:RotaryControlSegment Fill="Orange" AngleInDegrees="30"/>
+                    <view:RotaryControlSegment Fill="Crimson" AngleInDegrees="30"/>
+                    <view:RotaryControlSegment Fill="White" AngleInDegrees="180"/>
+                </x:Array>
+            </view:RotaryControl.Segments>
+
+            <view:RotaryControl.OuterDialBorder>White</view:RotaryControl.OuterDialBorder>
+            <view:RotaryControl.OuterDialBorderThickness>1</view:RotaryControl.OuterDialBorderThickness>
+            <view:RotaryControl.OuterDialFill>Maroon</view:RotaryControl.OuterDialFill>
+
+            <view:RotaryControl.InnerDialRadius>65</view:RotaryControl.InnerDialRadius>
+            <view:RotaryControl.InnerDialFill>
+                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                    <GradientStop Color="#BBBBBB" Offset="0"/>
+                    <GradientStop Color="#EEEEEE" Offset="1.0"/>
+                </LinearGradientBrush>
+            </view:RotaryControl.InnerDialFill>
+
             <view:RotaryControl.PointerFill>
                 <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
                     <GradientStop Color="#DDDDDD" Offset="0"/>
-                    <GradientStop Color="#BBBBBB" Offset="1.0"/>
+                    <GradientStop Color="#AAAAAA" Offset="1.0"/>
                 </LinearGradientBrush>
             </view:RotaryControl.PointerFill>
-        </view:RotaryControl>
+
+            <view:RotaryControl.LayoutTransform>
+                <ScaleTransform  ScaleX="0.3" ScaleY="0.3"/>
+            </view:RotaryControl.LayoutTransform>
+        </view:RotaryControl>-->
+        <!--<Label Grid.Row="2" Grid.Column="5" Content="{Binding Output}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,2"/>-->
+        <Label Content="Days" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Margin="0,0,0,-16"/>
     </Grid>
 </UserControl>
