@@ -356,7 +356,7 @@
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
                                             <Label Content="Days" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="14,16,0,0"/>
-                                            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,4,0,0">
+                                            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
                                                 <RadioButton Tag="0" GroupName="TimeSpanRadioButton" Content = "Overdue" Background="#FFe60000" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
                                                 <RadioButton Tag="1" GroupName="TimeSpanRadioButton" Content = "3 Days" Background="#FFff7800" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
                                                 <RadioButton Tag="2" GroupName="TimeSpanRadioButton" Content = "7 Days" Background="#FF4cbb17" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
@@ -413,6 +413,9 @@
                                             <RadioButton Tag="2" GroupName="RecordsToViewRadioButton" Content = "Limit &amp; Offset" Foreground="White" IsChecked="True" Checked="RecordsToViewRadioButton_Checked"/>
                                         </StackPanel>
                                     </Grid>
+                                </Border>
+                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="114" Margin="10,0,0,0">
+                                    <local:ArcSliderUserControl />
                                 </Border>
                                 <Grid x:Name="LimitUserControlGrid" Width="112" Margin="7,0,0,0"/>
                                 <Grid x:Name="StepUserControlGrid" Width="112" Margin="7,0,0,0"/>

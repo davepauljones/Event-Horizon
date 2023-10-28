@@ -137,6 +137,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ArcSliderUserControl.xaml.cs">
+      <DependentUpon>ArcSliderUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ConverterFunctions.cs" />
     <Compile Include="DatabasePoller.cs" />
     <Compile Include="DataTableManagement.cs" />
@@ -153,6 +156,10 @@
     <Compile Include="FunctionKeyManager.cs" />
     <Compile Include="EventHorizonUpDown.xaml.cs">
       <DependentUpon>EventHorizonUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainViewModel.cs" />
+    <Compile Include="View\RotaryControl.xaml.cs">
+      <DependentUpon>RotaryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="WidgetLogo.xaml.cs">
       <DependentUpon>WidgetLogo.xaml</DependentUpon>
@@ -211,6 +218,10 @@
       <DependentUpon>WidgetDateToday.xaml</DependentUpon>
     </Compile>
     <Compile Include="XMLReaderWriter.cs" />
+    <Page Include="ArcSliderUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EventHorizonLogo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -230,6 +241,10 @@
     <Page Include="EventHorizonUpDown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RotaryControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="WidgetLogo.xaml">
       <SubType>Designer</SubType>
