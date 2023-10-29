@@ -350,7 +350,7 @@
                         <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="114">
                                 <Border CornerRadius="6" BorderBrush="#ff003a72" BorderThickness="0" Width="180" Margin="10,0,5,0" Background="#66ffffff">
-                                    <Image Source="pack://application:,,/Images/gplv3-162x83.png" Stretch="Fill" Width="162" Height="83" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Image Source="pack://application:,,/Images/gplv3-130x66.png" Stretch="None" Width="130" Height="66" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
                                 <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="156" Margin="0,0,5,0">
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
