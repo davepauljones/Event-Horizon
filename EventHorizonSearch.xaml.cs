@@ -57,5 +57,38 @@ namespace Event_Horizon
             }
         }
 
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = e.OriginalSource as Button;
+
+            int buttonID = 0;
+
+            bool success = Int32.TryParse(button.Tag.ToString(), out buttonID);
+
+            if (button != null && success)
+            {
+                switch (buttonID)
+                {
+                    case 0:
+                        MainWindow.mw.eventHorizonSearch.SearchTextBox.Text = string.Empty;
+                        if (MainWindow.mw.MainWindowIs_Loaded)
+                        {
+                            if (MainWindow.mw.DisplayMode == DisplayModes.Reminders)
+                                MainWindow.mw.RefreshLog(ListViews.Reminder);
+                            else
+                                MainWindow.mw.RefreshLog(ListViews.Log);
+
+                            MainWindow.mw.ReminderListScrollViewer.ScrollToTop();
+                        }
+                        break;
+                    case 1:
+                        MainWindow.mw.eventHorizonSearch.EventTypeComboBox.SelectedIndex = 0;
+                        MainWindow.mw.EventTypeID = MainWindow.mw.eventHorizonSearch.EventTypeComboBox.SelectedIndex;
+                        MainWindow.mw.eventHorizonSearch.SearchTextBox.Text = string.Empty;
+                        break;
+                }
+            }
+        }
+
     }
 }

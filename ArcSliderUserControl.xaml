@@ -89,6 +89,5 @@
             </view:RotaryControl.LayoutTransform>
         </view:RotaryControl>-->
         <!--<Label Grid.Row="2" Grid.Column="5" Content="{Binding Output}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,2"/>-->
-        <Label Content="Days" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Margin="0,0,0,-16"/>
     </Grid>
 </UserControl>

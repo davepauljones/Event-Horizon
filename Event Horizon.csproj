@@ -419,6 +419,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\EventHorizonLogo189x23.png" />
+    <Resource Include="Images\wormhole189x141.png" />
     <Content Include="XMLFiles\EventHorizonLocalSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

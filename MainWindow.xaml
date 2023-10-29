@@ -127,7 +127,6 @@
                         <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
                             <StackPanel x:Name="EventStackPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                                 <Button x:Name="LeftBankButton" Tag="0" Style="{DynamicResource Button_ButtonStyle }" Content="&lt;" FontWeight="ExtraBold" FontSize="20" Width="16" Margin="7,0,5,0" Click="FunctionKeyBank_ButtonClick"/>
-                                
                                 <Button Tag="0" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,5,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -351,36 +350,22 @@
                         </StackPanel.Effect>
                         <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="114">
-                                
-                                <!--<Border x:Name="EventOptionsBorder" CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="80" Margin="0,0,0,0">
+                                <Border CornerRadius="6" BorderBrush="#ff003a72" BorderThickness="0" Width="180" Margin="10,0,5,0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="pack://application:,,/Images/wormhole189x141.png" Stretch="None"/>
+                                    </Border.Background>
+                                </Border>
+                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="154" Margin="0,0,5,0">
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
-                                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
+                                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,2,0,0">
                                             <Grid.RowDefinitions>
+                                                <RowDefinition Height="34"/>
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
-                                            <Label Content="Days" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="14,16,0,0"/>
-                                            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
-                                                <RadioButton Tag="0" GroupName="TimeSpanRadioButton" Content = "Overdue" Background="Crimson" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
-                                                <RadioButton Tag="1" GroupName="TimeSpanRadioButton" Content = "3 Days" Background="#FFff7800" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
-                                                <RadioButton Tag="2" GroupName="TimeSpanRadioButton" Content = "7 Days" Background="#FF4cbb17" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
-                                                <RadioButton Tag="3" GroupName="TimeSpanRadioButton" Content = "14 Days" Background="#FF9fee79" Foreground="White" IsChecked="True" Checked="TimeSpanRadioButton_Checked"/>
-                                                <RadioButton Tag="4" GroupName="TimeSpanRadioButton" Content = "28 Days" Background="#FFcff6bb" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
-                                                <RadioButton Tag="5" GroupName="TimeSpanRadioButton" Content = "60 Days" Background="#FFe7fadd" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
-                                                <RadioButton Tag="6" GroupName="TimeSpanRadioButton" Content = "90 Days" Background="#FFf3fced" Foreground="White" Checked="TimeSpanRadioButton_Checked"/>
-                                            </StackPanel>
-                                        </Grid>
-                                    </StackPanel>
-                                </Border>-->
-                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="148" Margin="10,0,0,0">
-                                    <StackPanel Orientation="Vertical" VerticalAlignment="Top">
-                                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                            </Grid.RowDefinitions>
-                                            <Label Content="Filter" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="14,16,0,0"/>
-                                            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
+                                            <StackPanel Grid.Row="0" Orientation="Vertical" x:Name="CurrentUserFilterStackPanel" Margin="0,4,0,0"/>
+                                            <Label Grid.Row="1" Content="User Filter" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="0,-6,0,0"/>
+                                            <StackPanel Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0">
                                                 <RadioButton Tag="0" GroupName="FilterModeRadioButton" Content = "All Users" Foreground="White" Checked="FilterModeRadioButton_Checked"/>
                                                 <RadioButton Tag="1" GroupName="FilterModeRadioButton" Content = "Origin is Me" Foreground="White" Checked="FilterModeRadioButton_Checked"/>
                                                 <RadioButton Tag="2" GroupName="FilterModeRadioButton" Content = "Origin or Target is Me" Foreground="White" IsChecked="True" Checked="FilterModeRadioButton_Checked"/>
@@ -389,14 +374,14 @@
                                         </Grid>
                                     </StackPanel>
                                 </Border>
-                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="88" Margin="6,0,0,0">
+                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="88" Margin="0,0,5,0">
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                                         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
-                                            <Label Content="Mode" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="14,16,0,0"/>
+                                            <Label Content="Mode" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="0,16,0,0"/>
                                             <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
                                                 <RadioButton Tag="1" GroupName="DisplayModeRadioButton" Content = "Reminders" Foreground="White" IsChecked="True" Checked="DisplayModeRadioButton_Checked"/>
                                                 <RadioButton Tag="0" GroupName="DisplayModeRadioButton" Content = "By New" Foreground="White" Checked="DisplayModeRadioButton_Checked"/>
@@ -404,13 +389,23 @@
                                         </Grid>
                                     </StackPanel>
                                 </Border>
-                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="104" Margin="6,0,0,0">
+                                <Border x:Name="ReminderTimeSpanBorder" CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="116" Margin="0,0,5,0">
+                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="20"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Row="0" Content="Days" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"/>
+                                        <local:ArcSliderUserControl Grid.Row="1" x:Name="ReminderTimeSpanUserControl" Margin="-2,-10,0,0"/>
+                                    </Grid>
+                                </Border>
+                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="104" Margin="0,0,5,0">
                                     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <Label Content="Records" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="14,16,0,0"/>
+                                        <Label Content="Records" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="0,16,0,0"/>
                                         <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
                                             <RadioButton Tag="0" GroupName="RecordsToViewRadioButton" Content = "No Limit" Foreground="White" Checked="RecordsToViewRadioButton_Checked"/>
                                             <RadioButton Tag="1" GroupName="RecordsToViewRadioButton" Content = "Limit Only" Foreground="White" Checked="RecordsToViewRadioButton_Checked"/>
@@ -418,116 +413,20 @@
                                         </StackPanel>
                                     </Grid>
                                 </Border>
-                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="116" Margin="6,0,0,0">
-                                    <local:ArcSliderUserControl x:Name="ReminderTimeSpanUserControl" />
-                                </Border>
-                                <Grid x:Name="LimitUserControlGrid" Width="112" Margin="6,0,0,0"/>
-                                <Grid x:Name="StepUserControlGrid" Width="112" Margin="6,0,0,0"/>
-                                <Grid x:Name="SearchEventTypeControlGrid" Width="309" Margin="6,0,0,0"/>
+                                <Grid x:Name="LimitUserControlGrid" Width="112" Margin="0,0,5,0"/>
+                                <Grid x:Name="StepUserControlGrid" Width="112" Margin="0,0,5,0"/>
+                                <Grid x:Name="SearchEventTypeControlGrid" Width="345" Margin="0,0,5,0"/>
+
                                 <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="6,0,0,0">
-                                        <Button Tag="15" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,6,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                        <Button Tag="18" Style="{DynamicResource Button_ButtonStyle }" Height="114" Margin="0,0,8,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
                                             <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="60"/>
-                                                    <ColumnDefinition Width="38"/>
-                                                </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
-                                                    <RowDefinition Height="34"/>
-                                                    <RowDefinition Height="18"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="90"/>
                                                 </Grid.RowDefinitions>
-                                                <Label Grid.Column="0" Grid.Row="0" Content="A" Style="{DynamicResource ButtonBold_LabelStyle}"/>
-                                                <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource Button_BorderStyle}" Background="DodgerBlue">
-                                                    <fa:FontAwesome Icon="File" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-                                                </Border>
-                                                <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="All Types" Style="{DynamicResource Button_LabelStyle}"/>
-                                            </Grid>
-                                        </Button>
-                                        <Button Tag="16" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,6,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="60"/>
-                                                    <ColumnDefinition Width="38"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="34"/>
-                                                    <RowDefinition Height="18"/>
-                                                </Grid.RowDefinitions>
-                                                <Label Grid.Column="0" Grid.Row="0" Content="C" Style="{DynamicResource ButtonBold_LabelStyle}"/>
-                                                <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource Button_BorderStyle}" Background="ForestGreen">
-                                                    <fa:FontAwesome Icon="File" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-                                                </Border>
-                                                <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Clear Search" Style="{DynamicResource Button_LabelStyle}"/>
-                                            </Grid>
-                                        </Button>
-                                        <Button Tag="17" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,10,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="60"/>
-                                                    <ColumnDefinition Width="38"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="34"/>
-                                                    <RowDefinition Height="18"/>
-                                                </Grid.RowDefinitions>
-                                                <Label Grid.Column="0" Grid.Row="0" Content="N" Style="{DynamicResource ButtonBold_LabelStyle}"/>
-                                                <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource Button_BorderStyle}" Background="Firebrick">
-                                                    <fa:FontAwesome Icon="File" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-                                                </Border>
-                                                <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="New Event" Style="{DynamicResource Button_LabelStyle}"/>
-                                            </Grid>
-                                        </Button>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,4,0,0">
-                                        <Button Tag="18" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,6,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="60"/>
-                                                    <ColumnDefinition Width="38"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="34"/>
-                                                    <RowDefinition Height="18"/>
-                                                </Grid.RowDefinitions>
-                                                <Label Grid.Column="0" Grid.Row="0" Content="R" Style="{DynamicResource ButtonBold_LabelStyle}"/>
-                                                <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource Button_BorderStyle}" Background="DodgerBlue">
-                                                    <fa:FontAwesome Icon="Recycle" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-                                                </Border>
-                                                <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Refresh List" Style="{DynamicResource Button_LabelStyle}"/>
-                                            </Grid>
-                                        </Button>
-                                        <Button Tag="19" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,6,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="60"/>
-                                                    <ColumnDefinition Width="38"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="34"/>
-                                                    <RowDefinition Height="18"/>
-                                                </Grid.RowDefinitions>
-                                                <Label Grid.Column="0" Grid.Row="0" Content="DEL" Style="{DynamicResource ButtonBold_LabelStyle}"/>
-                                                <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource Button_BorderStyle}" Background="Firebrick">
-                                                    <fa:FontAwesome Icon="Eraser" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-                                                </Border>
-                                                <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Delete Key" Style="{DynamicResource Button_LabelStyle}"/>
-                                            </Grid>
-                                        </Button>
-                                        <Button Tag="20" Style="{DynamicResource Button_ButtonStyle }" Margin="0,0,10,0" Click="TreeView_ButtonClick" MouseRightButtonDown="TreeView_MouseRightButtonDown">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="60"/>
-                                                    <ColumnDefinition Width="38"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="34"/>
-                                                    <RowDefinition Height="18"/>
-                                                </Grid.RowDefinitions>
-                                                <Label Grid.Column="0" Grid.Row="0" Content="T" Style="{DynamicResource ButtonBold_LabelStyle}"/>
-                                                <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource Button_BorderStyle}" Background="ForestGreen">
-                                                    <fa:FontAwesome Icon="ToggleUp" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-                                                </Border>
-                                                <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Toggle Bank" Style="{DynamicResource Button_LabelStyle}"/>
+                                                <Label Grid.Row="0" Content="Refresh List" Style="{DynamicResource Button_LabelStyle}" Margin="0,2,0,0"/>
+                                                <fa:FontAwesome Grid.Row="1" Icon="Recycle" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}" Width="114" Height="90" Margin="0,10,0,0" FontSize="80" Foreground="Firebrick" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Grid>
                                         </Button>
                                     </StackPanel>

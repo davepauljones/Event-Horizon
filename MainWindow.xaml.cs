@@ -16,7 +16,7 @@ namespace Event_Horizon
     /// </summary>
     public partial class MainWindow : Window
     {
-        int EventTypeID = 0;
+        public int EventTypeID = 0;
 
         internal WidgetDateToday widgetDateToday;
         internal WidgetTimeNow widgetTimeNow;
@@ -122,7 +122,7 @@ namespace Event_Horizon
                 Close();
         }
 
-        bool MainWindowIs_Loaded = false;
+        public bool MainWindowIs_Loaded = false;
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -144,6 +144,8 @@ namespace Event_Horizon
             widgetCurrentUser = new WidgetCurrentUser();
             WidgetCurrentUserGrid.Children.Add(widgetCurrentUser);
 
+
+
             if (EventHorizonDatabaseCreate.CheckIfDatabaseExists())
             {
                 Init_OracleDatabaseFileWatcher();
@@ -157,6 +159,8 @@ namespace Event_Horizon
                 SearchEventTypeControlGrid.Children.Add(eventHorizonSearch);
 
                 RefreshXML();
+
+                FunctionKeyManager.GoLeftFunctionKeyBank();
 
                 CheckMyUnreadAndMyReminders();
 
@@ -210,6 +214,7 @@ namespace Event_Horizon
         public void RefreshXML()
         {
             widgetCurrentUser.CurrentUserStackPanel.Children.Add(EventHorizonTokens.GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[XMLReaderWriter.UserID]));
+            CurrentUserFilterStackPanel.Children.Add(EventHorizonTokens.GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[XMLReaderWriter.UserID]));
             EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(widgetUsersOnline.UsersOnlineStackPanel);
             AddItemsToEventTypeComboBox();
         }
@@ -780,15 +785,15 @@ namespace Event_Horizon
             Console.Write("FilterMode = ");
             Console.WriteLine(FilterMode);
 
-            if (MainWindowIs_Loaded)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
+            //if (MainWindowIs_Loaded)
+            //{
+            //    if (DisplayMode == DisplayModes.Reminders)
+            //        RefreshLog(ListViews.Reminder);
+            //    else
+            //        RefreshLog(ListViews.Log);
 
-                ReminderListScrollViewer.ScrollToTop();
-            }
+            //    ReminderListScrollViewer.ScrollToTop();
+            //}
         }
 
         public int DisplayMode = DisplayModes.Reminders;
@@ -809,9 +814,13 @@ namespace Event_Horizon
                     {
                         case DisplayModes.Normal:
                             DisplayMode = DisplayModes.Normal;
+                            ReminderTimeSpanBorder.Opacity = 0.7;
+                            ReminderTimeSpanBorder.IsEnabled = false;
                             break;
                         case DisplayModes.Reminders:
                             DisplayMode = DisplayModes.Reminders;
+                            ReminderTimeSpanBorder.Opacity = 1;
+                            ReminderTimeSpanBorder.IsEnabled = true;
                             break;
                     }
                 }
@@ -819,13 +828,13 @@ namespace Event_Horizon
                 Console.Write("DisplayMode = ");
                 Console.WriteLine(DisplayMode);
 
-                if (MainWindowIs_Loaded)
-                {
-                    if (DisplayMode == DisplayModes.Reminders)
-                        RefreshLog(ListViews.Reminder);
-                    else
-                        RefreshLog(ListViews.Log);
-                }
+                //if (MainWindowIs_Loaded)
+                //{
+                //    if (DisplayMode == DisplayModes.Reminders)
+                //        RefreshLog(ListViews.Reminder);
+                //    else
+                //        RefreshLog(ListViews.Log);
+                //}
             }
         }
 

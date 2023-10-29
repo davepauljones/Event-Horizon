@@ -2,37 +2,37 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Point x:Key="LCARS_Search_TopLeft">0,0</Point>
-    <Point x:Key="LCARS_Search_TopRight">309,0</Point>
-    <Point x:Key="LCARS_Search_BottomRight">309,114</Point>
+    <Point x:Key="LCARS_Search_TopRight">345,0</Point>
+    <Point x:Key="LCARS_Search_BottomRight">345,114</Point>
     <Point x:Key="LCARS_Search_BottomLeft">0,114</Point>
 
     <Point x:Key="LCARS_Search_TopLeftCornerStart">0,6</Point>
     <Point x:Key="LCARS_Search_TopLeftCornerFinish">6,0</Point>
 
-    <Point x:Key="LCARS_Search_TopRightCornerStart">303,0</Point>
-    <Point x:Key="LCARS_Search_TopRightCornerFinish">309,6</Point>
+    <Point x:Key="LCARS_Search_TopRightCornerStart">339,0</Point>
+    <Point x:Key="LCARS_Search_TopRightCornerFinish">345,6</Point>
 
-    <Point x:Key="LCARS_Search_BottomRightCornerStart">309,108</Point>
-    <Point x:Key="LCARS_Search_BottomRightCornerFinish">303,114</Point>
+    <Point x:Key="LCARS_Search_BottomRightCornerStart">345,108</Point>
+    <Point x:Key="LCARS_Search_BottomRightCornerFinish">339,114</Point>
 
     <Point x:Key="LCARS_Search_BottomLeftCornerStart">6,114</Point>
     <Point x:Key="LCARS_Search_BottomLeftCornerFinish">0,108</Point>
 
     <Point x:Key="LCARS_Search_InnerTopLeft">208,11</Point>
-    <Point x:Key="LCARS_Search_InnerTopRight">300,11</Point>
+    <Point x:Key="LCARS_Search_InnerTopRight">337,11</Point>
     <Point x:Key="LCARS_Search_InnerMiddleLeft">8,54</Point>
     <Point x:Key="LCARS_Search_InnerMiddleMiddle">208,54</Point>
-    <Point x:Key="LCARS_Search_InnerBottomRight">300,104</Point>
+    <Point x:Key="LCARS_Search_InnerBottomRight">337,104</Point>
     <Point x:Key="LCARS_Search_InnerBottomLeft">8,104</Point>
 
     <Point x:Key="LCARS_Search_InnerTopLeftCornerStart">208,17</Point>
     <Point x:Key="LCARS_Search_InnerTopLeftCornerFinish">214,11</Point>
 
-    <Point x:Key="LCARS_Search_InnerTopRightCornerStart">294,11</Point>
-    <Point x:Key="LCARS_Search_InnerTopRightCornerFinish">300,17</Point>
+    <Point x:Key="LCARS_Search_InnerTopRightCornerStart">331,11</Point>
+    <Point x:Key="LCARS_Search_InnerTopRightCornerFinish">337,17</Point>
 
-    <Point x:Key="LCARS_Search_InnerBottomRightCornerStart">300,98</Point>
-    <Point x:Key="LCARS_Search_InnerBottomRightCornerFinish">294,104</Point>
+    <Point x:Key="LCARS_Search_InnerBottomRightCornerStart">337,98</Point>
+    <Point x:Key="LCARS_Search_InnerBottomRightCornerFinish">331,104</Point>
 
     <Point x:Key="LCARS_Search_InnerBottomLeftCornerStart">14,104</Point>
     <Point x:Key="LCARS_Search_InnerBottomLeftCornerFinish">8,98</Point>
