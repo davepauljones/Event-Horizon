@@ -144,7 +144,7 @@ namespace Event_Horizon
             widgetCurrentUser = new WidgetCurrentUser();
             WidgetCurrentUserGrid.Children.Add(widgetCurrentUser);
 
-
+            SetReminderListTimeSpan();
 
             if (EventHorizonDatabaseCreate.CheckIfDatabaseExists())
             {

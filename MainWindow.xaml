@@ -350,12 +350,9 @@
                         <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="114">
                                 <Border CornerRadius="6" BorderBrush="#ff003a72" BorderThickness="0" Width="180" Margin="10,0,5,0" Background="#66ffffff">
-                                    <Grid>
-                                        <Image Source="pack://application:,,/Images/EventHorizonLogoNewSmall.png" Stretch="Fill" Width="174" Height="33" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,5,0,0"/>
-                                        <Image Source="pack://application:,,/Images/gplv3-130x66.png" Stretch="Fill" Width="130" Height="66" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,42,0,0"/>
-                                    </Grid>
+                                    <Image Source="pack://application:,,/Images/gplv3-162x83.png" Stretch="Fill" Width="162" Height="83" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
-                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="154" Margin="0,0,5,0">
+                                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#66ffffff" BorderThickness="0" Width="156" Margin="0,0,5,0">
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                                         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,2,0,0">
                                             <Grid.RowDefinitions>
