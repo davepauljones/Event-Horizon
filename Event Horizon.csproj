@@ -420,6 +420,8 @@
     </Content>
     <Resource Include="Images\EventHorizonLogo189x23.png" />
     <Resource Include="Images\wormhole189x141.png" />
+    <Resource Include="Images\gplv3-162x83.png" />
+    <Resource Include="Images\gplv3-130x66.png" />
     <Content Include="XMLFiles\EventHorizonLocalSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
