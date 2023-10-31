@@ -305,9 +305,10 @@ namespace Event_Horizon
     public struct EventRowContextMenu
     {
         public const int ViewAsProduct = 0;
-        public const int Spare = 1;
-        public const int Delete = 2;
-        public const int Help = 3;
+        public const int OpenLink = 1;
+        public const int Spare = 2;
+        public const int Delete = 3;
+        public const int Help = 4;
     }
     public struct FunctionKeyBanks
     {

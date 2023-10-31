@@ -8,6 +8,8 @@ using System.Windows.Media;
 using System.Globalization;
 using Xceed.Wpf.Toolkit;
 using System.Windows.Automation.Peers;
+using System.IO;
+using System.Diagnostics;
 
 namespace Event_Horizon
 {
@@ -1209,6 +1211,16 @@ namespace Event_Horizon
                         catch (Exception ex)
                         {
                             Console.WriteLine(ex.Message);
+                        }
+                        break;
+                    case EventRowContextMenu.OpenLink:
+                        if (eventHorizonLINQ_SelectedItem.PathFileName != string.Empty)
+                        {
+                            if (File.Exists(eventHorizonLINQ_SelectedItem.PathFileName))
+                            {
+                                Topmost = false;
+                                Process.Start(eventHorizonLINQ_SelectedItem.PathFileName);
+                            }
                         }
                         break;
                     case EventRowContextMenu.Spare:
