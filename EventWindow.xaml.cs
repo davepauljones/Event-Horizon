@@ -617,7 +617,7 @@ namespace Event_Horizon
                             if (File.Exists(eventHorizonLINQ.PathFileName))
                             {
                                 Topmost = false;
-                                Process.Start(eventHorizonLINQ.PathFileName);        
+                                Process.Start(eventHorizonLINQ.PathFileName);
                             }
                         }
                         break;

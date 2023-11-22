@@ -137,6 +137,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ArcSliderUserControl.xaml.cs">
+      <DependentUpon>ArcSliderUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ConverterFunctions.cs" />
     <Compile Include="DatabasePoller.cs" />
     <Compile Include="DataTableManagement.cs" />
@@ -144,7 +147,20 @@
     <Compile Include="EventHorizonLogo.xaml.cs">
       <DependentUpon>EventHorizonLogo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EventHorizonLCARSUpDown.xaml.cs">
+      <DependentUpon>EventHorizonLCARSUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventHorizonSearch.xaml.cs">
+      <DependentUpon>EventHorizonSearch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FunctionKeyManager.cs" />
+    <Compile Include="EventHorizonUpDown.xaml.cs">
+      <DependentUpon>EventHorizonUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainViewModel.cs" />
+    <Compile Include="View\RotaryControl.xaml.cs">
+      <DependentUpon>RotaryControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WidgetLogo.xaml.cs">
       <DependentUpon>WidgetLogo.xaml</DependentUpon>
     </Compile>
@@ -202,7 +218,31 @@
       <DependentUpon>WidgetDateToday.xaml</DependentUpon>
     </Compile>
     <Compile Include="XMLReaderWriter.cs" />
+    <Page Include="ArcSliderUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EventHorizonLogo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EventHorizonLCARSUpDown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EventHorizonSearch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LCARS_Definitions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventHorizonUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RotaryControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -379,6 +419,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\EventHorizonLogo189x23.png" />
+    <Resource Include="Images\wormhole189x141.png" />
+    <Resource Include="Images\gplv3-162x83.png" />
+    <Resource Include="Images\gplv3-130x66.png" />
+    <Resource Include="Images\EventHorizonLogoNew.png" />
     <Content Include="XMLFiles\EventHorizonLocalSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

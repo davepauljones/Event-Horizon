@@ -8,6 +8,8 @@ using System.Windows.Media;
 using System.Globalization;
 using Xceed.Wpf.Toolkit;
 using System.Windows.Automation.Peers;
+using System.IO;
+using System.Diagnostics;
 
 namespace Event_Horizon
 {
@@ -16,13 +18,16 @@ namespace Event_Horizon
     /// </summary>
     public partial class MainWindow : Window
     {
-        int EventTypeID = 0;
+        public int EventTypeID = 0;
 
         internal WidgetDateToday widgetDateToday;
         internal WidgetTimeNow widgetTimeNow;
         internal WidgetDatabaseHealth widgetDatabaseHealth;
         internal WidgetUsersOnline widgetUsersOnline;
         internal WidgetCurrentUser widgetCurrentUser;
+        internal EventHorizonUpDown limitUpDown;
+        internal EventHorizonUpDown stepUpDown;
+        internal EventHorizonSearch eventHorizonSearch;
 
         public static MainWindow mw;
 
@@ -119,7 +124,7 @@ namespace Event_Horizon
                 Close();
         }
 
-        bool MainWindowIs_Loaded = false;
+        public bool MainWindowIs_Loaded = false;
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -141,11 +146,23 @@ namespace Event_Horizon
             widgetCurrentUser = new WidgetCurrentUser();
             WidgetCurrentUserGrid.Children.Add(widgetCurrentUser);
 
+            SetReminderListTimeSpan();
+
             if (EventHorizonDatabaseCreate.CheckIfDatabaseExists())
             {
                 Init_OracleDatabaseFileWatcher();
 
+                limitUpDown = new EventHorizonUpDown("Limit", DataTableManagement.RowLimit, DataTableManagement.RowLimitMin, DataTableManagement.RowLimitMax, DataTableManagement.RowLimitStep, LimitUpDownCallbackFunction);
+                LimitUserControlGrid.Children.Add(limitUpDown);
+                stepUpDown = new EventHorizonUpDown("Offset", DataTableManagement.RowOffset, DataTableManagement.RowOffsetMin, DataTableManagement.RowOffsetMax, DataTableManagement.RowOffsetStep, StepUpDownCallbackFunction);
+                StepUserControlGrid.Children.Add(stepUpDown);
+
+                eventHorizonSearch = new EventHorizonSearch(SearchCallbackFunction, EventTypeCallbackFunction);
+                SearchEventTypeControlGrid.Children.Add(eventHorizonSearch);
+
                 RefreshXML();
+
+                FunctionKeyManager.GoLeftFunctionKeyBank();
 
                 CheckMyUnreadAndMyReminders();
 
@@ -155,14 +172,51 @@ namespace Event_Horizon
             }
 
             //TestButtonStackPanel.Children.Add(FunctionKeyManager.CreateFunctionKey("DEL", FontAwesome.WPF.FontAwesomeIcon.Eraser, "Delete"));
-            //TestButtonStackPanel.Children.Add(FunctionKeyManager.CreateFunctionKey("TOG", FontAwesome.WPF.FontAwesomeIcon.ToggleDown, "Pause"));
+            //TestButtonStackPanel.Children.Add(FunctionKeyManager.CreateFunctionKey("TOG", FontAwesome.WPF.FontAwesomeIcon.ToggleDown, "Pause"));    
 
             MainWindowIs_Loaded = true;
+        }
+
+        internal void LimitUpDownCallbackFunction(int value)
+        {
+            Console.Write("LimitUpDownCallbackFunction = ");
+            Console.WriteLine(value);
+            DataTableManagement.RowLimit = value;
+        }
+        internal void StepUpDownCallbackFunction(int value)
+        {
+            Console.Write("StepUpDownCallbackFunction = ");
+            Console.WriteLine(value);
+            DataTableManagement.RowOffset = value;
+        }
+        internal void SearchCallbackFunction(string value)
+        {
+            if (DisplayMode == DisplayModes.Reminders)
+                RefreshLog(ListViews.Reminder);
+            else
+                RefreshLog(ListViews.Log);
+        }
+        internal void EventTypeCallbackFunction(int value)
+        {
+            EventTypeID = value;
+            Console.Write("EventTypeComboBox is ");
+            Console.WriteLine(EventTypeID);
+
+            if (MainWindowIs_Loaded)
+            {
+                if (DisplayMode == DisplayModes.Reminders)
+                    RefreshLog(ListViews.Reminder);
+                else
+                    RefreshLog(ListViews.Log);
+
+                ReminderListScrollViewer.ScrollToTop();
+            }
         }
 
         public void RefreshXML()
         {
             widgetCurrentUser.CurrentUserStackPanel.Children.Add(EventHorizonTokens.GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[XMLReaderWriter.UserID]));
+            CurrentUserFilterStackPanel.Children.Add(EventHorizonTokens.GetUserAsTokenStackPanel(XMLReaderWriter.UsersList[XMLReaderWriter.UserID]));
             EventHorizonTokens.LoadUsersIntoOnlineUsersStackPanel(widgetUsersOnline.UsersOnlineStackPanel);
             AddItemsToEventTypeComboBox();
         }
@@ -196,7 +250,7 @@ namespace Event_Horizon
                 ReminderListView.Items.Clear();
                 DataTableManagement.EventHorizon_Event.Clear();
 
-                EventHorizonLINQList = DataTableManagement.GetEvents(listViewToPopulate, EventTypeID, FilterMode, DisplayMode, SearchTextBox.Text);
+                EventHorizonLINQList = DataTableManagement.GetEvents(listViewToPopulate, EventTypeID, FilterMode, DisplayMode, eventHorizonSearch.SearchTextBox.Text);
 
                 foreach (EventHorizonLINQ eventHorizonLINQ in EventHorizonLINQList)
                 {
@@ -360,9 +414,9 @@ namespace Event_Horizon
                 case Key.A:
                     if (Keyboard.Modifiers == ModifierKeys.Control)
                     {
-                        EventTypeComboBox.SelectedIndex = 0;
-                        EventTypeID = EventTypeComboBox.SelectedIndex;
-                        SearchTextBox.Text = string.Empty;
+                        eventHorizonSearch.EventTypeComboBox.SelectedIndex = 0;
+                        EventTypeID = eventHorizonSearch.EventTypeComboBox.SelectedIndex;
+                        eventHorizonSearch.SearchTextBox.Text = string.Empty;
                         if (MainWindowIs_Loaded)
                         {
                             if (DisplayMode == DisplayModes.Reminders)
@@ -377,7 +431,7 @@ namespace Event_Horizon
                 case Key.C:
                     if (Keyboard.Modifiers == ModifierKeys.Control)
                     {
-                        SearchTextBox.Text = string.Empty;
+                        eventHorizonSearch.SearchTextBox.Text = string.Empty;
                         if (MainWindowIs_Loaded)
                         {
                             if (DisplayMode == DisplayModes.Reminders)
@@ -555,9 +609,9 @@ namespace Event_Horizon
                         FunctionKeyManager.GetEventTypeFromFunctionKey(12);
                         break;
                     case 15:
-                        EventTypeComboBox.SelectedIndex = 0;
-                        EventTypeID = EventTypeComboBox.SelectedIndex;
-                        SearchTextBox.Text = string.Empty;
+                        eventHorizonSearch.EventTypeComboBox.SelectedIndex = 0;
+                        EventTypeID = eventHorizonSearch.EventTypeComboBox.SelectedIndex;
+                        eventHorizonSearch.SearchTextBox.Text = string.Empty;
                         if (MainWindowIs_Loaded)
                         {
                             if (DisplayMode == DisplayModes.Reminders)
@@ -569,7 +623,7 @@ namespace Event_Horizon
                         }
                         break;
                     case 16:
-                        SearchTextBox.Text = string.Empty;
+                        eventHorizonSearch.SearchTextBox.Text = string.Empty;
                         if (MainWindowIs_Loaded)
                         {
                             if (DisplayMode == DisplayModes.Reminders)
@@ -609,60 +663,97 @@ namespace Event_Horizon
         {
             foreach (EventType eventType in XMLReaderWriter.EventTypesList)
             {
-                EventTypeComboBox.Items.Add(EventHorizonEventTypes.GetEventTypeStackPanel(eventType));
+                eventHorizonSearch.EventTypeComboBox.Items.Add(EventHorizonEventTypes.GetEventTypeStackPanel(eventType));
             }
 
-            EventTypeComboBox.SelectedIndex = 0;
+            eventHorizonSearch.EventTypeComboBox.SelectedIndex = 0;
         }
 
         public TimeSpan ReminderListTimeSpan = new TimeSpan(1, 0, 0, 0);
 
-        private void TimeSpanRadioButton_Checked(object sender, RoutedEventArgs e)
+        public void SetReminderListTimeSpan()
         {
-            RadioButton radioButton = e.OriginalSource as RadioButton;
-
-            int buttonID = 0;
-
-            bool success = Int32.TryParse(radioButton.Tag.ToString(), out buttonID);
-
-            if (radioButton != null && success)
+            switch (ReminderTimeSpanUserControl._dialTemperature.Value)
             {
-                switch (buttonID)
-                {
-                    case ReminderListTimeSpans.OverDue:
-                        ReminderListTimeSpan = new TimeSpan(0, 0, 0, 0);
-                        break;
-                    case ReminderListTimeSpans.TimeSpan_1to3_Day:
-                        ReminderListTimeSpan = new TimeSpan(4, 0, 0, 0);
-                        break;
-                    case ReminderListTimeSpans.TimeSpan_4to7_Days:
-                        ReminderListTimeSpan = new TimeSpan(8, 0, 0, 0);
-                        break;
-                    case ReminderListTimeSpans.TimeSpan_8to14_Days:
-                        ReminderListTimeSpan = new TimeSpan(15, 0, 0, 0);
-                        break;
-                    case ReminderListTimeSpans.TimeSpan_15to28_Days:
-                        ReminderListTimeSpan = new TimeSpan(29, 0, 0, 0);
-                        break;
-                    case ReminderListTimeSpans.TimeSpan_29to60_Days:
-                        ReminderListTimeSpan = new TimeSpan(60, 0, 0, 0);
-                        break;
-                    case ReminderListTimeSpans.TimeSpan_61to90_Days:
-                        ReminderListTimeSpan = new TimeSpan(90, 0, 0, 0);
-                        break;
-                }
+                case ReminderListTimeSpans.OverDue:
+                    ReminderListTimeSpan = new TimeSpan(0, 0, 0, 0);
+                    break;
+                case ReminderListTimeSpans.TimeSpan_1to3_Day:
+                    ReminderListTimeSpan = new TimeSpan(4, 0, 0, 0);
+                    break;
+                case ReminderListTimeSpans.TimeSpan_4to7_Days:
+                    ReminderListTimeSpan = new TimeSpan(8, 0, 0, 0);
+                    break;
+                case ReminderListTimeSpans.TimeSpan_8to14_Days:
+                    ReminderListTimeSpan = new TimeSpan(15, 0, 0, 0);
+                    break;
+                case ReminderListTimeSpans.TimeSpan_15to28_Days:
+                    ReminderListTimeSpan = new TimeSpan(29, 0, 0, 0);
+                    break;
+                case ReminderListTimeSpans.TimeSpan_29to60_Days:
+                    ReminderListTimeSpan = new TimeSpan(60, 0, 0, 0);
+                    break;
+                case ReminderListTimeSpans.TimeSpan_61to90_Days:
+                    ReminderListTimeSpan = new TimeSpan(90, 0, 0, 0);
+                    break;
             }
 
-            if (MainWindowIs_Loaded)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
+            //if (MainWindowIs_Loaded)
+            //{
+            //    if (DisplayMode == DisplayModes.Reminders)
+            //        RefreshLog(ListViews.Reminder);
+            //    else
+            //        RefreshLog(ListViews.Log);
 
-                ReminderListScrollViewer.ScrollToTop();
-            }
+            //    ReminderListScrollViewer.ScrollToTop();
+            //}
         }
+        //private void TimeSpanRadioButton_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    RadioButton radioButton = e.OriginalSource as RadioButton;
+
+        //    int buttonID = 0;
+
+        //    bool success = Int32.TryParse(radioButton.Tag.ToString(), out buttonID);
+
+        //    if (radioButton != null && success)
+        //    {
+        //        switch (buttonID)
+        //        {
+        //            case ReminderListTimeSpans.OverDue:
+        //                ReminderListTimeSpan = new TimeSpan(0, 0, 0, 0);
+        //                break;
+        //            case ReminderListTimeSpans.TimeSpan_1to3_Day:
+        //                ReminderListTimeSpan = new TimeSpan(4, 0, 0, 0);
+        //                break;
+        //            case ReminderListTimeSpans.TimeSpan_4to7_Days:
+        //                ReminderListTimeSpan = new TimeSpan(8, 0, 0, 0);
+        //                break;
+        //            case ReminderListTimeSpans.TimeSpan_8to14_Days:
+        //                ReminderListTimeSpan = new TimeSpan(15, 0, 0, 0);
+        //                break;
+        //            case ReminderListTimeSpans.TimeSpan_15to28_Days:
+        //                ReminderListTimeSpan = new TimeSpan(29, 0, 0, 0);
+        //                break;
+        //            case ReminderListTimeSpans.TimeSpan_29to60_Days:
+        //                ReminderListTimeSpan = new TimeSpan(60, 0, 0, 0);
+        //                break;
+        //            case ReminderListTimeSpans.TimeSpan_61to90_Days:
+        //                ReminderListTimeSpan = new TimeSpan(90, 0, 0, 0);
+        //                break;
+        //        }
+        //    }
+
+        //    if (MainWindowIs_Loaded)
+        //    {
+        //        if (DisplayMode == DisplayModes.Reminders)
+        //            RefreshLog(ListViews.Reminder);
+        //        else
+        //            RefreshLog(ListViews.Log);
+
+        //        ReminderListScrollViewer.ScrollToTop();
+        //    }
+        //}
 
         public int FilterMode = FilterModes.None;
 
@@ -696,15 +787,15 @@ namespace Event_Horizon
             Console.Write("FilterMode = ");
             Console.WriteLine(FilterMode);
 
-            if (MainWindowIs_Loaded)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
+            //if (MainWindowIs_Loaded)
+            //{
+            //    if (DisplayMode == DisplayModes.Reminders)
+            //        RefreshLog(ListViews.Reminder);
+            //    else
+            //        RefreshLog(ListViews.Log);
 
-                ReminderListScrollViewer.ScrollToTop();
-            }
+            //    ReminderListScrollViewer.ScrollToTop();
+            //}
         }
 
         public int DisplayMode = DisplayModes.Reminders;
@@ -725,9 +816,13 @@ namespace Event_Horizon
                     {
                         case DisplayModes.Normal:
                             DisplayMode = DisplayModes.Normal;
+                            ReminderTimeSpanBorder.Opacity = 0.7;
+                            ReminderTimeSpanBorder.IsEnabled = false;
                             break;
                         case DisplayModes.Reminders:
                             DisplayMode = DisplayModes.Reminders;
+                            ReminderTimeSpanBorder.Opacity = 1;
+                            ReminderTimeSpanBorder.IsEnabled = true;
                             break;
                     }
                 }
@@ -735,31 +830,13 @@ namespace Event_Horizon
                 Console.Write("DisplayMode = ");
                 Console.WriteLine(DisplayMode);
 
-                if (MainWindowIs_Loaded)
-                {
-                    if (DisplayMode == DisplayModes.Reminders)
-                        RefreshLog(ListViews.Reminder);
-                    else
-                        RefreshLog(ListViews.Log);
-                }
-            }
-        }
-
-        private void EventTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            EventTypeID = EventTypeComboBox.SelectedIndex;
-
-            Console.Write("EventTypeComboBox is ");
-            Console.WriteLine(EventTypeID);
-
-            if (MainWindowIs_Loaded)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
-
-                ReminderListScrollViewer.ScrollToTop();
+                //if (MainWindowIs_Loaded)
+                //{
+                //    if (DisplayMode == DisplayModes.Reminders)
+                //        RefreshLog(ListViews.Reminder);
+                //    else
+                //        RefreshLog(ListViews.Log);
+                //}
             }
         }
 
@@ -776,9 +853,9 @@ namespace Event_Horizon
                 switch (buttonID)
                 {
                     case 0:
-                        EventTypeComboBox.SelectedIndex = 0;
-                        EventTypeID = EventTypeComboBox.SelectedIndex;
-                        SearchTextBox.Text = string.Empty;
+                        eventHorizonSearch.EventTypeComboBox.SelectedIndex = 0;
+                        EventTypeID = eventHorizonSearch.EventTypeComboBox.SelectedIndex;
+                        eventHorizonSearch.SearchTextBox.Text = string.Empty;
                         if (MainWindowIs_Loaded)
                         {
                             if (DisplayMode == DisplayModes.Reminders)
@@ -877,17 +954,6 @@ namespace Event_Horizon
                 //try open event as EditEvent
                 EventWindow editEventWindow = new EventWindow(this, EventWindowModes.ViewMainEvent, eventHorizonLINQ_SelectedItem, null);
                 editEventWindow.Show();
-            }
-        }
-
-        private void SearchTextBox_OnKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
             }
         }
 
@@ -1089,24 +1155,18 @@ namespace Event_Horizon
                     {
                         case RowLimitModes.NoLimit:
                             DataTableManagement.RowLimitMode = RowLimitModes.NoLimit;
-                            LimitUp.IsEnabled = false;
-                            LimitDown.IsEnabled = false;
-                            StepUp.IsEnabled = false;
-                            StepDown.IsEnabled = false;
+                            limitUpDown.IsControlEnabled(false);
+                            stepUpDown.IsControlEnabled(false);
                             break;
                         case RowLimitModes.LimitOnly:
                             DataTableManagement.RowLimitMode = RowLimitModes.LimitOnly;
-                            LimitUp.IsEnabled = true;
-                            LimitDown.IsEnabled = true;
-                            StepUp.IsEnabled = false;
-                            StepDown.IsEnabled = false;
+                            limitUpDown.IsControlEnabled(true);
+                            stepUpDown.IsControlEnabled(false);
                             break;
                         case RowLimitModes.LimitWithOffset:
                             DataTableManagement.RowLimitMode = RowLimitModes.LimitWithOffset;
-                            LimitUp.IsEnabled = true;
-                            LimitDown.IsEnabled = true;
-                            StepUp.IsEnabled = true;
-                            StepDown.IsEnabled = true;
+                            limitUpDown.IsControlEnabled(true);
+                            stepUpDown.IsControlEnabled(true);
                             break;
                     }
                 }
@@ -1114,13 +1174,13 @@ namespace Event_Horizon
                 Console.Write("DataTableManagement.RowLimitMode = ");
                 Console.WriteLine(DataTableManagement.RowLimitMode);
 
-                if (MainWindowIs_Loaded)
-                {
-                    if (DisplayMode == DisplayModes.Reminders)
-                        RefreshLog(ListViews.Reminder);
-                    else
-                        RefreshLog(ListViews.Log);
-                }
+                //if (MainWindowIs_Loaded)
+                //{
+                //    if (DisplayMode == DisplayModes.Reminders)
+                //        RefreshLog(ListViews.Reminder);
+                //    else
+                //        RefreshLog(ListViews.Log);
+                //}
             }
         }
 
@@ -1153,6 +1213,16 @@ namespace Event_Horizon
                             Console.WriteLine(ex.Message);
                         }
                         break;
+                    case EventRowContextMenu.OpenLink:
+                        if (eventHorizonLINQ_SelectedItem.PathFileName != string.Empty)
+                        {
+                            if (File.Exists(eventHorizonLINQ_SelectedItem.PathFileName))
+                            {
+                                Topmost = false;
+                                Process.Start(eventHorizonLINQ_SelectedItem.PathFileName);
+                            }
+                        }
+                        break;
                     case EventRowContextMenu.Spare:
                         Console.WriteLine("Spare");
                         break;
@@ -1178,135 +1248,27 @@ namespace Event_Horizon
             }
         }
 
-        private int _LimitValue = 30;
-
-        public int LimitValue
+        private void FunctionKeyBank_ButtonClick(object sender, RoutedEventArgs e)
         {
-            get { return _LimitValue; }
-            set
+            Button button = e.OriginalSource as Button;
+
+            int buttonID = 0;
+
+            bool success = Int32.TryParse(button.Tag.ToString(), out buttonID);
+
+            if (button != null && success)
             {
-                _LimitValue = value;
-                LimitTextBox.Text = value.ToString();
+                switch (buttonID)
+                {
+                    case 0:
+                        FunctionKeyManager.GoLeftFunctionKeyBank();
+                        break;
+                    case 1:
+                        FunctionKeyManager.GoRightFunctionKeyBank();
+                        break;
+                }
             }
         }
 
-        private void LimitUp_Click(object sender, RoutedEventArgs e)
-        {
-            if (LimitValue <= 270)
-            {
-                LimitValue += 30;
-            }
-            else
-            {
-                LimitValue = 300;
-            }
-        }
-
-        private void LimitDown_Click(object sender, RoutedEventArgs e)
-        {
-            if (LimitValue >= 60)
-            {
-                LimitValue -= 30;
-            }
-            else
-            {
-                LimitValue = 30;
-            }
-        }
-
-        private void LimitTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (LimitTextBox == null)
-            {
-                return;
-            }
-
-            if (!int.TryParse(LimitTextBox.Text, out _LimitValue))
-            {
-                LimitTextBox.Text = _LimitValue.ToString();
-            }
-        }
-        
-        private int _StepValue = 0;
-
-        public int StepValue
-        {
-            get { return _StepValue; }
-            set
-            {
-                _StepValue = value;
-                StepTextBox.Text = value.ToString();
-            }
-        }
-
-        private void StepUp_Click(object sender, RoutedEventArgs e)
-        {
-            if (StepValue <= 270)
-            {
-                StepValue += 30;
-                OffsetValueChanged();
-            }
-            else
-            {
-                StepValue = 300;
-                OffsetValueChanged();
-            }
-        }
-
-        private void StepDown_Click(object sender, RoutedEventArgs e)
-        {
-            if (StepValue >= 30)
-            {
-                StepValue -= 30;
-                OffsetValueChanged();
-            }
-            else
-            {
-                StepValue = 0;
-                OffsetValueChanged();
-            }
-        }
-
-        private void StepTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (StepTextBox == null)
-            {
-                return;
-            }
-
-            if (!int.TryParse(StepTextBox.Text, out _StepValue))
-            {
-                StepTextBox.Text = _StepValue.ToString();
-            }
-        }
-        private void LimitValueChanged()
-        {
-            DataTableManagement.RowLimit = _LimitValue;
-            Console.Write("DataTableManagement.RowLimit = ");
-            Console.WriteLine(DataTableManagement.RowLimit);
-
-            if (MainWindowIs_Loaded)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
-            }
-        }
-
-        private void OffsetValueChanged()
-        {
-            DataTableManagement.RowOffset = _StepValue;
-            Console.Write("DataTableManagement.RowOffset = ");
-            Console.WriteLine(DataTableManagement.RowOffset);
-
-            if (MainWindowIs_Loaded)
-            {
-                if (DisplayMode == DisplayModes.Reminders)
-                    RefreshLog(ListViews.Reminder);
-                else
-                    RefreshLog(ListViews.Log);
-            }
-        }
     }
 }

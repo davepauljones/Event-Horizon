@@ -1,0 +1,112 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Point x:Key="LCARS_Search_TopLeft">0,0</Point>
+    <Point x:Key="LCARS_Search_TopRight">345,0</Point>
+    <Point x:Key="LCARS_Search_BottomRight">345,114</Point>
+    <Point x:Key="LCARS_Search_BottomLeft">0,114</Point>
+
+    <Point x:Key="LCARS_Search_TopLeftCornerStart">0,6</Point>
+    <Point x:Key="LCARS_Search_TopLeftCornerFinish">6,0</Point>
+
+    <Point x:Key="LCARS_Search_TopRightCornerStart">339,0</Point>
+    <Point x:Key="LCARS_Search_TopRightCornerFinish">345,6</Point>
+
+    <Point x:Key="LCARS_Search_BottomRightCornerStart">345,108</Point>
+    <Point x:Key="LCARS_Search_BottomRightCornerFinish">339,114</Point>
+
+    <Point x:Key="LCARS_Search_BottomLeftCornerStart">6,114</Point>
+    <Point x:Key="LCARS_Search_BottomLeftCornerFinish">0,108</Point>
+
+    <Point x:Key="LCARS_Search_InnerTopLeft">208,11</Point>
+    <Point x:Key="LCARS_Search_InnerTopRight">337,11</Point>
+    <Point x:Key="LCARS_Search_InnerMiddleLeft">8,54</Point>
+    <Point x:Key="LCARS_Search_InnerMiddleMiddle">208,54</Point>
+    <Point x:Key="LCARS_Search_InnerBottomRight">337,104</Point>
+    <Point x:Key="LCARS_Search_InnerBottomLeft">8,104</Point>
+
+    <Point x:Key="LCARS_Search_InnerTopLeftCornerStart">208,17</Point>
+    <Point x:Key="LCARS_Search_InnerTopLeftCornerFinish">214,11</Point>
+
+    <Point x:Key="LCARS_Search_InnerTopRightCornerStart">331,11</Point>
+    <Point x:Key="LCARS_Search_InnerTopRightCornerFinish">337,17</Point>
+
+    <Point x:Key="LCARS_Search_InnerBottomRightCornerStart">337,98</Point>
+    <Point x:Key="LCARS_Search_InnerBottomRightCornerFinish">331,104</Point>
+
+    <Point x:Key="LCARS_Search_InnerBottomLeftCornerStart">14,104</Point>
+    <Point x:Key="LCARS_Search_InnerBottomLeftCornerFinish">8,98</Point>
+
+    <Point x:Key="LCARS_Search_InnerMiddleLeftCornerStart">8,60</Point>
+    <Point x:Key="LCARS_Search_InnerMiddleLeftCornerFinish">14,54</Point>
+
+    <Point x:Key="LCARS_Search_InnerMiddleMiddleCornerStart">202,54</Point>
+    <Point x:Key="LCARS_Search_InnerMiddleMiddleCornerFinish">208,48</Point>
+
+
+    <Point x:Key="LCARS_LHTop_TopLeft">0,0</Point>
+    <Point x:Key="LCARS_LHTop_TopRight">228,0</Point>
+    <Point x:Key="LCARS_LHTop_BottomRight">228,114</Point>
+    <Point x:Key="LCARS_LHTop_BottomMiddle">114,67</Point>
+    <Point x:Key="LCARS_LHTop_BottomLeft">0,114</Point>
+
+    <Point x:Key="LCARS_LHTop_TopLeftCornerStart">0,67</Point>
+    <Point x:Key="LCARS_LHTop_TopLeftCornerFinish">67,0</Point>
+
+    <Point x:Key="LCARS_LHTop_TopRightCornerStart">228,0</Point>
+    <Point x:Key="LCARS_LHTop_TopRightCornerFinish">228,0</Point>
+
+    <Point x:Key="LCARS_LHTop_BottomRightCornerStart">228,67</Point>
+    <Point x:Key="LCARS_LHTop_BottomRightCornerFinish">228,67</Point>
+
+    <Point x:Key="LCARS_LHTop_BottomMiddleCornerStart">141,67</Point>
+    <Point x:Key="LCARS_LHTop_BottomMiddleCornerFinish">114,94</Point>
+
+    <Point x:Key="LCARS_LHTop_BottomLeftCornerStart">114,114</Point>
+    <Point x:Key="LCARS_LHTop_BottomLeftCornerFinish">0,114</Point>
+    
+    
+    <Point x:Key="LCARS_TopLeft">0,0</Point>
+    <Point x:Key="LCARS_TopRight">112,0</Point>
+    <Point x:Key="LCARS_BottomRight">112,114</Point>
+    <Point x:Key="LCARS_BottomLeft">0,114</Point>
+
+    <Point x:Key="LCARS_TopLeftCornerStart">0,6</Point>
+    <Point x:Key="LCARS_TopLeftCornerFinish">6,0</Point>
+
+    <Point x:Key="LCARS_TopRightCornerStart">106,0</Point>
+    <Point x:Key="LCARS_TopRightCornerFinish">112,6</Point>
+
+    <Point x:Key="LCARS_BottomRightCornerStart">112,108</Point>
+    <Point x:Key="LCARS_BottomRightCornerFinish">106,114</Point>
+
+    <Point x:Key="LCARS_BottomLeftCornerStart">6,114</Point>
+    <Point x:Key="LCARS_BottomLeftCornerFinish">0,108</Point>
+
+
+    <Point x:Key="LCARS_InnerTopLeft">62,11</Point>
+    <Point x:Key="LCARS_InnerTopRight">104,11</Point>
+    <Point x:Key="LCARS_InnerMiddleLeft">8,55</Point>
+    <Point x:Key="LCARS_InnerMiddleMiddle">62,55</Point>
+    <Point x:Key="LCARS_InnerBottomRight">104,104</Point>
+    <Point x:Key="LCARS_InnerBottomLeft">8,104</Point>
+
+    <Point x:Key="LCARS_InnerTopLeftCornerStart">62,18</Point>
+    <Point x:Key="LCARS_InnerTopLeftCornerFinish">68,11</Point>
+
+    <Point x:Key="LCARS_InnerTopRightCornerStart">98,11</Point>
+    <Point x:Key="LCARS_InnerTopRightCornerFinish">104,18</Point>
+
+    <Point x:Key="LCARS_InnerBottomRightCornerStart">104,98</Point>
+    <Point x:Key="LCARS_InnerBottomRightCornerFinish">98,104</Point>
+
+    <Point x:Key="LCARS_InnerBottomLeftCornerStart">14,104</Point>
+    <Point x:Key="LCARS_InnerBottomLeftCornerFinish">8,98</Point>
+
+    <Point x:Key="LCARS_InnerMiddleLeftCornerStart">8,62</Point>
+    <Point x:Key="LCARS_InnerMiddleLeftCornerFinish">14,55</Point>
+
+    <Point x:Key="LCARS_InnerMiddleMiddleCornerStart">56,55</Point>
+    <Point x:Key="LCARS_InnerMiddleMiddleCornerFinish">62,49</Point>
+
+</ResourceDictionary>

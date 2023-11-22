@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Event_Horizon.EventHorizonSearch"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Event_Horizon"
+             xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
+             mc:Ignorable="d" Name="MainWindowWindow" Background="ForestGreen"
+             d:DesignHeight="114" d:DesignWidth="345">
+    <Grid>
+        <Grid>
+            <Path Fill="#66ffffff" HorizontalAlignment="Left">
+                <Path.Data>
+                    <CombinedGeometry GeometryCombineMode="Exclude">
+                        <CombinedGeometry.Geometry1>
+                            <PathGeometry>
+                                <PathFigure StartPoint="{StaticResource LCARS_Search_TopLeft}">
+                                    <LineSegment Point="{StaticResource LCARS_Search_TopRightCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_Search_TopRightCornerStart}" Point2="{StaticResource LCARS_Search_TopRight}" Point3="{StaticResource LCARS_Search_TopRightCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_Search_BottomRightCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_Search_BottomRightCornerStart}" Point2="{StaticResource LCARS_Search_BottomRight}" Point3="{StaticResource LCARS_Search_BottomRightCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_Search_BottomLeftCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_Search_BottomLeftCornerStart}" Point2="{StaticResource LCARS_Search_BottomLeft}" Point3="{StaticResource LCARS_Search_BottomLeftCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_Search_TopLeftCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_Search_TopLeftCornerStart}" Point2="{StaticResource LCARS_Search_TopLeft}" Point3="{StaticResource LCARS_Search_TopLeftCornerFinish}"/>
+                                </PathFigure>
+                            </PathGeometry>
+                        </CombinedGeometry.Geometry1>
+                        <CombinedGeometry.Geometry2>
+                            <PathGeometry>
+                                <PathFigure StartPoint="{StaticResource LCARS_Search_InnerTopLeft}">
+                                    <LineSegment Point="{StaticResource LCARS_Search_InnerTopRightCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_Search_InnerTopRightCornerStart}" Point2="{StaticResource LCARS_Search_InnerTopRight}" Point3="{StaticResource LCARS_Search_InnerTopRightCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_Search_InnerBottomRightCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_Search_InnerBottomRightCornerStart}" Point2="{StaticResource LCARS_Search_InnerBottomRight}" Point3="{StaticResource LCARS_Search_InnerBottomRightCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_Search_InnerBottomLeftCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_Search_InnerBottomLeftCornerStart}" Point2="{StaticResource LCARS_Search_InnerBottomLeft}" Point3="{StaticResource LCARS_Search_InnerBottomLeftCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_Search_InnerMiddleLeftCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_Search_InnerMiddleLeftCornerStart}" Point2="{StaticResource LCARS_Search_InnerMiddleLeft}" Point3="{StaticResource LCARS_Search_InnerMiddleLeftCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_Search_InnerMiddleMiddleCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_Search_InnerMiddleMiddleCornerStart}" Point2="{StaticResource LCARS_Search_InnerMiddleMiddle}" Point3="{StaticResource LCARS_Search_InnerMiddleMiddleCornerFinish}"/>
+                                    <LineSegment Point="{StaticResource LCARS_Search_InnerTopLeftCornerStart}"/>
+                                    <BezierSegment Point1="{StaticResource LCARS_Search_InnerTopLeftCornerStart}" Point2="{StaticResource LCARS_Search_InnerTopLeft}" Point3="{StaticResource LCARS_Search_InnerTopLeftCornerFinish}"/>
+                                </PathFigure>
+                            </PathGeometry>
+                        </CombinedGeometry.Geometry2>
+                    </CombinedGeometry>
+                </Path.Data>
+            </Path>
+            <Label Content="Search" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="14,18,0,0"/>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,6,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,16,8,0">
+                    <Border CornerRadius="6" BorderBrush="#3b71ca" Background="#66ffffff" BorderThickness="0" Height="38" Width="78" MaxWidth="80">
+                        <Grid>
+                            <TextBox x:Name="SearchTextBox" Width="68" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0" KeyDown="SearchTextBox_OnKeyDown"/>
+                            <Line X1="8" Y1="30" X2="71" Y2="30" Stroke="Crimson" StrokeThickness="1" Margin="0,0,0,2"/>
+                        </Grid>
+                    </Border>
+                    <Button Grid.Column="1" Grid.Row="0" Tag="0" Style="{DynamicResource UpDownButton_ButtonStyle}" Height="38" Margin="7,0,1,0" VerticalAlignment="Bottom" Click="SearchButton_Click">
+                        <fa:FontAwesome Icon="RotateLeft" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}" Margin="0,10,0,0"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox x:Name="EventTypeComboBox" Style="{DynamicResource FrequencyComboBoxStyle}" ItemContainerStyle="{DynamicResource theComboBoxItem}" BorderThickness="0" Background="#66ffffff" Width="280" Height="40" IsEditable="False" SelectionChanged="EventTypeComboBox_SelectionChanged"/>
+                    </StackPanel>
+                    <Button Grid.Column="1" Grid.Row="1" Tag="1" Style="{DynamicResource UpDownButton_ButtonStyle}" Height="38" Margin="6,1,1,0" VerticalAlignment="Top" Click="SearchButton_Click">
+                        <fa:FontAwesome Icon="RotateLeft" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}" Margin="0,10,0,0"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

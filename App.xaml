@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/EventHorizonResource.xaml" />
+                <ResourceDictionary Source="LCARS_Definitions.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         

@@ -14,8 +14,14 @@ namespace Event_Horizon
     {
         public static EventHorizonEvent EventHorizon_Event = new EventHorizonEvent();
         public static int RowLimitMode = RowLimitModes.LimitOnly;
-        public static Int32 RowLimit = 30;
-        public static Int32 RowOffset = 30;
+        public static Int32 RowLimitStep = 30;
+        public static Int32 RowLimit = RowLimitStep;
+        public static Int32 RowLimitMin = 30;
+        public static Int32 RowLimitMax = 300;
+        public static Int32 RowOffsetStep = 30;
+        public static Int32 RowOffset = 0;
+        public static Int32 RowOffsetMin = 0;
+        public static Int32 RowOffsetMax = 300;
 
         public static List<EventHorizonLINQ> GetEvents(int listViewToPopulate, Int32 eventTypeID, Int32 filterMode, Int32 displayMode, string searchString)
         {
@@ -373,8 +379,11 @@ namespace Event_Horizon
                 int totalDays = Convert.ToInt32((targetDateTime.Date - DateTime.Today).Days);
                 Color iconEllipeColor = Colors.Pink;
 
-                if ((DateTime.Today + timeSpan) > targetDateTime.Date)
-                {
+                Console.Write("totalDays = ");
+                Console.WriteLine(totalDays);
+
+                //if ((DateTime.Today + timeSpan) > targetDateTime.Date)
+                //{
                     switch (totalDays)
                     {
                         case int n when (n <= 0):
@@ -396,7 +405,7 @@ namespace Event_Horizon
                             iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe7fadd");
                             break;
                     }
-                }
+                //}
 
                 eventHorizonLINQ.Source_ID = eventHorizonLINQ.ID;
 
