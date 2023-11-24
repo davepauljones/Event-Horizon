@@ -56,12 +56,9 @@ namespace Event_Horizon
         
         private void PopulateButton_Click(object sender, RoutedEventArgs e)
         {
-            // Specify the text to search and replace
-            string searchText = "%CONTRACT_TITLE%";
-            string replaceText = "This is the replaced contract title";
-
             // Perform the search and replace
-            FindAndReplaceText(searchText, replaceText);
+            FindAndReplaceText("%JOB_NUMBER%", JobNoTextBox.Text);
+            FindAndReplaceText("%CONTRACT_TITLE%", replaceText);
             
             FindAndReplaceFooterText("%DATE%", DateDatePicker.Text);
 
@@ -70,8 +67,10 @@ namespace Event_Horizon
         
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            // Save and close the document
-            //doc.Save();
+            // Specify the path to the Word document
+            string saveFilePath = @"N:\DPJ - Word Templates\Method Statement22.docx";
+            // Save the document with a new file name (Save As)
+            doc.SaveAs2(saveFilePath);
 
             // Close the document without saving changes
             doc.Close(SaveChanges: false);

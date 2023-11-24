@@ -33,13 +33,21 @@
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="10,0,0,0">
             <DatePicker x:Name="DateDatePicker" Width="210" HorizontalAlignment="Left" Margin="0,6,10,6" Padding="13,6,0,3" FontSize="18" SelectedDate="{x:Static sys:DateTime.Now}"/>
         </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,6,10,0">
+            <Border CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="0,0,0,0" Width="480" MaxWidth="480">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                </Border.Effect>
+                <TextBox x:Name="ContractorTitleTextBox" Text="Fieg Access Systems Ltd" Width="466" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
+            </Border>
+        </StackPanel>
         <Label Grid.Column="0" Grid.Row="1" Content="JobNo." HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,10,0"/>
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,6,10,0">
             <Border CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="0,0,0,0" Width="80" MaxWidth="280">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Border.Effect>
-                <TextBox x:Name="JobNoTextBox" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
+                <TextBox x:Name="JobNoTextBox" Text="01010" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
             </Border>
         </StackPanel>
         <Label Grid.Column="0" Grid.Row="2" Content="RevNo." HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,10,0"/>
@@ -48,7 +56,7 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Border.Effect>
-                <TextBox x:Name="RevisionNoTextBox" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
+                <TextBox x:Name="RevisionNoTextBox" Text="V1.1" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
             </Border>
         </StackPanel>
         <Label Grid.Column="0" Grid.Row="3" Content="Contractor" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,10,0"/>
@@ -57,7 +65,7 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Border.Effect>
-                <TextBox x:Name="ContractorTextBox" Width="466" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
+                <TextBox x:Name="ContractorTextBox" Text="Fieg Access Systems Ltd" Width="466" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
             </Border>
         </StackPanel>
         <Label Grid.Column="0" Grid.Row="4" Content="Customer" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,10,0"/>
@@ -66,7 +74,7 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Border.Effect>
-                <TextBox x:Name="CustomerTextBox" Width="466" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
+                <TextBox x:Name="CustomerTextBox" Text="Muller" Width="466" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
             </Border>
         </StackPanel>
         <Label Grid.Column="0" Grid.Row="5" Content="Site" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,10,0"/>
@@ -75,7 +83,7 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Border.Effect>
-                <TextBox x:Name="SiteTextBox" Width="466" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
+                <TextBox x:Name="SiteTextBox" Text="Market Drayton" Width="466" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
             </Border>
         </StackPanel>
         <Label Grid.Column="0" Grid.Row="6" Content="Document Ref." HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,10,0"/>
@@ -84,7 +92,7 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Border.Effect>
-                <TextBox x:Name="DocumentRefTextBox" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
+                <TextBox x:Name="DocumentRefTextBox" Text="MS010101" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
             </Border>
         </StackPanel>
         <Label Grid.Column="0" Grid.Row="7" Content="Risk Assessment No." HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,10,0"/>
@@ -93,7 +101,7 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Border.Effect>
-                <TextBox x:Name="RiskAssessmentNoTextBox" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
+                <TextBox x:Name="RiskAssessmentNoTextBox" Text="RA0101" Width="66" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
             </Border>
         </StackPanel>
         <Label Grid.Column="0" Grid.Row="8" Content="Risk Assessment Title" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,10,0"/>
@@ -102,7 +110,7 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Border.Effect>
-                <TextBox x:Name="RiskAssessmentTitleTextBox" Width="466" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
+                <TextBox x:Name="RiskAssessmentTitleTextBox" Text="Automatic Barriers Tern Valley not Working" Width="466" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0"/>
             </Border>
         </StackPanel>
         <Label Grid.Column="0" Grid.Row="9" Content="Scope Of Works" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,10,0"/>
@@ -111,7 +119,7 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Border.Effect>
-                <TextBox x:Name="ScopeOfWorksTextBox" Width="466" Height="80" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
+                <TextBox x:Name="ScopeOfWorksTextBox" Text="Investigation works to the milk gate barriers, due to them not working - possible gearbox fault." Width="466" Height="80" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
             </Border>
         </StackPanel>
         <Label Grid.Column="0" Grid.Row="10" Content="Location Of Works" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,10,0"/>
@@ -120,7 +128,7 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Border.Effect>
-                <TextBox x:Name="LocationOfWorksTextBox" Width="466" Height="30" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
+                <TextBox x:Name="LocationOfWorksTextBox" Text="Milk Gate barriers on the Tern Valley Road." Width="466" Height="30" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
             </Border>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
