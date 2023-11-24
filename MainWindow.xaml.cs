@@ -606,7 +606,9 @@ namespace Event_Horizon
                         FunctionKeyManager.GetEventTypeFromFunctionKey(11);
                         break;
                     case 11:
-                        FunctionKeyManager.GetEventTypeFromFunctionKey(12);
+                        //FunctionKeyManager.GetEventTypeFromFunctionKey(12);
+                        MethodStatement methodStatement = new MethodStatement();
+                        methodStatement.Show();
                         break;
                     case 15:
                         eventHorizonSearch.EventTypeComboBox.SelectedIndex = 0;
