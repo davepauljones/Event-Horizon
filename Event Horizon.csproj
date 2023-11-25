@@ -77,6 +77,9 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="cli_uno">
+      <HintPath>..\..\Program Files\LibreOffice\program\cli_uno.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -156,6 +159,9 @@
     <Compile Include="FunctionKeyManager.cs" />
     <Compile Include="EventHorizonUpDown.xaml.cs">
       <DependentUpon>EventHorizonUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LibraOfficeUno.xaml.cs">
+      <DependentUpon>LibraOfficeUno.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainViewModel.cs" />
     <Compile Include="View\RotaryControl.xaml.cs">
@@ -239,6 +245,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EventHorizonUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LibraOfficeUno.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
