@@ -607,6 +607,8 @@ namespace Event_Horizon
                         break;
                     case 11:
                         //FunctionKeyManager.GetEventTypeFromFunctionKey(12);
+                        MethodStatement methodStatement = new MethodStatement();
+                        methodStatement.Show();
                         LibraOfficeUno libraOfficeUno = new LibraOfficeUno();
                         libraOfficeUno.Show();
                         break;
