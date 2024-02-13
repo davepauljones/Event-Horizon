@@ -162,7 +162,10 @@ namespace Event_Horizon
                         EventHorizonRequesterNotification nrorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Create a New Remote Settings File", InformationTextBlock = ReusableMessages.WithGreatPowerComesGreatResponsibility + "\n\nAre you sure ?" }, RequesterTypes.NoYes);
                         if (nrorn.ShowDialog() == true)
                         {
-                            EventHorizonDatabaseCreate.AddFieldsToExistingTable();
+                            //EventHorizonDatabaseCreate.AddFieldsToExistingTable();
+                            //XMLReaderWriter.WriteSettingsXmlFile(new OracleSettings();
+                            EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Not Yet Implemented", InformationTextBlock = "You have to copy the existing one and rename it 'EventHorizonRemoteSetting.xml' and then edit it." }, RequesterTypes.OK);
+                            msg.ShowDialog();
                         }
                         break;
                     case WelcomeButtons.Edit_RemoteSettingsXML:
