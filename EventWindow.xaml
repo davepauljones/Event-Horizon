@@ -199,7 +199,7 @@
                             </RectangleGeometry.Rect>
                         </RectangleGeometry>
                     </Border.Clip>
-                    <Image x:Name="PathFileNameImage" Source="pack://application:,,/EventHorizonLogoNewSmall.png" Stretch="Uniform" StretchDirection = "DownOnly" SnapsToDevicePixels="True" UseLayoutRounding="True"/>
+                    <Image x:Name="PathFileNameImage" Source="pack://application:,,/Images/EventHorizonLogoNewSmall.png" Stretch="Uniform" StretchDirection = "DownOnly" SnapsToDevicePixels="True" UseLayoutRounding="True"/>
                 </Border>
             </Grid>
 

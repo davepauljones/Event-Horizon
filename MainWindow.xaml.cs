@@ -310,6 +310,8 @@ namespace Event_Horizon
                                         er.GrandTotalTextBlock.Text = grandTotalTotal.ToString("C2", CultureInfo.CurrentCulture);
                                     }
                                     break;
+                                case EventAttributes.LinkItem:
+                                    break;
                                 case EventAttributes.FooBar:
                                     break;
                             }
@@ -342,6 +344,9 @@ namespace Event_Horizon
                         case EventAttributes.Standard:
                             break;
                         case EventAttributes.LineItem:
+                            Return_EventHorizonLINQ.Add(eventHorizonLINQRow);
+                            break;
+                        case EventAttributes.LinkItem:
                             Return_EventHorizonLINQ.Add(eventHorizonLINQRow);
                             break;
                         case EventAttributes.FooBar:
@@ -1067,9 +1072,6 @@ namespace Event_Horizon
                                 REPORTS.Show();
                             }
                             break;
-                        case Reports.Foo:
-                            
-                            break;
                         case Reports.FooBar:
 
                             break;
@@ -1225,8 +1227,19 @@ namespace Event_Horizon
                             }
                         }
                         break;
-                    case EventRowContextMenu.Spare:
-                        Console.WriteLine("Spare");
+                    case EventRowContextMenu.TableOfContentsAndAttachPDFs:
+                        Console.WriteLine("Generate Table of Contents & Attach PDFs");
+                        try
+                        {
+                            ReportsWindow REPORTS;
+
+                            REPORTS = new ReportsWindow(eventHorizonLINQ_SelectedItem, GetProductItems(eventHorizonLINQ_SelectedItem), Helps.TableOfContentsAndAttachPDFs);
+                            REPORTS.Show();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case EventRowContextMenu.Delete:
                         Console.WriteLine("Delete");

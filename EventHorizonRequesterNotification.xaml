@@ -26,7 +26,7 @@
                 <RowDefinition Height="56"/>
         </Grid.RowDefinitions>
 
-        <Image Grid.Row="0" Source="pack://application:,,/EventHorizonLogoNewSmall.png" Stretch="UniformToFill" Width="189" Height="34" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0"
+        <Image Grid.Row="0" Source="pack://application:,,/Images/EventHorizonLogoNewSmall.png" Stretch="UniformToFill" Width="189" Height="34" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0"
             RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled"/>
 
         <TextBlock x:Name="MessageTitleTextBlock" Grid.Row="1" Text="Could not connect to a database" FontSize="18" FontWeight="Medium" Foreground="Black" HorizontalAlignment="Left" Margin="56,0,0,0"/>

@@ -341,8 +341,9 @@ namespace Event_Horizon
             AttributeTypesList.Clear();
 
             AttributeTypesList.Add(new AttributeType { ID = 0, Name = "Standard", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FF84a3ab") });
-            AttributeTypesList.Add(new AttributeType { ID = 1, Name = "LineItem", Icon = FontAwesomeIcon.Dollar, Color = (Color)ColorConverter.ConvertFromString("#FF10b05b") });
-            AttributeTypesList.Add(new AttributeType { ID = 2, Name = "FooBar", Icon = FontAwesomeIcon.Dribbble, Color = (Color)ColorConverter.ConvertFromString("#FFdb2a3e") });
+            AttributeTypesList.Add(new AttributeType { ID = 1, Name = "Line Item", Icon = FontAwesomeIcon.Dollar, Color = (Color)ColorConverter.ConvertFromString("#FF10b05b") });
+            AttributeTypesList.Add(new AttributeType { ID = 2, Name = "Link Item", Icon = FontAwesomeIcon.ExternalLink, Color = (Color)ColorConverter.ConvertFromString("#FF0000FF") });
+            AttributeTypesList.Add(new AttributeType { ID = 3, Name = "FooBar", Icon = FontAwesomeIcon.Dribbble, Color = (Color)ColorConverter.ConvertFromString("#FFdb2a3e") });
         }
 
         public static bool TryReadNodesFrom_EventHorizonRemoteSettings_SourceTypes(String PathFileName)

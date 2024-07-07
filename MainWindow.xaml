@@ -466,7 +466,7 @@
                                             <ContextMenu>
                                                 <MenuItem Header="View as Product" Tag="0" Click="RightMouseButton_Click"/>
                                                 <MenuItem Header="Open Link" Tag="1" Click="RightMouseButton_Click"/>
-                                                <MenuItem Header="Spare" Tag="2" Click="RightMouseButton_Click"/>
+                                                <MenuItem Header="View as Link Items" Tag="2" Click="RightMouseButton_Click"/>
                                                 <Separator />
                                                 <MenuItem Header="Delete" Tag="3" Click="RightMouseButton_Click"/>
                                                 <Separator />

@@ -275,7 +275,8 @@ namespace Event_Horizon
     {
         public const int Standard = 0;
         public const int LineItem = 1;
-        public const int FooBar = 2;
+        public const int LinkItem = 2;
+        public const int FooBar = 3;
     }
     public class SelectionIdString
     {
@@ -291,8 +292,7 @@ namespace Event_Horizon
     {
         public const int None = 99;
         public const int Product = 0;
-        public const int Foo = 1;
-        public const int FooBar = 2;
+        public const int FooBar = 1;
     }
     public struct Helps
     {
@@ -300,13 +300,14 @@ namespace Event_Horizon
         public const int EventStatus = 0;
         public const int EventFunctionKeys = 1;
         public const int SectionalDoorCheckList = 2;
-        public const int FooBar = 3;
+        public const int TableOfContentsAndAttachPDFs = 3;
+        public const int FooBar = 4;
     }
     public struct EventRowContextMenu
     {
         public const int ViewAsProduct = 0;
         public const int OpenLink = 1;
-        public const int Spare = 2;
+        public const int TableOfContentsAndAttachPDFs = 2;
         public const int Delete = 3;
         public const int Help = 4;
     }

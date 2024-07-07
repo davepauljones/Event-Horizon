@@ -64,6 +64,12 @@ namespace Event_Horizon
                     TotalTextBlock.Text = grandTotal.ToString("C2", CultureInfo.CurrentCulture);
 
                     break;
+                case EventAttributes.LinkItem:
+                    //change UI to suit LineItem
+                    EventTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.Blue);
+                    EventTypeFontAwesomeIcon.Icon = FontAwesome.WPF.FontAwesomeIcon.ExternalLink;
+                    EventTypeTextBlock.Text = "Link Item";
+                    break;
                 case EventAttributes.FooBar:
                     //change UI to suit FooBar 
                     break;
@@ -301,7 +307,7 @@ namespace Event_Horizon
                 eventRow.RepliesButton.IsEnabled = false;
             }
 
-            if (eventHorizonLINQ.EventAttributeID == EventAttributes.LineItem)
+            if (eventHorizonLINQ.EventAttributeID == EventAttributes.LineItem || eventHorizonLINQ.EventAttributeID == EventAttributes.LinkItem)
             {
                 eventRow.MorphEventRow();
             }
