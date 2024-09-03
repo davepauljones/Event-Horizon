@@ -97,8 +97,10 @@ namespace Event_Horizon
     }
     public struct DisplayModes
     {
-        public const int Normal = 0;
+        public const int Active = 0;
         public const int Reminders = 1;
+        public const int Archived = 2;
+        public const int Inactive = 3;
     }
     public struct RowLimitModes
     {
@@ -116,7 +118,9 @@ namespace Event_Horizon
     public struct ListViews
     {
         public const byte Reminder = 0;
-        public const byte Log = 1;
+        public const byte Active = 1;
+        public const byte Archived = 2;
+        public const byte Inactive = 3;
     }
     public struct EventFrequencys
     {

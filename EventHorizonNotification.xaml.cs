@@ -83,7 +83,7 @@ namespace Event_Horizon
                             if (mw.DisplayMode == DisplayModes.Reminders)
                                 mw.RefreshLog(ListViews.Reminder);
                             else
-                                mw.RefreshLog(ListViews.Log);
+                                mw.RefreshLog(ListViews.Active);
                         }
 
                         Close();
@@ -151,7 +151,7 @@ namespace Event_Horizon
                         if (mw.DisplayMode == DisplayModes.Reminders)
                             mw.RefreshLog(ListViews.Reminder);
                         else
-                            mw.RefreshLog(ListViews.Log);
+                            mw.RefreshLog(ListViews.Active);
 
                         Close();
                         break;

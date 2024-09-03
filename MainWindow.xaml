@@ -381,7 +381,9 @@
                                             <Label Content="Mode" Style="{DynamicResource Button_LabelStyle}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="0,16,0,0"/>
                                             <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
                                                 <RadioButton Tag="1" GroupName="DisplayModeRadioButton" Content = "Reminders" Foreground="White" IsChecked="True" Checked="DisplayModeRadioButton_Checked"/>
-                                                <RadioButton Tag="0" GroupName="DisplayModeRadioButton" Content = "By New" Foreground="White" Checked="DisplayModeRadioButton_Checked"/>
+                                                <RadioButton Tag="0" GroupName="DisplayModeRadioButton" Content = "Active" Foreground="White" Checked="DisplayModeRadioButton_Checked"/>
+                                                <RadioButton Tag="2" GroupName="DisplayModeRadioButton" Content = "Archived" Foreground="White" Checked="DisplayModeRadioButton_Checked"/>
+                                                <RadioButton Tag="3" GroupName="DisplayModeRadioButton" Content = "Inactive" Foreground="White" Checked="DisplayModeRadioButton_Checked"/>
                                             </StackPanel>
                                         </Grid>
                                     </StackPanel>

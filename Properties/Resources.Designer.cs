@@ -89,28 +89,27 @@ namespace Event_Horizon.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;
         ///&lt;EventHorizonDatabase&gt;
-        ///  
         ///  &lt;Users&gt;
-        ///	&lt;UserName&gt;David Jones&lt;/UserName&gt;
+        ///    &lt;UserName&gt;David Jones&lt;/UserName&gt;
         ///	&lt;Color&gt;#FFA0B392&lt;/Color&gt;
         ///  &lt;/Users&gt;
         ///  &lt;Users&gt;
-        ///    &lt;UserID&gt;2&lt;/UserID&gt;
-        ///    &lt;UserName&gt;Bill Gates&lt;/UserName&gt;
+        ///    &lt;UserName&gt;Steven Fletcher&lt;/UserName&gt;
         ///	&lt;Color&gt;#FF71B1D9&lt;/Color&gt;
         ///  &lt;/Users&gt;
         ///  &lt;Users&gt;
-        ///    &lt;UserID&gt;3&lt;/UserID&gt;
-        ///    &lt;UserName&gt;Steve Jobs&lt;/UserName&gt;
+        ///    &lt;UserName&gt;Steven Sutton&lt;/UserName&gt;
         ///	&lt;Color&gt;#FFAED8F2&lt;/Color&gt;
         ///  &lt;/Users&gt;
         ///  &lt;Users&gt;
-        ///    &lt;UserID&gt;4&lt;/UserID&gt;
-        ///    &lt;UserName&gt;Elon Musk&lt;/UserName&gt;
-        ///	&lt;Color&gt;#FFF2DEA2&lt;/Color&gt;
+        ///    &lt;UserName&gt;Tracey Morgan&lt;/UserName&gt;
+        ///	&lt;Color&gt;#e86dad&lt;/Color&gt;
         ///  &lt;/Users&gt;
         ///  &lt;Users&gt;
-        ///    &lt;UserID&gt;5&lt;/U [rest of string was truncated]&quot;;.
+        ///    &lt;UserName&gt;Lucy Compton&lt;/UserName&gt;
+        ///	&lt;Color&gt;#FFF2CDC4&lt;/Color&gt;
+        ///  &lt;/Users&gt;
+        ///  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string EventHorizonRemoteSettings {
             get {

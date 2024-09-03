@@ -76,7 +76,7 @@ namespace Event_Horizon
                             if (MainWindow.mw.DisplayMode == DisplayModes.Reminders)
                                 MainWindow.mw.RefreshLog(ListViews.Reminder);
                             else
-                                MainWindow.mw.RefreshLog(ListViews.Log);
+                                MainWindow.mw.RefreshLog(ListViews.Active);
 
                             MainWindow.mw.ReminderListScrollViewer.ScrollToTop();
                         }

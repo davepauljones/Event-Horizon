@@ -57,7 +57,7 @@ namespace Event_Horizon
                 if (DisplayMode == DisplayModes.Reminders)
                     RefreshLog(ListViews.Reminder);
                 else
-                    RefreshLog(ListViews.Log);
+                    RefreshLog(ListViews.Active);
             }));
         }
 
@@ -194,7 +194,7 @@ namespace Event_Horizon
             if (DisplayMode == DisplayModes.Reminders)
                 RefreshLog(ListViews.Reminder);
             else
-                RefreshLog(ListViews.Log);
+                RefreshLog(ListViews.Active);
         }
         internal void EventTypeCallbackFunction(int value)
         {
@@ -207,7 +207,7 @@ namespace Event_Horizon
                 if (DisplayMode == DisplayModes.Reminders)
                     RefreshLog(ListViews.Reminder);
                 else
-                    RefreshLog(ListViews.Log);
+                    RefreshLog(ListViews.Active);
 
                 ReminderListScrollViewer.ScrollToTop();
             }
@@ -427,7 +427,7 @@ namespace Event_Horizon
                             if (DisplayMode == DisplayModes.Reminders)
                                 RefreshLog(ListViews.Reminder);
                             else
-                                RefreshLog(ListViews.Log);
+                                RefreshLog(ListViews.Active);
 
                             ReminderListScrollViewer.ScrollToTop();
                         }
@@ -442,7 +442,7 @@ namespace Event_Horizon
                             if (DisplayMode == DisplayModes.Reminders)
                                 RefreshLog(ListViews.Reminder);
                             else
-                                RefreshLog(ListViews.Log);
+                                RefreshLog(ListViews.Active);
 
                             ReminderListScrollViewer.ScrollToTop();
                         }
@@ -463,7 +463,7 @@ namespace Event_Horizon
                             if (DisplayMode == DisplayModes.Reminders)
                                 RefreshLog(ListViews.Reminder);
                             else
-                                RefreshLog(ListViews.Log);
+                                RefreshLog(ListViews.Active);
 
                             ReminderListScrollViewer.ScrollToTop();
                         }
@@ -624,7 +624,7 @@ namespace Event_Horizon
                             if (DisplayMode == DisplayModes.Reminders)
                                 RefreshLog(ListViews.Reminder);
                             else
-                                RefreshLog(ListViews.Log);
+                                RefreshLog(ListViews.Active);
 
                             ReminderListScrollViewer.ScrollToTop();
                         }
@@ -636,7 +636,7 @@ namespace Event_Horizon
                             if (DisplayMode == DisplayModes.Reminders)
                                 RefreshLog(ListViews.Reminder);
                             else
-                                RefreshLog(ListViews.Log);
+                                RefreshLog(ListViews.Active);
 
                             ReminderListScrollViewer.ScrollToTop();
                         }
@@ -648,10 +648,21 @@ namespace Event_Horizon
                     case 18:
                         if (MainWindowIs_Loaded)
                         {
-                            if (DisplayMode == DisplayModes.Reminders)
-                                RefreshLog(ListViews.Reminder);
-                            else
-                                RefreshLog(ListViews.Log);
+                            switch (DisplayMode)
+                            {
+                                case DisplayModes.Reminders:
+                                    RefreshLog(ListViews.Reminder);
+                                    break;
+                                case DisplayModes.Active:
+                                    RefreshLog(ListViews.Active);
+                                    break;
+                                case DisplayModes.Archived:
+                                    RefreshLog(ListViews.Archived);
+                                    break;
+                                case DisplayModes.Inactive:
+                                    RefreshLog(ListViews.Inactive);
+                                    break;
+                            }
 
                             ReminderListScrollViewer.ScrollToTop();
                         }
@@ -821,8 +832,8 @@ namespace Event_Horizon
                 {
                     switch (buttonID)
                     {
-                        case DisplayModes.Normal:
-                            DisplayMode = DisplayModes.Normal;
+                        case DisplayModes.Active:
+                            DisplayMode = DisplayModes.Active;
                             ReminderTimeSpanBorder.Opacity = 0.7;
                             ReminderTimeSpanBorder.IsEnabled = false;
                             break;
@@ -830,6 +841,16 @@ namespace Event_Horizon
                             DisplayMode = DisplayModes.Reminders;
                             ReminderTimeSpanBorder.Opacity = 1;
                             ReminderTimeSpanBorder.IsEnabled = true;
+                            break;
+                        case DisplayModes.Archived:
+                            DisplayMode = DisplayModes.Archived;
+                            ReminderTimeSpanBorder.Opacity = 0.7;
+                            ReminderTimeSpanBorder.IsEnabled = false;
+                            break;
+                        case DisplayModes.Inactive:
+                            DisplayMode = DisplayModes.Inactive;
+                            ReminderTimeSpanBorder.Opacity = 0.7;
+                            ReminderTimeSpanBorder.IsEnabled = false;
                             break;
                     }
                 }
@@ -868,7 +889,7 @@ namespace Event_Horizon
                             if (DisplayMode == DisplayModes.Reminders)
                                 RefreshLog(ListViews.Reminder);
                             else
-                                RefreshLog(ListViews.Log);
+                                RefreshLog(ListViews.Active);
 
                             ReminderListScrollViewer.ScrollToTop();
                         }
