@@ -1222,11 +1222,14 @@ namespace Event_Horizon
         {
             bool saveSuccessFull = false;
 
-            if (GetUserID(EventID) != XMLReaderWriter.UserID)
+            if (XMLReaderWriter.UserID != 1)
             {
-                EventHorizonRequesterNotification rorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, you can only delete your own events.", InformationTextBlock = "You could ask the user who created it, to delete it." }, RequesterTypes.OK);
-                rorn.ShowDialog();
-                return;
+                if (GetUserID(EventID) != XMLReaderWriter.UserID)
+                {
+                    EventHorizonRequesterNotification rorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, you can only delete your own events.", InformationTextBlock = "You could ask the user who created it, to delete it." }, RequesterTypes.OK);
+                    rorn.ShowDialog();
+                    return;
+                }
             }
 
             switch (XMLReaderWriter.DatabaseSystem)

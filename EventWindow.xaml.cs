@@ -49,7 +49,7 @@ namespace Event_Horizon
                 case EventWindowModes.ViewMainEvent:
                     GetOracleEvent();
 
-                    if (userID == XMLReaderWriter.UserID)
+                    if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
                         eventWindowMode = EventWindowModes.EditMainEvent;
                     else
                         eventWindowMode = EventWindowModes.ViewMainEvent;
@@ -58,7 +58,7 @@ namespace Event_Horizon
                 case EventWindowModes.ViewNote:
                     GetOracleEvent();
 
-                    if (userID == XMLReaderWriter.UserID)
+                    if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
                         eventWindowMode = EventWindowModes.EditNote;
                     else
                         eventWindowMode = EventWindowModes.ViewNote;
@@ -67,7 +67,7 @@ namespace Event_Horizon
                 case EventWindowModes.ViewReply:
                     GetOracleEvent();
 
-                    if (userID == XMLReaderWriter.UserID)
+                    if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
                         eventWindowMode = EventWindowModes.EditReply;
                     else
                         eventWindowMode = EventWindowModes.ViewReply;
@@ -76,7 +76,7 @@ namespace Event_Horizon
                 case EventWindowModes.EditMainEvent:
                     GetOracleEvent();
 
-                    if (userID == XMLReaderWriter.UserID)
+                    if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
                         eventWindowMode = EventWindowModes.EditMainEvent;
                     else
                         eventWindowMode = EventWindowModes.ViewMainEvent;
@@ -85,7 +85,7 @@ namespace Event_Horizon
                 case EventWindowModes.EditNote:
                     GetOracleEvent();
 
-                    if (userID == XMLReaderWriter.UserID)
+                    if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
                         eventWindowMode = EventWindowModes.EditNote;
                     else
                         eventWindowMode = EventWindowModes.ViewNote;
@@ -94,7 +94,7 @@ namespace Event_Horizon
                 case EventWindowModes.EditReply:
                     GetOracleEvent();
 
-                    if (userID == XMLReaderWriter.UserID)
+                    if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
                         eventWindowMode = EventWindowModes.EditReply;
                     else
                         eventWindowMode = EventWindowModes.ViewReply;
