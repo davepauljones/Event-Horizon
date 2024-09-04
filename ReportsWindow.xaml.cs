@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Packaging;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -1090,20 +1089,10 @@ namespace Event_Horizon
             currentRowHeader.FontWeight = System.Windows.FontWeights.Bold;
 
             Int32 ItemNumber = 0;
-            Int32 grandTotalItems = 0;
-            double grandTotalUnitCost = 0;
-            double grandTotalTotal = 0;
 
             foreach (EventHorizonLINQ eventHorizonLINQ in eventHorizonLINQ_LineItemsList)
             {
                 ItemNumber++;
-
-                grandTotalItems += eventHorizonLINQ.Qty;
-
-                grandTotalUnitCost += eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty;
-
-                grandTotalTotal += (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) - (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) * eventHorizonLINQ.Discount / 100;
-
 
                 Table table1 = new Table();
 
@@ -1129,11 +1118,6 @@ namespace Event_Horizon
                 // Alias the current working row for easy reference.
                 TableRow currentRow = table1.RowGroups[0].Rows[0];
 
-                // Global formatting for the title row.
-                //currentRow.Background = Brushes.Silver;
-                //currentRow.FontSize = 18;
-                //currentRow.FontWeight = System.Windows.FontWeights.Medium;
-
                 // Add the second (header) row.
                 table1.RowGroups[0].Rows.Add(new TableRow());
                 currentRow = table1.RowGroups[0].Rows[1];
@@ -1147,7 +1131,7 @@ namespace Event_Horizon
                 Paragraph paragraphImage = new Paragraph();
                 flowDoc.Blocks.Add(paragraphImage);
 
-                /*if (File.Exists(eventHorizonLINQ.PathFileName))
+                if (File.Exists(eventHorizonLINQ.PathFileName))
                 {
                     // Create an InlineUIContainer to host an image
                     InlineUIContainer imageContainer = new InlineUIContainer();
@@ -1167,7 +1151,7 @@ namespace Event_Horizon
                     // Add the InlineUIContainer to the paragraph
                     paragraphImage.Inlines.Add(imageContainer);
                     paragraphImage.TextAlignment = TextAlignment.Center;
-                }*/
+                }
 
                 // Add the third row.
                 table1.RowGroups[0].Rows.Add(new TableRow());
@@ -1198,11 +1182,6 @@ namespace Event_Horizon
                 paragraphLineTotal.TextAlignment = TextAlignment.Right;
                 currentRow.Cells.Add(new TableCell(paragraphLineTotal));
 
-                /*double discount = eventHorizonLINQ.Discount / 100;
-                Paragraph paragraphDiscount = new Paragraph(new Run(""));
-                paragraphDiscount.TextAlignment = TextAlignment.Right;
-                currentRow.Cells.Add(new TableCell(paragraphDiscount));*/
-
                 // Create a Rectangle object
                 Rectangle rectangle = new Rectangle();
                 rectangle.Width = 25; // Set width as needed
@@ -1219,7 +1198,6 @@ namespace Event_Horizon
                 // Add the container to a TableCell
                 currentRow.Cells.Add(new TableCell(container));
 
-                double total = (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) - (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) * eventHorizonLINQ.Discount / 100;
                 Paragraph paragraphTotal = new Paragraph(new Run(""));
                 paragraphTotal.TextAlignment = TextAlignment.Right;
                 currentRow.Cells.Add(new TableCell(paragraphTotal));
@@ -1315,31 +1293,6 @@ namespace Event_Horizon
             paragraphGrandItemNumber.TextAlignment = TextAlignment.Center;
             currentRowFooter.Cells.Add(new TableCell(paragraphGrandItemNumber));
 
-            ////// Create a paragraph and add it to the FlowDocument
-            //Paragraph paragraphGrandImageFooter = new Paragraph();
-            //flowDoc.Blocks.Add(paragraphGrandImageFooter);
-
-            //// Create an InlineUIContainer to host an image
-            //InlineUIContainer imageContainerFooter = new InlineUIContainer();
-
-            //Image imageFooter = new Image();
-            //imageFooter.MaxWidth = 200;
-            //imageFooter.MaxHeight = 100;
-            //imageFooter.Stretch = Stretch.Uniform;
-            //imageFooter.StretchDirection = StretchDirection.DownOnly;
-            //imageFooter.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
-            //imageFooter.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            //imageFooter.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri(eventHorizonLINQ_MainEvent.PathFileName));
-
-            //// Add the Image to the InlineUIContainer
-            //imageContainerFooter.Child = imageFooter;
-
-            //// Add the InlineUIContainer to the paragraph
-            //paragraphGrandImageFooter.Inlines.Add(imageContainerFooter);
-            //paragraphGrandImageFooter.TextAlignment = TextAlignment.Center;
-
-            //currentRowFooter.Cells.Add(new TableCell(paragraphGrandImageFooter));
-
             Paragraph paragraphImageSpaceHolder = new Paragraph(new Run(""));
             paragraphImageSpaceHolder.TextAlignment = TextAlignment.Right;
             currentRowFooter.Cells.Add(new TableCell(paragraphImageSpaceHolder));
@@ -1357,8 +1310,6 @@ namespace Event_Horizon
             Paragraph paragraphGrandLineTotal = new Paragraph(new Run(""));
             paragraphGrandLineTotal.TextAlignment = TextAlignment.Right;
             currentRowFooter.Cells.Add(new TableCell(paragraphGrandLineTotal));
-
-            double grandTotalDiscount = grandTotalUnitCost - grandTotalTotal;
 
             Paragraph paragraphGrandDiscount = new Paragraph(new Run(""));
             paragraphGrandDiscount.TextAlignment = TextAlignment.Right;
