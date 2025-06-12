@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Diagnostics;
+using Ookii.Dialogs.Wpf;
 
 namespace Event_Horizon
 {
@@ -604,6 +605,26 @@ namespace Event_Horizon
                 switch (buttonID)
                 {
                     case 0:
+                        string PathFolderNameString = string.Empty;
+
+                        var dialog = new VistaFolderBrowserDialog
+                        {
+                            Description = PathFolderNameString,
+                            UseDescriptionForTitle = true,
+                            ShowNewFolderButton = true
+                        };
+
+                        bool? result = dialog.ShowDialog();
+
+                        if (result == true)
+                        {
+                            PathFolderNameString = dialog.SelectedPath;
+                        }
+
+                        PathFileNameLabel.Content = PathFolderNameString;
+                        eventHorizonLINQ.PathFileName = PathFolderNameString;
+                        break;
+                    case 1:
                         string PathFileNameString = EventHorizonDatabaseCreate.OpenFile("All supported files|*.jpg;*.jpeg;*.png|JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|Portable Network Graphic (*.png)|*.png|PDF (*.pdf)|*.pdf|All files (*.*)|*.*");
 
                         TryLoadImage(PathFileNameString);
@@ -611,7 +632,7 @@ namespace Event_Horizon
                         PathFileNameLabel.Content = PathFileNameString;
                         eventHorizonLINQ.PathFileName = PathFileNameString;
                         break;
-                    case 1:
+                    case 2:
                         if (eventHorizonLINQ.PathFileName != string.Empty)
                         {
                             if (File.Exists(eventHorizonLINQ.PathFileName))
@@ -619,9 +640,14 @@ namespace Event_Horizon
                                 Topmost = false;
                                 Process.Start(eventHorizonLINQ.PathFileName);
                             }
+                            else if (Directory.Exists(eventHorizonLINQ.PathFileName))
+                            {
+                                Topmost = false;
+                                Process.Start(new ProcessStartInfo("explorer.exe", eventHorizonLINQ.PathFileName) { UseShellExecute = true }); // open folder
+                            }
                         }
                         break;
-                    case 2:
+                    case 3:
                         double unitCost;
                         if (double.TryParse(UnitCostTextBox.Text, out unitCost))
                         {

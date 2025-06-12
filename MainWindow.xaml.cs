@@ -1246,6 +1246,11 @@ namespace Event_Horizon
                                 Topmost = false;
                                 Process.Start(eventHorizonLINQ_SelectedItem.PathFileName);
                             }
+                            else if (Directory.Exists(eventHorizonLINQ_SelectedItem.PathFileName))
+                            {
+                                Topmost = false;
+                                Process.Start(new ProcessStartInfo("explorer.exe", eventHorizonLINQ_SelectedItem.PathFileName) { UseShellExecute = true }); // open folder
+                            }
                         }
                         break;
                     case EventRowContextMenu.TableOfContentsAndAttachPDFs:

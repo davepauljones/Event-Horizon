@@ -183,6 +183,7 @@ namespace Event_Horizon
                             case FilterModes.None:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                        where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
@@ -191,6 +192,7 @@ namespace Event_Horizon
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
@@ -199,6 +201,7 @@ namespace Event_Horizon
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID || eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
@@ -207,6 +210,7 @@ namespace Event_Horizon
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
                                         where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                        where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
                                         where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
@@ -215,6 +219,7 @@ namespace Event_Horizon
                             default:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                        where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
                                         where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;
