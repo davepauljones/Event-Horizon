@@ -101,6 +101,7 @@ namespace Event_Horizon
         public const int Reminders = 1;
         public const int Archived = 2;
         public const int Inactive = 3;
+        public const int Everything = 4;
     }
     public struct RowLimitModes
     {

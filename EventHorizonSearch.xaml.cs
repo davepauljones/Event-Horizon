@@ -86,6 +86,11 @@ namespace Event_Horizon
                         MainWindow.mw.EventTypeID = MainWindow.mw.eventHorizonSearch.EventTypeComboBox.SelectedIndex;
                         MainWindow.mw.eventHorizonSearch.SearchTextBox.Text = string.Empty;
                         break;
+                    case 2:
+                        MainWindow.mw.eventHorizonSearch.EventTypeComboBox.SelectedIndex = 0;
+                        MainWindow.mw.EventTypeID = MainWindow.mw.eventHorizonSearch.EventTypeComboBox.SelectedIndex;
+                        MainWindow.mw.eventHorizonSearch.SearchTextBox.Text = string.Empty;
+                        break;
                 }
             }
         }
