@@ -662,6 +662,9 @@ namespace Event_Horizon
                                 case DisplayModes.Inactive:
                                     RefreshLog(ListViews.Inactive);
                                     break;
+                                case DisplayModes.Everything:
+                                    RefreshLog(ListViews.Active);
+                                    break;
                             }
 
                             ReminderListScrollViewer.ScrollToTop();
@@ -849,6 +852,11 @@ namespace Event_Horizon
                             break;
                         case DisplayModes.Inactive:
                             DisplayMode = DisplayModes.Inactive;
+                            ReminderTimeSpanBorder.Opacity = 0.7;
+                            ReminderTimeSpanBorder.IsEnabled = false;
+                            break;
+                        case DisplayModes.Everything:
+                            DisplayMode = DisplayModes.Everything;
                             ReminderTimeSpanBorder.Opacity = 0.7;
                             ReminderTimeSpanBorder.IsEnabled = false;
                             break;
@@ -1245,6 +1253,11 @@ namespace Event_Horizon
                             {
                                 Topmost = false;
                                 Process.Start(eventHorizonLINQ_SelectedItem.PathFileName);
+                            }
+                            else if (Directory.Exists(eventHorizonLINQ_SelectedItem.PathFileName))
+                            {
+                                Topmost = false;
+                                Process.Start(new ProcessStartInfo("explorer.exe", eventHorizonLINQ_SelectedItem.PathFileName) { UseShellExecute = true }); // open folder
                             }
                         }
                         break;

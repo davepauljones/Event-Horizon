@@ -13,7 +13,7 @@
         <local:RectConverter x:Key="RectConverter" />
     </Window.Resources>
     <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
-        
+
         <Rectangle Opacity="0.56" Width="200" Height="747" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
@@ -183,7 +183,7 @@
                 </Border.Effect>
                 <TextBox x:Name="DetailsTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
             </Border>
-            
+
             <Grid Grid.Column="1" Grid.Row="5" Grid.RowSpan="4" Background="Transparent" HorizontalAlignment="Left" MaxWidth="334" MaxHeight="220" Margin="11,6,0,6">
                 <Grid.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="2" Opacity="0.6" />
@@ -258,7 +258,7 @@
                 <!--<Button Tag="1" Content="CLEAR" Width="60" IsTabStop="False" Style="{DynamicResource OracleButtonStyle }" Height="30" Margin="12,6,0,0" Click="All_ButtonClick"/>-->
             </StackPanel>
 
-            <Button Grid.Column="3" Grid.Row="8" x:Name="CalcGrandTotalButton" Tag="2" Content="Calc Grand Total" Width="120" IsTabStop="False" Style="{DynamicResource EventHorizonButtonStyle }" Height="30" HorizontalAlignment="Right" Margin="10,6,10,6" Click="BrowseButton_ButtonClick">
+            <Button Grid.Column="3" Grid.Row="8" x:Name="CalcGrandTotalButton" Tag="3" Content="Calc Grand Total" Width="120" IsTabStop="False" Style="{DynamicResource EventHorizonButtonStyle }" Height="30" HorizontalAlignment="Right" Margin="10,6,10,6" Click="BrowseButton_ButtonClick">
                 <Button.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Button.Effect>
@@ -288,20 +288,25 @@
                 </ComboBox>
             </StackPanel>
 
-            <Border Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="3" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Width="640" HorizontalAlignment="Left" Margin="10,6,0,6">
+            <Border Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="3" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Width="574" HorizontalAlignment="Left" Margin="10,6,0,6">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Border.Effect>
-                <Label x:Name="PathFileNameLabel" Content="PathFileName" Width="620" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="13" Margin="10,0,10,0"/>
+                <Label x:Name="PathFileNameLabel" Content="PathFileName" Width="553" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13"/>
             </Border>
 
             <StackPanel Grid.Column="3" Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="BrowseButton" Tag="0" Content="Browse" Width="60" IsTabStop="False" Style="{DynamicResource EventHorizonButtonStyle }" Height="30" Margin="10,6,0,6" Click="BrowseButton_ButtonClick">
+                <Button x:Name="FolderButton" Tag="0" Content="Folder" Width="60" IsTabStop="False" Style="{DynamicResource EventHorizonButtonStyle }" Height="30" Margin="10,6,0,6" Click="BrowseButton_ButtonClick">
                     <Button.Effect>
                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                     </Button.Effect>
                 </Button>
-                <Button x:Name="OpenButton" Tag="1" Content="Open" Width="60" IsTabStop="False" Style="{DynamicResource EventHorizonButtonStyle }" Height="30" Margin="10,6,10,6" Click="BrowseButton_ButtonClick">
+                <Button x:Name="BrowseButton" Tag="1" Content="Browse" Width="60" IsTabStop="False" Style="{DynamicResource EventHorizonButtonStyle }" Height="30" Margin="10,6,0,6" Click="BrowseButton_ButtonClick">
+                    <Button.Effect>
+                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                    </Button.Effect>
+                </Button>
+                <Button x:Name="OpenButton" Tag="2" Content="Open" Width="60" IsTabStop="False" Style="{DynamicResource EventHorizonButtonStyle }" Height="30" Margin="10,6,10,6" Click="BrowseButton_ButtonClick">
                     <Button.Effect>
                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                     </Button.Effect>

@@ -181,40 +181,173 @@ namespace Event_Horizon
                         switch (filterMode)
                         {
                             case FilterModes.None:
-                                query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
-                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
-                                        orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
-                                        select eventHorizonEvent;
+                                switch (displayMode)
+                                {
+                                    case DisplayModes.Inactive:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("StatusID") == Statuses.Inactive
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                    case DisplayModes.Active:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                    case DisplayModes.Archived:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("StatusID") == Statuses.ActiveNotifiedReadArchived
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                    case DisplayModes.Everything:
+                                    default:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                }
                                 break;
                             case FilterModes.OriginIsMe:
-                                query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
-                                        where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
-                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
-                                        orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
-                                        select eventHorizonEvent;
+                                switch (displayMode)
+                                {
+                                    case DisplayModes.Inactive:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<Int32>("StatusID") == Statuses.Inactive
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                    case DisplayModes.Active:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                    case DisplayModes.Archived:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<Int32>("StatusID") == Statuses.ActiveNotifiedReadArchived
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                    case DisplayModes.Everything:
+                                    default:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                }
                                 break;
                             case FilterModes.OriginOrTargetIsMe:
-                                query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
-                                        where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID || eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
-                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
-                                        orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
-                                        select eventHorizonEvent;
+                                switch (displayMode)
+                                {
+                                    case DisplayModes.Inactive:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID || eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<Int32>("StatusID") == Statuses.Inactive
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                    case DisplayModes.Active:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID || eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                    case DisplayModes.Archived:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID || eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<Int32>("StatusID") == Statuses.ActiveNotifiedReadArchived
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                    case DisplayModes.Everything:
+                                    default:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID || eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                }
                                 break;
                             case FilterModes.OriginAndTargetIsMe:
-                                query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
-                                        where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
-                                        where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
-                                        where eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
-                                        where eventHorizonEvent.Field<string>("Details").Contains(searchString)
-                                        orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
-                                        select eventHorizonEvent;
+                                switch (displayMode)
+                                {
+                                    case DisplayModes.Inactive:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<Int32>("StatusID") == Statuses.Inactive
+                                                where eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                    case DisplayModes.Active:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
+                                                where eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                    case DisplayModes.Archived:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<Int32>("StatusID") == Statuses.ActiveNotifiedReadArchived
+                                                where eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                    case DisplayModes.Everything:
+                                    default:
+                                        query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
+                                                where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                                where eventHorizonEvent.Field<Int32>("UserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<Int32>("TargetUserID") == XMLReaderWriter.UserID
+                                                where eventHorizonEvent.Field<string>("Details").Contains(searchString)
+                                                orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
+                                                select eventHorizonEvent;
+                                        break;
+                                }
                                 break;
                             default:
                                 query = from eventHorizonEvent in EventHorizon_Event.AsEnumerable()
                                         where eventHorizonEvent.Field<Int32>("EventTypeID") == eventTypeID
+                                        where eventHorizonEvent.Field<Int32>("StatusID") == Statuses.Active
                                         where eventHorizonEvent.Field<string>("Details").Contains(searchString)
                                         orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
                                         select eventHorizonEvent;

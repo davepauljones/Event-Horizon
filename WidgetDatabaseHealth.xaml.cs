@@ -17,7 +17,18 @@ namespace Event_Horizon
         
         public void UpdateLastWriteDateTime(DateTime lastWriteDateTime)
         {
-            string fileName = XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb";
+            string fileName = string.Empty;
+
+            switch (XMLReaderWriter.DatabaseSystem)
+            {
+                case DatabaseSystems.AccessMDB:
+                    fileName = XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.mdb";
+                    break;
+                case DatabaseSystems.SQLite:
+                    fileName = XMLReaderWriter.DatabaseLocationString + "\\EventHorizonRemoteDatabase.db3";
+                    break;
+            }
+
             FileInfo fi = new FileInfo(fileName);
 
             bool exists = fi.Exists;
