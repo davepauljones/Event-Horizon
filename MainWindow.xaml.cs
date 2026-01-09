@@ -1048,10 +1048,10 @@ namespace Event_Horizon
             ListOfTraining.Clear();
             TrainingVisualTreeListView.Items.Clear();
 
-            ListOfTraining.Add(new SelectionIdString { Id = 0, Name = "Why We Need Training" });
-            ListOfTraining.Add(new SelectionIdString { Id = 1, Name = "Fire Extinguishers" });
-            ListOfTraining.Add(new SelectionIdString { Id = 2, Name = "Ladders" });
-            ListOfTraining.Add(new SelectionIdString { Id = 3, Name = "Mental Health" });
+            ListOfTraining.Add(new SelectionIdString { Id = 0, Name = "1 - Why We Need Training" });
+            ListOfTraining.Add(new SelectionIdString { Id = 1, Name = "2 - Fire Extinguishers" });
+            ListOfTraining.Add(new SelectionIdString { Id = 2, Name = "3 - Ladders" });
+            ListOfTraining.Add(new SelectionIdString { Id = 3, Name = "4 - Mental Health" });
             ListOfTraining.Add(new SelectionIdString { Id = 4, Name = "FooBar" });
 
             NumberOfTrainingTextBlock.Text = ListOfTraining.Count.ToString();
