@@ -1,15 +1,16 @@
-﻿using System;
+﻿using EventHorizon.Training;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Globalization;
 using Xceed.Wpf.Toolkit;
-using System.Windows.Automation.Peers;
-using System.IO;
-using System.Diagnostics;
 
 namespace Event_Horizon
 {
@@ -37,6 +38,7 @@ namespace Event_Horizon
 
         private static DatabasePoller databasePoller;
 
+        List<SelectionIdString> ListOfTraining = new List<SelectionIdString>();
         List<SelectionIdString> ListOfReports = new List<SelectionIdString>();
         List<SelectionIdString> ListOfHelp = new List<SelectionIdString>();
 
@@ -128,6 +130,7 @@ namespace Event_Horizon
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            LoadTrainingVisualTree();
             LoadReportsVisualTree();
             LoadHelpVisualTree();
 
@@ -1001,6 +1004,18 @@ namespace Event_Horizon
 
             switch (switchValue)
             {
+                case TreeViews.Training:
+                    if (TrainingStackPanel.Visibility == System.Windows.Visibility.Collapsed)
+                    {
+                        TrainingStackPanel.Visibility = System.Windows.Visibility.Visible;
+                        TrainingVisualTreeListView.Visibility = System.Windows.Visibility.Visible;
+                    }
+                    else
+                    {
+                        TrainingStackPanel.Visibility = System.Windows.Visibility.Collapsed;
+                        TrainingVisualTreeListView.Visibility = System.Windows.Visibility.Collapsed;
+                    }
+                    break;
                 case TreeViews.Reports:
                     if (ReportsStackPanel.Visibility == System.Windows.Visibility.Collapsed)
                     {
@@ -1025,6 +1040,25 @@ namespace Event_Horizon
                         HelpVisualTreeListView.Visibility = System.Windows.Visibility.Collapsed;
                     }
                     break;
+            }
+        }
+
+        private void LoadTrainingVisualTree()
+        {
+            ListOfTraining.Clear();
+            TrainingVisualTreeListView.Items.Clear();
+
+            ListOfTraining.Add(new SelectionIdString { Id = 0, Name = "Why We Need Training" });
+            ListOfTraining.Add(new SelectionIdString { Id = 1, Name = "Fire Extinguishers" });
+            ListOfTraining.Add(new SelectionIdString { Id = 2, Name = "Ladders" });
+            ListOfTraining.Add(new SelectionIdString { Id = 3, Name = "Mental Health" });
+            ListOfTraining.Add(new SelectionIdString { Id = 4, Name = "FooBar" });
+
+            NumberOfTrainingTextBlock.Text = ListOfTraining.Count.ToString();
+
+            foreach (SelectionIdString ss in ListOfTraining)
+            {
+                TrainingVisualTreeListView.Items.Add(new TextBlock { Tag = ss.Id, Text = " " + ss.Name + " ", Style = (Style)FindResource("TreeViewItemTextBlock") });
             }
         }
 
@@ -1061,6 +1095,66 @@ namespace Event_Horizon
             foreach (SelectionIdString ss in ListOfHelp)
             {
                 HelpVisualTreeListView.Items.Add(new TextBlock { Tag = ss.Id, Text = " " + ss.Name + " ", Style = (Style)FindResource("TreeViewItemTextBlock") });
+            }
+        }
+
+        private void TrainingVisualTreeListView_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is ListViewItem))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            ListViewItem item = (ListViewItem)dep;
+
+            item.IsSelected = true;
+            e.Handled = true;
+
+            try
+            {
+                if (TrainingVisualTreeListView.SelectedItem == null)
+                {
+                    return;
+                }
+
+                if (TrainingVisualTreeListView.SelectedItems.Count == 1)
+                {
+                    VideoPlayerWindow TRAINING;
+
+                    switch (TrainingVisualTreeListView.SelectedIndex)
+                    {
+                        case Training.WhyWeNeedTraining:
+                            TRAINING = new VideoPlayerWindow();
+                            TRAINING.Show();
+                            break;
+                        case Training.FireExtinguishers:
+                            TRAINING = new VideoPlayerWindow();
+                            TRAINING.Show();
+                            break;
+                        case Training.Ladders:
+                            TRAINING = new VideoPlayerWindow();
+                            TRAINING.Show();
+                            break;
+                        case Training.MentalHealth:
+                            TRAINING = new VideoPlayerWindow();
+                            TRAINING.Show();
+                            break;
+                        case Training.FooBar:
+
+                            break;
+                    }
+
+                    item.IsSelected = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 

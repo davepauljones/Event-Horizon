@@ -304,6 +304,9 @@
     <Compile Include="EventHorizonSearch.xaml.cs">
       <DependentUpon>EventHorizonSearch.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VideoPlayerWindow.xaml.cs">
+      <DependentUpon>VideoPlayerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FunctionKeyManager.cs" />
     <Compile Include="EventHorizonUpDown.xaml.cs">
       <DependentUpon>EventHorizonUpDown.xaml</DependentUpon>
@@ -387,6 +390,10 @@
     <Page Include="EventHorizonSearch.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VideoPlayerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LCARS_Definitions.xaml">
       <SubType>Designer</SubType>

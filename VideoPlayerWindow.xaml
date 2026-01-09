@@ -1,0 +1,43 @@
+﻿<Window x:Class="EventHorizon.Training.VideoPlayerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Training Video"
+        Width="900"
+        Height="600">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Video -->
+        <MediaElement x:Name="TrainingVideo"
+                      Grid.Row="0"
+                      LoadedBehavior="Manual"
+                      UnloadedBehavior="Stop"
+                      Stretch="Uniform" />
+
+        <!-- Controls -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,10,0,0">
+
+            <Button Content="Play"
+                    Width="80"
+                    Margin="5"
+                    Click="Play_Click"/>
+
+            <Button Content="Pause"
+                    Width="80"
+                    Margin="5"
+                    Click="Pause_Click"/>
+
+            <Button Content="Stop"
+                    Width="80"
+                    Margin="5"
+                    Click="Stop_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
