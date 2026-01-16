@@ -1,0 +1,49 @@
+﻿<Window x:Class="Event_Horizon.EventHorizonTitler"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Event_Horizon"
+        mc:Ignorable="d"
+        Title="EventHorizonTitler"
+        WindowStyle="None"
+        WindowState="Maximized"
+        Background="#111111"
+        KeyDown="Window_KeyDown">
+    <Grid>
+        <StackPanel VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Margin="40,40,0,0"
+            Width="900">
+            
+            <!-- Title -->
+            <TextBlock x:Name="TitleText"
+                       FontSize="56"
+                       FontWeight="SemiBold"
+                       Foreground="White"
+                       TextAlignment="Center"
+                       Margin="0,0,0,40">
+                        <TextBlock.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="0"
+                                            To="1"
+                                            Duration="0:0:0.8"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </TextBlock.Triggers>
+            </TextBlock>
+
+            <!-- Body -->
+            <TextBlock x:Name="BodyText"
+                       FontSize="32"
+                       Foreground="#DDDDDD"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Window>

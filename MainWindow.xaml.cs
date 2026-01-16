@@ -1125,6 +1125,7 @@ namespace Event_Horizon
                 if (TrainingVisualTreeListView.SelectedItems.Count == 1)
                 {
                     VideoPlayerWindow TRAINING;
+                    EventHorizonTitler TITLER;
 
                     switch (TrainingVisualTreeListView.SelectedIndex)
                     {
@@ -1133,8 +1134,8 @@ namespace Event_Horizon
                             TRAINING.Show();
                             break;
                         case Training.FireExtinguishers:
-                            TRAINING = new VideoPlayerWindow();
-                            TRAINING.Show();
+                            TITLER = new EventHorizonTitler();
+                            TITLER.Show();
                             break;
                         case Training.Ladders:
                             TRAINING = new VideoPlayerWindow();
