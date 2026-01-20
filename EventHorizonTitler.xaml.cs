@@ -19,11 +19,12 @@ namespace Event_Horizon
 
             SetMainWindowTitle();
 
+
             // Optional sound
-            _transitionSound.Open(new Uri("Assets/sweep.wav", UriKind.Relative));
+            _transitionSound.Open(new Uri("pack://application:,,,/Resources/whoosh.wav"));
 
             // Load content from XML
-            ShowTitleFromXml("Content/FireSafety_NG1.xml");
+            ShowTitleFromXml("N://EventHorizonRemoteDatabase/Online Staff training/FireSafety_NG1.xml");
         }
 
         public void SetMainWindowTitle()
