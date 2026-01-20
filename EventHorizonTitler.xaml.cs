@@ -1,46 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Windows.Media;
 
 namespace Event_Horizon
 {
-    /// <summary>
-    /// Interaction logic for EventHorizonTitler.xaml
-    /// </summary>
     public partial class EventHorizonTitler : Window
     {
         private DispatcherTimer _timer;
         private string _fullText;
         private int _currentIndex;
-
         private MediaPlayer _transitionSound = new MediaPlayer();
 
         public EventHorizonTitler()
         {
             InitializeComponent();
 
-            // Optional sound
-            _transitionSound.Open(
-                new Uri("Assets/sweep.wav", UriKind.Relative)
-            );
+            SetMainWindowTitle();
 
-            ShowTitle(
-                "Fire Safety – NG1",
-                "Fire can develop rapidly and without warning.\n\n" +
-                "Understanding how fires start, spread, and how to respond " +
-                "is critical to protecting people, property, and the business."
-            );
+            // Optional sound
+            _transitionSound.Open(new Uri("Assets/sweep.wav", UriKind.Relative));
+
+            // Load content from XML
+            ShowTitleFromXml("Content/FireSafety_NG1.xml");
+        }
+
+        public void SetMainWindowTitle()
+        {
+            string TitleString = "Event Horizon";
+            TitleString += " - User ";
+            TitleString += XMLReaderWriter.UserID + " ";
+            TitleString += XMLReaderWriter.UserNameString;
+            TitleString += " - Health & Safety - Staff Information";
+
+            Title = TitleString;
         }
 
         private void ShowTitle(string title, string body)
@@ -49,8 +43,21 @@ namespace Event_Horizon
             BodyText.Text = "";
 
             PlayTransitionSound();
-
             StartTypewriter(body);
+        }
+
+        private void ShowTitleFromXml(string xmlPath)
+        {
+            if (!System.IO.File.Exists(xmlPath))
+            {
+                MessageBox.Show($"Missing content file:\n{xmlPath}");
+                return;
+            }
+
+            var content = ContentLoader.Load(xmlPath);
+
+            string bodyText = string.Join("\n\n", content.Body.Paragraphs);
+            ShowTitle(content.Title, bodyText);
         }
 
         private void StartTypewriter(string text)
@@ -72,6 +79,7 @@ namespace Event_Horizon
             if (_currentIndex >= _fullText.Length)
             {
                 _timer.Stop();
+                NextButton.IsEnabled = true;
                 return;
             }
 
@@ -86,11 +94,15 @@ namespace Event_Horizon
             _transitionSound.Play();
         }
 
-        // ESC to exit fullscreen
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
                 Close();
+        }
+
+        private void NextButton_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

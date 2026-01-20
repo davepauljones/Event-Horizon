@@ -291,6 +291,8 @@
     <Compile Include="ArcSliderUserControl.xaml.cs">
       <DependentUpon>ArcSliderUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ContentLoader.cs" />
+    <Compile Include="ContentPage.cs" />
     <Compile Include="ConverterFunctions.cs" />
     <Compile Include="DatabasePoller.cs" />
     <Compile Include="DataTableManagement.cs" />
