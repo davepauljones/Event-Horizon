@@ -20,8 +20,16 @@ namespace Event_Horizon
             SetMainWindowTitle();
 
 
-            // Optional sound
-            _transitionSound.Open(new Uri("pack://application:,,,/Resources/whoosh.wav"));
+            try
+            {
+                _transitionSound.Open(new Uri("pack://application:,,,/Resources/whoosh.wav"));
+                MessageBox.Show("Pack URI loaded successfully!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading Pack URI: " + ex.Message);
+            }
+
 
             // Load content from XML
             ShowTitleFromXml("N://EventHorizonRemoteDatabase/Online Staff training/FireSafety_NG1.xml");
@@ -92,6 +100,7 @@ namespace Event_Horizon
         {
             _transitionSound.Stop();
             _transitionSound.Position = TimeSpan.Zero;
+            _transitionSound.Volume = 1.0; // optional, max volume
             _transitionSound.Play();
         }
 
