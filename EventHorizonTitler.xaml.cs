@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Printing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Event_Horizon
 {
@@ -183,14 +184,58 @@ namespace Event_Horizon
             OptionsPanel.Visibility = Visibility.Visible;
         }
 
-        private void PrintCertificate()
+        /*private void PrintCertificate()
         {
             PrintDialog pd = new PrintDialog();
             if (pd.ShowDialog() == true)
             {
                 pd.PrintVisual(this, "Staff Training Certificate");
             }
+        }*/
+        private void PrintCertificate()
+        {
+            PrintDialog pd = new PrintDialog();
+
+            // Force A4 Portrait
+            pd.PrintTicket.PageMediaSize =
+                new PageMediaSize(PageMediaSizeName.ISOA4);
+            pd.PrintTicket.PageOrientation =
+                PageOrientation.Portrait;
+
+            if (pd.ShowDialog() != true)
+                return;
+
+            var certControl = new EventHorizonCertificate();
+
+            FrameworkElement cert = certControl.CertificateLayout;
+
+            // Measure certificate
+            cert.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            cert.Arrange(new Rect(cert.DesiredSize));
+
+            // Get printable area
+            double printableWidth = pd.PrintableAreaWidth;
+            double printableHeight = pd.PrintableAreaHeight;
+
+            // Scale to fit one page
+            double scaleX = printableWidth / cert.ActualWidth;
+            double scaleY = printableHeight / cert.ActualHeight;
+            double scale = Math.Min(scaleX, scaleY);
+
+            cert.LayoutTransform = new ScaleTransform(scale, scale);
+
+            // Re-measure after scaling
+            Size printSize = new Size(printableWidth, printableHeight);
+            cert.Measure(printSize);
+            cert.Arrange(new Rect(new Point(0, 0), printSize));
+
+            // PRINT — single page
+            pd.PrintVisual(cert, "Staff Training Certificate");
+
+            // Reset transform (IMPORTANT)
+            cert.LayoutTransform = null;
         }
+
 
         #endregion
 

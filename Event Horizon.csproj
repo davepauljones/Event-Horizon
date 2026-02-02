@@ -296,6 +296,9 @@
     <Compile Include="ConverterFunctions.cs" />
     <Compile Include="DatabasePoller.cs" />
     <Compile Include="DataTableManagement.cs" />
+    <Compile Include="EventHorizonCertificate.xaml.cs">
+      <DependentUpon>EventHorizonCertificate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EventHorizonLINQ.cs" />
     <Compile Include="EventHorizonLogo.xaml.cs">
       <DependentUpon>EventHorizonLogo.xaml</DependentUpon>
@@ -381,6 +384,10 @@
     </Compile>
     <Compile Include="XMLReaderWriter.cs" />
     <Page Include="ArcSliderUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventHorizonCertificate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

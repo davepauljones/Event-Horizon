@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Event_Horizon.EventHorizonCertificate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="794"
+             Height="1123">
+
+    <Border x:Name="CertificateLayout"
+            Background="White"
+            BorderBrush="Black"
+            BorderThickness="2"
+            Padding="40">
+
+        <Grid>
+            <!-- Certificate content -->
+            <TextBlock Text="Well done Steven Fletcher you passed" FontSize="72" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Grid>
+
+    </Border>
+</UserControl>
+
