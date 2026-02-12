@@ -1166,7 +1166,7 @@ namespace Event_Horizon
                     switch (RAMSVisualTreeListView.SelectedIndex)
                     {
                         case Rams.EngineersBasic:
-                            newRamsWindow = new RamsWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ(), null);
+                            newRamsWindow = new RamsWindow(this, EventWindowModes.NewEvent, new EventHorizonRamsLINQ(), null);
                             newRamsWindow.Show();
                             break;
                         case Rams.FooBar:

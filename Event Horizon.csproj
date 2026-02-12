@@ -295,10 +295,15 @@
     <Compile Include="ContentPage.cs" />
     <Compile Include="ConverterFunctions.cs" />
     <Compile Include="DatabasePoller.cs" />
+    <Compile Include="DataTableManagementRams.cs" />
     <Compile Include="DataTableManagement.cs" />
     <Compile Include="EventHorizonCertificate.xaml.cs">
       <DependentUpon>EventHorizonCertificate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EventHorizonRams.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EventHorizonRamsLINQ.cs" />
     <Compile Include="EventHorizonLINQ.cs" />
     <Compile Include="EventHorizonLogo.xaml.cs">
       <DependentUpon>EventHorizonLogo.xaml</DependentUpon>

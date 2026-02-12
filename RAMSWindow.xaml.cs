@@ -18,9 +18,9 @@ namespace Event_Horizon
     public partial class RamsWindow : Window
     {
         MainWindow mainWindow;
-        int eventWindowMode;
+        int ramsWindowMode;
         int userID;
-        EventHorizonLINQ eventHorizonLINQ;
+        EventHorizonRamsLINQ eventHorizonRamsLINQ;
         public RamsWindow ramsWindow;
 
         DateTime formOpenStartTime;
@@ -28,15 +28,15 @@ namespace Event_Horizon
 
         public Int32 ParentEventID;
 
-        public RamsWindow(MainWindow mainWindow, int eventWindowMode, EventHorizonLINQ eventHorizonLINQ, RamsWindow ramsWindow = null)
+        public RamsWindow(MainWindow mainWindow, int ramsWindowMode, EventHorizonRamsLINQ eventHorizonRamsLINQ, RamsWindow ramsWindow = null)
         {
             InitializeComponent();
 
             this.mainWindow = mainWindow;
-            this.eventWindowMode = eventWindowMode;
-            this.eventHorizonLINQ = (EventHorizonLINQ)eventHorizonLINQ.Clone();
+            this.ramsWindowMode = ramsWindowMode;
+            this.eventHorizonRamsLINQ = (EventHorizonRamsLINQ)eventHorizonRamsLINQ.Clone();
             this.ramsWindow = ramsWindow;
-            this.userID = eventHorizonLINQ.UserID;
+            this.userID = eventHorizonRamsLINQ.UserID;
 
             AddItemsToEventTypeComboBox();
             AddItemsToEventAttributeComboBox();
@@ -45,79 +45,79 @@ namespace Event_Horizon
 
             formOpenStartTime = DateTime.Now;
 
-            switch (eventWindowMode)
+            switch (ramsWindowMode)
             {
                 case EventWindowModes.ViewMainEvent:
                     GetOracleEvent();
 
                     if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
-                        eventWindowMode = EventWindowModes.EditMainEvent;
+                        ramsWindowMode = EventWindowModes.EditMainEvent;
                     else
-                        eventWindowMode = EventWindowModes.ViewMainEvent;
+                        ramsWindowMode = EventWindowModes.ViewMainEvent;
 
                     break;
                 case EventWindowModes.ViewNote:
                     GetOracleEvent();
 
                     if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
-                        eventWindowMode = EventWindowModes.EditNote;
+                        ramsWindowMode = EventWindowModes.EditNote;
                     else
-                        eventWindowMode = EventWindowModes.ViewNote;
+                        ramsWindowMode = EventWindowModes.ViewNote;
 
                     break;
                 case EventWindowModes.ViewReply:
                     GetOracleEvent();
 
                     if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
-                        eventWindowMode = EventWindowModes.EditReply;
+                        ramsWindowMode = EventWindowModes.EditReply;
                     else
-                        eventWindowMode = EventWindowModes.ViewReply;
+                        ramsWindowMode = EventWindowModes.ViewReply;
 
                     break;
                 case EventWindowModes.EditMainEvent:
                     GetOracleEvent();
 
                     if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
-                        eventWindowMode = EventWindowModes.EditMainEvent;
+                        ramsWindowMode = EventWindowModes.EditMainEvent;
                     else
-                        eventWindowMode = EventWindowModes.ViewMainEvent;
+                        ramsWindowMode = EventWindowModes.ViewMainEvent;
 
                     break;
                 case EventWindowModes.EditNote:
                     GetOracleEvent();
 
                     if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
-                        eventWindowMode = EventWindowModes.EditNote;
+                        ramsWindowMode = EventWindowModes.EditNote;
                     else
-                        eventWindowMode = EventWindowModes.ViewNote;
+                        ramsWindowMode = EventWindowModes.ViewNote;
 
                     break;
                 case EventWindowModes.EditReply:
                     GetOracleEvent();
 
                     if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
-                        eventWindowMode = EventWindowModes.EditReply;
+                        ramsWindowMode = EventWindowModes.EditReply;
                     else
-                        eventWindowMode = EventWindowModes.ViewReply;
+                        ramsWindowMode = EventWindowModes.ViewReply;
 
                     break;
                 case EventWindowModes.NewEvent:
                 case EventWindowModes.NewNote:
                 case EventWindowModes.NewReply:
-                    eventHorizonLINQ.TargetUserID = eventHorizonLINQ.UserID;
-                    eventHorizonLINQ.UserID = XMLReaderWriter.UserID;
+                    eventHorizonRamsLINQ.TargetUserID = eventHorizonRamsLINQ.UserID;
+                    eventHorizonRamsLINQ.UserID = XMLReaderWriter.UserID;
                     break;
             }
 
-            if (eventWindowMode == EventWindowModes.ViewMainEvent)
+            if (ramsWindowMode == EventWindowModes.ViewMainEvent)
             {
-                EventIDLabel.Content = eventHorizonLINQ.ID.ToString("D5");
-                ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonRamsLINQ.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "View Main Event";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.IsEnabled = false;
                 GenButton.Visibility = Visibility.Collapsed;
@@ -134,15 +134,15 @@ namespace Event_Horizon
                 ReplyButton.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Collapsed;
             }
-            else if (eventWindowMode == EventWindowModes.ViewNote)
+            else if (ramsWindowMode == EventWindowModes.ViewNote)
             {
-                EventIDLabel.Content = eventHorizonLINQ.ID.ToString("D5");
-                ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonRamsLINQ.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "View Note";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.IsEnabled = false;
                 GenButton.Visibility = Visibility.Collapsed;
@@ -159,15 +159,15 @@ namespace Event_Horizon
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Collapsed;
             }
-            else if (eventWindowMode == EventWindowModes.ViewReply)
+            else if (ramsWindowMode == EventWindowModes.ViewReply)
             {
-                EventIDLabel.Content = eventHorizonLINQ.ID.ToString("D5");
-                ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonRamsLINQ.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "View Reply";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.IsEnabled = false;
                 GenButton.Visibility = Visibility.Collapsed;
@@ -184,15 +184,15 @@ namespace Event_Horizon
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Collapsed;
             }
-            else if (eventWindowMode == EventWindowModes.EditMainEvent)
+            else if (ramsWindowMode == EventWindowModes.EditMainEvent)
             {
-                EventIDLabel.Content = eventHorizonLINQ.ID.ToString("D5");
-                ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonRamsLINQ.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "Edit Main Event";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = true;
                 SourceComboBox.IsEnabled = true;
                 GenButton.Visibility = Visibility.Visible;
@@ -209,15 +209,15 @@ namespace Event_Horizon
                 ReplyButton.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Visible;
             }
-            else if (eventWindowMode == EventWindowModes.EditNote)
+            else if (ramsWindowMode == EventWindowModes.EditNote)
             {
-                EventIDLabel.Content = eventHorizonLINQ.Source_ID.ToString("D5");
-                ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventIDLabel.Content = eventHorizonRamsLINQ.Source_ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonRamsLINQ.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "Edit Note";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = true;
                 SourceComboBox.IsEnabled = true;
                 GenButton.Visibility = Visibility.Visible;
@@ -234,15 +234,15 @@ namespace Event_Horizon
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
             }
-            else if (eventWindowMode == EventWindowModes.EditReply)
+            else if (ramsWindowMode == EventWindowModes.EditReply)
             {
-                EventIDLabel.Content = eventHorizonLINQ.Source_ID.ToString("D5");
-                ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventIDLabel.Content = eventHorizonRamsLINQ.Source_ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonRamsLINQ.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "Edit Reply";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = true;
                 SourceComboBox.IsEnabled = true;
                 GenButton.Visibility = Visibility.Visible;
@@ -259,24 +259,24 @@ namespace Event_Horizon
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
             }
-            else if (eventWindowMode == EventWindowModes.NewEvent)
+            else if (ramsWindowMode == EventWindowModes.NewEvent)
             {
                 EventIDLabel.Content = "-1";
-                ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                ParentEventIDLabel.Content = eventHorizonRamsLINQ.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "New Event";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
-                EventTypeComboBox.SelectedIndex = eventHorizonLINQ.EventTypeID;
+                EventTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
                 EventTypeComboBox.IsEnabled = true;
-                SourceComboBox.SelectedIndex = eventHorizonLINQ.SourceID;
+                SourceComboBox.SelectedIndex = eventHorizonRamsLINQ.SourceID;
                 SourceComboBox.IsEnabled = true;
                 GenButton.Visibility = Visibility.Visible;
                 DetailsTextBox.IsReadOnly = false;
-                FrequencyComboBox.SelectedIndex = eventHorizonLINQ.FrequencyID;
+                FrequencyComboBox.SelectedIndex = eventHorizonRamsLINQ.FrequencyID;
                 FrequencyComboBox.IsEnabled = true;
-                TargetUserIDComboBox.SelectedIndex = eventHorizonLINQ.TargetUserID;
+                TargetUserIDComboBox.SelectedIndex = eventHorizonRamsLINQ.TargetUserID;
                 TargetUserIDComboBox.IsEnabled = true;
                 StatusComboBox.SelectedIndex = Statuses.Active;
                 StatusComboBox.IsEnabled = true;
@@ -290,22 +290,22 @@ namespace Event_Horizon
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
             }
-            else if (eventWindowMode == EventWindowModes.NewNote)
+            else if (ramsWindowMode == EventWindowModes.NewNote)
             {
                 EventIDLabel.Content = "-1";
-                ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                ParentEventIDLabel.Content = eventHorizonRamsLINQ.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "New Note";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
-                EventTypeComboBox.SelectedIndex = eventHorizonLINQ.EventTypeID;
+                EventTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
                 EventTypeComboBox.IsEnabled = false;
-                SourceComboBox.SelectedIndex = eventHorizonLINQ.SourceID;
+                SourceComboBox.SelectedIndex = eventHorizonRamsLINQ.SourceID;
                 SourceComboBox.IsEnabled = false;
                 GenButton.Visibility = Visibility.Visible;
                 DetailsTextBox.IsReadOnly = false;
-                FrequencyComboBox.SelectedIndex = eventHorizonLINQ.FrequencyID;
+                FrequencyComboBox.SelectedIndex = eventHorizonRamsLINQ.FrequencyID;
                 FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.SelectedIndex = 0;
                 TargetUserIDComboBox.IsEnabled = true;
@@ -321,24 +321,24 @@ namespace Event_Horizon
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
             }
-            else if (eventWindowMode == EventWindowModes.NewReply)
+            else if (ramsWindowMode == EventWindowModes.NewReply)
             {
                 EventIDLabel.Content = "-1";
-                ParentEventIDLabel.Content = eventHorizonLINQ.Source_ParentEventID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                ParentEventIDLabel.Content = eventHorizonRamsLINQ.Source_ParentEventID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "New Reply";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
-                EventTypeComboBox.SelectedIndex = eventHorizonLINQ.EventTypeID;
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                EventTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
                 EventTypeComboBox.IsEnabled = false;
-                SourceComboBox.SelectedIndex = eventHorizonLINQ.SourceID;
+                SourceComboBox.SelectedIndex = eventHorizonRamsLINQ.SourceID;
                 SourceComboBox.IsEnabled = false;
                 GenButton.Visibility = Visibility.Visible;
                 DetailsTextBox.IsReadOnly = false;
-                FrequencyComboBox.SelectedIndex = eventHorizonLINQ.FrequencyID;
+                FrequencyComboBox.SelectedIndex = eventHorizonRamsLINQ.FrequencyID;
                 FrequencyComboBox.IsEnabled = false;
-                TargetUserIDComboBox.SelectedIndex = eventHorizonLINQ.TargetUserID;
+                TargetUserIDComboBox.SelectedIndex = eventHorizonRamsLINQ.TargetUserID;
                 TargetUserIDComboBox.IsEnabled = false;
                 StatusComboBox.SelectedIndex = Statuses.Active;
                 StatusComboBox.IsEnabled = true;
@@ -366,7 +366,7 @@ namespace Event_Horizon
                 EventTypeComboBox.Items.Add(EventHorizonEventTypes.GetEventTypeStackPanel(eventType));
             }
 
-            if (eventWindowMode != EventWindowModes.EditMainEvent || eventWindowMode != EventWindowModes.EditNote || eventWindowMode != EventWindowModes.EditReply) EventTypeComboBox.SelectedIndex = 0;
+            if (ramsWindowMode != EventWindowModes.EditMainEvent || ramsWindowMode != EventWindowModes.EditNote || ramsWindowMode != EventWindowModes.EditReply) EventTypeComboBox.SelectedIndex = 0;
         }
 
         private void AddItemsToEventAttributeComboBox()
@@ -376,7 +376,7 @@ namespace Event_Horizon
                 EventAttributeComboBox.Items.Add(EventHorizonAttributes.GetAttributeStackPanel(attributeType));
             }
 
-            if (eventWindowMode != EventWindowModes.EditMainEvent || eventWindowMode != EventWindowModes.EditNote || eventWindowMode != EventWindowModes.EditReply) EventAttributeComboBox.SelectedIndex = 0;
+            if (ramsWindowMode != EventWindowModes.EditMainEvent || ramsWindowMode != EventWindowModes.EditNote || ramsWindowMode != EventWindowModes.EditReply) EventAttributeComboBox.SelectedIndex = 0;
         }
 
         private void AddItemsToSourceComboBox()
@@ -386,7 +386,7 @@ namespace Event_Horizon
                 SourceComboBox.Items.Add(EventHorizonSources.GetSourceStackPanel(sourceType));
             }
             
-            if (eventWindowMode != EventWindowModes.EditMainEvent || eventWindowMode != EventWindowModes.EditNote || eventWindowMode != EventWindowModes.EditReply) SourceComboBox.SelectedIndex = 0;
+            if (ramsWindowMode != EventWindowModes.EditMainEvent || ramsWindowMode != EventWindowModes.EditNote || ramsWindowMode != EventWindowModes.EditReply) SourceComboBox.SelectedIndex = 0;
         }
 
         private void AddItemsToFrequencyComboBox()
@@ -417,7 +417,7 @@ namespace Event_Horizon
             FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Months_03, false));
             FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Months_09, false));
 
-            if (eventWindowMode != EventWindowModes.EditMainEvent || eventWindowMode != EventWindowModes.EditNote || eventWindowMode != EventWindowModes.EditReply) FrequencyComboBox.SelectedIndex = 0;
+            if (ramsWindowMode != EventWindowModes.EditMainEvent || ramsWindowMode != EventWindowModes.EditNote || ramsWindowMode != EventWindowModes.EditReply) FrequencyComboBox.SelectedIndex = 0;
         }
 
         private void AddUsersToTargetUsersComboBox()
@@ -442,63 +442,63 @@ namespace Event_Horizon
             double unitCost;
             if (double.TryParse(UnitCostTextBox.Text, out unitCost))
             {
-                eventHorizonLINQ.UnitCost = unitCost;
-                Console.Write("eventHorizonLINQ.TargetUserID = ");
-                Console.WriteLine(eventHorizonLINQ.TargetUserID);
+                eventHorizonRamsLINQ.UnitCost = unitCost;
+                Console.Write("eventHorizonRamsLINQ.TargetUserID = ");
+                Console.WriteLine(eventHorizonRamsLINQ.TargetUserID);
             }
 
             Int32 qty;
             if (Int32.TryParse(QtyTextBox.Text, out qty))
             {
-                eventHorizonLINQ.Qty = qty;
-                Console.Write("eventHorizonLINQ.Qty = ");
-                Console.WriteLine(eventHorizonLINQ.Qty);
+                eventHorizonRamsLINQ.Qty = qty;
+                Console.Write("eventHorizonRamsLINQ.Qty = ");
+                Console.WriteLine(eventHorizonRamsLINQ.Qty);
             }
 
             double discount;
             if (double.TryParse(DiscountTextBox.Text, out discount))
             {
-                eventHorizonLINQ.Discount = discount;
-                Console.Write("eventHorizonLINQ.Discount = ");
-                Console.WriteLine(eventHorizonLINQ.Discount);
+                eventHorizonRamsLINQ.Discount = discount;
+                Console.Write("eventHorizonRamsLINQ.Discount = ");
+                Console.WriteLine(eventHorizonRamsLINQ.Discount);
             }
 
-            double grandTotal = (eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) - ((eventHorizonLINQ.UnitCost * eventHorizonLINQ.Qty) * eventHorizonLINQ.Discount / 100);
+            double grandTotal = (eventHorizonRamsLINQ.UnitCost * eventHorizonRamsLINQ.Qty) - ((eventHorizonRamsLINQ.UnitCost * eventHorizonRamsLINQ.Qty) * eventHorizonRamsLINQ.Discount / 100);
 
             return grandTotal;
         }
 
         private void GetOracleEvent()
         {
-            EventTypeComboBox.SelectedIndex = eventHorizonLINQ.EventTypeID;
-            SourceComboBox.SelectedIndex = eventHorizonLINQ.SourceID;
-            DetailsTextBox.Text = eventHorizonLINQ.Details;
-            FrequencyComboBox.SelectedIndex = eventHorizonLINQ.FrequencyID;
-            TargetUserIDComboBox.SelectedIndex = eventHorizonLINQ.TargetUserID;
-            StatusComboBox.SelectedIndex = eventHorizonLINQ.StatusID;
+            EventTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
+            SourceComboBox.SelectedIndex = eventHorizonRamsLINQ.SourceID;
+            DetailsTextBox.Text = eventHorizonRamsLINQ.Details;
+            FrequencyComboBox.SelectedIndex = eventHorizonRamsLINQ.FrequencyID;
+            TargetUserIDComboBox.SelectedIndex = eventHorizonRamsLINQ.TargetUserID;
+            StatusComboBox.SelectedIndex = eventHorizonRamsLINQ.StatusID;
 
-            EventAttributeComboBox.SelectedIndex = eventHorizonLINQ.EventAttributeID;
+            EventAttributeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventAttributeID;
 
-            TryLoadImage(eventHorizonLINQ.PathFileName);
+            TryLoadImage(eventHorizonRamsLINQ.PathFileName);
 
-            QtyTextBox.Text = eventHorizonLINQ.Qty.ToString();
+            QtyTextBox.Text = eventHorizonRamsLINQ.Qty.ToString();
 
-            UnitCostTextBox.Text = $"{eventHorizonLINQ.UnitCost:0.00}";
+            UnitCostTextBox.Text = $"{eventHorizonRamsLINQ.UnitCost:0.00}";
 
-            DiscountTextBox.Text = $"{eventHorizonLINQ.Discount:0.00}";
+            DiscountTextBox.Text = $"{eventHorizonRamsLINQ.Discount:0.00}";
 
             GrandTotalTextBox.Text = $"{CalcGrandTotal():0.00}";
 
-            StockTextBox.Text = eventHorizonLINQ.Stock.ToString();
+            StockTextBox.Text = eventHorizonRamsLINQ.Stock.ToString();
 
-            PathFileNameLabel.Content = eventHorizonLINQ.PathFileName;
+            PathFileNameLabel.Content = eventHorizonRamsLINQ.PathFileName;
 
-            DateTime targetDateTimet = eventHorizonLINQ.TargetDate;
+            DateTime targetDateTimet = eventHorizonRamsLINQ.TargetDate;
             TargetDatePicker.SelectedDate = targetDateTimet;
             TargetTimeHoursPicker.Text = targetDateTimet.ToString("HH");
             TargetTimeMinutesPicker.Text = targetDateTimet.ToString("mm");
 
-            UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonLINQ.UserID);
+            UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
         }
         
         private void SetOracleEvent()
@@ -521,50 +521,50 @@ namespace Event_Horizon
             else
                 targetDateTime = new DateTime(TargetDatePicker.SelectedDate.Value.Year, TargetDatePicker.SelectedDate.Value.Month, TargetDatePicker.SelectedDate.Value.Day, targetTimeDateTime.Hour, targetTimeDateTime.Minute, targetTimeDateTime.Second);
 
-            eventHorizonLINQ.EventTypeID = EventTypeComboBox.SelectedIndex;
-            eventHorizonLINQ.SourceID = SourceComboBox.SelectedIndex;
-            eventHorizonLINQ.Details = detailsSafeString;
-            eventHorizonLINQ.FrequencyID = FrequencyComboBox.SelectedIndex;
-            eventHorizonLINQ.StatusID = StatusComboBox.SelectedIndex;
-            eventHorizonLINQ.TargetDate = targetDateTime;
+            eventHorizonRamsLINQ.EventTypeID = EventTypeComboBox.SelectedIndex;
+            eventHorizonRamsLINQ.SourceID = SourceComboBox.SelectedIndex;
+            eventHorizonRamsLINQ.Details = detailsSafeString;
+            eventHorizonRamsLINQ.FrequencyID = FrequencyComboBox.SelectedIndex;
+            eventHorizonRamsLINQ.StatusID = StatusComboBox.SelectedIndex;
+            eventHorizonRamsLINQ.TargetDate = targetDateTime;
 
-            eventHorizonLINQ.EventAttributeID = EventAttributeComboBox.SelectedIndex;
+            eventHorizonRamsLINQ.EventAttributeID = EventAttributeComboBox.SelectedIndex;
             //eventHorizonLINQ.PathFileName = string.Empty;
             
             double unitCost;
             if (double.TryParse(UnitCostTextBox.Text, out unitCost))
             {
-                eventHorizonLINQ.UnitCost = unitCost;
-                Console.Write("eventHorizonLINQ.TargetUserID = ");
-                Console.WriteLine(eventHorizonLINQ.TargetUserID);
+                eventHorizonRamsLINQ.UnitCost = unitCost;
+                Console.Write("eventHorizonRamsLINQ.TargetUserID = ");
+                Console.WriteLine(eventHorizonRamsLINQ.TargetUserID);
             }
 
             Int32 qty;
             if (Int32.TryParse(QtyTextBox.Text, out qty))
             {
-                eventHorizonLINQ.Qty = qty;
-                Console.Write("eventHorizonLINQ.Qty = ");
-                Console.WriteLine(eventHorizonLINQ.Qty);
+                eventHorizonRamsLINQ.Qty = qty;
+                Console.Write("eventHorizonRamsLINQ.Qty = ");
+                Console.WriteLine(eventHorizonRamsLINQ.Qty);
             }
 
             double discount;
             if (double.TryParse(DiscountTextBox.Text, out discount))
             {
-                eventHorizonLINQ.Discount = discount;
-                Console.Write("eventHorizonLINQ.Discount = ");
-                Console.WriteLine(eventHorizonLINQ.Discount);
+                eventHorizonRamsLINQ.Discount = discount;
+                Console.Write("eventHorizonRamsLINQ.Discount = ");
+                Console.WriteLine(eventHorizonRamsLINQ.Discount);
             }
 
             Int32 stock;
             if (Int32.TryParse(StockTextBox.Text, out stock))
             {
-                eventHorizonLINQ.Stock = stock;
-                Console.Write("eventHorizonLINQ.Stock = ");
-                Console.WriteLine(eventHorizonLINQ.Stock);
+                eventHorizonRamsLINQ.Stock = stock;
+                Console.Write("eventHorizonRamsLINQ.Stock = ");
+                Console.WriteLine(eventHorizonRamsLINQ.Stock);
             }
 
-            Console.Write("eventHorizonLINQ.TargetUserID = ");
-            Console.WriteLine(eventHorizonLINQ.TargetUserID);
+            Console.Write("eventHorizonRamsLINQ.TargetUserID = ");
+            Console.WriteLine(eventHorizonRamsLINQ.TargetUserID);
         }
 
         public int FrequencyID = EventFrequencys.Common_OneTime;
@@ -622,7 +622,7 @@ namespace Event_Horizon
                         }
 
                         PathFileNameLabel.Content = PathFolderNameString;
-                        eventHorizonLINQ.PathFileName = PathFolderNameString;
+                        eventHorizonRamsLINQ.PathFileName = PathFolderNameString;
                         break;
                     case 1:
                         string PathFileNameString = EventHorizonDatabaseCreate.OpenFile("All supported files|*.jpg;*.jpeg;*.png|JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|Portable Network Graphic (*.png)|*.png|PDF (*.pdf)|*.pdf|All files (*.*)|*.*");
@@ -630,20 +630,20 @@ namespace Event_Horizon
                         TryLoadImage(PathFileNameString);
 
                         PathFileNameLabel.Content = PathFileNameString;
-                        eventHorizonLINQ.PathFileName = PathFileNameString;
+                        eventHorizonRamsLINQ.PathFileName = PathFileNameString;
                         break;
                     case 2:
-                        if (eventHorizonLINQ.PathFileName != string.Empty)
+                        if (eventHorizonRamsLINQ.PathFileName != string.Empty)
                         {
-                            if (File.Exists(eventHorizonLINQ.PathFileName))
+                            if (File.Exists(eventHorizonRamsLINQ.PathFileName))
                             {
                                 Topmost = false;
-                                Process.Start(eventHorizonLINQ.PathFileName);
+                                Process.Start(eventHorizonRamsLINQ.PathFileName);
                             }
-                            else if (Directory.Exists(eventHorizonLINQ.PathFileName))
+                            else if (Directory.Exists(eventHorizonRamsLINQ.PathFileName))
                             {
                                 Topmost = false;
-                                Process.Start(new ProcessStartInfo("explorer.exe", eventHorizonLINQ.PathFileName) { UseShellExecute = true }); // open folder
+                                Process.Start(new ProcessStartInfo("explorer.exe", eventHorizonRamsLINQ.PathFileName) { UseShellExecute = true }); // open folder
                             }
                         }
                         break;
@@ -651,22 +651,22 @@ namespace Event_Horizon
                         double unitCost;
                         if (double.TryParse(UnitCostTextBox.Text, out unitCost))
                         {
-                            eventHorizonLINQ.UnitCost = unitCost;
-                            Console.Write("eventHorizonLINQ.TargetUserID = ");
-                            Console.WriteLine(eventHorizonLINQ.TargetUserID);
+                            eventHorizonRamsLINQ.UnitCost = unitCost;
+                            Console.Write("eventHorizonRamsLINQ.TargetUserID = ");
+                            Console.WriteLine(eventHorizonRamsLINQ.TargetUserID);
                         }
 
-                        UnitCostTextBox.Text = $"{eventHorizonLINQ.UnitCost:0.00}";
+                        UnitCostTextBox.Text = $"{eventHorizonRamsLINQ.UnitCost:0.00}";
 
                         double discount;
                         if (double.TryParse(DiscountTextBox.Text, out discount))
                         {
-                            eventHorizonLINQ.Discount = discount;
-                            Console.Write("eventHorizonLINQ.Discount = ");
-                            Console.WriteLine(eventHorizonLINQ.Discount);
+                            eventHorizonRamsLINQ.Discount = discount;
+                            Console.Write("eventHorizonRamsLINQ.Discount = ");
+                            Console.WriteLine(eventHorizonRamsLINQ.Discount);
                         }
 
-                        DiscountTextBox.Text = $"{eventHorizonLINQ.Discount:0.00}";
+                        DiscountTextBox.Text = $"{eventHorizonRamsLINQ.Discount:0.00}";
 
                         GrandTotalTextBox.Text = $"{CalcGrandTotal():0.00}";
                         break;
@@ -723,13 +723,13 @@ namespace Event_Horizon
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (formOpenStartTime + eventIsReadAfterTimeSpan < DateTime.Now && eventWindowMode != EventWindowModes.NewEvent)
+            if (formOpenStartTime + eventIsReadAfterTimeSpan < DateTime.Now && ramsWindowMode != EventWindowModes.NewEvent)
             {
-                if (eventHorizonLINQ.TargetUserID == XMLReaderWriter.UserID)
+                if (eventHorizonRamsLINQ.TargetUserID == XMLReaderWriter.UserID)
                 {
-                    DataTableManagement.UpdateReadByMeID(eventHorizonLINQ.ID, ReadByMeModes.Yes);
+                    DataTableManagement.UpdateReadByMeID(eventHorizonRamsLINQ.ID, ReadByMeModes.Yes);
 
-                    if (StatusID == Statuses.ActiveNotified) DataTableManagement.UpdateStatusID(eventHorizonLINQ.ID, Statuses.ActiveNotifiedRead);
+                    if (StatusID == Statuses.ActiveNotified) DataTableManagement.UpdateStatusID(eventHorizonRamsLINQ.ID, Statuses.ActiveNotifiedRead);
                 }
             }
         }
@@ -752,50 +752,50 @@ namespace Event_Horizon
                         break;
                     case EventFormCloseButtons.Note:
                         SetOracleEvent();
-                        RamsWindow nevn = new RamsWindow(mainWindow, EventWindowModes.NewNote, eventHorizonLINQ, this);
+                        RamsWindow nevn = new RamsWindow(mainWindow, EventWindowModes.NewNote, eventHorizonRamsLINQ, this);
                         nevn.Show();
                         nevn.Left += 30;
                         nevn.Top += 30;
                         break;
                     case EventFormCloseButtons.Reply:
                         SetOracleEvent();
-                        RamsWindow nev = new RamsWindow(mainWindow, EventWindowModes.NewReply, eventHorizonLINQ, this);
+                        RamsWindow nev = new RamsWindow(mainWindow, EventWindowModes.NewReply, eventHorizonRamsLINQ, this);
                         nev.Show();
                         nev.Left += 30;
                         nev.Top += 30;
                         break;
                     case EventFormCloseButtons.Save:
-                        /*SetOracleEvent();
-                        switch (eventWindowMode)
+                        SetOracleEvent();
+                        switch (ramsWindowMode)
                         {
                             case EventWindowModes.ViewMainEvent:
-                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewMainEvent);
+                                DataTableManagementRams.SaveEvent(this, eventHorizonRamsLINQ, EventWindowModes.ViewMainEvent);
                                 break;
                             case EventWindowModes.ViewNote:
-                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewNote);
+                                DataTableManagementRams.SaveEvent(this, eventHorizonRamsLINQ, EventWindowModes.ViewNote);
                                 break;
                             case EventWindowModes.ViewReply:
-                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.ViewReply);
+                                DataTableManagementRams.SaveEvent(this, eventHorizonRamsLINQ, EventWindowModes.ViewReply);
                                 break;
                             case EventWindowModes.EditMainEvent:
-                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditMainEvent);
+                                DataTableManagementRams.SaveEvent(this, eventHorizonRamsLINQ, EventWindowModes.EditMainEvent);
                                 break;
                             case EventWindowModes.EditNote:
-                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditNote);
+                                DataTableManagementRams.SaveEvent(this, eventHorizonRamsLINQ, EventWindowModes.EditNote);
                                 break;
                             case EventWindowModes.EditReply:
-                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.EditReply);
+                                DataTableManagementRams.SaveEvent(this, eventHorizonRamsLINQ, EventWindowModes.EditReply);
                                 break;
                             case EventWindowModes.NewEvent:
-                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.NewEvent);
+                                DataTableManagementRams.SaveEvent(this, eventHorizonRamsLINQ, EventWindowModes.NewEvent);
                                 break;
                             case EventWindowModes.NewNote:
-                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.NewNote);
+                                DataTableManagementRams.SaveEvent(this, eventHorizonRamsLINQ, EventWindowModes.NewNote);
                                 break;
                             case EventWindowModes.NewReply:
-                                DataTableManagement.SaveEvent(this, eventHorizonLINQ, EventWindowModes.NewReply);
+                                DataTableManagementRams.SaveEvent(this, eventHorizonRamsLINQ, EventWindowModes.NewReply);
                                 break;
-                        }*/
+                        }
                         break;
                 }
                 //Console.Write("eventHorizonLINQ.Source_Mode = ");
