@@ -131,7 +131,16 @@ namespace Event_Horizon
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadRAMSVisualTree();
+            if (XMLReaderWriter.AllowRAMS == true)
+            {
+                RAMSTreeViewStackPanel.Visibility = System.Windows.Visibility.Visible;
+                LoadRAMSVisualTree();
+            }
+            else
+            {
+                RAMSTreeViewStackPanel.Visibility = System.Windows.Visibility.Collapsed;
+            }
+
             LoadTrainingVisualTree();
             LoadReportsVisualTree();
             LoadHelpVisualTree();
@@ -1152,13 +1161,13 @@ namespace Event_Horizon
 
                 if (RAMSVisualTreeListView.SelectedItems.Count == 1)
                 {
-                    RAMSWindow RAMS;
+                    RamsWindow newRamsWindow;
 
                     switch (RAMSVisualTreeListView.SelectedIndex)
                     {
                         case Rams.EngineersBasic:
-                            RAMS = new RAMSWindow(null, null, Rams.EngineersBasic);
-                            RAMS.Show();
+                            newRamsWindow = new RamsWindow(this, EventWindowModes.NewEvent, new EventHorizonLINQ(), null);
+                            newRamsWindow.Show();
                             break;
                         case Rams.FooBar:
 

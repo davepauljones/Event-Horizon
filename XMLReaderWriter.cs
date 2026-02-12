@@ -14,6 +14,7 @@ namespace Event_Horizon
         public static string UserNameString = string.Empty;
         public static string DefaultPasswordString = string.Empty;
         public static bool OverridePassword = false;
+        public static bool AllowRAMS = false;
         public static String DatabaseLocationString = AppDomain.CurrentDomain.BaseDirectory;
         public static List<User> UsersList = new List<User>();
         public static List<EventType> EventTypesList = new List<EventType>();
@@ -112,6 +113,12 @@ namespace Event_Horizon
                         OverridePassword = true;
                     else
                         OverridePassword = false;
+
+                    nodeToFind = root.SelectSingleNode("//AllowRAMS");
+                    if (nodeToFind != null)
+                        AllowRAMS = true;
+                    else
+                        AllowRAMS = false;
 
 
                     result = true;

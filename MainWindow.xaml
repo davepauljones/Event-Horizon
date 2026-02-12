@@ -82,7 +82,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0" Background="#FF0d3967" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TreeViewIconGridStyle}">
+                                    <Grid Grid.Column="0" Background="Firebrick" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TreeViewIconGridStyle}">
                                         <fa:FontAwesome Icon="List" Style="{StaticResource TreeViewIconTextBlockStyle}"/>
                                     </Grid>
                                     <TextBlock Grid.Column="0" Text="RAMS" Style="{StaticResource TreeViewHeaderTextBlock}"/>
