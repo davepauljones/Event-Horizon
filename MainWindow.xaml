@@ -73,9 +73,31 @@
                 <!--<Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="5" Source="EventHorizonLogoHLN.png" Stretch="UniformToFill" Opacity="0.3" Width="1170" Height="567" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>-->
 
                 <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Orientation="Vertical">
+
+                    <StackPanel x:Name="RAMSTreeViewStackPanel">
+                        <Button Tag="0" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
+                            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Background="#FF0d3967" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TreeViewIconGridStyle}">
+                                        <fa:FontAwesome Icon="List" Style="{StaticResource TreeViewIconTextBlockStyle}"/>
+                                    </Grid>
+                                    <TextBlock Grid.Column="0" Text="RAMS" Style="{StaticResource TreeViewHeaderTextBlock}"/>
+                                    <TextBlock x:Name="NumberOfRAMSTextBlock" Grid.Column="1" Text="0" Style="{StaticResource TreeViewNumberOfTextBlock}" Foreground="Firebrick"/>
+                                </Grid>
+                            </WrapPanel>
+                        </Button>
+
+                        <StackPanel x:Name="RAMSStackPanel" Orientation="Vertical" Visibility="Collapsed">
+                            <ListView x:Name="RAMSVisualTreeListView" Margin="30,6,0,10" Visibility="Collapsed" Style="{StaticResource VisualTreeViewListView}" PreviewMouseDown="RAMSVisualTreeListView_PreviewMouseDown"/>
+                        </StackPanel>
+                    </StackPanel>
                     
                     <StackPanel x:Name="TrainingTreeViewStackPanel">
-                        <Button Tag="0" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
+                        <Button Tag="1" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
                             <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -97,7 +119,7 @@
                     </StackPanel>
                     
                     <StackPanel x:Name="ReportsTreeViewStackPanel">
-                        <Button Tag="1" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
+                        <Button Tag="2" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
                             <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -118,7 +140,7 @@
                         </StackPanel>
                     </StackPanel>
                     <StackPanel x:Name="HelpTreeViewStackPanel">
-                        <Button Tag="2" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
+                        <Button Tag="3" Style="{StaticResource TreeViewToggleButton}" Click="TreeViewButtons_Click">
                             <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <Grid>
                                     <Grid.ColumnDefinitions>

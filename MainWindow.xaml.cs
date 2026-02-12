@@ -38,6 +38,7 @@ namespace Event_Horizon
 
         private static DatabasePoller databasePoller;
 
+        List<SelectionIdString> ListOfRAMS = new List<SelectionIdString>();
         List<SelectionIdString> ListOfTraining = new List<SelectionIdString>();
         List<SelectionIdString> ListOfReports = new List<SelectionIdString>();
         List<SelectionIdString> ListOfHelp = new List<SelectionIdString>();
@@ -130,6 +131,7 @@ namespace Event_Horizon
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            LoadRAMSVisualTree();
             LoadTrainingVisualTree();
             LoadReportsVisualTree();
             LoadHelpVisualTree();
@@ -492,8 +494,6 @@ namespace Event_Horizon
                 eventWindow.Show();
             }
         }
-
-        
 
         private void DeleteEventRow()
         {
@@ -1004,6 +1004,18 @@ namespace Event_Horizon
 
             switch (switchValue)
             {
+                case TreeViews.RAMS:
+                    if (RAMSStackPanel.Visibility == System.Windows.Visibility.Collapsed)
+                    {
+                        RAMSStackPanel.Visibility = System.Windows.Visibility.Visible;
+                        RAMSVisualTreeListView.Visibility = System.Windows.Visibility.Visible;
+                    }
+                    else
+                    {
+                        RAMSStackPanel.Visibility = System.Windows.Visibility.Collapsed;
+                        RAMSVisualTreeListView.Visibility = System.Windows.Visibility.Collapsed;
+                    }
+                    break;
                 case TreeViews.Training:
                     if (TrainingStackPanel.Visibility == System.Windows.Visibility.Collapsed)
                     {
@@ -1040,6 +1052,22 @@ namespace Event_Horizon
                         HelpVisualTreeListView.Visibility = System.Windows.Visibility.Collapsed;
                     }
                     break;
+            }
+        }
+
+        private void LoadRAMSVisualTree()
+        {
+            ListOfRAMS.Clear();
+            RAMSVisualTreeListView.Items.Clear();
+
+            ListOfRAMS.Add(new SelectionIdString { Id = 0, Name = "Active RAMS" });
+            ListOfRAMS.Add(new SelectionIdString { Id = 1, Name = "Profiles" });
+
+            NumberOfRAMSTextBlock.Text = ListOfRAMS.Count.ToString();
+
+            foreach (SelectionIdString ss in ListOfRAMS)
+            {
+                RAMSVisualTreeListView.Items.Add(new TextBlock { Tag = ss.Id, Text = " " + ss.Name + " ", Style = (Style)FindResource("TreeViewItemTextBlock") });
             }
         }
 
@@ -1095,6 +1123,54 @@ namespace Event_Horizon
             foreach (SelectionIdString ss in ListOfHelp)
             {
                 HelpVisualTreeListView.Items.Add(new TextBlock { Tag = ss.Id, Text = " " + ss.Name + " ", Style = (Style)FindResource("TreeViewItemTextBlock") });
+            }
+        }
+
+        private void RAMSVisualTreeListView_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is ListViewItem))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            ListViewItem item = (ListViewItem)dep;
+
+            item.IsSelected = true;
+            e.Handled = true;
+
+            try
+            {
+                if (RAMSVisualTreeListView.SelectedItem == null)
+                {
+                    return;
+                }
+
+                if (RAMSVisualTreeListView.SelectedItems.Count == 1)
+                {
+                    RAMSWindow RAMS;
+
+                    switch (RAMSVisualTreeListView.SelectedIndex)
+                    {
+                        case Rams.EngineersBasic:
+                            RAMS = new RAMSWindow(null, null, Rams.EngineersBasic);
+                            RAMS.Show();
+                            break;
+                        case Rams.FooBar:
+
+                            break;
+                    }
+
+                    item.IsSelected = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -1413,6 +1489,5 @@ namespace Event_Horizon
                 }
             }
         }
-
     }
 }

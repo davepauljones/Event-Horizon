@@ -312,6 +312,9 @@
     <Compile Include="EventHorizonTitler.xaml.cs">
       <DependentUpon>EventHorizonTitler.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RAMSWindow.xaml.cs">
+      <DependentUpon>RAMSWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VideoPlayerWindow.xaml.cs">
       <DependentUpon>VideoPlayerWindow.xaml</DependentUpon>
     </Compile>
@@ -406,6 +409,10 @@
     <Page Include="EventHorizonTitler.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RAMSWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="VideoPlayerWindow.xaml">
       <SubType>Designer</SubType>

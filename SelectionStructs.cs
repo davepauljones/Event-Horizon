@@ -290,9 +290,10 @@ namespace Event_Horizon
     }
     public struct TreeViews
     {
-        public const int Training = 0;
-        public const int Reports = 1;
-        public const int Help = 2;
+        public const int RAMS = 0;
+        public const int Training = 1;
+        public const int Reports = 2;
+        public const int Help = 3;
     }
     public struct Training
     {
@@ -302,6 +303,12 @@ namespace Event_Horizon
         public const int Ladders = 2;
         public const int MentalHealth = 3;
         public const int FooBar = 4;
+    }
+    public struct Rams
+    {
+        public const int None = 99;
+        public const int EngineersBasic = 0;
+        public const int FooBar = 1;
     }
     public struct Reports
     {
