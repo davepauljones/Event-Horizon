@@ -39,9 +39,7 @@ namespace Event_Horizon
             this.userID = eventHorizonRamsLINQ.UserID;
 
             AddItemsToEventTypeComboBox();
-            AddItemsToEventAttributeComboBox();
             AddItemsToSourceComboBox();
-            AddItemsToFrequencyComboBox();
 
             formOpenStartTime = DateTime.Now;
 
@@ -114,15 +112,13 @@ namespace Event_Horizon
                 EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
                 ParentEventIDLabel.Content = eventHorizonRamsLINQ.Source_ParentEventID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "View Main Event";
+                EventTitleLabel.Content = "View Main Rams";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.IsEnabled = false;
-                GenButton.Visibility = Visibility.Collapsed;
                 DetailsTextBox.IsReadOnly = true;
-                FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.IsEnabled = false;
                 StatusComboBox.IsEnabled = false;
                 TargetDatePicker.IsEnabled = false;
@@ -145,9 +141,7 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.IsEnabled = false;
-                GenButton.Visibility = Visibility.Collapsed;
                 DetailsTextBox.IsReadOnly = true;
-                FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.IsEnabled = false;
                 StatusComboBox.IsEnabled = false;
                 TargetDatePicker.IsEnabled = false;
@@ -170,9 +164,7 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.IsEnabled = false;
-                GenButton.Visibility = Visibility.Collapsed;
                 DetailsTextBox.IsReadOnly = true;
-                FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.IsEnabled = false;
                 StatusComboBox.IsEnabled = false;
                 TargetDatePicker.IsEnabled = false;
@@ -189,15 +181,13 @@ namespace Event_Horizon
                 EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
                 ParentEventIDLabel.Content = eventHorizonRamsLINQ.Source_ParentEventID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "Edit Main Event";
+                EventTitleLabel.Content = "Edit Main Rams";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = true;
                 SourceComboBox.IsEnabled = true;
-                GenButton.Visibility = Visibility.Visible;
                 DetailsTextBox.IsReadOnly = false;
-                FrequencyComboBox.IsEnabled = true;
                 TargetUserIDComboBox.IsEnabled = true;
                 StatusComboBox.IsEnabled = true;
                 TargetDatePicker.IsEnabled = true;
@@ -220,9 +210,7 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = true;
                 SourceComboBox.IsEnabled = true;
-                GenButton.Visibility = Visibility.Visible;
                 DetailsTextBox.IsReadOnly = false;
-                FrequencyComboBox.IsEnabled = true;
                 TargetUserIDComboBox.IsEnabled = true;
                 StatusComboBox.IsEnabled = true;
                 TargetDatePicker.IsEnabled = true;
@@ -245,9 +233,7 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = true;
                 SourceComboBox.IsEnabled = true;
-                GenButton.Visibility = Visibility.Visible;
                 DetailsTextBox.IsReadOnly = false;
-                FrequencyComboBox.IsEnabled = true;
                 TargetUserIDComboBox.IsEnabled = true;
                 StatusComboBox.IsEnabled = true;
                 TargetDatePicker.IsEnabled = true;
@@ -264,7 +250,7 @@ namespace Event_Horizon
                 EventIDLabel.Content = "-1";
                 ParentEventIDLabel.Content = eventHorizonRamsLINQ.Source_ParentEventID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "New Event";
+                EventTitleLabel.Content = "New Rams";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
@@ -272,10 +258,7 @@ namespace Event_Horizon
                 EventTypeComboBox.IsEnabled = true;
                 SourceComboBox.SelectedIndex = eventHorizonRamsLINQ.SourceID;
                 SourceComboBox.IsEnabled = true;
-                GenButton.Visibility = Visibility.Visible;
                 DetailsTextBox.IsReadOnly = false;
-                FrequencyComboBox.SelectedIndex = eventHorizonRamsLINQ.FrequencyID;
-                FrequencyComboBox.IsEnabled = true;
                 TargetUserIDComboBox.SelectedIndex = eventHorizonRamsLINQ.TargetUserID;
                 TargetUserIDComboBox.IsEnabled = true;
                 StatusComboBox.SelectedIndex = Statuses.Active;
@@ -303,10 +286,7 @@ namespace Event_Horizon
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.SelectedIndex = eventHorizonRamsLINQ.SourceID;
                 SourceComboBox.IsEnabled = false;
-                GenButton.Visibility = Visibility.Visible;
                 DetailsTextBox.IsReadOnly = false;
-                FrequencyComboBox.SelectedIndex = eventHorizonRamsLINQ.FrequencyID;
-                FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.SelectedIndex = 0;
                 TargetUserIDComboBox.IsEnabled = true;
                 StatusComboBox.SelectedIndex = Statuses.Active;
@@ -334,10 +314,7 @@ namespace Event_Horizon
                 EventTypeComboBox.IsEnabled = false;
                 SourceComboBox.SelectedIndex = eventHorizonRamsLINQ.SourceID;
                 SourceComboBox.IsEnabled = false;
-                GenButton.Visibility = Visibility.Visible;
                 DetailsTextBox.IsReadOnly = false;
-                FrequencyComboBox.SelectedIndex = eventHorizonRamsLINQ.FrequencyID;
-                FrequencyComboBox.IsEnabled = false;
                 TargetUserIDComboBox.SelectedIndex = eventHorizonRamsLINQ.TargetUserID;
                 TargetUserIDComboBox.IsEnabled = false;
                 StatusComboBox.SelectedIndex = Statuses.Active;
@@ -369,16 +346,6 @@ namespace Event_Horizon
             if (ramsWindowMode != EventWindowModes.EditMainEvent || ramsWindowMode != EventWindowModes.EditNote || ramsWindowMode != EventWindowModes.EditReply) EventTypeComboBox.SelectedIndex = 0;
         }
 
-        private void AddItemsToEventAttributeComboBox()
-        {
-            foreach (AttributeType attributeType in XMLReaderWriter.AttributeTypesList)
-            {
-                EventAttributeComboBox.Items.Add(EventHorizonAttributes.GetAttributeStackPanel(attributeType));
-            }
-
-            if (ramsWindowMode != EventWindowModes.EditMainEvent || ramsWindowMode != EventWindowModes.EditNote || ramsWindowMode != EventWindowModes.EditReply) EventAttributeComboBox.SelectedIndex = 0;
-        }
-
         private void AddItemsToSourceComboBox()
         {
             foreach (SourceType sourceType in XMLReaderWriter.SourceTypesList)
@@ -387,37 +354,6 @@ namespace Event_Horizon
             }
             
             if (ramsWindowMode != EventWindowModes.EditMainEvent || ramsWindowMode != EventWindowModes.EditNote || ramsWindowMode != EventWindowModes.EditReply) SourceComboBox.SelectedIndex = 0;
-        }
-
-        private void AddItemsToFrequencyComboBox()
-        {
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Common_OneTime, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Common_Quarterly, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Common_SixMonthly, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Common_Yearly, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Common_TwoYearly, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Common_ThreeYearly, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Common_FiveYearly, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Minutes_01, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Minutes_05, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Minutes_10, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Minutes_30, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Hours_01, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Hours_02, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Hours_03, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Hours_08, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Hours_12, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Days_01, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Days_02, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Days_03, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Weeks_01, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Weeks_02, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Months_01, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Months_02, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Months_03, false));
-            FrequencyComboBox.Items.Add(Frequency.GetFrequency(EventFrequencys.Months_09, false));
-
-            if (ramsWindowMode != EventWindowModes.EditMainEvent || ramsWindowMode != EventWindowModes.EditNote || ramsWindowMode != EventWindowModes.EditReply) FrequencyComboBox.SelectedIndex = 0;
         }
 
         private void AddUsersToTargetUsersComboBox()
@@ -436,62 +372,16 @@ namespace Event_Horizon
             StatusComboBox.Items.Add(StatusIcons.GetStatus(Statuses.ActiveNotifiedRead));
             StatusComboBox.Items.Add(StatusIcons.GetStatus(Statuses.ActiveNotifiedReadArchived));
         }
-
-        private double CalcGrandTotal()
-        {
-            double unitCost;
-            if (double.TryParse(UnitCostTextBox.Text, out unitCost))
-            {
-                eventHorizonRamsLINQ.UnitCost = unitCost;
-                Console.Write("eventHorizonRamsLINQ.TargetUserID = ");
-                Console.WriteLine(eventHorizonRamsLINQ.TargetUserID);
-            }
-
-            Int32 qty;
-            if (Int32.TryParse(QtyTextBox.Text, out qty))
-            {
-                eventHorizonRamsLINQ.Qty = qty;
-                Console.Write("eventHorizonRamsLINQ.Qty = ");
-                Console.WriteLine(eventHorizonRamsLINQ.Qty);
-            }
-
-            double discount;
-            if (double.TryParse(DiscountTextBox.Text, out discount))
-            {
-                eventHorizonRamsLINQ.Discount = discount;
-                Console.Write("eventHorizonRamsLINQ.Discount = ");
-                Console.WriteLine(eventHorizonRamsLINQ.Discount);
-            }
-
-            double grandTotal = (eventHorizonRamsLINQ.UnitCost * eventHorizonRamsLINQ.Qty) - ((eventHorizonRamsLINQ.UnitCost * eventHorizonRamsLINQ.Qty) * eventHorizonRamsLINQ.Discount / 100);
-
-            return grandTotal;
-        }
-
+  
         private void GetOracleEvent()
         {
             EventTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
             SourceComboBox.SelectedIndex = eventHorizonRamsLINQ.SourceID;
             DetailsTextBox.Text = eventHorizonRamsLINQ.Details;
-            FrequencyComboBox.SelectedIndex = eventHorizonRamsLINQ.FrequencyID;
             TargetUserIDComboBox.SelectedIndex = eventHorizonRamsLINQ.TargetUserID;
             StatusComboBox.SelectedIndex = eventHorizonRamsLINQ.StatusID;
 
-            EventAttributeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventAttributeID;
-
             TryLoadImage(eventHorizonRamsLINQ.PathFileName);
-
-            QtyTextBox.Text = eventHorizonRamsLINQ.Qty.ToString();
-
-            UnitCostTextBox.Text = $"{eventHorizonRamsLINQ.UnitCost:0.00}";
-
-            DiscountTextBox.Text = $"{eventHorizonRamsLINQ.Discount:0.00}";
-
-            GrandTotalTextBox.Text = $"{CalcGrandTotal():0.00}";
-
-            StockTextBox.Text = eventHorizonRamsLINQ.Stock.ToString();
-
-            PathFileNameLabel.Content = eventHorizonRamsLINQ.PathFileName;
 
             DateTime targetDateTimet = eventHorizonRamsLINQ.TargetDate;
             TargetDatePicker.SelectedDate = targetDateTimet;
@@ -524,55 +414,11 @@ namespace Event_Horizon
             eventHorizonRamsLINQ.EventTypeID = EventTypeComboBox.SelectedIndex;
             eventHorizonRamsLINQ.SourceID = SourceComboBox.SelectedIndex;
             eventHorizonRamsLINQ.Details = detailsSafeString;
-            eventHorizonRamsLINQ.FrequencyID = FrequencyComboBox.SelectedIndex;
             eventHorizonRamsLINQ.StatusID = StatusComboBox.SelectedIndex;
             eventHorizonRamsLINQ.TargetDate = targetDateTime;
-
-            eventHorizonRamsLINQ.EventAttributeID = EventAttributeComboBox.SelectedIndex;
-            //eventHorizonLINQ.PathFileName = string.Empty;
-            
-            double unitCost;
-            if (double.TryParse(UnitCostTextBox.Text, out unitCost))
-            {
-                eventHorizonRamsLINQ.UnitCost = unitCost;
-                Console.Write("eventHorizonRamsLINQ.TargetUserID = ");
-                Console.WriteLine(eventHorizonRamsLINQ.TargetUserID);
-            }
-
-            Int32 qty;
-            if (Int32.TryParse(QtyTextBox.Text, out qty))
-            {
-                eventHorizonRamsLINQ.Qty = qty;
-                Console.Write("eventHorizonRamsLINQ.Qty = ");
-                Console.WriteLine(eventHorizonRamsLINQ.Qty);
-            }
-
-            double discount;
-            if (double.TryParse(DiscountTextBox.Text, out discount))
-            {
-                eventHorizonRamsLINQ.Discount = discount;
-                Console.Write("eventHorizonRamsLINQ.Discount = ");
-                Console.WriteLine(eventHorizonRamsLINQ.Discount);
-            }
-
-            Int32 stock;
-            if (Int32.TryParse(StockTextBox.Text, out stock))
-            {
-                eventHorizonRamsLINQ.Stock = stock;
-                Console.Write("eventHorizonRamsLINQ.Stock = ");
-                Console.WriteLine(eventHorizonRamsLINQ.Stock);
-            }
-
-            Console.Write("eventHorizonRamsLINQ.TargetUserID = ");
-            Console.WriteLine(eventHorizonRamsLINQ.TargetUserID);
         }
 
         public int FrequencyID = EventFrequencys.Common_OneTime;
-        
-        private void FrequencyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FrequencyID = FrequencyComboBox.SelectedIndex;
-        }
         
         public int StatusID = Statuses.Inactive;
         
@@ -621,7 +467,6 @@ namespace Event_Horizon
                             PathFolderNameString = dialog.SelectedPath;
                         }
 
-                        PathFileNameLabel.Content = PathFolderNameString;
                         eventHorizonRamsLINQ.PathFileName = PathFolderNameString;
                         break;
                     case 1:
@@ -629,7 +474,6 @@ namespace Event_Horizon
 
                         TryLoadImage(PathFileNameString);
 
-                        PathFileNameLabel.Content = PathFileNameString;
                         eventHorizonRamsLINQ.PathFileName = PathFileNameString;
                         break;
                     case 2:
@@ -648,27 +492,7 @@ namespace Event_Horizon
                         }
                         break;
                     case 3:
-                        double unitCost;
-                        if (double.TryParse(UnitCostTextBox.Text, out unitCost))
-                        {
-                            eventHorizonRamsLINQ.UnitCost = unitCost;
-                            Console.Write("eventHorizonRamsLINQ.TargetUserID = ");
-                            Console.WriteLine(eventHorizonRamsLINQ.TargetUserID);
-                        }
-
-                        UnitCostTextBox.Text = $"{eventHorizonRamsLINQ.UnitCost:0.00}";
-
-                        double discount;
-                        if (double.TryParse(DiscountTextBox.Text, out discount))
-                        {
-                            eventHorizonRamsLINQ.Discount = discount;
-                            Console.Write("eventHorizonRamsLINQ.Discount = ");
-                            Console.WriteLine(eventHorizonRamsLINQ.Discount);
-                        }
-
-                        DiscountTextBox.Text = $"{eventHorizonRamsLINQ.Discount:0.00}";
-
-                        GrandTotalTextBox.Text = $"{CalcGrandTotal():0.00}";
+                        
                         break;
                 }
             }
@@ -828,28 +652,6 @@ namespace Event_Horizon
         }
 
         String EventAttributeName = string.Empty;
-
-        private void EventAttributeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DependencyObject dep = (DependencyObject)e.OriginalSource;
-
-            while ((dep != null) && !(dep is StackPanel))
-            {
-                dep = VisualTreeHelper.GetParent(dep);
-            }
-
-            if (dep == null)
-                return;
-
-            var selectedTag = ((StackPanel)EventAttributeComboBox.SelectedItem).Tag.ToString();
-
-            EventAttributeName = selectedTag;
-
-            Console.Write("** EventAttributeComboBox_SelectedIndex = ");
-            Console.WriteLine(EventAttributeComboBox.SelectedIndex);
-            Console.Write("** item.Tag EventAttributeName = ");
-            Console.WriteLine(EventAttributeName);
-        }
 
         String SourceTypeName = string.Empty;
 

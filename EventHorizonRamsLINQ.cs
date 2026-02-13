@@ -3,7 +3,7 @@ using System.Windows.Media;
 
 namespace Event_Horizon
 {
-    public class EventHorizonLINQ : ICloneable
+    public class EventHorizonRamsLINQ : ICloneable
     {
         public Int32 Source_ID = 0;
         public Int32 Source_UserID = 0;
@@ -42,8 +42,8 @@ namespace Event_Horizon
 
         public object Clone()
         {
-            var eventHorizonLINQClone = (EventHorizonLINQ)MemberwiseClone();
-            return eventHorizonLINQClone;
+            var eventHorizonRamsLINQClone = (EventHorizonRamsLINQ)MemberwiseClone();
+            return eventHorizonRamsLINQClone;
         }
     }
 }
