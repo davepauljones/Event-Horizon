@@ -39,7 +39,6 @@ namespace Event_Horizon
             this.userID = eventHorizonRamsLINQ.UserID;
 
             AddItemsToEventTypeComboBox();
-            AddItemsToSourceComboBox();
 
             formOpenStartTime = DateTime.Now;
 
@@ -117,15 +116,10 @@ namespace Event_Horizon
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = false;
-                SourceComboBox.IsEnabled = false;
                 DetailsTextBox.IsReadOnly = true;
-                TargetUserIDComboBox.IsEnabled = false;
-                StatusComboBox.IsEnabled = false;
-                TargetDatePicker.IsEnabled = false;
-                TargetTimeHoursPicker.IsEnabled = false;
-                TargetTimeMinutesPicker.IsEnabled = false;
-                TargetDayButtonsStackPanel.Visibility = Visibility.Collapsed;
-                TargetTimeButtonsStackPanel.Visibility = Visibility.Collapsed;
+                RevisionNoComboBox.IsEnabled = false;
+                ReviewedDatePicker.IsEnabled = false;
+                MSRevisionNoComboBox.IsEnabled = false;
                 AddNoteButton.Visibility = Visibility.Visible;
                 ReplyButton.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Collapsed;
@@ -140,15 +134,10 @@ namespace Event_Horizon
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = false;
-                SourceComboBox.IsEnabled = false;
                 DetailsTextBox.IsReadOnly = true;
-                TargetUserIDComboBox.IsEnabled = false;
-                StatusComboBox.IsEnabled = false;
-                TargetDatePicker.IsEnabled = false;
-                TargetTimeHoursPicker.IsEnabled = false;
-                TargetTimeMinutesPicker.IsEnabled = false;
-                TargetDayButtonsStackPanel.Visibility = Visibility.Collapsed;
-                TargetTimeButtonsStackPanel.Visibility = Visibility.Collapsed;
+                RevisionNoComboBox.IsEnabled = false;
+                ReviewedDatePicker.IsEnabled = false;
+                MSRevisionNoComboBox.IsEnabled = false;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Collapsed;
@@ -163,15 +152,10 @@ namespace Event_Horizon
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = false;
-                SourceComboBox.IsEnabled = false;
                 DetailsTextBox.IsReadOnly = true;
-                TargetUserIDComboBox.IsEnabled = false;
-                StatusComboBox.IsEnabled = false;
-                TargetDatePicker.IsEnabled = false;
-                TargetTimeHoursPicker.IsEnabled = false;
-                TargetTimeMinutesPicker.IsEnabled = false;
-                TargetDayButtonsStackPanel.Visibility = Visibility.Collapsed;
-                TargetTimeButtonsStackPanel.Visibility = Visibility.Collapsed;
+                RevisionNoComboBox.IsEnabled = false;
+                ReviewedDatePicker.IsEnabled = false;
+                MSRevisionNoComboBox.IsEnabled = false;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Collapsed;
@@ -186,15 +170,10 @@ namespace Event_Horizon
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = true;
-                SourceComboBox.IsEnabled = true;
                 DetailsTextBox.IsReadOnly = false;
-                TargetUserIDComboBox.IsEnabled = true;
-                StatusComboBox.IsEnabled = true;
-                TargetDatePicker.IsEnabled = true;
-                TargetTimeHoursPicker.IsEnabled = true;
-                TargetTimeMinutesPicker.IsEnabled = true;
-                TargetDayButtonsStackPanel.Visibility = Visibility.Visible;
-                TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
+                RevisionNoComboBox.IsEnabled = true;
+                ReviewedDatePicker.IsEnabled = true;
+                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Visible;
                 ReplyButton.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Visible;
@@ -209,15 +188,10 @@ namespace Event_Horizon
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = true;
-                SourceComboBox.IsEnabled = true;
                 DetailsTextBox.IsReadOnly = false;
-                TargetUserIDComboBox.IsEnabled = true;
-                StatusComboBox.IsEnabled = true;
-                TargetDatePicker.IsEnabled = true;
-                TargetTimeHoursPicker.IsEnabled = true;
-                TargetTimeMinutesPicker.IsEnabled = true;
-                TargetDayButtonsStackPanel.Visibility = Visibility.Visible;
-                TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
+                RevisionNoComboBox.IsEnabled = true;
+                ReviewedDatePicker.IsEnabled = true;
+                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
@@ -232,15 +206,10 @@ namespace Event_Horizon
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.IsEnabled = true;
-                SourceComboBox.IsEnabled = true;
                 DetailsTextBox.IsReadOnly = false;
-                TargetUserIDComboBox.IsEnabled = true;
-                StatusComboBox.IsEnabled = true;
-                TargetDatePicker.IsEnabled = true;
-                TargetTimeHoursPicker.IsEnabled = true;
-                TargetTimeMinutesPicker.IsEnabled = true;
-                TargetDayButtonsStackPanel.Visibility = Visibility.Visible;
-                TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
+                RevisionNoComboBox.IsEnabled = true;
+                ReviewedDatePicker.IsEnabled = true;
+                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
@@ -256,19 +225,13 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 EventTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
                 EventTypeComboBox.IsEnabled = true;
-                SourceComboBox.SelectedIndex = eventHorizonRamsLINQ.SourceID;
-                SourceComboBox.IsEnabled = true;
                 DetailsTextBox.IsReadOnly = false;
-                TargetUserIDComboBox.SelectedIndex = eventHorizonRamsLINQ.TargetUserID;
-                TargetUserIDComboBox.IsEnabled = true;
-                StatusComboBox.SelectedIndex = Statuses.Active;
-                StatusComboBox.IsEnabled = true;
-                TargetDatePicker.IsEnabled = true;
-                TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
-                TargetTimeHoursPicker.IsEnabled = true;
-                TargetTimeMinutesPicker.IsEnabled = true;
-                TargetDayButtonsStackPanel.Visibility = Visibility.Visible;
-                TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
+                RevisionNoComboBox.SelectedIndex = 0;
+                RevisionNoComboBox.IsEnabled = true;
+                ReviewedDatePicker.IsEnabled = true;
+                ReviewedDatePicker.SelectedDate = DateTime.Now;
+                MSRevisionNoComboBox.SelectedIndex = 0;
+                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
@@ -284,19 +247,14 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 EventTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
                 EventTypeComboBox.IsEnabled = false;
-                SourceComboBox.SelectedIndex = eventHorizonRamsLINQ.SourceID;
-                SourceComboBox.IsEnabled = false;
                 DetailsTextBox.IsReadOnly = false;
-                TargetUserIDComboBox.SelectedIndex = 0;
-                TargetUserIDComboBox.IsEnabled = true;
-                StatusComboBox.SelectedIndex = Statuses.Active;
-                StatusComboBox.IsEnabled = true;
-                TargetDatePicker.IsEnabled = true;
-                TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
-                TargetTimeHoursPicker.IsEnabled = true;
-                TargetTimeMinutesPicker.IsEnabled = true;
-                TargetDayButtonsStackPanel.Visibility = Visibility.Visible;
-                TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
+                RevisionNoComboBox.SelectedIndex = 0;
+                RevisionNoComboBox.IsEnabled = true;
+                ReviewedDatePicker.IsEnabled = true;
+                ReviewedDatePicker.SelectedDate = DateTime.Now;
+                MSRevisionNoComboBox.SelectedIndex = 0;
+                MSRevisionNoComboBox.IsEnabled = true;
+                ReviewedDatePicker.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
@@ -312,26 +270,17 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 EventTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
                 EventTypeComboBox.IsEnabled = false;
-                SourceComboBox.SelectedIndex = eventHorizonRamsLINQ.SourceID;
-                SourceComboBox.IsEnabled = false;
                 DetailsTextBox.IsReadOnly = false;
-                TargetUserIDComboBox.SelectedIndex = eventHorizonRamsLINQ.TargetUserID;
-                TargetUserIDComboBox.IsEnabled = false;
-                StatusComboBox.SelectedIndex = Statuses.Active;
-                StatusComboBox.IsEnabled = true;
-                TargetDatePicker.IsEnabled = true;
-                TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
-                TargetTimeHoursPicker.IsEnabled = true;
-                TargetTimeMinutesPicker.IsEnabled = true;
-                TargetDayButtonsStackPanel.Visibility = Visibility.Visible;
-                TargetTimeButtonsStackPanel.Visibility = Visibility.Visible;
+                RevisionNoComboBox.SelectedIndex = 0;
+                RevisionNoComboBox.IsEnabled = true;
+                ReviewedDatePicker.IsEnabled = true;
+                ReviewedDatePicker.SelectedDate = DateTime.Now;
+                MSRevisionNoComboBox.SelectedIndex = 0;
+                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
             }
-
-            AddUsersToTargetUsersComboBox();
-            AddStatusToStatusComboBox();
 
             this.Owner = Application.Current.MainWindow;
         }
@@ -345,48 +294,15 @@ namespace Event_Horizon
 
             if (ramsWindowMode != EventWindowModes.EditMainEvent || ramsWindowMode != EventWindowModes.EditNote || ramsWindowMode != EventWindowModes.EditReply) EventTypeComboBox.SelectedIndex = 0;
         }
-
-        private void AddItemsToSourceComboBox()
-        {
-            foreach (SourceType sourceType in XMLReaderWriter.SourceTypesList)
-            {
-                SourceComboBox.Items.Add(EventHorizonSources.GetSourceStackPanel(sourceType));
-            }
-            
-            if (ramsWindowMode != EventWindowModes.EditMainEvent || ramsWindowMode != EventWindowModes.EditNote || ramsWindowMode != EventWindowModes.EditReply) SourceComboBox.SelectedIndex = 0;
-        }
-
-        private void AddUsersToTargetUsersComboBox()
-        {
-            foreach (User user in XMLReaderWriter.UsersList)
-            {
-                TargetUserIDComboBox.Items.Add(EventHorizonUsers.GetUserStackPanel(user));
-            }
-        }
-
-        private void AddStatusToStatusComboBox()
-        {
-            StatusComboBox.Items.Add(StatusIcons.GetStatus(Statuses.Inactive));
-            StatusComboBox.Items.Add(StatusIcons.GetStatus(Statuses.Active));
-            StatusComboBox.Items.Add(StatusIcons.GetStatus(Statuses.ActiveNotified));
-            StatusComboBox.Items.Add(StatusIcons.GetStatus(Statuses.ActiveNotifiedRead));
-            StatusComboBox.Items.Add(StatusIcons.GetStatus(Statuses.ActiveNotifiedReadArchived));
-        }
   
         private void GetOracleEvent()
         {
             EventTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
-            SourceComboBox.SelectedIndex = eventHorizonRamsLINQ.SourceID;
             DetailsTextBox.Text = eventHorizonRamsLINQ.Details;
-            TargetUserIDComboBox.SelectedIndex = eventHorizonRamsLINQ.TargetUserID;
-            StatusComboBox.SelectedIndex = eventHorizonRamsLINQ.StatusID;
+            RevisionNoComboBox.SelectedIndex = eventHorizonRamsLINQ.StatusID;
 
-            TryLoadImage(eventHorizonRamsLINQ.PathFileName);
-
-            DateTime targetDateTimet = eventHorizonRamsLINQ.TargetDate;
-            TargetDatePicker.SelectedDate = targetDateTimet;
-            TargetTimeHoursPicker.Text = targetDateTimet.ToString("HH");
-            TargetTimeMinutesPicker.Text = targetDateTimet.ToString("mm");
+            DateTime reviewedDateTimet = eventHorizonRamsLINQ.TargetDate;
+            ReviewedDatePicker.SelectedDate = reviewedDateTimet;
 
             UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
         }
@@ -395,47 +311,35 @@ namespace Event_Horizon
         {
             string detailsSafeString = DetailsTextBox.Text.Replace("'", "''");
 
-            string targetTimeString = TargetTimeHoursPicker.Text;
-            targetTimeString += ":";
-            targetTimeString += TargetTimeMinutesPicker.Text;
-            targetTimeString += ":00";
-
-            DateTime targetTimeDateTime = DateTime.ParseExact(targetTimeString, "HH:mm:ss", CultureInfo.InvariantCulture);
-
             DateTime targetTimeDateTimeNow = DateTime.Now;
 
-            DateTime targetDateTime = DateTime.Now;
-
-            if (targetTimeString == "00:00:00")
-                targetDateTime = new DateTime(TargetDatePicker.SelectedDate.Value.Year, TargetDatePicker.SelectedDate.Value.Month, TargetDatePicker.SelectedDate.Value.Day, 0, 0, 0);
-            else
-                targetDateTime = new DateTime(TargetDatePicker.SelectedDate.Value.Year, TargetDatePicker.SelectedDate.Value.Month, TargetDatePicker.SelectedDate.Value.Day, targetTimeDateTime.Hour, targetTimeDateTime.Minute, targetTimeDateTime.Second);
+            DateTime reviewedDateTime = DateTime.Now;
+            reviewedDateTime = new DateTime(ReviewedDatePicker.SelectedDate.Value.Year, ReviewedDatePicker.SelectedDate.Value.Month, ReviewedDatePicker.SelectedDate.Value.Day, reviewedDateTime.Hour, reviewedDateTime.Minute, reviewedDateTime.Second);
 
             eventHorizonRamsLINQ.EventTypeID = EventTypeComboBox.SelectedIndex;
-            eventHorizonRamsLINQ.SourceID = SourceComboBox.SelectedIndex;
             eventHorizonRamsLINQ.Details = detailsSafeString;
-            eventHorizonRamsLINQ.StatusID = StatusComboBox.SelectedIndex;
-            eventHorizonRamsLINQ.TargetDate = targetDateTime;
+            eventHorizonRamsLINQ.StatusID = RevisionNoComboBox.SelectedIndex;
+            eventHorizonRamsLINQ.TargetDate = reviewedDateTime;
+        }
+        
+        public int RevisionNoID = 1;
+        
+        private void RevisionNoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RevisionNoID = RevisionNoComboBox.SelectedIndex;
         }
 
-        public int FrequencyID = EventFrequencys.Common_OneTime;
-        
-        public int StatusID = Statuses.Inactive;
-        
-        private void StatusComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public int MSRevisionNoID = 1;
+
+        private void MSRevisionNoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            StatusID = StatusComboBox.SelectedIndex;
+            MSRevisionNoID = RevisionNoComboBox.SelectedIndex;
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9:]+");
             e.Handled = regex.IsMatch(e.Text);
-        }
-
-        private void Gen_ButtonClick(object sender, RoutedEventArgs e)
-        {
-            DetailsTextBox.Text = EventTypeName + " " + SourceTypeName;
         }
 
         private void BrowseButton_ButtonClick(object sender, RoutedEventArgs e)
@@ -470,11 +374,7 @@ namespace Event_Horizon
                         eventHorizonRamsLINQ.PathFileName = PathFolderNameString;
                         break;
                     case 1:
-                        string PathFileNameString = EventHorizonDatabaseCreate.OpenFile("All supported files|*.jpg;*.jpeg;*.png|JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|Portable Network Graphic (*.png)|*.png|PDF (*.pdf)|*.pdf|All files (*.*)|*.*");
-
-                        TryLoadImage(PathFileNameString);
-
-                        eventHorizonRamsLINQ.PathFileName = PathFileNameString;
+                       
                         break;
                     case 2:
                         if (eventHorizonRamsLINQ.PathFileName != string.Empty)
@@ -498,64 +398,9 @@ namespace Event_Horizon
             }
         }
 
-        internal void TryLoadImage(string pathFileName)
-        {
-            string FileExtension = Path.GetExtension(pathFileName);
-
-            FileExtension = FileExtension.Replace(".", string.Empty);
-
-            FileExtension = FileExtension.ToLower();
-
-            Console.Write("File Extension is ");
-            Console.WriteLine(FileExtension);
-
-            PathFileNameImage.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,/Images/EventHorizonLogoNewSmall.png"));
-            
-            if (FileExtension == FileExtensionsImage.png || FileExtension == FileExtensionsImage.jpg || FileExtension == FileExtensionsImage.bmp)
-            {
-                try
-                {
-                    if (File.Exists(pathFileName))
-                    {
-                        Uri src = new Uri(pathFileName, UriKind.RelativeOrAbsolute);
-                        BitmapImage small_image_bmp = new BitmapImage();
-                        small_image_bmp.BeginInit();
-                        small_image_bmp.CacheOption = BitmapCacheOption.OnLoad;
-                        small_image_bmp.UriSource = src;
-                        small_image_bmp.EndInit();
-
-                        PathFileNameImage.Source = small_image_bmp;
-                    }
-                }
-                catch
-                {
-                    Console.WriteLine();
-                    //UserPhoto.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(new Uri("pack://application:,,,/Images/face.jpg"));
-                }
-            }
-        }
-
-        public int TargetUserID = 0;
-        
-        private void TargetUserIDComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            TargetUserID = TargetUserIDComboBox.SelectedIndex;
-
-            Console.Write("TargetUserID=");
-            Console.WriteLine(TargetUserID);
-        }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (formOpenStartTime + eventIsReadAfterTimeSpan < DateTime.Now && ramsWindowMode != EventWindowModes.NewEvent)
-            {
-                if (eventHorizonRamsLINQ.TargetUserID == XMLReaderWriter.UserID)
-                {
-                    DataTableManagement.UpdateReadByMeID(eventHorizonRamsLINQ.ID, ReadByMeModes.Yes);
-
-                    if (StatusID == Statuses.ActiveNotified) DataTableManagement.UpdateStatusID(eventHorizonRamsLINQ.ID, Statuses.ActiveNotifiedRead);
-                }
-            }
+         
         }
 
         private void FormCloseButtons_ButtonClick(object sender, RoutedEventArgs e)
@@ -650,107 +495,5 @@ namespace Event_Horizon
             Console.Write("** item.Tag EventTypeName = ");
             Console.WriteLine(EventTypeName);
         }
-
-        String EventAttributeName = string.Empty;
-
-        String SourceTypeName = string.Empty;
-
-        private void SourceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DependencyObject dep = (DependencyObject)e.OriginalSource;
-
-            while ((dep != null) && !(dep is StackPanel))
-            {
-                dep = VisualTreeHelper.GetParent(dep);
-            }
-
-            if (dep == null)
-                return;
-
-            var selectedTag = ((StackPanel)SourceComboBox.SelectedItem).Tag.ToString();
-
-            SourceTypeName = selectedTag;
-
-            Console.Write("** SourceComboBox_SelectedIndex = ");
-            Console.WriteLine(SourceComboBox.SelectedIndex);
-            Console.Write("** item.Tag SourceTypeName = ");
-            Console.WriteLine(SourceTypeName);
-        }
-
-        private void DaysRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            RadioButton radioButton = e.OriginalSource as RadioButton;
-
-            int buttonID = 0;
-
-            bool success = Int32.TryParse(radioButton.Tag.ToString(), out buttonID);
-
-            if (radioButton != null && success)
-            {
-                switch (buttonID)
-                {
-                    case TargetDateButtons.Today:
-                        TargetDatePicker.SelectedDate = DateTime.Now;
-                        break;
-                    case TargetDateButtons.OneDay:
-                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(1);
-                        break;
-                    case TargetDateButtons.TwoDays:
-                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(2);
-                        break;
-                    case TargetDateButtons.ThreeDays:
-                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(3);
-                        break;
-                    case TargetDateButtons.FiveDays:
-                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(5);
-                        break;
-                    case TargetDateButtons.SevenDays:
-                        TargetDatePicker.SelectedDate = DateTime.Now + TimeSpan.FromDays(7);
-                        break;
-                }
-            }
-        }
-
-        private void HoursRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            RadioButton radioButton = e.OriginalSource as RadioButton;
-
-            int buttonID = 0;
-
-            bool success = Int32.TryParse(radioButton.Tag.ToString(), out buttonID);
-
-            if (radioButton != null && success)
-            {
-                switch (buttonID)
-                {
-                    case TargetTimeButtons.Now:
-                        TargetDatePicker.SelectedDate = DateTime.Now;
-                        TargetTimeHoursPicker.Text = DateTime.Now.ToString("HH");
-                        TargetTimeMinutesPicker.Text = DateTime.Now.ToString("mm");
-                        break;
-                    case TargetTimeButtons.OneHour:
-                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(60)).ToString("HH");
-                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(60)).ToString("mm");
-                        break;
-                    case TargetTimeButtons.TwoHours:
-                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(120)).ToString("HH");
-                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(120)).ToString("mm");
-                        break;
-                    case TargetTimeButtons.ThreeHours:
-                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(180)).ToString("HH");
-                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(180)).ToString("mm");
-                        break;
-                    case TargetTimeButtons.FourHours:
-                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(240)).ToString("HH");
-                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(240)).ToString("mm");
-                        break;
-                    case TargetTimeButtons.FiveHours:
-                        TargetTimeHoursPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(300)).ToString("HH");
-                        TargetTimeMinutesPicker.Text = (DateTime.Now + TimeSpan.FromMinutes(300)).ToString("mm");
-                        break;
-                }
-            }
-        }
-
     }
 }

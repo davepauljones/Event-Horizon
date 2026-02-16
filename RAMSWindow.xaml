@@ -8,13 +8,13 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Icon="EventHorizonIcon.ico" Closing="Window_Closing" Topmost="True" ResizeMode="NoResize" Name="RamsWindowWindow"
-        Title="Event Horizon (RAMS) Risk Assessment and Method Statement" Width="940" Height="776" WindowStartupLocation="CenterScreen">
+        Title="Event Horizon - Risk Assessment and Method Statement" Width="940" Height="784" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local:RectConverter x:Key="RectConverter" />
     </Window.Resources>
     <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
 
-        <Rectangle Opacity="0.56" Width="200" Height="747" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Rectangle Opacity="0.56" Width="200" Height="794" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                     <GradientStop Color="DodgerBlue" Offset="0.10" />
@@ -23,7 +23,7 @@
             </Rectangle.Fill>
         </Rectangle>
 
-        <Rectangle Opacity="0.56" Width="200" Height="747" HorizontalAlignment="Right" VerticalAlignment="Top">
+        <Rectangle Opacity="0.56" Width="200" Height="794" HorizontalAlignment="Right" VerticalAlignment="Top">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                     <GradientStop Color="Transparent" Offset="0.10" />
@@ -41,7 +41,7 @@
             </Rectangle.Fill>
         </Rectangle>
 
-        <Rectangle Opacity="1" Width="934" Height="330" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+        <Rectangle Opacity="1" Width="939" Height="330" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                     <GradientStop Color="Transparent" Offset="0.40" />
@@ -51,7 +51,7 @@
         </Rectangle>
         <Grid Margin="10,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="350"/>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="300"/>
@@ -60,18 +60,18 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="54"/>
                 <RowDefinition Height="54"/>
                 <RowDefinition Height="54"/>
                 <RowDefinition Height="54"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="54"/>
+                <RowDefinition Height="54"/>
+                <RowDefinition Height="54"/>
+                <RowDefinition Height="54"/>
+                <RowDefinition Height="54"/>
+                <RowDefinition Height="54"/>
+                <RowDefinition Height="54"/>
+                <RowDefinition Height="54"/>
                 <RowDefinition Height="10"/>
             </Grid.RowDefinitions>
 
@@ -79,11 +79,20 @@
             <Label Grid.Row="1" Content="Ref" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
             <Label Grid.Row="2" Content="Origin User" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
             <Label Grid.Row="3" Content="Profile Type" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
-            <Label Grid.Row="4" Content="Details" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
-            <Label Grid.Row="5" Content="Image" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
-            <Label Grid.Row="9" Content="PathFileName" HorizontalAlignment="Right" Margin="0,8,0,0" FontSize="13" FontWeight="Medium"/>
-            <Label Grid.Row="10" Content="Target Date" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
-            <Label Grid.Row="11" Content="Target Time" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
+            <Label Grid.Row="4" Content="Description" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
+            <Label Grid.Row="5" Content="Client Name" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
+            <Label Grid.Row="6" Content="Site" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
+            <Label Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3,0,0" >
+                <TextBlock Text="Location Activity" FontSize="13" FontWeight="Medium" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top"/>
+            </Label>
+            <Label Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3,0,0" >
+                <TextBlock Text="Element Reviewed" FontSize="13" FontWeight="Medium" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top"/>
+            </Label>
+            <Label Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3,0,0" >
+                <TextBlock Text="Method State Contract Title" FontSize="13" FontWeight="Medium" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top"/>
+            </Label>
+            <Label Grid.Row="10" Content="MS Revision No" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
+            <Label Grid.Row="11" Content="MS Contractor" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
             <Label Grid.Row="12" Content="Status" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
             <Label Grid.Row="13" Content="Options" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
 
@@ -108,7 +117,10 @@
                 </StackPanel>
             </Border>
 
-            
+            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Content="Reviewed Date" Margin="10,11,0,0" FontSize="13"/>
+                <DatePicker x:Name="ReviewedDatePicker" Width="180" HorizontalAlignment="Left" Margin="10,6,10,6" Padding="13,6,0,3" FontSize="18" SelectedDate="{x:Static sys:DateTime.Now}"/>
+            </StackPanel>
 
             <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
                 <Border CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6" Width="210" MaxWidth="210" HorizontalAlignment="Left">
@@ -127,16 +139,6 @@
                     </StackPanel>
                 </Border>
             </StackPanel>
-            <StackPanel Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label Content="Target User" Margin="10,11,0,0" FontSize="13"/>
-                <ComboBox x:Name="TargetUserIDComboBox" IsEditable="False" IsReadOnly="True" FontSize="18" Background="#55ffffff" Width="220" Height="40" Margin="10,6,10,6"
-                        Style="{DynamicResource FrequencyComboBoxStyle}" VerticalContentAlignment="Center" VerticalAlignment="Center"
-                        ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="TargetUserIDComboBox_SelectionChanged">
-                    <ComboBox.Effect>
-                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
-                    </ComboBox.Effect>
-                </ComboBox>
-            </StackPanel>
 
             <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
                 <ComboBox x:Name="EventTypeComboBox" IsEditable="False" IsReadOnly="True" FontSize="18" Background="#55ffffff" Width="280" Height="40" Margin="10,6,10,6"
@@ -148,14 +150,28 @@
                 </ComboBox>
             </StackPanel>
 
-            <StackPanel Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label Content="Source Type" HorizontalAlignment="Right" Margin="10,11,0,0" FontSize="13"/>
-                <ComboBox x:Name="SourceComboBox" IsEditable="False" IsReadOnly="True" FontSize="18" Background="#55ffffff" Width="220" Height="40" Margin="10,6,10,6"
-                    Style="{DynamicResource FrequencyComboBoxStyle}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left"
-                    ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="SourceComboBox_SelectionChanged">
+            <StackPanel Grid.Column="3" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Content="Job No." HorizontalAlignment="Right" Margin="10,11,0,0" FontSize="13" FontWeight="Medium"/>
+                <Border Grid.Column="3" Grid.Row="2" Width="120" HorizontalAlignment="Right" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6">
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                    </Border.Effect>
+                    <TextBox x:Name="JobNoTextBox" Width="106" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" FontSize="18" Margin="6,4,4,4" MaxLength="26" TextWrapping="NoWrap" AcceptsReturn="False" BorderThickness="0" VerticalScrollBarVisibility="Auto" Padding="0,2,0,0" Text="0"/>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Grid.Column="3" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Content="Revision No." HorizontalAlignment="Right" Margin="10,11,0,0" FontSize="13" FontWeight="Medium"/>
+                <ComboBox x:Name="RevisionNoComboBox" SelectedIndex="0" IsEditable="False" IsReadOnly="True" FontSize="18" Background="#55ffffff" Width="160" Height="40" Margin="10,6,10,6"
+                    Style="{DynamicResource FrequencyComboBoxStyle}" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right"
+                    ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="RevisionNoComboBox_SelectionChanged">
                     <ComboBox.Effect>
                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
                     </ComboBox.Effect>
+                    <ComboBoxItem Content="1"/>
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="3"/>
+                    <ComboBoxItem Content="4"/>
                 </ComboBox>
             </StackPanel>
 
@@ -166,69 +182,61 @@
                 <TextBox x:Name="DetailsTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
             </Border>
 
-            <Grid Grid.Column="1" Grid.Row="5" Grid.RowSpan="4" Background="Transparent" HorizontalAlignment="Left" MaxWidth="334" MaxHeight="220" Margin="11,6,0,6">
-                <Grid.Effect>
-                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="2" Opacity="0.6" />
-                </Grid.Effect>
-                <Border BorderBrush="Transparent" BorderThickness="0" CornerRadius="9">
-                    <Border.Clip>
-                        <RectangleGeometry RadiusX="9" RadiusY="9">
-                            <RectangleGeometry.Rect>
-                                <MultiBinding Converter="{StaticResource RectConverter}">
-                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=Border}" />
-                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=Border}" />
-                                </MultiBinding>
-                            </RectangleGeometry.Rect>
-                        </RectangleGeometry>
-                    </Border.Clip>
-                    <Image x:Name="PathFileNameImage" Source="pack://application:,,/Images/EventHorizonLogoNewSmall.png" Stretch="Uniform" StretchDirection = "DownOnly" SnapsToDevicePixels="True" UseLayoutRounding="True"/>
-                </Border>
-            </Grid>
+            <Border Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                </Border.Effect>
+                <TextBox x:Name="ClientNameTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
+            </Border>
 
-            <StackPanel Grid.Column="3" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label Content="Status" HorizontalAlignment="Right" Margin="10,11,0,0" FontSize="13" FontWeight="Medium"/>
-                <ComboBox x:Name="StatusComboBox" IsEditable="False" IsReadOnly="True" FontSize="18" Background="#55ffffff" Width="160" Height="40" Margin="10,6,10,6"
-                        Style="{DynamicResource FrequencyComboBoxStyle}" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right"
-                        ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="StatusComboBox_SelectionChanged">
+            <Border Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                </Border.Effect>
+                <TextBox x:Name="SiteTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
+            </Border>
+
+            <Border Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                </Border.Effect>
+                <TextBox x:Name="LocationActivityTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
+            </Border>
+
+            <Border Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="3" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                </Border.Effect>
+                <TextBox x:Name="ElementReviewedTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
+            </Border>
+
+            <Border Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="3" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                </Border.Effect>
+                <TextBox x:Name="MSContractTitleTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
+            </Border>
+
+            <StackPanel Grid.Column="1" Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Left">
+                <ComboBox x:Name="MSRevisionNoComboBox" SelectedIndex="0" IsEditable="False" IsReadOnly="True" FontSize="18" Background="#55ffffff" Width="160" Height="40" Margin="10,6,10,6"
+                    Style="{DynamicResource FrequencyComboBoxStyle}" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right"
+                    ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="MSRevisionNoComboBox_SelectionChanged">
                     <ComboBox.Effect>
                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
                     </ComboBox.Effect>
+                    <ComboBoxItem Content="1"/>
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="3"/>
+                    <ComboBoxItem Content="4"/>
                 </ComboBox>
             </StackPanel>
 
-            <StackPanel Grid.Column="1" Grid.Row="10" Orientation="Horizontal">
-                <DatePicker x:Name="TargetDatePicker" Width="210" HorizontalAlignment="Left" Margin="10,6,10,6" Padding="13,6,0,3" FontSize="18" SelectedDate="{x:Static sys:DateTime.Now}"/>
-            </StackPanel>
-
-            <StackPanel Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="2" x:Name="TargetDayButtonsStackPanel" Orientation="Horizontal" HorizontalAlignment="Right">
-                <StackPanel Orientation="Horizontal" Margin="10,6,10,6" VerticalAlignment="Center">
-                    <RadioButton Tag="0" GroupName="DaysRadioButton" Content = "Today" Background="#FFe60000" Margin="0,0,0,0" Checked="DaysRadioButton_Checked"/>
-                    <RadioButton Tag="1" GroupName="DaysRadioButton" Content = "1 Day" Background="#FFff7800" Margin="10,0,0,0" Checked="DaysRadioButton_Checked"/>
-                    <RadioButton Tag="2" GroupName="DaysRadioButton" Content = "2 Days" Background="#FFff7800" Margin="10,0,0,0" Checked="DaysRadioButton_Checked"/>
-                    <RadioButton Tag="3" GroupName="DaysRadioButton" Content = "3 Days" Background="#FFff7800" Margin="10,0,0,0" Checked="DaysRadioButton_Checked"/>
-                    <RadioButton Tag="4" GroupName="DaysRadioButton" Content = "5 Days" Background="#FF4cbb17" Margin="10,0,0,0" Checked="DaysRadioButton_Checked"/>
-                    <RadioButton Tag="5" GroupName="DaysRadioButton" Content = "7 Days" Background="#FF4cbb17" Margin="10,0,0,0" Checked="DaysRadioButton_Checked"/>
-                </StackPanel>
-            </StackPanel>
-
-            <StackPanel Grid.Column="1" Grid.Row="11" Orientation="Horizontal">
-                <StackPanel Orientation="Horizontal" Margin="10,6,10,6">
-                    <xctk:TimePicker x:Name="TargetTimeHoursPicker" Text="00" Value="00:00:00" StartTime="00:00:0" EndTime="23:59:0" Format="Custom" FormatString="HH" ShowDropDownButton="False" Background="#55ffffff" FontSize="18" MinWidth="66" MaxWidth="50" Padding="12,0,0,0" TextAlignment="Left"/>
-                    <Label Content=":" HorizontalAlignment="Center" FontSize="18" Margin="0,2,0,0" FontWeight="Bold"/>
-                    <xctk:TimePicker x:Name="TargetTimeMinutesPicker" Text="00" Value="00:00:00" StartTime="00:00:0" EndTime="23:59:0" Format="Custom" FormatString="ss" ShowDropDownButton="False" Background="#55ffffff" FontSize="18" MinWidth="66" MaxWidth="50" Padding="12,0,0,0" TextAlignment="Left"/>
-                </StackPanel>
-            </StackPanel>
-
-            <StackPanel Grid.Column="2" Grid.Row="11" Grid.ColumnSpan="2" x:Name="TargetTimeButtonsStackPanel" Orientation="Horizontal" HorizontalAlignment="Right">
-                <StackPanel Orientation="Horizontal" Margin="10,6,10,6" VerticalAlignment="Center">
-                    <RadioButton Tag="0" GroupName="HoursRadioButton" Content = "Now" Background="#FFe60000" Margin="0,0,0,0" Checked="HoursRadioButton_Checked"/>
-                    <RadioButton Tag="1" GroupName="HoursRadioButton" Content = "1 Hour" Background="#FFff7800" Margin="10,0,0,0" Checked="HoursRadioButton_Checked"/>
-                    <RadioButton Tag="2" GroupName="HoursRadioButton" Content = "2 Hours" Background="#FFff7800" Margin="10,0,0,0" Checked="HoursRadioButton_Checked"/>
-                    <RadioButton Tag="3" GroupName="HoursRadioButton" Content = "3 Hours" Background="#FF4cbb17" Margin="10,0,0,0" Checked="HoursRadioButton_Checked"/>
-                    <RadioButton Tag="4" GroupName="HoursRadioButton" Content = "4 Hours" Background="#FF4cbb17" Margin="10,0,0,0" Checked="HoursRadioButton_Checked"/>
-                    <RadioButton Tag="5" GroupName="HoursRadioButton" Content = "5 Hours" Background="#FF4cbb17" Margin="10,0,0,0" Checked="HoursRadioButton_Checked"/>
-                </StackPanel>
-            </StackPanel>
+            <Border Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                </Border.Effect>
+                <TextBox x:Name="MSContractorTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
+            </Border>
 
             <Border Grid.Column="1" Grid.Row="12" Grid.ColumnSpan="3" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6">
                 <Border.Effect>

@@ -532,21 +532,9 @@ namespace Event_Horizon
 
                 DateTime? createdDateTime = DateTime.Now;
 
-                string targetTimeString = ramsWindow.TargetTimeHoursPicker.Text;
-                targetTimeString += ":";
-                targetTimeString += ramsWindow.TargetTimeMinutesPicker.Text;
-                targetTimeString += ":00";
-
-                DateTime ttimedt = DateTime.ParseExact(targetTimeString, "HH:mm:ss", CultureInfo.InvariantCulture);
-
                 DateTime targetDateTimeNow = DateTime.Now;
 
                 DateTime? targetDateTime = DateTime.Now;
-
-                if (targetTimeString == "00:00:00")
-                    targetDateTime = new DateTime(ramsWindow.TargetDatePicker.SelectedDate.Value.Year, ramsWindow.TargetDatePicker.SelectedDate.Value.Month, ramsWindow.TargetDatePicker.SelectedDate.Value.Day, 0, 0, 0);
-                else
-                    targetDateTime = new DateTime(ramsWindow.TargetDatePicker.SelectedDate.Value.Year, ramsWindow.TargetDatePicker.SelectedDate.Value.Month, ramsWindow.TargetDatePicker.SelectedDate.Value.Day, ttimedt.Hour, ttimedt.Minute, ttimedt.Second);
 
                 string query2 = "Select @@Identity";
                 string query3 = "UPDATE Rams SET[ParentEventID] = ? WHERE [ID] = ?";
@@ -569,7 +557,7 @@ namespace Event_Horizon
                                 command.Parameters.Add("@Site", DbType.String).Value = detailsSafeString;
                                 command.Parameters.Add("@LocationActivity", DbType.String).Value = detailsSafeString;
 
-                                command.Parameters.Add("@RevisionNo", DbType.Int32).Value = ramsWindow.StatusComboBox.SelectedIndex;
+                                command.Parameters.Add("@RevisionNo", DbType.Int32).Value = ramsWindow.RevisionNoComboBox.SelectedIndex;
 
                                 command.Parameters.Add("@ElementReviewed", DbType.String).Value = detailsSafeString;
 
@@ -577,7 +565,7 @@ namespace Event_Horizon
 
                                 command.Parameters.Add("@MSContractTitle", DbType.String).Value = detailsSafeString;
 
-                                command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = ramsWindow.StatusComboBox.SelectedIndex;
+                                command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = ramsWindow.MSRevisionNoComboBox.SelectedIndex;
 
                                 command.Parameters.Add("@MSContractor", DbType.String).Value = detailsSafeString;
 
@@ -596,13 +584,13 @@ namespace Event_Horizon
 
                                     command.Parameters.Add("@RamsProfileTypeID", DbType.Int32).Value = ramsWindow.EventTypeComboBox.SelectedIndex;
                                     
-                                    command.Parameters.Add("@UserID", DbType.Int32).Value = ramsWindow.SourceComboBox.SelectedIndex;
+                                    command.Parameters.Add("@UserID", DbType.Int32).Value = XMLReaderWriter.UserID;
 
                                     command.Parameters.Add("@ClientName", DbType.String).Value = detailsSafeString;
                                     command.Parameters.Add("@Site", DbType.String).Value = detailsSafeString;
                                     command.Parameters.Add("@LocationActivity", DbType.String).Value = detailsSafeString;
 
-                                    command.Parameters.Add("@RevisionNo", DbType.Int32).Value = ramsWindow.StatusComboBox.SelectedIndex;
+                                    command.Parameters.Add("@RevisionNo", DbType.Int32).Value = ramsWindow.RevisionNoComboBox.SelectedIndex;
 
                                     command.Parameters.Add("@ElementsReviewed", DbType.String).Value = detailsSafeString;
 
@@ -610,7 +598,7 @@ namespace Event_Horizon
 
                                     command.Parameters.Add("@MSContractTitle", DbType.String).Value = detailsSafeString;
 
-                                    command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = ramsWindow.StatusComboBox.SelectedIndex;
+                                    command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = ramsWindow.MSRevisionNoComboBox.SelectedIndex;
 
                                     command.Parameters.Add("@MSContractor", DbType.String).Value = detailsSafeString;
 
@@ -752,15 +740,11 @@ namespace Event_Horizon
             {
                 result++;
             }
-            if (ramsWindow.SourceComboBox.SelectedIndex > -1)
-            {
-                result++;
-            }
             if (ramsWindow.DetailsTextBox.Text.Length > 0)
             {
                 result++;
             }
-            if (ramsWindow.StatusComboBox.SelectedIndex > -1)
+            if (ramsWindow.RevisionNoComboBox.SelectedIndex > -1)
             {
                 result++;
             }
