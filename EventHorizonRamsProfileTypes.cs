@@ -47,11 +47,11 @@ namespace Event_Horizon
             TextBlock eventTypeName;
 
             if (!overrideEffect)
-                eventTypeName = new TextBlock { Text = ramsProfileType.Name, Foreground = Brushes.Black, FontSize = 18, MaxWidth = 170, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
+                eventTypeName = new TextBlock { Text = ramsProfileType.ProfileName, Foreground = Brushes.Black, FontSize = 18, MaxWidth = 470, Margin = new Thickness(4, 5, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
             else
-                eventTypeName = new TextBlock { Text = ramsProfileType.Name, Foreground = Brushes.Black, FontSize = 18, MaxWidth = 170, Margin = new Thickness(4, 7, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
+                eventTypeName = new TextBlock { Text = ramsProfileType.ProfileName, Foreground = Brushes.Black, FontSize = 18, MaxWidth = 470, Margin = new Thickness(4, 7, 0, 0), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0) };
 
-            stackPanel.Tag = ramsProfileType.Name;
+            stackPanel.Tag = ramsProfileType.ProfileName;
 
             //Console.Write("*******TAG = ");
             //Console.WriteLine(stackPanel.Tag);

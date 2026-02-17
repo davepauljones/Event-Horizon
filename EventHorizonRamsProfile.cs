@@ -153,36 +153,42 @@ namespace Event_Horizon
 
             this.Columns.Add("VehiclesAndTraffic", typeof(Int32));
             this.Columns["VehiclesAndTraffic"].DefaultValue = 0;
-            this.Columns.Add("VehiclesAndTraffic", typeof(Int32));
-            this.Columns["VehiclesAndTraffic"].DefaultValue = 0;
+            this.Columns.Add("VT_SiteTraffic", typeof(Int32));
+            this.Columns["VT_SiteTraffic"].DefaultValue = 0;
+            this.Columns.Add("VT_ReversingVehicles", typeof(Int32));
+            this.Columns["VT_ReversingVehicles"].DefaultValue = 0;
+            this.Columns.Add("VT_LoadingUnloading", typeof(Int32));
+            this.Columns["VT_LoadingUnloading"].DefaultValue = 0;
+            this.Columns.Add("VT_PublicHighways", typeof(Int32));
+            this.Columns["VT_PublicHighways"].DefaultValue = 0;
+            this.Columns.Add("VT_BanksmanOperations", typeof(Int32));
+            this.Columns["VT_BanksmanOperations"].DefaultValue = 0;
 
+            this.Columns.Add("Environmental", typeof(Int32));
+            this.Columns["Environmental"].DefaultValue = 0;
+            this.Columns.Add("EN_WasteGeneration", typeof(Int32));
+            this.Columns["EN_WasteGeneration"].DefaultValue = 0;
+            this.Columns.Add("EN_FuelSpills", typeof(Int32));
+            this.Columns["EN_FuelSpills"].DefaultValue = 0;
+            this.Columns.Add("EN_NoiseNuisance", typeof(Int32));
+            this.Columns["EN_NoiseNuisance"].DefaultValue = 0;
+            this.Columns.Add("EN_DustEmissions", typeof(Int32));
+            this.Columns["EN_DustEmissions"].DefaultValue = 0;
+            this.Columns.Add("EN_PollutionOfDrainsWatercourses", typeof(Int32));
+            this.Columns["EN_PollutionOfDrainsWatercourses"].DefaultValue = 0;
 
-
-
-            this.Columns.Add("TargetDateTime", typeof(DateTime));
-            this.Columns["TargetDateTime"].DefaultValue = DateTime.MinValue;
-            this.Columns.Add("Details", typeof(string));
-            this.Columns["Details"].DefaultValue = string.Empty;
-            this.Columns.Add("SourceID", typeof(Int32));
-            this.Columns["SourceID"].DefaultValue = 0;
-            this.Columns.Add("FrequencyID", typeof(Int32));
-            this.Columns["FrequencyID"].DefaultValue = 0;
-            this.Columns.Add("StatusID", typeof(Int32));
-            this.Columns["StatusID"].DefaultValue = 0;
-            this.Columns.Add("ReadByMeID", typeof(Int32));
-            this.Columns["ReadByMeID"].DefaultValue = 0;
-            this.Columns.Add("LastViewedDateTime", typeof(DateTime));
-            this.Columns["LastViewedDateTime"].DefaultValue = DateTime.MinValue;
-            this.Columns.Add("RemindMeID", typeof(Int32));
-            this.Columns["RemindMeID"].DefaultValue = 0;
-            this.Columns.Add("RemindMeDateTime", typeof(DateTime));
-            this.Columns["RemindMeDateTime"].DefaultValue = DateTime.MinValue;
-            this.Columns.Add("NotificationAcknowledged", typeof(Int32));
-            this.Columns["NotificationAcknowledged"].DefaultValue = 0;
-            this.Columns.Add("ParentEventID", typeof(Int32));
-            this.Columns["ParentEventID"].DefaultValue = 0;
-            this.Columns.Add("EventModeID", typeof(Int32));
-            this.Columns["EventModeID"].DefaultValue = 0;
+            this.Columns.Add("EmergencyAndWelfare", typeof(Int32));
+            this.Columns["EmergencyAndWelfare"].DefaultValue = 0;
+            this.Columns.Add("EW_Fire", typeof(Int32));
+            this.Columns["EW_Fire"].DefaultValue = 0;
+            this.Columns.Add("EW_FirstAidProvision", typeof(Int32));
+            this.Columns["EW_FirstAidProvision"].DefaultValue = 0;
+            this.Columns.Add("EW_EmergencyEvacuation", typeof(Int32));
+            this.Columns["EW_EmergencyEvacuation"].DefaultValue = 0;
+            this.Columns.Add("EW_WelfareFacilities", typeof(Int32));
+            this.Columns["EW_WelfareFacilities"].DefaultValue = 0;
+            this.Columns.Add("EW_ExtremeTemperatures", typeof(Int32));
+            this.Columns["EW_ExtremeTemperatures"].DefaultValue = 0;
         }
     }
 }

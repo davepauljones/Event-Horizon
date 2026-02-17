@@ -15,7 +15,7 @@ namespace Event_Horizon
     public class DataTableManagementRams
     {
         public static EventHorizonRams EventHorizon_Rams = new EventHorizonRams();
-        public static List<EventHorizonRamsProfile> EventHorizon_RamsProfile = new List<EventHorizonRamsProfile>();
+        public static EventHorizonRamsProfile EventHorizon_RamsProfile = new EventHorizonRamsProfile();
         public static int RowLimitMode = RowLimitModes.LimitOnly;
         public static Int32 RowLimitStep = 30;
         public static Int32 RowLimit = RowLimitStep;
@@ -730,7 +730,7 @@ namespace Event_Horizon
             }
         }
 
-        private void GetRamsProfiles()
+        public static void GetRamsProfiles()
         {
             try
             {
@@ -757,17 +757,17 @@ namespace Event_Horizon
                 msg.ShowDialog();
             }
         }
-        private static bool GetRamsProfileTypes()
+        public static bool GetRamsProfileTypes()
         {
             RamsProfileTypesList.Clear();
 
             RamsProfileTypesList.Add(new RamsProfileType { ID = 0, ProfileName = "All Rams Profile Types", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
+            RamsProfileTypesList.Add(new RamsProfileType { ID = 1, ProfileName = "Number 1", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
+            RamsProfileTypesList.Add(new RamsProfileType { ID = 2, ProfileName = "Number 2", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
 
-            int id = 1;
-            foreach (EventHorizonRamsProfile EHRP in EventHorizon_RamsProfile)
+            foreach (DataRow row in EventHorizon_RamsProfile.Rows)
             {
-                RamsProfileTypesList.Add(new RamsProfileType { ID = id, ProfileName = EHRP, Icon = GetUIFontAwesome(node["Icon"].InnerText), Color = (Color)ColorConverter.ConvertFromString(node["Color"].InnerText) });
-                id++;
+                RamsProfileTypesList.Add(new RamsProfileType { ID = row.Field<Int32>("ID"), ProfileName = row.Field<string>("ProfileName") });
             }
 
             return true;

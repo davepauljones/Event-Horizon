@@ -135,6 +135,8 @@ namespace Event_Horizon
             {
                 RAMSTreeViewStackPanel.Visibility = System.Windows.Visibility.Visible;
                 LoadRAMSVisualTree();
+                DataTableManagementRams.GetRamsProfiles();
+                DataTableManagementRams.GetRamsProfileTypes();
             }
             else
             {
