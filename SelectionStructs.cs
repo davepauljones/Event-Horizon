@@ -25,7 +25,7 @@ namespace Event_Horizon
     public class RamsProfileType
     {
         public Int32 ID = 0;
-        public String Name = string.Empty;
+        public String ProfileName = string.Empty;
         public FontAwesomeIcon Icon = FontAwesomeIcon.Star;
         public Color Color = Colors.White;
     }

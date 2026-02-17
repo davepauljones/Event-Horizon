@@ -15,7 +15,7 @@ namespace Event_Horizon
     public class DataTableManagementRams
     {
         public static EventHorizonRams EventHorizon_Rams = new EventHorizonRams();
-        public static EventHorizonRamsProfile EventHorizon_RamsProfile = new EventHorizonRamsProfile();
+        public static List<EventHorizonRamsProfile> EventHorizon_RamsProfile = new List<EventHorizonRamsProfile>();
         public static int RowLimitMode = RowLimitModes.LimitOnly;
         public static Int32 RowLimitStep = 30;
         public static Int32 RowLimit = RowLimitStep;
@@ -761,12 +761,12 @@ namespace Event_Horizon
         {
             RamsProfileTypesList.Clear();
 
-            RamsProfileTypesList.Add(new RamsProfileType { ID = 0, Name = "All Rams Profile Types", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
+            RamsProfileTypesList.Add(new RamsProfileType { ID = 0, ProfileName = "All Rams Profile Types", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
 
             int id = 1;
             foreach (EventHorizonRamsProfile EHRP in EventHorizon_RamsProfile)
             {
-                RamsProfileTypesList.Add(new RamsProfileType { ID = id, Name = node["Name"].InnerText, Icon = GetUIFontAwesome(node["Icon"].InnerText), Color = (Color)ColorConverter.ConvertFromString(node["Color"].InnerText) });
+                RamsProfileTypesList.Add(new RamsProfileType { ID = id, ProfileName = EHRP, Icon = GetUIFontAwesome(node["Icon"].InnerText), Color = (Color)ColorConverter.ConvertFromString(node["Color"].InnerText) });
                 id++;
             }
 
