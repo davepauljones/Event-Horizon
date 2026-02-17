@@ -1,18 +1,21 @@
-﻿using System;
+﻿using FontAwesome.WPF;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Data;
 using System.Data.OleDb;
-using System.Windows.Media;
-using System.Windows;
-using System.Globalization;
 using System.Data.SQLite;
+using System.Globalization;
+using System.Linq;
+using System.Windows;
+using System.Windows.Media;
+using System.Xml;
 
 namespace Event_Horizon
 {
     public class DataTableManagementRams
     {
         public static EventHorizonRams EventHorizon_Rams = new EventHorizonRams();
+        public static EventHorizonRamsProfile EventHorizon_RamsProfile = new EventHorizonRamsProfile();
         public static int RowLimitMode = RowLimitModes.LimitOnly;
         public static Int32 RowLimitStep = 30;
         public static Int32 RowLimit = RowLimitStep;
@@ -22,6 +25,8 @@ namespace Event_Horizon
         public static Int32 RowOffset = 0;
         public static Int32 RowOffsetMin = 0;
         public static Int32 RowOffsetMax = 300;
+
+        public static List<RamsProfileType> RamsProfileTypesList = new List<RamsProfileType>();
 
         public static List<EventHorizonRamsLINQ> GetRams(int listViewToPopulate, Int32 eventTypeID, Int32 filterMode, Int32 displayMode, string searchString)
         {
@@ -552,7 +557,7 @@ namespace Event_Horizon
                                 connection.Open();
 
                                 command.Parameters.Add("@Description", DbType.String).Value = detailsSafeString;
-                                command.Parameters.Add("@RamsProfileTypeID", DbType.Int32).Value = ramsWindow.EventTypeComboBox.SelectedIndex;
+                                command.Parameters.Add("@RamsProfileTypeID", DbType.Int32).Value = ramsWindow.RamsProfileTypeComboBox.SelectedIndex;
                                 command.Parameters.Add("@ClientName", DbType.String).Value = detailsSafeString;
                                 command.Parameters.Add("@Site", DbType.String).Value = detailsSafeString;
                                 command.Parameters.Add("@LocationActivity", DbType.String).Value = detailsSafeString;
@@ -578,11 +583,11 @@ namespace Event_Horizon
 
                                     command.Parameters.Add("@CreatedDateTime", DbType.DateTime).Value = createdDateTime;
 
-                                    command.Parameters.Add("@JobNo", DbType.Int32).Value = ramsWindow.EventTypeComboBox.SelectedIndex;
+                                    command.Parameters.Add("@JobNo", DbType.Int32).Value = ramsWindow.RamsProfileTypeComboBox.SelectedIndex;
 
                                     command.Parameters.Add("@Description", DbType.String).Value = detailsSafeString;
 
-                                    command.Parameters.Add("@RamsProfileTypeID", DbType.Int32).Value = ramsWindow.EventTypeComboBox.SelectedIndex;
+                                    command.Parameters.Add("@RamsProfileTypeID", DbType.Int32).Value = ramsWindow.RamsProfileTypeComboBox.SelectedIndex;
                                     
                                     command.Parameters.Add("@UserID", DbType.Int32).Value = XMLReaderWriter.UserID;
 
@@ -724,19 +729,62 @@ namespace Event_Horizon
                     MainWindow.mw.RefreshLog(ListViews.Active);
             }
         }
+
+        private void GetRamsProfiles()
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                {
+                    string sqlcmd = "SELECT * FROM RamsProfiles ORDER BY ID DESC;";
+
+                    SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
+
+                    conn.Open();
+
+                    SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+
+                    adapter.Fill(EventHorizon_RamsProfile);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions here
+                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("-------------------*---------------------");
+
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetRamsProfiles - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                msg.ShowDialog();
+            }
+        }
+        private static bool GetRamsProfileTypes()
+        {
+            RamsProfileTypesList.Clear();
+
+            RamsProfileTypesList.Add(new RamsProfileType { ID = 0, Name = "All Rams Profile Types", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
+
+            int id = 1;
+            foreach (EventHorizonRamsProfile EHRP in EventHorizon_RamsProfile)
+            {
+                RamsProfileTypesList.Add(new RamsProfileType { ID = id, Name = node["Name"].InnerText, Icon = GetUIFontAwesome(node["Icon"].InnerText), Color = (Color)ColorConverter.ConvertFromString(node["Color"].InnerText) });
+                id++;
+            }
+
+            return true;
+        }
         
         private static bool CheckFormFields(RamsWindow ramsWindow)
         {
             int result = 0;
 
-            if (ramsWindow.EventTypeComboBox.SelectedIndex == 0)
+            if (ramsWindow.RamsProfileTypeComboBox.SelectedIndex == 0)
             {
                 EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CheckFormFields", InformationTextBlock = "You can not choose 'All Rams' as an Rams Profile type." }, RequesterTypes.OK);
                 msg.ShowDialog();
                 return false;
             }
 
-            if (ramsWindow.EventTypeComboBox.SelectedIndex > -1)
+            if (ramsWindow.RamsProfileTypeComboBox.SelectedIndex > -1)
             {
                 result++;
             }

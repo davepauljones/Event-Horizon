@@ -300,6 +300,10 @@
     <Compile Include="EventHorizonCertificate.xaml.cs">
       <DependentUpon>EventHorizonCertificate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EventHorizonRamsProfile.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EventHorizonRamsProfileTypes.cs" />
     <Compile Include="EventHorizonRams.cs">
       <SubType>Component</SubType>
     </Compile>

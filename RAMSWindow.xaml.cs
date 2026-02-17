@@ -38,7 +38,7 @@ namespace Event_Horizon
             this.ramsWindow = ramsWindow;
             this.userID = eventHorizonRamsLINQ.UserID;
 
-            AddItemsToEventTypeComboBox();
+            AddItemsToRamsProfileTypeComboBox();
 
             formOpenStartTime = DateTime.Now;
 
@@ -115,7 +115,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                EventTypeComboBox.IsEnabled = false;
+                RamsProfileTypeComboBox.IsEnabled = false;
                 DetailsTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
                 ReviewedDatePicker.IsEnabled = false;
@@ -133,7 +133,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                EventTypeComboBox.IsEnabled = false;
+                RamsProfileTypeComboBox.IsEnabled = false;
                 DetailsTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
                 ReviewedDatePicker.IsEnabled = false;
@@ -151,7 +151,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                EventTypeComboBox.IsEnabled = false;
+                RamsProfileTypeComboBox.IsEnabled = false;
                 DetailsTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
                 ReviewedDatePicker.IsEnabled = false;
@@ -169,7 +169,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                EventTypeComboBox.IsEnabled = true;
+                RamsProfileTypeComboBox.IsEnabled = true;
                 DetailsTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
@@ -187,7 +187,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                EventTypeComboBox.IsEnabled = true;
+                RamsProfileTypeComboBox.IsEnabled = true;
                 DetailsTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
@@ -205,7 +205,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                EventTypeComboBox.IsEnabled = true;
+                RamsProfileTypeComboBox.IsEnabled = true;
                 DetailsTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
@@ -223,8 +223,8 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
-                EventTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
-                EventTypeComboBox.IsEnabled = true;
+                RamsProfileTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
+                RamsProfileTypeComboBox.IsEnabled = true;
                 DetailsTextBox.IsReadOnly = false;
                 RevisionNoComboBox.SelectedIndex = 0;
                 RevisionNoComboBox.IsEnabled = true;
@@ -245,8 +245,8 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
-                EventTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
-                EventTypeComboBox.IsEnabled = false;
+                RamsProfileTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
+                RamsProfileTypeComboBox.IsEnabled = false;
                 DetailsTextBox.IsReadOnly = false;
                 RevisionNoComboBox.SelectedIndex = 0;
                 RevisionNoComboBox.IsEnabled = true;
@@ -268,8 +268,8 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                EventTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
-                EventTypeComboBox.IsEnabled = false;
+                RamsProfileTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
+                RamsProfileTypeComboBox.IsEnabled = false;
                 DetailsTextBox.IsReadOnly = false;
                 RevisionNoComboBox.SelectedIndex = 0;
                 RevisionNoComboBox.IsEnabled = true;
@@ -285,19 +285,19 @@ namespace Event_Horizon
             this.Owner = Application.Current.MainWindow;
         }
         
-        private void AddItemsToEventTypeComboBox()
+        private void AddItemsToRamsProfileTypeComboBox()
         {
-            foreach (EventType eventType in XMLReaderWriter.EventTypesList)
+            foreach (RamsProfileType ramsProfileType in DataTableManagementRams.RamsProfileTypesList)
             {
-                EventTypeComboBox.Items.Add(EventHorizonEventTypes.GetEventTypeStackPanel(eventType));
+                RamsProfileTypeComboBox.Items.Add(EventHorizonRamsProfileTypes.GetRamsProfileTypeStackPanel(ramsProfileType));
             }
 
-            if (ramsWindowMode != EventWindowModes.EditMainEvent || ramsWindowMode != EventWindowModes.EditNote || ramsWindowMode != EventWindowModes.EditReply) EventTypeComboBox.SelectedIndex = 0;
+            if (ramsWindowMode != EventWindowModes.EditMainEvent || ramsWindowMode != EventWindowModes.EditNote || ramsWindowMode != EventWindowModes.EditReply) RamsProfileTypeComboBox.SelectedIndex = 0;
         }
   
         private void GetOracleEvent()
         {
-            EventTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
+            RamsProfileTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.EventTypeID;
             DetailsTextBox.Text = eventHorizonRamsLINQ.Details;
             RevisionNoComboBox.SelectedIndex = eventHorizonRamsLINQ.StatusID;
 
@@ -316,7 +316,7 @@ namespace Event_Horizon
             DateTime reviewedDateTime = DateTime.Now;
             reviewedDateTime = new DateTime(ReviewedDatePicker.SelectedDate.Value.Year, ReviewedDatePicker.SelectedDate.Value.Month, ReviewedDatePicker.SelectedDate.Value.Day, reviewedDateTime.Hour, reviewedDateTime.Minute, reviewedDateTime.Second);
 
-            eventHorizonRamsLINQ.EventTypeID = EventTypeComboBox.SelectedIndex;
+            eventHorizonRamsLINQ.EventTypeID = RamsProfileTypeComboBox.SelectedIndex;
             eventHorizonRamsLINQ.Details = detailsSafeString;
             eventHorizonRamsLINQ.StatusID = RevisionNoComboBox.SelectedIndex;
             eventHorizonRamsLINQ.TargetDate = reviewedDateTime;
@@ -472,9 +472,9 @@ namespace Event_Horizon
             }
         }
 
-        String EventTypeName = string.Empty;
+        String RamsProfileTypeName = string.Empty;
 
-        private void EventTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void RamsProfileTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
 
@@ -486,14 +486,14 @@ namespace Event_Horizon
             if (dep == null)
                 return;
 
-            var selectedTag = ((StackPanel)EventTypeComboBox.SelectedItem).Tag.ToString();
+            var selectedTag = ((StackPanel)RamsProfileTypeComboBox.SelectedItem).Tag.ToString();
 
-            EventTypeName = selectedTag;
+            RamsProfileTypeName = selectedTag;
            
-            Console.Write("** EventTypeComboBox_SelectedIndex = ");
-            Console.WriteLine(EventTypeComboBox.SelectedIndex);
+            Console.Write("** RamsProfileTypeComboBox_SelectedIndex = ");
+            Console.WriteLine(RamsProfileTypeComboBox.SelectedIndex);
             Console.Write("** item.Tag EventTypeName = ");
-            Console.WriteLine(EventTypeName);
+            Console.WriteLine(RamsProfileTypeName);
         }
     }
 }

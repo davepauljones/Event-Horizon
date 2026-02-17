@@ -140,10 +140,10 @@
                 </Border>
             </StackPanel>
 
-            <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
-                <ComboBox x:Name="EventTypeComboBox" IsEditable="False" IsReadOnly="True" FontSize="18" Background="#55ffffff" Width="280" Height="40" Margin="10,6,10,6"
+            <StackPanel Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <ComboBox x:Name="RamsProfileTypeComboBox" IsEditable="False" IsReadOnly="True" FontSize="18" Background="#55ffffff" Width="480" Height="40" Margin="10,6,10,6"
                     Style="{DynamicResource FrequencyComboBoxStyle}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left"
-                    ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="EventTypeComboBox_SelectionChanged">
+                    ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="RamsProfileTypeComboBox_SelectionChanged">
                     <ComboBox.Effect>
                         <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
                     </ComboBox.Effect>
