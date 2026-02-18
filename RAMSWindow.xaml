@@ -179,7 +179,7 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Border.Effect>
-                <TextBox x:Name="DetailsTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
+                <TextBox x:Name="DescriptionTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
             </Border>
 
             <Border Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6">
