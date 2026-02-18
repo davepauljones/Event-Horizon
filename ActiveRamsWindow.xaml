@@ -1,0 +1,56 @@
+﻿<Window x:Class="Event_Horizon.ActiveRamsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Event_Horizon"
+        mc:Ignorable="d"
+        Title="ActiveRamsWindow" Height="450" Width="1100">
+    <Window.Resources>
+        <local:HeightToParentConverter x:Key="ListViewConverter"/>
+    </Window.Resources>
+    <Grid x:Name="ActiveRamsGrid" Margin="0,10,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer x:Name="ActiveRamsListScrollViewer" Grid.Row="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="1" Height="{Binding ElementName=ActiveRamsGrid, Path=ActualHeight, Converter={StaticResource ListViewConverter}, ConverterParameter=10, Mode=OneWay}">
+
+            <StackPanel Orientation="Vertical" Margin="6,0,6,0">
+                <StackPanel Orientation="Horizontal" Margin="11,0,0,0">
+                    <Label Content="Ref." MinWidth="42" Style="{StaticResource LabelStyle }"/>
+                    <Label Content="Created Date" MinWidth="88" Style="{StaticResource LabelStyle }"/>
+                    <Label Content="Job No." MinWidth="52" Style="{StaticResource LabelStyle }"/>
+                    <Label Content="Description" MinWidth="200" Style="{StaticResource LabelStyle }"/>
+                    <Label Content="Profile Type" MinWidth="100" Padding="0,5,0,5" Style="{StaticResource LabelStyle }"/>
+                    <Label Content="User ID" MinWidth="100" Style="{StaticResource LabelStyle }"/>
+                    <Label Content="Client Name" MinWidth="120" Style="{StaticResource LabelStyle }"/>
+                    <Label Content="Site" MinWidth="122" Style="{StaticResource LabelStyle }"/>
+                    <Label Content="Location Activity" MinWidth="200" Style="{StaticResource LabelStyle }"/>
+                </StackPanel>
+
+                <Line X1="3" Y1="0" X2="1321" Y2="0" Stroke="Crimson" StrokeThickness="1" Margin="0,0,0,2"/>
+
+                <ListView x:Name="ActiveRamsListView" SelectionMode="Single" Margin="2,0,0,0" BorderThickness="0" MouseDoubleClick="ActiveRamsListView_MouseDoubleClick">
+                    <ListView.Template>
+                        <ControlTemplate>
+                            <ItemsPresenter></ItemsPresenter>
+                        </ControlTemplate>
+                    </ListView.Template>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
+        <Grid x:Name="StatusGrid" Grid.Row="1" Margin="0,0,0,10">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                <Border CornerRadius="6" BorderBrush="#ff003a72" Background="#55ffffff" MaxWidth="1359" BorderThickness="0">
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="2" Opacity="0.6" />
+                    </Border.Effect>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <Label x:Name="Status" Content="This is the current status of Hover 2" FontSize="16" HorizontalContentAlignment="Center" Width="{Binding ElementName=StatusGrid, Path=ActualWidth}"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

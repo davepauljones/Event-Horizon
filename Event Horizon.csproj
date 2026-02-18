@@ -288,6 +288,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ActiveRamsWindow.xaml.cs">
+      <DependentUpon>ActiveRamsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ArcSliderUserControl.xaml.cs">
       <DependentUpon>ArcSliderUserControl.xaml</DependentUpon>
     </Compile>
@@ -320,6 +323,9 @@
     </Compile>
     <Compile Include="EventHorizonTitler.xaml.cs">
       <DependentUpon>EventHorizonTitler.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RamsRow.xaml.cs">
+      <DependentUpon>RamsRow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RamsWindow.xaml.cs">
       <DependentUpon>RamsWindow.xaml</DependentUpon>
@@ -398,6 +404,10 @@
       <DependentUpon>WidgetDateToday.xaml</DependentUpon>
     </Compile>
     <Compile Include="XMLReaderWriter.cs" />
+    <Page Include="ActiveRamsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ArcSliderUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -421,6 +431,10 @@
     <Page Include="EventHorizonTitler.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RamsRow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="RamsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

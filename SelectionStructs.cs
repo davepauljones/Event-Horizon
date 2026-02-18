@@ -314,8 +314,10 @@ namespace Event_Horizon
     public struct Rams
     {
         public const int None = 99;
-        public const int EngineersBasic = 0;
-        public const int FooBar = 1;
+        public const int NewRams = 0;
+        public const int ActiveRams = 1;
+        public const int Profile = 2;
+        public const int FooBar = 3;
     }
     public struct Reports
     {

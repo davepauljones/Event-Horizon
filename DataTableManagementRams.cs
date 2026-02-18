@@ -29,7 +29,7 @@ namespace Event_Horizon
 
         public static List<RamsProfileType> RamsProfileTypesList = new List<RamsProfileType>();
 
-        public static List<EventHorizonRamsLINQ> GetRamss(int listViewToPopulate, Int32 eventTypeID, Int32 filterMode, Int32 displayMode, string searchString)
+        public static List<EventHorizonRamsLINQ> GetRamss()
         {
             List<EventHorizonRamsLINQ> _EventHorizonRamsLINQReturnList = new List<EventHorizonRamsLINQ>();
 
@@ -44,44 +44,14 @@ namespace Event_Horizon
                         using (SQLiteConnection conn = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                         {
                             string sqlcmd;
-
-                            switch (RowLimitMode)
-                            {
-                                case RowLimitModes.NoLimit:
-                                    sqlcmd = "SELECT * FROM Rams;";
-                                    break;
-                                case RowLimitModes.LimitOnly:
-                                    sqlcmd = "SELECT * FROM Rams LIMIT @Limit;";
-                                    break;
-                                case RowLimitModes.LimitWithOffset:
-                                    sqlcmd = "SELECT * FROM Rams LIMIT @Limit OFFSET @Offset;";
-                                    break;
-                                default:
-                                    sqlcmd = "SELECT * FROM Rams LIMIT @Limit;";
-                                    break;
-                            }
+                            
+                            sqlcmd = "SELECT * FROM Rams;";
 
                             SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
 
                             conn.Open();
 
                             SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-
-                            switch (RowLimitMode)
-                            {
-                                case RowLimitModes.NoLimit:
-                                    break;
-                                case RowLimitModes.LimitOnly:
-                                    adapter.SelectCommand.Parameters.AddWithValue("@Limit", RowLimit);
-                                    break;
-                                case RowLimitModes.LimitWithOffset:
-                                    adapter.SelectCommand.Parameters.AddWithValue("@Limit", RowLimit);
-                                    adapter.SelectCommand.Parameters.AddWithValue("@Offset", RowOffset);
-                                    break;
-                                default:
-                                    adapter.SelectCommand.Parameters.AddWithValue("@Limit", RowLimit);
-                                    break;
-                            }
 
                             adapter.Fill(EventHorizon_Rams);
                         }
@@ -100,11 +70,9 @@ namespace Event_Horizon
 
             EnumerableRowCollection<DataRow> query;
 
-            query = from eventHorizonEvent in EventHorizon_Rams.AsEnumerable()
-                    where eventHorizonEvent.Field<Int32>("StatusID") >= Statuses.Active && eventHorizonEvent.Field<Int32>("StatusID") <= Statuses.ActiveNotifiedRead
-                    where eventHorizonEvent.Field<string>("Details").Contains(searchString)
-                    orderby eventHorizonEvent.Field<DateTime>("CreatedDateTime") descending
-                    select eventHorizonEvent;
+            query = from eventHorizonRams in EventHorizon_Rams.AsEnumerable()      
+                    orderby eventHorizonRams.Field<DateTime>("CreatedDateTime") descending
+                    select eventHorizonRams;
 
             DataView dataView = query.AsDataView();
 
