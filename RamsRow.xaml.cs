@@ -21,6 +21,8 @@ namespace Event_Horizon
             InitializeComponent();
 
             this.eventHorizonRamsLINQ = eventHorizonRamsLINQ;
+
+            HeaderGrid.Visibility = Visibility.Collapsed;
         }
 
         public static RamsRow CreateRamsRow(EventHorizonRamsLINQ eventHorizonRamsLINQ)

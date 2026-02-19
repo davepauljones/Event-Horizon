@@ -124,6 +124,8 @@ namespace Event_Horizon
                 if (!int.TryParse(dataRow["MSRevisionNo"].ToString(), out eventHorizonRamsLINQ.MSRevisionNo)) eventHorizonRamsLINQ.MSRevisionNo = 0;
 
                 eventHorizonRamsLINQ.MSContractor = dataRow["MSContractor"].ToString();
+
+                _EventHorizonRamsLINQReturnList.Add(eventHorizonRamsLINQ);
             }
             return _EventHorizonRamsLINQReturnList;
         }
