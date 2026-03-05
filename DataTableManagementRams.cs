@@ -280,7 +280,7 @@ namespace Event_Horizon
 
                                     command.Parameters.Add("@CreatedDateTime", DbType.DateTime).Value = createdDateTime;
 
-                                    command.Parameters.Add("@JobNo", DbType.Int32).Value = ramsWindow.RamsProfileTypeComboBox.SelectedIndex;
+                                    command.Parameters.Add("@JobNo", DbType.Int32).Value = eventHorizonRamsLINQ.JobNo;
 
                                     command.Parameters.Add("@Description", DbType.String).Value = descriptionSafeString;
 
