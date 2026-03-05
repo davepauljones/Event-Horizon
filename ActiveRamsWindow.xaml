@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Event_Horizon"
         mc:Ignorable="d" Name="ActiveRamsWindowWindow"
-        Title="ActiveRamsWindow" Height="450" Width="1100">
+        Title="ActiveRamsWindow" Height="450" Width="1358">
     <Window.Resources>
         <local:HeightToParentConverter x:Key="ListViewConverter"/>
     </Window.Resources>
@@ -13,7 +13,7 @@
         <Border.Effect>
             <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
         </Border.Effect>
-        <Grid x:Name="ActiveRamsGrid" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
+        <Grid x:Name="ActiveRamsGrid" MinWidth="1358" MaxWidth="1358" Width="1358" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="50"/>
