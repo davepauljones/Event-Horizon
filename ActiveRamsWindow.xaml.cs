@@ -22,12 +22,20 @@ namespace Event_Horizon
     /// </summary>
     public partial class ActiveRamsWindow : Window
     {
+        MainWindow mainWindow;
+        EventHorizonRamsLINQ eventHorizonRamsLINQ;
+   
         public List<EventHorizonRamsLINQ> EventHorizonRamsLINQList;
         public EventHorizonRamsLINQ eventHorizonRamsLINQ_SelectedItem;
 
-        public ActiveRamsWindow()
+        public ActiveRamsWindow(MainWindow mainWindow, EventHorizonRamsLINQ eventHorizonRamsLINQ)
         {
             InitializeComponent();
+
+            MainWindow.activeRamsWindow = this;
+
+            this.mainWindow = mainWindow;
+            this.eventHorizonRamsLINQ = (EventHorizonRamsLINQ)eventHorizonRamsLINQ.Clone();
 
             RefreshActiveRams();
         }
@@ -63,7 +71,43 @@ namespace Event_Horizon
 
         private void ActiveRamsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
 
+            while ((dep != null) && !(dep is RamsRow))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            RamsRow item = (RamsRow)dep;
+
+            eventHorizonRamsLINQ_SelectedItem = (EventHorizonRamsLINQ)item.Tag;
+
+            Console.WriteLine();
+            Console.WriteLine(">S>>ActiveRamsWindow ActiveRamsListView_MouseDoubleClick<<<<");
+            Console.WriteLine();
+
+            Console.Write("item.Tag eventHorizonRamsLINQ_SelectedItem.Source_Mode = ");
+            Console.WriteLine(eventHorizonRamsLINQ_SelectedItem.Source_Mode);
+
+            Console.Write("item.Tag eventHorizonRamsLINQ_SelectedItem.ID = ");
+            Console.WriteLine(eventHorizonRamsLINQ_SelectedItem.ID);
+
+            Console.WriteLine();
+            Console.WriteLine(">F>>ActiveRamsWindow ActiveRamsListView_MouseDoubleClick<<<<");
+            Console.WriteLine();
+
+            ActiveRamsListView.SelectedItem = item;
+
+            if (eventHorizonRamsLINQ_SelectedItem != null)
+            {
+                //try open event as EditRams
+                RamsWindow editRamsWindow = new RamsWindow(mainWindow, EventWindowModes.ViewMainEvent, eventHorizonRamsLINQ_SelectedItem, null);
+                editRamsWindow.Owner = this;
+                editRamsWindow.Show();
+            }
         }
     }
 }

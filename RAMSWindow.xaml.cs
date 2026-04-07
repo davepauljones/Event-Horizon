@@ -297,13 +297,25 @@ namespace Event_Horizon
         private void GetRams()
         {
             RamsProfileTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.RamsProfileTypeID;
-            DescriptionTextBox.Text = eventHorizonRamsLINQ.Description;
             RevisionNoComboBox.SelectedIndex = eventHorizonRamsLINQ.RevisionNo;
 
             DateTime reviewedDateTimet = eventHorizonRamsLINQ.ReviewedDateTime;
             ReviewedDatePicker.SelectedDate = reviewedDateTimet;
 
             UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+
+            JobNoTextBox.Text = eventHorizonRamsLINQ.JobNo.ToString("D5");
+
+            DescriptionTextBox.Text = eventHorizonRamsLINQ.Description;
+            ClientNameTextBox.Text = eventHorizonRamsLINQ.ClientName;
+            SiteTextBox.Text = eventHorizonRamsLINQ.Site;
+            LocationActivityTextBox.Text = eventHorizonRamsLINQ.LocationActivity;
+            ElementReviewedTextBox.Text =  eventHorizonRamsLINQ.ElementReviewed;
+            MSContractTitleTextBox.Text = eventHorizonRamsLINQ.MSContractTitle;
+
+            MSRevisionNoComboBox.SelectedIndex = eventHorizonRamsLINQ.MSRevisionNo;
+
+            MSContractorTextBox.Text = eventHorizonRamsLINQ.MSContractor;
         }
         
         private void SetRams()

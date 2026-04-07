@@ -21,8 +21,6 @@ namespace Event_Horizon
             InitializeComponent();
 
             this.eventHorizonRamsLINQ = eventHorizonRamsLINQ;
-
-            HeaderGrid.Visibility = Visibility.Collapsed;
         }
 
         public static RamsRow CreateRamsRow(EventHorizonRamsLINQ eventHorizonRamsLINQ)
@@ -80,6 +78,10 @@ namespace Event_Horizon
                 ramsRow.UserEllipse.Fill = new SolidColorBrush(Colors.White);
                 ramsRow.UserLabel.Content = eventHorizonRamsLINQ.UserID;
             }
+
+            ramsRow.ClientNameTextBlock.Text = eventHorizonRamsLINQ.ClientName;
+            ramsRow.SiteTextBlock.Text = eventHorizonRamsLINQ.Site;
+            ramsRow.LocationActivityTextBlock.Text = eventHorizonRamsLINQ.LocationActivity;
 
 
             ramsRow.Tag = eventHorizonRamsLINQ;

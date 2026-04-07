@@ -32,6 +32,8 @@ namespace Event_Horizon
 
         public static MainWindow mw;
 
+        public static ActiveRamsWindow activeRamsWindow;
+
         public bool justLoaded = false;
 
         public List<EventHorizonLINQ> EventHorizonLINQList;
@@ -1171,11 +1173,13 @@ namespace Event_Horizon
                         case Rams.NewRams:
                             RamsWindow newRamsWindow;
                             newRamsWindow = new RamsWindow(this, EventWindowModes.NewEvent, new EventHorizonRamsLINQ(), null);
+                            newRamsWindow.Owner = this;
                             newRamsWindow.Show();
                             break;
                         case Rams.ActiveRams:
                             ActiveRamsWindow activeRamsWindow;
-                            activeRamsWindow = new ActiveRamsWindow();
+                            activeRamsWindow = new ActiveRamsWindow(this, new EventHorizonRamsLINQ());
+                            activeRamsWindow.Owner = this;
                             activeRamsWindow.Show();
                             break;
                         case Rams.Profile:

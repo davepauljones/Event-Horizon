@@ -77,7 +77,7 @@
                                     <Label Content="Created Date" MinWidth="106" Style="{StaticResource LabelStyle }"/>
                                     <Label Content="Job No" MinWidth="51" Style="{StaticResource LabelStyle }"/>
                                     <Label Content="Description" MinWidth="347" Style="{StaticResource LabelStyle }"/>
-                                    <Label Content="Profile Type" MinWidth="100" Padding="0,5,0,5" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="Profile Type" MinWidth="200" Padding="0,5,0,5" Style="{StaticResource LabelStyle }"/>
                                     <Label Content="User ID" MinWidth="100" Style="{StaticResource LabelStyle }"/>
                                     <Label Content="Client Name" MinWidth="120" Style="{StaticResource LabelStyle }"/>
                                     <Label Content="Site" MinWidth="122" Style="{StaticResource LabelStyle }"/>

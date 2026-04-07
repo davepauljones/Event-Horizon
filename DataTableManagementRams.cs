@@ -271,6 +271,8 @@ namespace Event_Horizon
 
                                 command.Parameters.Add("@MSContractor", DbType.String).Value = mSContractorSafeString;
 
+                                command.Parameters.AddWithValue("@ID", eventHorizonRamsLINQ.ID);
+
                                 if (ramsMode == EventWindowModes.ViewMainEvent || ramsMode == EventWindowModes.ViewNote || ramsMode == EventWindowModes.ViewReply || ramsMode == EventWindowModes.EditMainEvent || ramsMode == EventWindowModes.EditNote || ramsMode == EventWindowModes.EditReply)
                                     rowsAffected = command.ExecuteNonQuery();
                                 else if (rowsAffected == 0 || ramsMode == EventWindowModes.NewEvent || ramsMode == EventWindowModes.NewNote || ramsMode == EventWindowModes.NewReply)
@@ -317,7 +319,8 @@ namespace Event_Horizon
                 if (rowsAffected > 0)
                 {
                     MainWindow.mw.Status.Content = "Successfully updated a rams";
-                    MainWindow.mw.ReminderListView.SelectedItem = null;
+                    MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
+                    MainWindow.activeRamsWindow.RefreshActiveRams();
                     MainWindow.mw.RunningTask();
                 }
 
@@ -325,7 +328,8 @@ namespace Event_Horizon
                 {
                     ramsWindow.Close();
                     if (ramsWindow.ramsWindow != null) ramsWindow.ramsWindow.Close();
-                    MainWindow.mw.ReminderListView.SelectedItem = null;
+                    MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
+                    MainWindow.activeRamsWindow.RefreshActiveRams();
                 }
             }
         }
