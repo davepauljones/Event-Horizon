@@ -74,14 +74,15 @@
                             <StackPanel Orientation="Vertical" Margin="6,0,6,0">
                                 <StackPanel Orientation="Horizontal" Margin="11,0,0,0">
                                     <Label Content="Ref." MinWidth="36" Style="{StaticResource LabelStyle }"/>
-                                    <Label Content="Created Date" MinWidth="106" Style="{StaticResource LabelStyle }"/>
-                                    <Label Content="Job No" MinWidth="51" Style="{StaticResource LabelStyle }"/>
-                                    <Label Content="Description" MinWidth="347" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="Created Date" MinWidth="100" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="Job No" MinWidth="49" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="Description" MinWidth="314" Style="{StaticResource LabelStyle }"/>
                                     <Label Content="Profile Type" MinWidth="200" Padding="0,5,0,5" Style="{StaticResource LabelStyle }"/>
-                                    <Label Content="User ID" MinWidth="100" Style="{StaticResource LabelStyle }"/>
-                                    <Label Content="Client Name" MinWidth="120" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="User ID" MinWidth="50" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="Client Name" MinWidth="120" Margin="-7,0,12,0" Style="{StaticResource LabelStyle }"/>
                                     <Label Content="Site" MinWidth="122" Style="{StaticResource LabelStyle }"/>
-                                    <Label Content="Location Activity" MinWidth="200" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="Location Activity" MinWidth="230" Margin="-5,0,10,0" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="Status" MinWidth="70" Style="{StaticResource LabelStyle }"/>
                                 </StackPanel>
 
                                 <Line X1="3" Y1="0" X2="1321" Y2="0" Stroke="Crimson" StrokeThickness="1" Margin="0,0,0,2"/>

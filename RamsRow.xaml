@@ -10,15 +10,16 @@
     <Grid x:Name="BackgroundGrid" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" MinWidth="44" MaxWidth="44"/>
-            <ColumnDefinition Width="Auto" MinWidth="98" MaxWidth="98"/>
-            <ColumnDefinition Width="Auto" MinWidth="60" MaxWidth="60"/>
+            <ColumnDefinition Width="Auto" MinWidth="90" MaxWidth="90"/>
+            <ColumnDefinition Width="Auto" MinWidth="56" MaxWidth="56"/>
             <ColumnDefinition Width="Auto" MinWidth="306" MaxWidth="306"/>
             <ColumnDefinition Width="Auto" MinWidth="38" MaxWidth="38"/>
-            <ColumnDefinition Width="Auto" MinWidth="236" MaxWidth="236"/>
+            <ColumnDefinition Width="Auto" MinWidth="178" MaxWidth="178"/>
             <ColumnDefinition Width="Auto" MinWidth="38" MaxWidth="38"/>
-            <ColumnDefinition Width="Auto" MinWidth="150" MaxWidth="150"/>
-            <ColumnDefinition Width="Auto" MinWidth="139" MaxWidth="139"/>
-            <ColumnDefinition Width="Auto" MinWidth="18" MaxWidth="18"/>
+            <ColumnDefinition Width="Auto" MinWidth="136" MaxWidth="136"/>
+            <ColumnDefinition Width="Auto" MinWidth="109" MaxWidth="109"/>
+            <ColumnDefinition Width="Auto" MinWidth="240" MaxWidth="240"/>
+            <ColumnDefinition Width="Auto" MinWidth="70" MaxWidth="70"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" Background="#f7f8f9" Height="18" VerticalAlignment="Top" Margin="0,5,5,0">
@@ -28,8 +29,8 @@
             <TextBlock x:Name="RamsIDTextBlock" Text="00000" Foreground="Black" FontSize="13" Margin="2,0,2,0" Padding="0" TextAlignment="Right" VerticalAlignment="Top"/>
         </Grid>
 
-        <TextBlock Grid.Column="1" x:Name="CreatedDateTimeTextBlock" Text="04/08/23 16:35" Foreground="Black" FontSize="13" MaxWidth="90" MinWidth="90" Margin="0,5,0,0"/>
-        <TextBlock Grid.Column="2" x:Name="JobNoTextBlock" Text="024589" Foreground="Black" FontSize="13" Width="54" Height="18" MaxWidth="54" HorizontalAlignment="Left" TextAlignment="Right"/>
+        <TextBlock Grid.Column="1" x:Name="CreatedDateTimeTextBlock" Text="04/08/23 16:35" Foreground="Black" FontSize="13" MaxWidth="90" MinWidth="90" Margin="0,5,0,0" HorizontalAlignment="Left"/>
+        <TextBlock Grid.Column="2" x:Name="JobNoTextBlock" Text="024589" Foreground="Black" FontSize="13" Width="52" Height="18" MaxWidth="54" HorizontalAlignment="Left" TextAlignment="Right"/>
         <TextBlock Grid.Column="3" x:Name="DescriptionTextBlock" Text="Mary had a little" Foreground="Black" FontSize="13" Margin="6,0,5,0" Width="320" Height="18" MaxWidth="320" HorizontalAlignment="Left" TextWrapping="NoWrap"/>
 
         <Border x:Name="RamsProfileTypeFontAwesomeIconBorder" Grid.Column="4" Style="{DynamicResource EventTypeToken_BorderStyle}">
@@ -43,8 +44,9 @@
             <Label x:Name="UserLabel" Content="TM" Style="{DynamicResource EllipseToken_LabelStyle}"/>
         </Grid>
 
-        <TextBlock x:Name="ClientNameTextBlock" Grid.Column="7" Text="Clients Name" Margin="10,0,5,0" Style="{DynamicResource EventTypeText_TextBlockStyle}"/>
-        <TextBlock x:Name="SiteTextBlock" Grid.Column="8" Text="Site" Margin="10,0,5,0" Style="{DynamicResource EventTypeText_TextBlockStyle}"/>
+        <TextBlock x:Name="ClientNameTextBlock" Grid.Column="7" Text="Clients Name" Margin="4,0,5,0" Style="{DynamicResource EventTypeText_TextBlockStyle}"/>
+        <TextBlock x:Name="SiteTextBlock" Grid.Column="8" Text="Site" Margin="0,0,5,0" Style="{DynamicResource EventTypeText_TextBlockStyle}"/>
         <TextBlock x:Name="LocationActivityTextBlock" Grid.Column="9" Text="Location Activity" Margin="10,0,5,0" Style="{DynamicResource EventTypeText_TextBlockStyle}"/>
+        <TextBlock x:Name="StatusTextBlock" Grid.Column="10" Text="Status" Margin="10,0,5,0" Width="70" Style="{DynamicResource EventTypeText_TextBlockStyle}"/>
     </Grid>
 </UserControl>
