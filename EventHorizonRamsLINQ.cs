@@ -24,6 +24,7 @@ namespace Event_Horizon
         public String MSContractTitle = string.Empty;
         public Int32 MSRevisionNo = 0;
         public String MSContractor = string.Empty;
+        public Int32 StatusID = 0;
 
         public object Clone()
         {

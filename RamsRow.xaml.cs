@@ -83,7 +83,22 @@ namespace Event_Horizon
             ramsRow.SiteTextBlock.Text = eventHorizonRamsLINQ.Site;
             ramsRow.LocationActivityTextBlock.Text = eventHorizonRamsLINQ.LocationActivity;
 
-
+            switch (eventHorizonRamsLINQ.StatusID)
+            {
+                case 0:
+                    ramsRow.StatusTextBlock.Text = "New";
+                    ramsRow.StatusTextBlock.Background = new SolidColorBrush(Colors.Red);
+                    break;
+                case 1:
+                    ramsRow.StatusTextBlock.Text = "Active";
+                    ramsRow.StatusTextBlock.Background = new SolidColorBrush(Colors.Green);
+                    break;
+                case 2:
+                    ramsRow.StatusTextBlock.Text = "Complete";
+                    ramsRow.StatusTextBlock.Background = new SolidColorBrush(Colors.Transparent);
+                    break;
+            }
+            
             ramsRow.Tag = eventHorizonRamsLINQ;
 
             return ramsRow;

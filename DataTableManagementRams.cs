@@ -125,6 +125,8 @@ namespace Event_Horizon
 
                 eventHorizonRamsLINQ.MSContractor = dataRow["MSContractor"].ToString();
 
+                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonRamsLINQ.StatusID)) eventHorizonRamsLINQ.StatusID = 0;
+
                 _EventHorizonRamsLINQReturnList.Add(eventHorizonRamsLINQ);
             }
             return _EventHorizonRamsLINQReturnList;
@@ -218,6 +220,7 @@ namespace Event_Horizon
 
                 iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe60000");
 
+                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonRamsLINQ.StatusID)) eventHorizonRamsLINQ.StatusID = 0;
 
                 _EventHorizonLINQReturn = eventHorizonRamsLINQ;
             }
@@ -249,7 +252,7 @@ namespace Event_Horizon
                     case DatabaseSystems.SQLite:
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            using (SQLiteCommand command = new SQLiteCommand("UPDATE Rams SET Description = ?, RamsProfileTypeID = ?, ClientName = ?, Site = ?, LocationActivity = ?, RevisionNo = ?, ElementReviewed = ?, ReviewedDateTime = ?, MSContractTitle = ?, MSRevisionNo = ?, MSContractor = ? WHERE ID = ?", connection))
+                            using (SQLiteCommand command = new SQLiteCommand("UPDATE Rams SET Description = ?, RamsProfileTypeID = ?, ClientName = ?, Site = ?, LocationActivity = ?, RevisionNo = ?, ElementReviewed = ?, ReviewedDateTime = ?, MSContractTitle = ?, MSRevisionNo = ?, MSContractor = ?, StatusID = ? WHERE ID = ?", connection))
                             {
                                 connection.Open();
 
@@ -270,6 +273,8 @@ namespace Event_Horizon
                                 command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = ramsWindow.MSRevisionNoComboBox.SelectedIndex;
 
                                 command.Parameters.Add("@MSContractor", DbType.String).Value = mSContractorSafeString;
+
+                                //command.Parameters.Add("@StatusID", DbType.Int32).Value = ramsWindow.Stat .MSRevisionNoComboBox.SelectedIndex;
 
                                 command.Parameters.AddWithValue("@ID", eventHorizonRamsLINQ.ID);
 
@@ -305,6 +310,8 @@ namespace Event_Horizon
                                     command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = ramsWindow.MSRevisionNoComboBox.SelectedIndex;
 
                                     command.Parameters.Add("@MSContractor", DbType.String).Value = mSContractorSafeString;
+
+                                    //command.Parameters.Add("@StatusID", DbType.String).Value = mSContractorSafeString;
 
                                     command.ExecuteNonQuery();
 
