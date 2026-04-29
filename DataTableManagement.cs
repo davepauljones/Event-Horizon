@@ -975,8 +975,6 @@ namespace Event_Horizon
             return _EventHorizonLINQReturnList;
         }
 
-        
-
         public static void SaveEvent(EventWindow eventWindow, EventHorizonLINQ eventHorizonLINQ, int eventMode)
         {
             if (CheckFormFields(eventWindow))

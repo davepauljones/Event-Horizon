@@ -89,7 +89,7 @@ namespace Event_Horizon
                 if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
                 eventHorizonRamsLINQ.CreationDate = createdDateTime;
 
-                if (!int.TryParse(dataRow["JobNo"].ToString(), out eventHorizonRamsLINQ.JobNo)) eventHorizonRamsLINQ.JobNo = 0;
+                eventHorizonRamsLINQ.JobNo = dataRow["JobNo"].ToString();
 
                 eventHorizonRamsLINQ.Description = dataRow["Description"].ToString();
 
@@ -187,7 +187,7 @@ namespace Event_Horizon
                 if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
                 eventHorizonRamsLINQ.CreationDate = createdDateTime;
 
-                if (!int.TryParse(dataRow["JobNo"].ToString(), out eventHorizonRamsLINQ.JobNo)) eventHorizonRamsLINQ.JobNo = 0;
+                eventHorizonRamsLINQ.JobNo = dataRow["JobNo"].ToString();
 
                 eventHorizonRamsLINQ.Description = dataRow["Description"].ToString();
 
@@ -233,6 +233,7 @@ namespace Event_Horizon
             {
                 bool saveSuccessFull = false;
 
+                string jobNoSafeString = ramsWindow.JobNoTextBox.Text.Replace("'", "''");
                 string descriptionSafeString = ramsWindow.DescriptionTextBox.Text.Replace("'", "''");
                 string clientNameSafeString = ramsWindow.ClientNameTextBox.Text.Replace("'", "''");
                 string siteSafeString = ramsWindow.SiteTextBox.Text.Replace("'", "''");
@@ -252,10 +253,11 @@ namespace Event_Horizon
                     case DatabaseSystems.SQLite:
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            using (SQLiteCommand command = new SQLiteCommand("UPDATE Rams SET Description = ?, RamsProfileTypeID = ?, ClientName = ?, Site = ?, LocationActivity = ?, RevisionNo = ?, ElementReviewed = ?, ReviewedDateTime = ?, MSContractTitle = ?, MSRevisionNo = ?, MSContractor = ?, StatusID = ? WHERE ID = ?", connection))
+                            using (SQLiteCommand command = new SQLiteCommand("UPDATE Rams SET JobNo = ?, Description = ?, RamsProfileTypeID = ?, ClientName = ?, Site = ?, LocationActivity = ?, RevisionNo = ?, ElementReviewed = ?, ReviewedDateTime = ?, MSContractTitle = ?, MSRevisionNo = ?, MSContractor = ?, StatusID = ? WHERE ID = ?", connection))
                             {
                                 connection.Open();
 
+                                command.Parameters.Add("@JobNo", DbType.String).Value = jobNoSafeString;
                                 command.Parameters.Add("@Description", DbType.String).Value = descriptionSafeString;
                                 command.Parameters.Add("@RamsProfileTypeID", DbType.Int32).Value = ramsWindow.RamsProfileTypeComboBox.SelectedIndex;
                                 command.Parameters.Add("@ClientName", DbType.String).Value = clientNameSafeString;
@@ -283,11 +285,11 @@ namespace Event_Horizon
                                 else if (rowsAffected == 0 || ramsMode == EventWindowModes.NewEvent || ramsMode == EventWindowModes.NewNote || ramsMode == EventWindowModes.NewReply)
                                 {
                                     command.Parameters.Clear();
-                                    command.CommandText = "INSERT INTO Rams (CreatedDateTime, JobNo, Description, RamsProfileTypeID, UserID, ClientName, Site, LocationActivity, RevisionNo, ElementReviewed, ReviewedDateTime, MSContractTitle, MSRevisionNo, MSContractor) VALUES (@CreatedDateTime, @JobNo, @Description, @RamsProfileTypeID, @UserID, @ClientName, @Site, @LocationActivity, @RevisionNo, @ElementReviewed, @ReviewedDateTime, @MSContractTitle, @MSRevisionNo, @MSContractor, @StatusID);";
+                                    command.CommandText = "INSERT INTO Rams (CreatedDateTime, JobNo, Description, RamsProfileTypeID, UserID, ClientName, Site, LocationActivity, RevisionNo, ElementReviewed, ReviewedDateTime, MSContractTitle, MSRevisionNo, MSContractor, StatusID) VALUES (@CreatedDateTime, @JobNo, @Description, @RamsProfileTypeID, @UserID, @ClientName, @Site, @LocationActivity, @RevisionNo, @ElementReviewed, @ReviewedDateTime, @MSContractTitle, @MSRevisionNo, @MSContractor, @StatusID);";
 
                                     command.Parameters.Add("@CreatedDateTime", DbType.DateTime).Value = createdDateTime;
 
-                                    command.Parameters.Add("@JobNo", DbType.Int32).Value = eventHorizonRamsLINQ.JobNo;
+                                    command.Parameters.Add("@JobNo", DbType.String).Value = jobNoSafeString;
 
                                     command.Parameters.Add("@Description", DbType.String).Value = descriptionSafeString;
 

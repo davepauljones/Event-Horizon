@@ -304,8 +304,7 @@ namespace Event_Horizon
 
             UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
 
-            JobNoTextBox.Text = eventHorizonRamsLINQ.JobNo.ToString("D5");
-
+            JobNoTextBox.Text = eventHorizonRamsLINQ.JobNo;
             DescriptionTextBox.Text = eventHorizonRamsLINQ.Description;
             ClientNameTextBox.Text = eventHorizonRamsLINQ.ClientName;
             SiteTextBox.Text = eventHorizonRamsLINQ.Site;
