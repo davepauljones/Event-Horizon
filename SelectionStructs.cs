@@ -355,4 +355,10 @@ namespace Event_Horizon
         public const int Bank8 = 8;
         public const int Bank9 = 9;
     }
+    public struct RamsStatus
+    {
+        public const int New = 0;
+        public const int Active = 1;
+        public const int Complete = 2;
+    }
 }

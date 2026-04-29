@@ -316,6 +316,8 @@ namespace Event_Horizon
             MSRevisionNoComboBox.SelectedIndex = eventHorizonRamsLINQ.MSRevisionNo;
 
             MSContractorTextBox.Text = eventHorizonRamsLINQ.MSContractor;
+
+            RamsStatusIDComboBox.SelectedIndex = eventHorizonRamsLINQ.StatusID;
         }
         
         private void SetRams()
@@ -444,6 +446,12 @@ namespace Event_Horizon
             Console.WriteLine(RamsProfileTypeComboBox.SelectedIndex);
             Console.Write("** item.Tag EventTypeName = ");
             Console.WriteLine(RamsProfileTypeName);
+        }
+
+        public int RamsStatusID = RamsStatus.New;
+        private void RamsStatusIDComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RamsStatusID = RamsStatusIDComboBox.SelectedIndex;
         }
     }
 }

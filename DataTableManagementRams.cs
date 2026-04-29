@@ -274,7 +274,7 @@ namespace Event_Horizon
 
                                 command.Parameters.Add("@MSContractor", DbType.String).Value = mSContractorSafeString;
 
-                                //command.Parameters.Add("@StatusID", DbType.Int32).Value = ramsWindow.Stat .MSRevisionNoComboBox.SelectedIndex;
+                                command.Parameters.Add("@StatusID", DbType.Int32).Value = ramsWindow.RamsStatusIDComboBox.SelectedIndex;
 
                                 command.Parameters.AddWithValue("@ID", eventHorizonRamsLINQ.ID);
 
@@ -283,7 +283,7 @@ namespace Event_Horizon
                                 else if (rowsAffected == 0 || ramsMode == EventWindowModes.NewEvent || ramsMode == EventWindowModes.NewNote || ramsMode == EventWindowModes.NewReply)
                                 {
                                     command.Parameters.Clear();
-                                    command.CommandText = "INSERT INTO Rams (CreatedDateTime, JobNo, Description, RamsProfileTypeID, UserID, ClientName, Site, LocationActivity, RevisionNo, ElementReviewed, ReviewedDateTime, MSContractTitle, MSRevisionNo, MSContractor) VALUES (@CreatedDateTime, @JobNo, @Description, @RamsProfileTypeID, @UserID, @ClientName, @Site, @LocationActivity, @RevisionNo, @ElementReviewed, @ReviewedDateTime, @MSContractTitle, @MSRevisionNo, @MSContractor);";
+                                    command.CommandText = "INSERT INTO Rams (CreatedDateTime, JobNo, Description, RamsProfileTypeID, UserID, ClientName, Site, LocationActivity, RevisionNo, ElementReviewed, ReviewedDateTime, MSContractTitle, MSRevisionNo, MSContractor) VALUES (@CreatedDateTime, @JobNo, @Description, @RamsProfileTypeID, @UserID, @ClientName, @Site, @LocationActivity, @RevisionNo, @ElementReviewed, @ReviewedDateTime, @MSContractTitle, @MSRevisionNo, @MSContractor, @StatusID);";
 
                                     command.Parameters.Add("@CreatedDateTime", DbType.DateTime).Value = createdDateTime;
 
@@ -311,7 +311,7 @@ namespace Event_Horizon
 
                                     command.Parameters.Add("@MSContractor", DbType.String).Value = mSContractorSafeString;
 
-                                    //command.Parameters.Add("@StatusID", DbType.String).Value = mSContractorSafeString;
+                                    command.Parameters.Add("@StatusID", DbType.Int32).Value = ramsWindow.RamsStatusIDComboBox.SelectedIndex;
 
                                     command.ExecuteNonQuery();
 

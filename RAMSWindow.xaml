@@ -231,6 +231,20 @@
                 </ComboBox>
             </StackPanel>
 
+            <StackPanel Grid.Column="3" Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Content="Rams Status" HorizontalAlignment="Left" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
+                <ComboBox x:Name="RamsStatusIDComboBox" SelectedIndex="0" IsEditable="False" IsReadOnly="True" FontSize="18" Background="#55ffffff" Width="160" Height="40" Margin="10,6,10,6"
+                    Style="{DynamicResource FrequencyComboBoxStyle}" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right"
+                    ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="RamsStatusIDComboBox_SelectionChanged">
+                    <ComboBox.Effect>
+                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
+                    </ComboBox.Effect>
+                    <ComboBoxItem Content="New"/>
+                    <ComboBoxItem Content="Active"/>
+                    <ComboBoxItem Content="Complete"/>
+                </ComboBox>
+            </StackPanel>
+
             <Border Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
