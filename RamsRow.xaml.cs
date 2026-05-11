@@ -35,11 +35,11 @@ namespace Event_Horizon
 
             ramsRow.DescriptionTextBlock.Text = eventHorizonRamsLINQ.Description;
 
-            if (eventHorizonRamsLINQ.RamsProfileTypeID < DataTableManagementRams.RamsProfileTypesList.Count)
+            if (eventHorizonRamsLINQ.RamsProfileTypeID < DataTableManagementRiskAssessment.RamsProfileTypesList.Count)
             {
                 ramsRow.RamsProfileTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.Beige);
                 ramsRow.RamsProfileTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Star;
-                ramsRow.RamsProfileTypeTextBlock.Text = DataTableManagementRams.RamsProfileTypesList[eventHorizonRamsLINQ.RamsProfileTypeID].ProfileName;
+                ramsRow.RamsProfileTypeTextBlock.Text = DataTableManagementRiskAssessment.RamsProfileTypesList[eventHorizonRamsLINQ.RamsProfileTypeID].ProfileName;
                 ramsRow.BackgroundGrid.Background = new SolidColorBrush(Colors.Transparent);
             }
             else
@@ -104,5 +104,86 @@ namespace Event_Horizon
             return ramsRow;
         }
 
+        private void JBButton_Click(object sender, RoutedEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is RamsRow))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            RamsRow item = (RamsRow)dep;
+
+            MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem = (EventHorizonRamsLINQ)item.Tag;
+
+            MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = item;
+
+            if (MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem != null)
+            {
+                //try open event as EditRams
+                JobWindow editJobWindow = new JobWindow(MainWindow.activeRamsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem, null);
+                editJobWindow.Owner = MainWindow.activeRamsWindow;
+                editJobWindow.Show();
+            }
+        }
+
+        private void RAButton_Click(object sender, RoutedEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is RamsRow))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            RamsRow item = (RamsRow)dep;
+
+            MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem = (EventHorizonRamsLINQ)item.Tag;
+
+            MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = item;
+
+            if (MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem != null)
+            {
+                //try open event as EditRams
+                RiskAssessmentWindow editRamsWindow = new RiskAssessmentWindow(MainWindow.activeRamsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem, null);
+                editRamsWindow.Owner = MainWindow.activeRamsWindow;
+                editRamsWindow.Show();
+            }
+        }
+
+        private void MSButton_Click(object sender, RoutedEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is RamsRow))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            RamsRow item = (RamsRow)dep;
+
+            MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem = (EventHorizonRamsLINQ)item.Tag;
+
+            MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = item;
+
+            if (MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem != null)
+            {
+                //try open event as EditRams
+                MethodStatementWindow MethodStatementWindow = new MethodStatementWindow(MainWindow.activeRamsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem, null);
+                MethodStatementWindow.Owner = MainWindow.activeRamsWindow;
+                MethodStatementWindow.Show();
+            }
+        }
+  
     }
 }

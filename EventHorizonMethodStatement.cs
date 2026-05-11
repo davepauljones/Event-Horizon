@@ -3,9 +3,9 @@ using System.Data;
 
 namespace Event_Horizon
 {
-    public class EventHorizonRams : DataTable
+    public class EventHorizonMethodStatement : DataTable
     {
-        public EventHorizonRams()
+        public EventHorizonMethodStatement()
         {
             this.Columns.Add("ID", typeof(Int32));
             this.Columns["ID"].DefaultValue = 0;

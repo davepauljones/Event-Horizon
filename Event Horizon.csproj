@@ -288,6 +288,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EngineersWindow.xaml.cs">
+      <DependentUpon>EngineersWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ActiveRamsWindow.xaml.cs">
       <DependentUpon>ActiveRamsWindow.xaml</DependentUpon>
     </Compile>
@@ -298,16 +301,29 @@
     <Compile Include="ContentPage.cs" />
     <Compile Include="ConverterFunctions.cs" />
     <Compile Include="DatabasePoller.cs" />
-    <Compile Include="DataTableManagementRams.cs" />
+    <Compile Include="DataTableManagementEngineer.cs" />
+    <Compile Include="DataTableManagementMethodStatement.cs" />
+    <Compile Include="DataTableManagementJob.cs" />
+    <Compile Include="DataTableManagementRiskAssessment.cs" />
     <Compile Include="DataTableManagement.cs" />
     <Compile Include="EventHorizonCertificate.xaml.cs">
       <DependentUpon>EventHorizonCertificate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EventHorizonEngineer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EventHorizonMethodStatement.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EventHorizonJob.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EventHorizonEngineersLINQ.cs" />
     <Compile Include="EventHorizonRamsProfile.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="EventHorizonRamsProfileTypes.cs" />
-    <Compile Include="EventHorizonRams.cs">
+    <Compile Include="EventHorizonRiskAssessment.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="EventHorizonLINQ.cs" />
@@ -324,11 +340,23 @@
     <Compile Include="EventHorizonTitler.xaml.cs">
       <DependentUpon>EventHorizonTitler.xaml</DependentUpon>
     </Compile>
+    <Compile Include="JobWindow.xaml.cs">
+      <DependentUpon>JobWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineerWindow.xaml.cs">
+      <DependentUpon>EngineerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineerRow.xaml.cs">
+      <DependentUpon>EngineerRow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RamsRow.xaml.cs">
       <DependentUpon>RamsRow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RamsWindow.xaml.cs">
-      <DependentUpon>RamsWindow.xaml</DependentUpon>
+    <Compile Include="MethodStatementWindow.xaml.cs">
+      <DependentUpon>MethodStatementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RiskAssessmentWindow.xaml.cs">
+      <DependentUpon>RiskAssessmentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RamsPreviewWindow.xaml.cs">
       <DependentUpon>RamsPreviewWindow.xaml</DependentUpon>
@@ -404,6 +432,10 @@
       <DependentUpon>WidgetDateToday.xaml</DependentUpon>
     </Compile>
     <Compile Include="XMLReaderWriter.cs" />
+    <Page Include="EngineersWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ActiveRamsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -432,11 +464,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="JobWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EngineerWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EngineerRow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="RamsRow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="RamsWindow.xaml">
+    <Page Include="MethodStatementWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RiskAssessmentWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

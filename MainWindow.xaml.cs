@@ -33,6 +33,7 @@ namespace Event_Horizon
         public static MainWindow mw;
 
         public static ActiveRamsWindow activeRamsWindow;
+        public static EngineersWindow engineersWindow;
 
         public bool justLoaded = false;
 
@@ -137,8 +138,8 @@ namespace Event_Horizon
             {
                 RAMSTreeViewStackPanel.Visibility = System.Windows.Visibility.Visible;
                 LoadRAMSVisualTree();
-                DataTableManagementRams.GetRamsProfiles();
-                DataTableManagementRams.GetRamsProfileTypes();
+                DataTableManagementRiskAssessment.GetRamsProfiles();
+                DataTableManagementRiskAssessment.GetRamsProfileTypes();
             }
             else
             {
@@ -1076,6 +1077,8 @@ namespace Event_Horizon
             ListOfRAMS.Add(new SelectionIdString { Id = 0, Name = "New RAMS" });
             ListOfRAMS.Add(new SelectionIdString { Id = 1, Name = "Active RAMS" });
             ListOfRAMS.Add(new SelectionIdString { Id = 2, Name = "Profiles" });
+            ListOfRAMS.Add(new SelectionIdString { Id = 3, Name = "New Engineer" });
+            ListOfRAMS.Add(new SelectionIdString { Id = 4, Name = "Engineers" });
 
             NumberOfRAMSTextBlock.Text = ListOfRAMS.Count.ToString();
 
@@ -1167,14 +1170,13 @@ namespace Event_Horizon
                 if (RAMSVisualTreeListView.SelectedItems.Count == 1)
                 {
                     
-
                     switch (RAMSVisualTreeListView.SelectedIndex)
                     {
                         case Rams.NewRams:
-                            RamsWindow newRamsWindow;
-                            newRamsWindow = new RamsWindow(this, EventWindowModes.NewEvent, new EventHorizonRamsLINQ(), null);
-                            newRamsWindow.Owner = this;
-                            newRamsWindow.Show();
+                            JobWindow newJobWindow;
+                            newJobWindow = new JobWindow(this, EventWindowModes.NewEvent, new EventHorizonRamsLINQ(), null);
+                            newJobWindow.Owner = this;
+                            newJobWindow.Show();
                             break;
                         case Rams.ActiveRams:
                             ActiveRamsWindow activeRamsWindow;
@@ -1185,8 +1187,17 @@ namespace Event_Horizon
                         case Rams.Profile:
 
                             break;
-                        case Rams.FooBar:
-
+                        case Rams.NewEngineer:
+                            EngineerWindow newEngineerWindow;
+                            newEngineerWindow = new EngineerWindow(this, EventWindowModes.NewEvent, new EventHorizonRamsLINQ(), null);
+                            newEngineerWindow.Owner = this;
+                            newEngineerWindow.Show();
+                            break;
+                        case Rams.Engineers:
+                            EngineersWindow engineersWindow;
+                            engineersWindow = new EngineersWindow(this, new EventHorizonRamsLINQ());
+                            engineersWindow.Owner = this;
+                            engineersWindow.Show();
                             break;
                     }
 

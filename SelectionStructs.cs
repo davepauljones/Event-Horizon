@@ -317,7 +317,8 @@ namespace Event_Horizon
         public const int NewRams = 0;
         public const int ActiveRams = 1;
         public const int Profile = 2;
-        public const int FooBar = 3;
+        public const int NewEngineer = 3;
+        public const int Engineers = 4;
     }
     public struct Reports
     {
