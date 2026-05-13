@@ -11,16 +11,15 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" MinWidth="44" MaxWidth="44"/>
             <ColumnDefinition Width="Auto" MinWidth="90" MaxWidth="90"/>
+            <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
             <ColumnDefinition Width="Auto" MinWidth="56" MaxWidth="56"/>
             <ColumnDefinition Width="Auto" MinWidth="264" MaxWidth="264"/>
-            <ColumnDefinition Width="Auto" MinWidth="38" MaxWidth="38"/>
+            <ColumnDefinition Width="Auto" MinWidth="36" MaxWidth="36"/>
             <ColumnDefinition Width="Auto" MinWidth="178" MaxWidth="178"/>
-            <ColumnDefinition Width="Auto" MinWidth="38" MaxWidth="38"/>
             <ColumnDefinition Width="Auto" MinWidth="136" MaxWidth="136"/>
             <ColumnDefinition Width="Auto" MinWidth="109" MaxWidth="109"/>
             <ColumnDefinition Width="Auto" MinWidth="190" MaxWidth="190"/>
-            <ColumnDefinition Width="Auto" MinWidth="68" MaxWidth="68"/>
-            <ColumnDefinition Width="Auto" MinWidth="32" MaxWidth="32"/>
+            <ColumnDefinition Width="Auto" MinWidth="98" MaxWidth="98"/>
             <ColumnDefinition Width="Auto" MinWidth="32" MaxWidth="32"/>
             <ColumnDefinition Width="Auto" MinWidth="32" MaxWidth="32"/>
         </Grid.ColumnDefinitions>
@@ -33,33 +32,27 @@
         </Grid>
 
         <TextBlock Grid.Column="1" x:Name="CreatedDateTimeTextBlock" Text="04/08/23 16:35" Foreground="Black" FontSize="13" MaxWidth="90" MinWidth="90" Margin="0,5,0,0" HorizontalAlignment="Left"/>
-        <TextBlock Grid.Column="2" x:Name="JobNoTextBlock" Text="024589" Foreground="Black" FontSize="13" Width="52" Height="18" MaxWidth="54" HorizontalAlignment="Left" TextAlignment="Right"/>
-        <TextBlock Grid.Column="3" x:Name="DescriptionTextBlock" Text="Mary had a little" Foreground="Black" FontSize="13" Margin="6,0,5,0" Width="266" Height="18" MaxWidth="266" HorizontalAlignment="Left" TextWrapping="NoWrap"/>
 
-        <Border x:Name="RamsProfileTypeFontAwesomeIconBorder" Grid.Column="4" Style="{DynamicResource EventTypeToken_BorderStyle}">
-            <fa:FontAwesome x:Name="RamsProfileTypeFontAwesomeIcon" Icon="User" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
-        </Border>
-
-        <TextBlock x:Name="RamsProfileTypeTextBlock" Grid.Column="5" Text="Profile Type" Style="{DynamicResource EventTypeText_TextBlockStyle}"/>
-
-        <Grid x:Name="UserTokenGrid" Grid.Column="6" Style="{DynamicResource EllipseToken_GridStyle}">
+        <Grid x:Name="UserTokenGrid" Grid.Column="2" Style="{DynamicResource EllipseToken_GridStyle}">
             <Ellipse x:Name="UserEllipse" Style="{DynamicResource EllipseToken_EllipseStyle}"/>
             <Label x:Name="UserLabel" Content="TM" Style="{DynamicResource EllipseToken_LabelStyle}"/>
         </Grid>
+        
+        <TextBlock Grid.Column="3" x:Name="JobNoTextBlock" Text="024589" Foreground="Black" FontSize="13" Width="52" Height="18" MaxWidth="54" HorizontalAlignment="Left" TextAlignment="Right"/>
+        <TextBlock Grid.Column="4" x:Name="DescriptionTextBlock" Text="Mary had a little" Foreground="Black" FontSize="13" Margin="6,0,2,0" Width="266" Height="18" MaxWidth="266" HorizontalAlignment="Left" TextWrapping="NoWrap"/>
+
+        <Border x:Name="RamsProfileTypeFontAwesomeIconBorder" Grid.Column="5" Margin="0,0,0,0" Style="{DynamicResource EventTypeToken_BorderStyle}">
+            <fa:FontAwesome x:Name="RamsProfileTypeFontAwesomeIcon" Icon="User" Style="{DynamicResource EventTypeToken_FontAwesomeStyle}"/>
+        </Border>
+
+        <TextBlock x:Name="RamsProfileTypeTextBlock" Grid.Column="6" Text="Profile Type" Style="{DynamicResource EventTypeText_TextBlockStyle}"/>
 
         <TextBlock x:Name="ClientNameTextBlock" Grid.Column="7" Text="Clients Name" Margin="4,0,5,0" Style="{DynamicResource EventTypeText_TextBlockStyle}"/>
         <TextBlock x:Name="SiteTextBlock" Grid.Column="8" Text="Site" Margin="0,0,5,0" Style="{DynamicResource EventTypeText_TextBlockStyle}"/>
         <TextBlock x:Name="LocationActivityTextBlock" Grid.Column="9" Text="Location Activity" Margin="10,0,5,0" Style="{DynamicResource EventTypeText_TextBlockStyle}"/>
         <TextBlock x:Name="StatusTextBlock" Grid.Column="10" Text="Status" Margin="10,0,5,0" Width="68" Style="{DynamicResource EventTypeText_TextBlockStyle}"/>
+        
         <Grid Grid.Column="11">
-            <Grid.Effect>
-                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
-            </Grid.Effect>
-            <Button x:Name="JBButton" Style="{DynamicResource RepliesButtonStyle}" ToolTip="Open Job" Width="30" HorizontalAlignment="Left" Click="JBButton_Click">
-                <Label x:Name="JBLabel" Content="JB" Foreground="White" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
-            </Button>
-        </Grid>
-        <Grid Grid.Column="12">
             <Grid.Effect>
                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
             </Grid.Effect>
@@ -67,7 +60,7 @@
                 <Label x:Name="RALabel" Content="RA" Foreground="White" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
             </Button>
         </Grid>
-        <Grid Grid.Column="13">
+        <Grid Grid.Column="12">
             <Grid.Effect>
                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
             </Grid.Effect>

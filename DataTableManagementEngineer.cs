@@ -192,6 +192,8 @@ namespace Event_Horizon
                                 command.Parameters.Add("@Role", DbType.String).Value = roleSafeString;
                                 command.Parameters.Add("@CompetenceDetails", DbType.String).Value = competenceDetailsSafeString;
 
+                                command.Parameters.Add("@ID", DbType.Int32).Value = eventHorizonEngineerLINQ.ID;
+
                                 if (ramsMode == EventWindowModes.ViewMainEvent || ramsMode == EventWindowModes.ViewNote || ramsMode == EventWindowModes.ViewReply || ramsMode == EventWindowModes.EditMainEvent || ramsMode == EventWindowModes.EditNote || ramsMode == EventWindowModes.EditReply)
                                     rowsAffected = command.ExecuteNonQuery();
                                 else if (rowsAffected == 0 || ramsMode == EventWindowModes.NewEvent || ramsMode == EventWindowModes.NewNote || ramsMode == EventWindowModes.NewReply)
