@@ -23,19 +23,19 @@ namespace Event_Horizon
     public partial class EngineersWindow : Window
     {
         public MainWindow mainWindow;
-        EventHorizonEngineersLINQ eventHorizonEngineersLINQ;
+        EventHorizonEngineerLINQ eventHorizonEngineerLINQ;
    
-        public List<EventHorizonEngineersLINQ> EventHorizonEngineersLINQList;
-        public EventHorizonEngineersLINQ eventHorizonEngineersLINQ_SelectedItem;
+        public List<EventHorizonEngineerLINQ> EventHorizonEngineerLINQList;
+        public EventHorizonEngineerLINQ eventHorizonEngineerLINQ_SelectedItem;
 
-        public EngineersWindow(MainWindow mainWindow, EventHorizonEngineersLINQ eventHorizonEngineersLINQ)
+        public EngineersWindow(MainWindow mainWindow, EventHorizonEngineerLINQ eventHorizonEngineerLINQ)
         {
             InitializeComponent();
 
             MainWindow.engineersWindow = this;
 
             this.mainWindow = mainWindow;
-            this.eventHorizonEngineersLINQ = (EventHorizonEngineersLINQ)eventHorizonEngineersLINQ.Clone();
+            this.eventHorizonEngineerLINQ = (EventHorizonEngineerLINQ)eventHorizonEngineerLINQ.Clone();
 
             RefreshEngineers();
         }
@@ -47,14 +47,14 @@ namespace Event_Horizon
                 EngineersListView.Items.Clear();
                 DataTableManagementEngineer.EventHorizon_Engineer.Clear();
 
-                EventHorizonEngineersLINQList = DataTableManagementEngineer.GetEngineers();
+                EventHorizonEngineerLINQList = DataTableManagementEngineer.GetEngineers();
 
-                Console.Write("EventHorizonEngineersLINQList Count = ");
-                Console.WriteLine(EventHorizonEngineersLINQList.Count);
+                Console.Write("EventHorizonEngineerLINQList Count = ");
+                Console.WriteLine(EventHorizonEngineerLINQList.Count);
 
-                foreach (EventHorizonEngineersLINQ eventHorizonRamsLINQ in EventHorizonEngineersLINQList)
+                foreach (EventHorizonEngineerLINQ eventHorizonEngineerLINQ in EventHorizonEngineerLINQList)
                 {
-                    EngineerRow engineerRow = EngineerRow.CreateEngineerRow(eventHorizonEngineersLINQ);
+                    EngineerRow engineerRow = EngineerRow.CreateEngineerRow(eventHorizonEngineerLINQ);
 
                     EngineersListView.Items.Add(engineerRow); 
                 }
@@ -66,6 +66,43 @@ namespace Event_Horizon
 
                 EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Engineers - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
                 msg.ShowDialog();
+            }
+        }
+
+        private void EngineersListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is EngineerRow))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            EngineerRow item = (EngineerRow)dep;
+
+            eventHorizonEngineerLINQ_SelectedItem = (EventHorizonEngineerLINQ)item.Tag;
+
+            Console.WriteLine();
+            Console.WriteLine(">S>>EngineersListView_MouseDoubleClick<<<<");
+            Console.WriteLine();
+
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.ID = ");
+            Console.WriteLine(eventHorizonEngineerLINQ_SelectedItem.ID);
+
+            Console.WriteLine();
+            Console.WriteLine(">F>>EngineersListView_MouseDoubleClick<<<<");
+            Console.WriteLine();
+
+            EngineersListView.SelectedItem = item;
+
+            if (eventHorizonEngineerLINQ_SelectedItem != null)
+            {
+                //try open event as EditEvent
+                EngineerWindow editEngineerWindow = new EngineerWindow(MainWindow.mw, EventWindowModes.ViewMainEvent, eventHorizonEngineerLINQ_SelectedItem, null);
+                editEngineerWindow.Show();
             }
         }
     }

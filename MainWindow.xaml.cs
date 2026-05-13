@@ -1189,13 +1189,13 @@ namespace Event_Horizon
                             break;
                         case Rams.NewEngineer:
                             EngineerWindow newEngineerWindow;
-                            newEngineerWindow = new EngineerWindow(this, EventWindowModes.NewEvent, new EventHorizonRamsLINQ(), null);
+                            newEngineerWindow = new EngineerWindow(this, EventWindowModes.NewEvent, new EventHorizonEngineerLINQ(), null);
                             newEngineerWindow.Owner = this;
                             newEngineerWindow.Show();
                             break;
                         case Rams.Engineers:
                             EngineersWindow engineersWindow;
-                            engineersWindow = new EngineersWindow(this, new EventHorizonRamsLINQ());
+                            engineersWindow = new EngineersWindow(this, new EventHorizonEngineerLINQ());
                             engineersWindow.Owner = this;
                             engineersWindow.Show();
                             break;

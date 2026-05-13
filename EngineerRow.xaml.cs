@@ -1,5 +1,6 @@
 ﻿using FontAwesome.WPF;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Windows;
@@ -14,28 +15,39 @@ namespace Event_Horizon
     /// </summary>
     public partial class EngineerRow : UserControl
     {
-        EventHorizonEngineersLINQ eventHorizonEngineersLINQ;
+        EventHorizonEngineerLINQ eventHorizonEngineerLINQ;
 
-        public EngineerRow(EventHorizonEngineersLINQ eventHorizonEngineersLINQ)
+        public EngineerRow(EventHorizonEngineerLINQ eventHorizonEngineerLINQ)
         {
             InitializeComponent();
 
-            this.eventHorizonEngineersLINQ = eventHorizonEngineersLINQ;
+            this.eventHorizonEngineerLINQ = eventHorizonEngineerLINQ;
         }
 
-        public static EngineerRow CreateEngineerRow(EventHorizonEngineersLINQ eventHorizonEngineersLINQ)
+        public static EngineerRow CreateEngineerRow(EventHorizonEngineerLINQ eventHorizonEngineerLINQ)
         {
-            EngineerRow engineerRow = new EngineerRow(eventHorizonEngineersLINQ);
+            EngineerRow engineerRow = new EngineerRow(eventHorizonEngineerLINQ);
 
-            engineerRow.RamsIDTextBlock.Text = eventHorizonEngineersLINQ.ID.ToString("D5");
+            engineerRow.RamsIDTextBlock.Text = eventHorizonEngineerLINQ.ID.ToString("D5");
 
-            engineerRow.CreatedDateTimeTextBlock.Text = eventHorizonEngineersLINQ.CreationDate.ToString("dd/MM/y HH:mm");
+            engineerRow.CreatedDateTimeTextBlock.Text = eventHorizonEngineerLINQ.CreationDate.ToString("dd/MM/y HH:mm");
 
-            engineerRow.NameTextBlock.Text = eventHorizonEngineersLINQ.Name.ToString();
-            engineerRow.RoleTextBlock.Text = eventHorizonEngineersLINQ.Role;
-            engineerRow.CompetenceDetailsTextBlock.Text = eventHorizonEngineersLINQ.CompetenceDetails;
+            if (eventHorizonEngineerLINQ.UserID < XMLReaderWriter.UsersList.Count)
+            {
+                engineerRow.OriginUserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonEngineerLINQ.UserID].Color);
+                engineerRow.OriginUserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+            }
+            else
+            {
+                engineerRow.OriginUserEllipse.Fill = new SolidColorBrush(Colors.White);
+                engineerRow.OriginUserLabel.Content = eventHorizonEngineerLINQ.UserID;
+            }
 
-            engineerRow.Tag = eventHorizonEngineersLINQ;
+            engineerRow.NameTextBlock.Text = eventHorizonEngineerLINQ.Name;
+            engineerRow.RoleTextBlock.Text = eventHorizonEngineerLINQ.Role;
+            engineerRow.CompetenceDetailsTextBlock.Text = eventHorizonEngineerLINQ.CompetenceDetails;
+
+            engineerRow.Tag = eventHorizonEngineerLINQ;
 
             return engineerRow;
         }

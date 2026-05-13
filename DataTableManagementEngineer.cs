@@ -26,9 +26,9 @@ namespace Event_Horizon
         public static Int32 RowOffsetMin = 0;
         public static Int32 RowOffsetMax = 300;
 
-        public static List<EventHorizonEngineersLINQ> GetEngineers()
+        public static List<EventHorizonEngineerLINQ> GetEngineers()
         {
-            List<EventHorizonEngineersLINQ> _EventHorizonEngineersLINQReturnList = new List<EventHorizonEngineersLINQ>();
+            List<EventHorizonEngineerLINQ> _EventHorizonEngineerLINQReturnList = new List<EventHorizonEngineerLINQ>();
 
             MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\Audio\\claves.wav");
             MainWindow.mw.widgetDatabaseHealth.UpdateLastWriteLabel(true);
@@ -77,27 +77,29 @@ namespace Event_Horizon
 
             foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                EventHorizonEngineersLINQ eventHorizonEngineersLINQ = new EventHorizonEngineersLINQ();
+                EventHorizonEngineerLINQ eventHorizonEngineerLINQ = new EventHorizonEngineerLINQ();
 
-                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonEngineersLINQ.ID)) eventHorizonEngineersLINQ.ID = 0;
+                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonEngineerLINQ.ID)) eventHorizonEngineerLINQ.ID = 0;
 
                 string createdDateTimeString = dataRow["CreatedDateTime"].ToString();
                 DateTime createdDateTime = DateTime.MinValue;
                 if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
-                eventHorizonEngineersLINQ.CreationDate = createdDateTime;
+                eventHorizonEngineerLINQ.CreationDate = createdDateTime;
 
-                eventHorizonEngineersLINQ.Name = dataRow["Name"].ToString();
-                eventHorizonEngineersLINQ.Role = dataRow["Role"].ToString();
-                eventHorizonEngineersLINQ.CompetenceDetails = dataRow["CompetenceDetails"].ToString();
+                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonEngineerLINQ.UserID)) eventHorizonEngineerLINQ.UserID = 0;
 
-                _EventHorizonEngineersLINQReturnList.Add(eventHorizonEngineersLINQ);
+                eventHorizonEngineerLINQ.Name = dataRow["Name"].ToString();
+                eventHorizonEngineerLINQ.Role = dataRow["Role"].ToString();
+                eventHorizonEngineerLINQ.CompetenceDetails = dataRow["CompetenceDetails"].ToString();
+
+                _EventHorizonEngineerLINQReturnList.Add(eventHorizonEngineerLINQ);
             }
-            return _EventHorizonEngineersLINQReturnList;
+            return _EventHorizonEngineerLINQReturnList;
         }
 
-        public static EventHorizonEngineersLINQ GetEngineer(Int32 engineerID)
+        public static EventHorizonEngineerLINQ GetEngineer(Int32 engineerID)
         {
-            EventHorizonEngineersLINQ _EventHorizonEngineerLINQReturn = new EventHorizonEngineersLINQ();
+            EventHorizonEngineerLINQ _EventHorizonEngineerLINQReturn = new EventHorizonEngineerLINQ();
 
             switch (XMLReaderWriter.DatabaseSystem)
             {
@@ -141,25 +143,27 @@ namespace Event_Horizon
 
             foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                EventHorizonEngineersLINQ eventHorizonEngineersLINQ = new EventHorizonEngineersLINQ();
+                EventHorizonEngineerLINQ eventHorizonEngineerLINQ = new EventHorizonEngineerLINQ();
 
-                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonEngineersLINQ.ID)) eventHorizonEngineersLINQ.ID = 0;
+                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonEngineerLINQ.ID)) eventHorizonEngineerLINQ.ID = 0;
 
                 string createdDateTimeString = dataRow["CreatedDateTime"].ToString();
                 DateTime createdDateTime = DateTime.MinValue;
                 if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
-                eventHorizonEngineersLINQ.CreationDate = createdDateTime;
+                eventHorizonEngineerLINQ.CreationDate = createdDateTime;
 
-                eventHorizonEngineersLINQ.Name = dataRow["Name"].ToString();
-                eventHorizonEngineersLINQ.Role = dataRow["Role"].ToString();
-                eventHorizonEngineersLINQ.CompetenceDetails = dataRow["CompetenceDetails"].ToString();
+                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonEngineerLINQ.UserID)) eventHorizonEngineerLINQ.UserID = 0;
 
-                _EventHorizonEngineerLINQReturn = eventHorizonEngineersLINQ;
+                eventHorizonEngineerLINQ.Name = dataRow["Name"].ToString();
+                eventHorizonEngineerLINQ.Role = dataRow["Role"].ToString();
+                eventHorizonEngineerLINQ.CompetenceDetails = dataRow["CompetenceDetails"].ToString();
+
+                _EventHorizonEngineerLINQReturn = eventHorizonEngineerLINQ;
             }
             return _EventHorizonEngineerLINQReturn;
         }
  
-        public static void SaveEngineer(EngineerWindow engineerWindow, EventHorizonEngineersLINQ eventHorizonEngineersLINQ, int ramsMode)
+        public static void SaveEngineer(EngineerWindow engineerWindow, EventHorizonEngineerLINQ eventHorizonEngineerLINQ, int ramsMode)
         {
             if (CheckFormFields(engineerWindow))
             {
@@ -193,9 +197,11 @@ namespace Event_Horizon
                                 else if (rowsAffected == 0 || ramsMode == EventWindowModes.NewEvent || ramsMode == EventWindowModes.NewNote || ramsMode == EventWindowModes.NewReply)
                                 {
                                     command.Parameters.Clear();
-                                    command.CommandText = "INSERT INTO Engineers (CreatedDateTime, Name, Role, CompetenceDetails) VALUES (@CreatedDateTime, @Name, @Role, @CompetenceDetails);";
+                                    command.CommandText = "INSERT INTO Engineers (CreatedDateTime, UserID, Name, Role, CompetenceDetails) VALUES (@CreatedDateTime, @UserID, @Name, @Role, @CompetenceDetails);";
 
                                     command.Parameters.Add("@CreatedDateTime", DbType.DateTime).Value = createdDateTime;
+
+                                    command.Parameters.Add("@UserID", DbType.Int32).Value = XMLReaderWriter.UserID;
 
                                     command.Parameters.Add("@Name", DbType.String).Value = nameSafeString;
                                     command.Parameters.Add("@Role", DbType.String).Value = roleSafeString;
@@ -213,18 +219,23 @@ namespace Event_Horizon
 
                 if (rowsAffected > 0)
                 {
-                    MainWindow.mw.Status.Content = "Successfully updated a Engineer";
-                    MainWindow.engineersWindow.EngineersListView.SelectedItem = null;
-                    MainWindow.engineersWindow.RefreshEngineers();
-                    MainWindow.mw.RunningTask();
+                    if (MainWindow.engineersWindow != null)
+                    {
+                        MainWindow.engineersWindow.Status.Content = "Successfully updated a Engineer";
+                        MainWindow.engineersWindow.EngineersListView.SelectedItem = null;
+                        MainWindow.engineersWindow.RefreshEngineers();
+                    }
                 }
 
                 if (saveSuccessFull)
                 {
                     engineerWindow.Close();
                     if (engineerWindow.engineerWindow != null) engineerWindow.engineerWindow.Close();
-                    MainWindow.engineersWindow.EngineersListView.SelectedItem = null;
-                    MainWindow.engineersWindow.RefreshEngineers();
+                    if (MainWindow.engineersWindow != null)
+                    {
+                        MainWindow.engineersWindow.EngineersListView.SelectedItem = null;
+                        MainWindow.engineersWindow.RefreshEngineers();
+                    }
                 }
             }
         }

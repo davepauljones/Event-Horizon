@@ -73,17 +73,17 @@
 
                             <StackPanel Orientation="Vertical" Margin="6,0,6,0">
                                 <StackPanel Orientation="Horizontal" Margin="11,0,0,0">
-                                    <Label Content="Ref." MinWidth="36" Style="{StaticResource LabelStyle }"/>
-                                    <Label Content="Created Date" MinWidth="100" Style="{StaticResource LabelStyle }"/>
-                                    
-                                    <Label Content="Engineers Name" MinWidth="272" Style="{StaticResource LabelStyle }"/>
-                                    <Label Content="Engineers Role" MinWidth="198" Padding="0,5,0,5" Style="{StaticResource LabelStyle }"/>
-                                    <Label Content="Competence Details" MinWidth="50" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="Ref." MinWidth="32" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="Created Date" MinWidth="90" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="Origin" MinWidth="46" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="Engineers Name" MinWidth="160" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="Engineers Role" MinWidth="200" Style="{StaticResource LabelStyle }"/>
+                                    <Label Content="Competence Details" MinWidth="500" Style="{StaticResource LabelStyle }"/>
                                 </StackPanel>
 
                                 <Line X1="3" Y1="0" X2="1321" Y2="0" Stroke="Crimson" StrokeThickness="1" Margin="0,0,0,2"/>
 
-                                <ListView x:Name="EngineersListView" SelectionMode="Single" Margin="2,0,0,0" BorderThickness="0">
+                                <ListView x:Name="EngineersListView" SelectionMode="Single" Margin="2,0,0,0" BorderThickness="0" MouseDoubleClick="EngineersListView_MouseDoubleClick">
                                     <ListView.Template>
                                         <ControlTemplate>
                                             <ItemsPresenter></ItemsPresenter>
