@@ -23,19 +23,19 @@ namespace Event_Horizon
     public partial class EngineersWindow : Window
     {
         public MainWindow mainWindow;
-        EventHorizonEngineersLINQ eventHorizonEngineersLINQ;
+        EventHorizonEngineerLINQ eventHorizonEngineerLINQ;
    
-        public List<EventHorizonEngineersLINQ> EventHorizonEngineersLINQList;
-        public EventHorizonEngineersLINQ eventHorizonEngineersLINQ_SelectedItem;
+        public List<EventHorizonEngineerLINQ> EventHorizonEngineerLINQList;
+        public EventHorizonEngineerLINQ eventHorizonEngineerLINQ_SelectedItem;
 
-        public EngineersWindow(MainWindow mainWindow, EventHorizonEngineersLINQ eventHorizonEngineersLINQ)
+        public EngineersWindow(MainWindow mainWindow, EventHorizonEngineerLINQ eventHorizonEngineerLINQ)
         {
             InitializeComponent();
 
             MainWindow.engineersWindow = this;
 
             this.mainWindow = mainWindow;
-            this.eventHorizonEngineersLINQ = (EventHorizonEngineersLINQ)eventHorizonEngineersLINQ.Clone();
+            this.eventHorizonEngineerLINQ = (EventHorizonEngineerLINQ)eventHorizonEngineerLINQ.Clone();
 
             RefreshEngineers();
         }
@@ -47,14 +47,14 @@ namespace Event_Horizon
                 EngineersListView.Items.Clear();
                 DataTableManagementEngineer.EventHorizon_Engineer.Clear();
 
-                EventHorizonEngineersLINQList = DataTableManagementEngineer.GetEngineers();
+                EventHorizonEngineerLINQList = DataTableManagementEngineer.GetEngineers();
 
-                Console.Write("EventHorizonEngineersLINQList Count = ");
-                Console.WriteLine(EventHorizonEngineersLINQList.Count);
+                Console.Write("EventHorizonEngineerLINQList Count = ");
+                Console.WriteLine(EventHorizonEngineerLINQList.Count);
 
-                foreach (EventHorizonEngineersLINQ eventHorizonRamsLINQ in EventHorizonEngineersLINQList)
+                foreach (EventHorizonEngineerLINQ eventHorizonEngineerLINQ in EventHorizonEngineerLINQList)
                 {
-                    EngineerRow engineerRow = EngineerRow.CreateEngineerRow(eventHorizonEngineersLINQ);
+                    EngineerRow engineerRow = EngineerRow.CreateEngineerRow(eventHorizonEngineerLINQ);
 
                     EngineersListView.Items.Add(engineerRow); 
                 }

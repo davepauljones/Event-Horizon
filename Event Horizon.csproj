@@ -318,7 +318,7 @@
     <Compile Include="EventHorizonJob.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="EventHorizonEngineersLINQ.cs" />
+    <Compile Include="EventHorizonEngineerLINQ.cs" />
     <Compile Include="EventHorizonRamsProfile.cs">
       <SubType>Component</SubType>
     </Compile>

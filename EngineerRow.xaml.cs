@@ -14,16 +14,16 @@ namespace Event_Horizon
     /// </summary>
     public partial class EngineerRow : UserControl
     {
-        EventHorizonEngineersLINQ eventHorizonEngineersLINQ;
+        EventHorizonEngineerLINQ eventHorizonEngineersLINQ;
 
-        public EngineerRow(EventHorizonEngineersLINQ eventHorizonEngineersLINQ)
+        public EngineerRow(EventHorizonEngineerLINQ eventHorizonEngineersLINQ)
         {
             InitializeComponent();
 
             this.eventHorizonEngineersLINQ = eventHorizonEngineersLINQ;
         }
 
-        public static EngineerRow CreateEngineerRow(EventHorizonEngineersLINQ eventHorizonEngineersLINQ)
+        public static EngineerRow CreateEngineerRow(EventHorizonEngineerLINQ eventHorizonEngineersLINQ)
         {
             EngineerRow engineerRow = new EngineerRow(eventHorizonEngineersLINQ);
 

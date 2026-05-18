@@ -26,9 +26,9 @@ namespace Event_Horizon
         public static Int32 RowOffsetMin = 0;
         public static Int32 RowOffsetMax = 300;
 
-        public static List<EventHorizonEngineersLINQ> GetEngineers()
+        public static List<EventHorizonEngineerLINQ> GetEngineers()
         {
-            List<EventHorizonEngineersLINQ> _EventHorizonEngineersLINQReturnList = new List<EventHorizonEngineersLINQ>();
+            List<EventHorizonEngineerLINQ> _EventHorizonEngineersLINQReturnList = new List<EventHorizonEngineerLINQ>();
 
             MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\Audio\\claves.wav");
             MainWindow.mw.widgetDatabaseHealth.UpdateLastWriteLabel(true);
@@ -77,7 +77,7 @@ namespace Event_Horizon
 
             foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                EventHorizonEngineersLINQ eventHorizonEngineersLINQ = new EventHorizonEngineersLINQ();
+                EventHorizonEngineerLINQ eventHorizonEngineersLINQ = new EventHorizonEngineerLINQ();
 
                 if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonEngineersLINQ.ID)) eventHorizonEngineersLINQ.ID = 0;
 
@@ -95,9 +95,9 @@ namespace Event_Horizon
             return _EventHorizonEngineersLINQReturnList;
         }
 
-        public static EventHorizonEngineersLINQ GetEngineer(Int32 engineerID)
+        public static EventHorizonEngineerLINQ GetEngineer(Int32 engineerID)
         {
-            EventHorizonEngineersLINQ _EventHorizonEngineerLINQReturn = new EventHorizonEngineersLINQ();
+            EventHorizonEngineerLINQ _EventHorizonEngineerLINQReturn = new EventHorizonEngineerLINQ();
 
             switch (XMLReaderWriter.DatabaseSystem)
             {
@@ -141,7 +141,7 @@ namespace Event_Horizon
 
             foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                EventHorizonEngineersLINQ eventHorizonEngineersLINQ = new EventHorizonEngineersLINQ();
+                EventHorizonEngineerLINQ eventHorizonEngineersLINQ = new EventHorizonEngineerLINQ();
 
                 if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonEngineersLINQ.ID)) eventHorizonEngineersLINQ.ID = 0;
 
@@ -159,7 +159,7 @@ namespace Event_Horizon
             return _EventHorizonEngineerLINQReturn;
         }
  
-        public static void SaveEngineer(EngineerWindow engineerWindow, EventHorizonEngineersLINQ eventHorizonEngineersLINQ, int ramsMode)
+        public static void SaveEngineer(EngineerWindow engineerWindow, EventHorizonEngineerLINQ eventHorizonEngineersLINQ, int ramsMode)
         {
             if (CheckFormFields(engineerWindow))
             {
