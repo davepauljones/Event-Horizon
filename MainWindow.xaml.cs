@@ -1074,8 +1074,8 @@ namespace Event_Horizon
             ListOfRAMS.Clear();
             RAMSVisualTreeListView.Items.Clear();
 
-            ListOfRAMS.Add(new SelectionIdString { Id = 0, Name = "New RAMS" });
-            ListOfRAMS.Add(new SelectionIdString { Id = 1, Name = "Active RAMS" });
+            ListOfRAMS.Add(new SelectionIdString { Id = 0, Name = "New Job" });
+            ListOfRAMS.Add(new SelectionIdString { Id = 1, Name = "Active Jobs" });
             ListOfRAMS.Add(new SelectionIdString { Id = 2, Name = "Profiles" });
             ListOfRAMS.Add(new SelectionIdString { Id = 3, Name = "New Engineer" });
             ListOfRAMS.Add(new SelectionIdString { Id = 4, Name = "Engineers" });

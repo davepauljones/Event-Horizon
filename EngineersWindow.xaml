@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Event_Horizon"
         mc:Ignorable="d" Name="EngineersWindowWindow" WindowStartupLocation="CenterScreen"
-        Title="Engineers Window" Height="800" Width="1399" MinHeight="400">
+        Title="Engineers" Height="800" Width="1399" MinHeight="400">
     <Window.Resources>
         <local:HeightToParentConverter x:Key="ListViewConverter"/>
     </Window.Resources>

@@ -85,7 +85,7 @@
                                     <Grid Grid.Column="0" Background="Firebrick" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource TreeViewIconGridStyle}">
                                         <fa:FontAwesome Icon="List" Style="{StaticResource TreeViewIconTextBlockStyle}"/>
                                     </Grid>
-                                    <TextBlock Grid.Column="0" Text="RAMS" Style="{StaticResource TreeViewHeaderTextBlock}"/>
+                                    <TextBlock Grid.Column="0" Text="Jobs" Style="{StaticResource TreeViewHeaderTextBlock}"/>
                                     <TextBlock x:Name="NumberOfRAMSTextBlock" Grid.Column="1" Text="0" Style="{StaticResource TreeViewNumberOfTextBlock}" Foreground="Firebrick"/>
                                 </Grid>
                             </WrapPanel>

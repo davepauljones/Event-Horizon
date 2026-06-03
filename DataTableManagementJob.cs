@@ -309,15 +309,15 @@ namespace Event_Horizon
             return ReturnUserID;
         }
         
-        public static void DeleteRams(Int32 EventID)
+        public static void DeleteJob(Int32 JobID)
         {
             bool saveSuccessFull = false;
 
             if (XMLReaderWriter.UserID != 1)
             {
-                if (GetUserID(EventID) != XMLReaderWriter.UserID)
+                if (GetUserID(JobID) != XMLReaderWriter.UserID)
                 {
-                    EventHorizonRequesterNotification rorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, you can only delete your own rams.", InformationTextBlock = "You could ask the user who created it, to delete it." }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification rorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, you can only delete your own jobs.", InformationTextBlock = "You could ask the user who created it, to delete it." }, RequesterTypes.OK);
                     rorn.ShowDialog();
                     return;
                 }
@@ -330,17 +330,47 @@ namespace Event_Horizon
                     {
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            using (SQLiteCommand command = new SQLiteCommand("DELETE FROM Jobs WHERE ID = ?", connection))
+                            using (SQLiteCommand command = new SQLiteCommand("DELETE FROM MethodStatements WHERE ID = ?", connection))
                             {
                                 connection.Open();
 
-                                command.Parameters.Add("@ID", DbType.Int32).Value = EventID;
+                                command.Parameters.Add("@ID", DbType.Int32).Value = JobID;
 
                                 command.ExecuteNonQuery();
 
                                 saveSuccessFull = true;
 
-                                MainWindow.mw.Status.Content = "Successfully deleted Job";
+                                MainWindow.mw.Status.Content = "Successfully deleted attached method statement";
+                            }
+                        }
+                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (SQLiteCommand command = new SQLiteCommand("DELETE FROM RiskAssessments WHERE ID = ?", connection))
+                            {
+                                connection.Open();
+
+                                command.Parameters.Add("@ID", DbType.Int32).Value = JobID;
+
+                                command.ExecuteNonQuery();
+
+                                saveSuccessFull = true;
+
+                                MainWindow.mw.Status.Content = "Successfully deleted attached risk assessment";
+                            }
+                        }
+                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (SQLiteCommand command = new SQLiteCommand("DELETE FROM Jobs WHERE ID = ?", connection))
+                            {
+                                connection.Open();
+
+                                command.Parameters.Add("@ID", DbType.Int32).Value = JobID;
+
+                                command.ExecuteNonQuery();
+
+                                saveSuccessFull = true;
+
+                                MainWindow.mw.Status.Content = "Successfully deleted Job and attached risk assessment and method statement.";
                             }
                         }
                     }

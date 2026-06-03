@@ -198,7 +198,7 @@ namespace Event_Horizon.View
         private Size MeasureString(string candidate, Label label)
         {
             var formattedText = new FormattedText(candidate, System.Globalization.CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface(label.FontFamily, label.FontStyle, label.FontWeight, label.FontStretch),
-                label.FontSize, Brushes.Black, new NumberSubstitution(), TextFormattingMode.Display);
+                label.FontSize, Brushes.Black, VisualTreeHelper.GetDpi(label).PixelsPerDip);
 
             return new Size(formattedText.Width, formattedText.Height);
         }

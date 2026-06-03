@@ -95,5 +95,52 @@ namespace Event_Horizon
                 editJobWindow.Show();
             }
         }
+
+        private void DeleteJobRow()
+        {
+            if (eventHorizonRamsLINQ_SelectedItem != null)
+            {             
+                EventHorizonRequesterNotification orn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Delete this job, are you sure", InformationTextBlock = "This will also delete the associated risk assessment and method statement." }, RequesterTypes.NoYes);
+                var result = orn.ShowDialog();
+                if (result == true)
+                {
+                    if (eventHorizonRamsLINQ_SelectedItem.ID > 0) DataTableManagementJob.DeleteJob(eventHorizonRamsLINQ_SelectedItem.ID);
+                }
+            }
+
+            RefreshActiveRams();
+        }
+        private void DeleteRightMouseButton_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteJobRow();
+        }
+
+        private void ActiveRamsListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is RamsRow))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            RamsRow item = (RamsRow)dep;
+
+            eventHorizonRamsLINQ_SelectedItem = (EventHorizonRamsLINQ)item.Tag;
+
+            Console.WriteLine();
+            Console.WriteLine(">S>>Active Jobs ActiveRamsListView_PreviewMouseLeftButtonDown<<<<");
+            Console.WriteLine();
+
+            Console.Write("item.Tag eventHorizonRamsLINQ_SelectedItem.ID = ");
+            Console.WriteLine(eventHorizonRamsLINQ_SelectedItem.ID);
+
+            Console.WriteLine();
+            Console.WriteLine(">F>>Active Jobs ActiveRamsListView_PreviewMouseLeftButtonDown<<<<");
+            Console.WriteLine();
+        }
     }
 }
