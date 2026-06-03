@@ -68,5 +68,42 @@ namespace Event_Horizon
                 msg.ShowDialog();
             }
         }
+
+        private void EngineersListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is EngineerRow))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            EngineerRow item = (EngineerRow)dep;
+
+            eventHorizonEngineerLINQ_SelectedItem = (EventHorizonEngineerLINQ)item.Tag;
+
+            Console.WriteLine();
+            Console.WriteLine(">S>>EngineersListView_MouseDoubleClick<<<<");
+            Console.WriteLine();
+
+            Console.Write("item.Tag eventHorizonLINQ_SelectedItem.ID = ");
+            Console.WriteLine(eventHorizonEngineerLINQ_SelectedItem.ID);
+
+            Console.WriteLine();
+            Console.WriteLine(">F>>EngineersListView_MouseDoubleClick<<<<");
+            Console.WriteLine();
+
+            EngineersListView.SelectedItem = item;
+
+            if (eventHorizonEngineerLINQ_SelectedItem != null)
+            {
+                //try open event as EditEvent
+                EngineerWindow editEngineerWindow = new EngineerWindow(MainWindow.mw, EventWindowModes.ViewMainEvent, eventHorizonEngineerLINQ_SelectedItem, null);
+                editEngineerWindow.Show();
+            }
+        }
     }
 }

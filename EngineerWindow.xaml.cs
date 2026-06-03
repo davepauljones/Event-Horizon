@@ -28,13 +28,13 @@ namespace Event_Horizon
 
         public Int32 ParentEventID;
 
-        public EngineerWindow(MainWindow mainWindow, int engineerWindowMode, EventHorizonEngineerLINQ eventHorizonEngineerLINQ, EngineerWindow engineerWindow = null)
+        public EngineerWindow(MainWindow mainWindow, int engineerWindowMode, EventHorizonEngineerLINQ eventHorizonEngineersLINQ, EngineerWindow engineerWindow = null)
         {
             InitializeComponent();
 
             this.mainWindow = mainWindow;
             this.engineerWindowMode = engineerWindowMode;
-            this.eventHorizonEngineerLINQ = (EventHorizonEngineerLINQ)eventHorizonEngineerLINQ.Clone();
+            this.eventHorizonEngineerLINQ = (EventHorizonEngineerLINQ)eventHorizonEngineersLINQ.Clone();
             this.engineerWindow = engineerWindow;
             this.userID = eventHorizonEngineerLINQ.UserID;
 
@@ -107,7 +107,7 @@ namespace Event_Horizon
             {
                 EventIDLabel.Content = eventHorizonEngineerLINQ.ID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonEngineerLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "View Main Engineer";
+                EventTitleLabel.Content = "View Main Method Statement";
                 
                 NameTextBox.IsReadOnly = true;
                 RoleTextBox.IsReadOnly = true;
@@ -122,7 +122,11 @@ namespace Event_Horizon
                 EventIDLabel.Content = eventHorizonEngineerLINQ.ID.ToString("D5");  
                 CreatedDateTimeLabel.Content = eventHorizonEngineerLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "View Note";
-                
+
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonEngineerLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+
                 NameTextBox.IsReadOnly = true;
                 RoleTextBox.IsReadOnly = true;
                 CompetenceDetailsTextBox.IsReadOnly = true;
@@ -136,6 +140,10 @@ namespace Event_Horizon
                 EventIDLabel.Content = eventHorizonEngineerLINQ.ID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonEngineerLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "View Reply";
+
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonEngineerLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
 
                 NameTextBox.IsReadOnly = true;
                 RoleTextBox.IsReadOnly = true;
@@ -151,6 +159,10 @@ namespace Event_Horizon
                 CreatedDateTimeLabel.Content = eventHorizonEngineerLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "Edit Main Engineer";
 
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonEngineerLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+
                 NameTextBox.IsReadOnly = false;
                 RoleTextBox.IsReadOnly = false;
                 CompetenceDetailsTextBox.IsReadOnly = false;
@@ -164,7 +176,11 @@ namespace Event_Horizon
                 EventIDLabel.Content = eventHorizonEngineerLINQ.ID.ToString("D5"); 
                 CreatedDateTimeLabel.Content = eventHorizonEngineerLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "Edit Note";
-                
+
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonEngineerLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+
                 NameTextBox.IsReadOnly = false;
                 RoleTextBox.IsReadOnly = false;
                 CompetenceDetailsTextBox.IsReadOnly = false;
@@ -178,7 +194,11 @@ namespace Event_Horizon
                 EventIDLabel.Content = eventHorizonEngineerLINQ.ID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonEngineerLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "Edit Reply";
-                
+
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonEngineerLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+
                 NameTextBox.IsReadOnly = false;
                 RoleTextBox.IsReadOnly = false;
                 CompetenceDetailsTextBox.IsReadOnly = false;
@@ -191,7 +211,7 @@ namespace Event_Horizon
             {
                 EventIDLabel.Content = "-1";
                 CreatedDateTimeLabel.Content = eventHorizonEngineerLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "New Engineer";
+                EventTitleLabel.Content = "New Method Statement";
                 
                 NameTextBox.IsReadOnly = false;
                 RoleTextBox.IsReadOnly = false;
@@ -206,7 +226,11 @@ namespace Event_Horizon
                 EventIDLabel.Content = "-1";
                 CreatedDateTimeLabel.Content = eventHorizonEngineerLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "New Note";
-                
+
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonEngineerLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+
                 NameTextBox.IsReadOnly = false;
                 RoleTextBox.IsReadOnly = false;
                 CompetenceDetailsTextBox.IsReadOnly = false;
@@ -220,7 +244,11 @@ namespace Event_Horizon
                 EventIDLabel.Content = "-1";
                 CreatedDateTimeLabel.Content = eventHorizonEngineerLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "New Reply";
-                
+
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonEngineerLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+
                 NameTextBox.IsReadOnly = false;
                 RoleTextBox.IsReadOnly = false;
                 CompetenceDetailsTextBox.IsReadOnly = false;
@@ -242,11 +270,11 @@ namespace Event_Horizon
         
         private void SetEngineer()
         {
-            string NameSafeString = NameTextBox.Text.Replace("'", "''");
-            string RoleSafeString = RoleTextBox.Text.Replace("'", "''");
-            string CompetenceDetailsSafeString = CompetenceDetailsTextBox.Text.Replace("'", "''");
+            string nameSafeString = NameTextBox.Text.Replace("'", "''");
+            string roleSafeString = RoleTextBox.Text.Replace("'", "''");
+            string competenceDetailsSafeString = CompetenceDetailsTextBox.Text.Replace("'", "''");
         }
-        
+
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9:]+");

@@ -104,33 +104,6 @@ namespace Event_Horizon
             return ramsRow;
         }
 
-        private void JBButton_Click(object sender, RoutedEventArgs e)
-        {
-            DependencyObject dep = (DependencyObject)e.OriginalSource;
-
-            while ((dep != null) && !(dep is RamsRow))
-            {
-                dep = VisualTreeHelper.GetParent(dep);
-            }
-
-            if (dep == null)
-                return;
-
-            RamsRow item = (RamsRow)dep;
-
-            MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem = (EventHorizonRamsLINQ)item.Tag;
-
-            MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = item;
-
-            if (MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem != null)
-            {
-                //try open event as EditRams
-                JobWindow editJobWindow = new JobWindow(MainWindow.activeRamsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem, null);
-                editJobWindow.Owner = MainWindow.activeRamsWindow;
-                editJobWindow.Show();
-            }
-        }
-
         private void RAButton_Click(object sender, RoutedEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;

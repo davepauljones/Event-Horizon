@@ -89,41 +89,17 @@ namespace Event_Horizon
                 if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
                 eventHorizonRamsLINQ.CreationDate = createdDateTime;
 
+                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonRamsLINQ.UserID)) eventHorizonRamsLINQ.UserID = 0;
+
                 eventHorizonRamsLINQ.JobNo = dataRow["JobNo"].ToString();
 
                 eventHorizonRamsLINQ.Description = dataRow["Description"].ToString();
 
                 if (!int.TryParse(dataRow["RamsProfileTypeID"].ToString(), out eventHorizonRamsLINQ.RamsProfileTypeID)) eventHorizonRamsLINQ.RamsProfileTypeID = 0;
 
-                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonRamsLINQ.UserID)) eventHorizonRamsLINQ.UserID = 0;
-
                 eventHorizonRamsLINQ.ClientName = dataRow["ClientName"].ToString();
                 eventHorizonRamsLINQ.Site = dataRow["Site"].ToString();
                 eventHorizonRamsLINQ.LocationActivity = dataRow["LocationActivity"].ToString();
-
-                if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonRamsLINQ.RevisionNo)) eventHorizonRamsLINQ.RevisionNo = 0;
-
-                eventHorizonRamsLINQ.ElementReviewed = dataRow["ElementReviewed"].ToString();
-
-                string reviewedDateTimeString = dataRow["ReviewedDateTime"].ToString();
-                DateTime reviewedDateTime = DateTime.MinValue;
-                if (DateTime.TryParse(reviewedDateTimeString, out reviewedDateTime))
-                {
-                    if (reviewedDateTime.TimeOfDay == TimeSpan.Zero)
-                        reviewedDateTimeString = reviewedDateTime.ToString("dd/MM/y");
-                    else
-                        reviewedDateTimeString = reviewedDateTime.ToString("dd/MM/y HH:mm");
-
-                    eventHorizonRamsLINQ.ReviewedDateTime = reviewedDateTime;
-                }
-                else
-                    Console.WriteLine("Unable to parse reviewedDateTimeString '{0}'", reviewedDateTimeString);
-
-                eventHorizonRamsLINQ.MSContractTitle = dataRow["MSContractTitle"].ToString();
-
-                if (!int.TryParse(dataRow["MSRevisionNo"].ToString(), out eventHorizonRamsLINQ.MSRevisionNo)) eventHorizonRamsLINQ.MSRevisionNo = 0;
-
-                eventHorizonRamsLINQ.MSContractor = dataRow["MSContractor"].ToString();
 
                 if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonRamsLINQ.StatusID)) eventHorizonRamsLINQ.StatusID = 0;
 
@@ -187,38 +163,17 @@ namespace Event_Horizon
                 if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
                 eventHorizonRamsLINQ.CreationDate = createdDateTime;
 
+                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonRamsLINQ.UserID)) eventHorizonRamsLINQ.UserID = 0;
+
                 eventHorizonRamsLINQ.JobNo = dataRow["JobNo"].ToString();
 
                 eventHorizonRamsLINQ.Description = dataRow["Description"].ToString();
 
                 if (!int.TryParse(dataRow["RamsProfileTypeID"].ToString(), out eventHorizonRamsLINQ.RamsProfileTypeID)) eventHorizonRamsLINQ.RamsProfileTypeID = 0;
-                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonRamsLINQ.UserID)) eventHorizonRamsLINQ.UserID = 0;
 
                 eventHorizonRamsLINQ.ClientName = dataRow["ClientName"].ToString();
                 eventHorizonRamsLINQ.Site = dataRow["Site"].ToString();
                 eventHorizonRamsLINQ.LocationActivity = dataRow["LocationActivity"].ToString();
-
-                if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonRamsLINQ.RevisionNo)) eventHorizonRamsLINQ.RevisionNo = 0;
-
-                eventHorizonRamsLINQ.ElementReviewed = dataRow["ElementReviewed"].ToString();
-
-                string reviewedDateTimeString = dataRow["ReviewedDateTime"].ToString();
-                DateTime reviewedDateTime = DateTime.MinValue;
-                if (DateTime.TryParse(reviewedDateTimeString, out reviewedDateTime))
-                {
-                    if (reviewedDateTime.TimeOfDay == TimeSpan.Zero)
-                        reviewedDateTimeString = reviewedDateTime.ToString("dd/MM/y");
-                    else
-                        reviewedDateTimeString = reviewedDateTime.ToString("dd/MM/y HH:mm");
-
-                    eventHorizonRamsLINQ.ReviewedDateTime = reviewedDateTime;
-                }
-                else
-                    Console.WriteLine("Unable to parse reviewedDateTimeString '{0}'", reviewedDateTimeString);
-
-                Color iconEllipeColor = Colors.Pink;
-
-                iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe60000");
 
                 if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonRamsLINQ.StatusID)) eventHorizonRamsLINQ.StatusID = 0;
 
@@ -238,13 +193,8 @@ namespace Event_Horizon
                 string clientNameSafeString = jobWindow.ClientNameTextBox.Text.Replace("'", "''");
                 string siteSafeString = jobWindow.SiteTextBox.Text.Replace("'", "''");
                 string locationActivitySafeString = jobWindow.LocationActivityTextBox.Text.Replace("'", "''");
-                string elementReviewedSafeString = jobWindow.ElementReviewedTextBox.Text.Replace("'", "''");
-                string mSContractTitleSafeString = jobWindow.MSContractTitleTextBox.Text.Replace("'", "''");
-                string mSContractorSafeString = jobWindow.MSContractorTextBox.Text.Replace("'", "''");
 
                 DateTime? createdDateTime = DateTime.Now;
-
-                DateTime reviewedDateTimeNow = DateTime.Now;
 
                 int rowsAffected = 0;
 
@@ -253,7 +203,7 @@ namespace Event_Horizon
                     case DatabaseSystems.SQLite:
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            using (SQLiteCommand command = new SQLiteCommand("UPDATE Jobs SET JobNo = ?, Description = ?, RamsProfileTypeID = ?, ClientName = ?, Site = ?, LocationActivity = ?, RevisionNo = ?, ElementReviewed = ?, ReviewedDateTime = ?, MSContractTitle = ?, MSRevisionNo = ?, MSContractor = ?, StatusID = ? WHERE ID = ?", connection))
+                            using (SQLiteCommand command = new SQLiteCommand("UPDATE Jobs SET JobNo = ?, Description = ?, RamsProfileTypeID = ?, ClientName = ?, Site = ?, LocationActivity = ?, StatusID = ? WHERE ID = ?", connection))
                             {
                                 connection.Open();
 
@@ -263,19 +213,6 @@ namespace Event_Horizon
                                 command.Parameters.Add("@ClientName", DbType.String).Value = clientNameSafeString;
                                 command.Parameters.Add("@Site", DbType.String).Value = siteSafeString;
                                 command.Parameters.Add("@LocationActivity", DbType.String).Value = locationActivitySafeString;
-
-                                command.Parameters.Add("@RevisionNo", DbType.Int32).Value = jobWindow.RevisionNoComboBox.SelectedIndex;
-
-                                command.Parameters.Add("@ElementReviewed", DbType.String).Value = elementReviewedSafeString;
-
-                                command.Parameters.Add("@ReviewedDateTime", DbType.DateTime).Value = reviewedDateTimeNow;
-
-                                command.Parameters.Add("@MSContractTitle", DbType.String).Value = mSContractTitleSafeString;
-
-                                command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = jobWindow.MSRevisionNoComboBox.SelectedIndex;
-
-                                command.Parameters.Add("@MSContractor", DbType.String).Value = mSContractorSafeString;
-
                                 command.Parameters.Add("@StatusID", DbType.Int32).Value = jobWindow.RamsStatusIDComboBox.SelectedIndex;
 
                                 command.Parameters.AddWithValue("@ID", eventHorizonRamsLINQ.ID);
@@ -285,33 +222,21 @@ namespace Event_Horizon
                                 else if (rowsAffected == 0 || ramsMode == EventWindowModes.NewEvent || ramsMode == EventWindowModes.NewNote || ramsMode == EventWindowModes.NewReply)
                                 {
                                     command.Parameters.Clear();
-                                    command.CommandText = "INSERT INTO Jobs (CreatedDateTime, JobNo, Description, RamsProfileTypeID, UserID, ClientName, Site, LocationActivity, RevisionNo, ElementReviewed, ReviewedDateTime, MSContractTitle, MSRevisionNo, MSContractor, StatusID) VALUES (@CreatedDateTime, @JobNo, @Description, @RamsProfileTypeID, @UserID, @ClientName, @Site, @LocationActivity, @RevisionNo, @ElementReviewed, @ReviewedDateTime, @MSContractTitle, @MSRevisionNo, @MSContractor, @StatusID);";
+                                    command.CommandText = "INSERT INTO Jobs (CreatedDateTime, UserID, JobNo, Description, RamsProfileTypeID, ClientName, Site, LocationActivity, StatusID) VALUES (@CreatedDateTime, @UserID, @JobNo, @Description, @RamsProfileTypeID, @ClientName, @Site, @LocationActivity, @StatusID);";
 
                                     command.Parameters.Add("@CreatedDateTime", DbType.DateTime).Value = createdDateTime;
+
+                                    command.Parameters.Add("@UserID", DbType.Int32).Value = XMLReaderWriter.UserID;
 
                                     command.Parameters.Add("@JobNo", DbType.String).Value = jobNoSafeString;
 
                                     command.Parameters.Add("@Description", DbType.String).Value = descriptionSafeString;
 
                                     command.Parameters.Add("@RamsProfileTypeID", DbType.Int32).Value = jobWindow.RamsProfileTypeComboBox.SelectedIndex;
-                                    
-                                    command.Parameters.Add("@UserID", DbType.Int32).Value = XMLReaderWriter.UserID;
 
                                     command.Parameters.Add("@ClientName", DbType.String).Value = clientNameSafeString;
                                     command.Parameters.Add("@Site", DbType.String).Value = siteSafeString;
                                     command.Parameters.Add("@LocationActivity", DbType.String).Value = locationActivitySafeString;
-
-                                    command.Parameters.Add("@RevisionNo", DbType.Int32).Value = jobWindow.RevisionNoComboBox.SelectedIndex;
-
-                                    command.Parameters.Add("@ElementReviewed", DbType.String).Value = elementReviewedSafeString;
-
-                                    command.Parameters.Add("@ReviewedDateTime", DbType.DateTime).Value = createdDateTime;
-
-                                    command.Parameters.Add("@MSContractTitle", DbType.String).Value = mSContractTitleSafeString;
-
-                                    command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = jobWindow.MSRevisionNoComboBox.SelectedIndex;
-
-                                    command.Parameters.Add("@MSContractor", DbType.String).Value = mSContractorSafeString;
 
                                     command.Parameters.Add("@StatusID", DbType.Int32).Value = jobWindow.RamsStatusIDComboBox.SelectedIndex;
 
@@ -520,31 +445,6 @@ namespace Event_Horizon
             }
 
             if (jobWindow.LocationActivityTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (jobWindow.RevisionNoComboBox.SelectedIndex > -1)
-            {
-                result++;
-            }
-
-            if (jobWindow.ElementReviewedTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (jobWindow.MSContractTitleTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (jobWindow.MSRevisionNoComboBox.SelectedIndex > -1)
-            {
-                result++;
-            }
-
-            if (jobWindow.MSContractorTextBox.Text.Length > 0)
             {
                 result++;
             }

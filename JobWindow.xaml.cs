@@ -116,9 +116,6 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 RamsProfileTypeComboBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = true;
-                RevisionNoComboBox.IsEnabled = false;
-                ReviewedDatePicker.IsEnabled = false;
-                MSRevisionNoComboBox.IsEnabled = false;
                 AddNoteButton.Visibility = Visibility.Visible;
                 ReplyButton.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Collapsed;
@@ -134,9 +131,6 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 RamsProfileTypeComboBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = true;
-                RevisionNoComboBox.IsEnabled = false;
-                ReviewedDatePicker.IsEnabled = false;
-                MSRevisionNoComboBox.IsEnabled = false;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Collapsed;
@@ -152,9 +146,6 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 RamsProfileTypeComboBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = true;
-                RevisionNoComboBox.IsEnabled = false;
-                ReviewedDatePicker.IsEnabled = false;
-                MSRevisionNoComboBox.IsEnabled = false;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Collapsed;
@@ -170,9 +161,6 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 RamsProfileTypeComboBox.IsEnabled = true;
                 DescriptionTextBox.IsReadOnly = false;
-                RevisionNoComboBox.IsEnabled = true;
-                ReviewedDatePicker.IsEnabled = true;
-                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Visible;
                 ReplyButton.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Visible;
@@ -188,9 +176,6 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 RamsProfileTypeComboBox.IsEnabled = true;
                 DescriptionTextBox.IsReadOnly = false;
-                RevisionNoComboBox.IsEnabled = true;
-                ReviewedDatePicker.IsEnabled = true;
-                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
@@ -206,9 +191,6 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 RamsProfileTypeComboBox.IsEnabled = true;
                 DescriptionTextBox.IsReadOnly = false;
-                RevisionNoComboBox.IsEnabled = true;
-                ReviewedDatePicker.IsEnabled = true;
-                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
@@ -224,13 +206,7 @@ namespace Event_Horizon
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 RamsProfileTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.RamsProfileTypeID;
                 RamsProfileTypeComboBox.IsEnabled = true;
-                DescriptionTextBox.IsReadOnly = false;
-                RevisionNoComboBox.SelectedIndex = 0;
-                RevisionNoComboBox.IsEnabled = true;
-                ReviewedDatePicker.IsEnabled = true;
-                ReviewedDatePicker.SelectedDate = DateTime.Now;
-                MSRevisionNoComboBox.SelectedIndex = 0;
-                MSRevisionNoComboBox.IsEnabled = true;
+                DescriptionTextBox.IsReadOnly = false;  
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
@@ -247,13 +223,6 @@ namespace Event_Horizon
                 RamsProfileTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.RamsProfileTypeID;
                 RamsProfileTypeComboBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = false;
-                RevisionNoComboBox.SelectedIndex = 0;
-                RevisionNoComboBox.IsEnabled = true;
-                ReviewedDatePicker.IsEnabled = true;
-                ReviewedDatePicker.SelectedDate = DateTime.Now;
-                MSRevisionNoComboBox.SelectedIndex = 0;
-                MSRevisionNoComboBox.IsEnabled = true;
-                ReviewedDatePicker.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
@@ -270,12 +239,6 @@ namespace Event_Horizon
                 RamsProfileTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.RamsProfileTypeID;
                 RamsProfileTypeComboBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = false;
-                RevisionNoComboBox.SelectedIndex = 0;
-                RevisionNoComboBox.IsEnabled = true;
-                ReviewedDatePicker.IsEnabled = true;
-                ReviewedDatePicker.SelectedDate = DateTime.Now;
-                MSRevisionNoComboBox.SelectedIndex = 0;
-                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
@@ -297,10 +260,6 @@ namespace Event_Horizon
         private void GetRams()
         {
             RamsProfileTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.RamsProfileTypeID;
-            RevisionNoComboBox.SelectedIndex = eventHorizonRamsLINQ.RevisionNo;
-
-            DateTime reviewedDateTimet = eventHorizonRamsLINQ.ReviewedDateTime;
-            ReviewedDatePicker.SelectedDate = reviewedDateTimet;
 
             UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
 
@@ -309,46 +268,24 @@ namespace Event_Horizon
             ClientNameTextBox.Text = eventHorizonRamsLINQ.ClientName;
             SiteTextBox.Text = eventHorizonRamsLINQ.Site;
             LocationActivityTextBox.Text = eventHorizonRamsLINQ.LocationActivity;
-            ElementReviewedTextBox.Text =  eventHorizonRamsLINQ.ElementReviewed;
-            MSContractTitleTextBox.Text = eventHorizonRamsLINQ.MSContractTitle;
-
-            MSRevisionNoComboBox.SelectedIndex = eventHorizonRamsLINQ.MSRevisionNo;
-
-            MSContractorTextBox.Text = eventHorizonRamsLINQ.MSContractor;
 
             RamsStatusIDComboBox.SelectedIndex = eventHorizonRamsLINQ.StatusID;
         }
         
         private void SetRams()
         {
+            string jobNoSafeString = JobNoTextBox.Text.Replace("'", "''");
             string descriptionSafeString = DescriptionTextBox.Text.Replace("'", "''");
-
-            DateTime reviewedDateTime = DateTime.Now;
-            reviewedDateTime = new DateTime(ReviewedDatePicker.SelectedDate.Value.Year, ReviewedDatePicker.SelectedDate.Value.Month, ReviewedDatePicker.SelectedDate.Value.Day, reviewedDateTime.Hour, reviewedDateTime.Minute, reviewedDateTime.Second);
+            string clientNameSafeString = ClientNameTextBox.Text.Replace("'", "''");
+            string siteSafeString = SiteTextBox.Text.Replace("'", "''");
+            string locationActivitySafeString = LocationActivityTextBox.Text.Replace("'", "''");
 
             eventHorizonRamsLINQ.RamsProfileTypeID = RamsProfileTypeComboBox.SelectedIndex;
+            eventHorizonRamsLINQ.JobNo = jobNoSafeString;
             eventHorizonRamsLINQ.Description = descriptionSafeString;
-            eventHorizonRamsLINQ.ReviewedDateTime = reviewedDateTime;
-        }
-        
-        public int RevisionNoID = 1;
-        
-        private void RevisionNoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            RevisionNoID = RevisionNoComboBox.SelectedIndex;
-        }
-
-        public int MSRevisionNoID = 1;
-
-        private void MSRevisionNoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            MSRevisionNoID = RevisionNoComboBox.SelectedIndex;
-        }
-
-        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9:]+");
-            e.Handled = regex.IsMatch(e.Text);
+            eventHorizonRamsLINQ.ClientName = clientNameSafeString;
+            eventHorizonRamsLINQ.Site = siteSafeString;
+            eventHorizonRamsLINQ.LocationActivity = locationActivitySafeString;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
