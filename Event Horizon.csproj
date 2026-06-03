@@ -363,9 +363,6 @@
       <DependentUpon>EventHorizonUpDown.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainViewModel.cs" />
-    <Compile Include="MethodStatement.xaml.cs">
-      <DependentUpon>MethodStatement.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\RotaryControl.xaml.cs">
       <DependentUpon>RotaryControl.xaml</DependentUpon>
     </Compile>
@@ -495,10 +492,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EventHorizonUpDown.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MethodStatement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

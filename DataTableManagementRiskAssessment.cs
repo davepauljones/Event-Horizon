@@ -119,12 +119,6 @@ namespace Event_Horizon
                 else
                     Console.WriteLine("Unable to parse reviewedDateTimeString '{0}'", reviewedDateTimeString);
 
-                eventHorizonRamsLINQ.MSContractTitle = dataRow["MSContractTitle"].ToString();
-
-                if (!int.TryParse(dataRow["MSRevisionNo"].ToString(), out eventHorizonRamsLINQ.MSRevisionNo)) eventHorizonRamsLINQ.MSRevisionNo = 0;
-
-                eventHorizonRamsLINQ.MSContractor = dataRow["MSContractor"].ToString();
-
                 if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonRamsLINQ.StatusID)) eventHorizonRamsLINQ.StatusID = 0;
 
                 _EventHorizonRamsLINQReturnList.Add(eventHorizonRamsLINQ);
@@ -239,8 +233,6 @@ namespace Event_Horizon
                 string siteSafeString = riskAssessmentWindow.SiteTextBox.Text.Replace("'", "''");
                 string locationActivitySafeString = riskAssessmentWindow.LocationActivityTextBox.Text.Replace("'", "''");
                 string elementReviewedSafeString = riskAssessmentWindow.ElementReviewedTextBox.Text.Replace("'", "''");
-                string mSContractTitleSafeString = riskAssessmentWindow.MSContractTitleTextBox.Text.Replace("'", "''");
-                string mSContractorSafeString = riskAssessmentWindow.MSContractorTextBox.Text.Replace("'", "''");
 
                 DateTime? createdDateTime = DateTime.Now;
 
@@ -253,7 +245,7 @@ namespace Event_Horizon
                     case DatabaseSystems.SQLite:
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            using (SQLiteCommand command = new SQLiteCommand("UPDATE RiskAssessments SET JobNo = ?, Description = ?, RamsProfileTypeID = ?, ClientName = ?, Site = ?, LocationActivity = ?, RevisionNo = ?, ElementReviewed = ?, ReviewedDateTime = ?, MSContractTitle = ?, MSRevisionNo = ?, MSContractor = ?, StatusID = ? WHERE ID = ?", connection))
+                            using (SQLiteCommand command = new SQLiteCommand("UPDATE RiskAssessments SET JobNo = ?, Description = ?, RamsProfileTypeID = ?, ClientName = ?, Site = ?, LocationActivity = ?, RevisionNo = ?, ElementReviewed = ?, ReviewedDateTime = ?, StatusID = ? WHERE ID = ?", connection))
                             {
                                 connection.Open();
 
@@ -270,12 +262,6 @@ namespace Event_Horizon
 
                                 command.Parameters.Add("@ReviewedDateTime", DbType.DateTime).Value = reviewedDateTimeNow;
 
-                                command.Parameters.Add("@MSContractTitle", DbType.String).Value = mSContractTitleSafeString;
-
-                                command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = riskAssessmentWindow.MSRevisionNoComboBox.SelectedIndex;
-
-                                command.Parameters.Add("@MSContractor", DbType.String).Value = mSContractorSafeString;
-
                                 command.Parameters.Add("@StatusID", DbType.Int32).Value = riskAssessmentWindow.RamsStatusIDComboBox.SelectedIndex;
 
                                 command.Parameters.AddWithValue("@ID", eventHorizonRamsLINQ.ID);
@@ -285,7 +271,7 @@ namespace Event_Horizon
                                 else if (rowsAffected == 0 || ramsMode == EventWindowModes.NewEvent || ramsMode == EventWindowModes.NewNote || ramsMode == EventWindowModes.NewReply)
                                 {
                                     command.Parameters.Clear();
-                                    command.CommandText = "INSERT INTO RiskAssessments (CreatedDateTime, JobNo, Description, RamsProfileTypeID, UserID, ClientName, Site, LocationActivity, RevisionNo, ElementReviewed, ReviewedDateTime, MSContractTitle, MSRevisionNo, MSContractor, StatusID) VALUES (@CreatedDateTime, @JobNo, @Description, @RamsProfileTypeID, @UserID, @ClientName, @Site, @LocationActivity, @RevisionNo, @ElementReviewed, @ReviewedDateTime, @MSContractTitle, @MSRevisionNo, @MSContractor, @StatusID);";
+                                    command.CommandText = "INSERT INTO RiskAssessments (CreatedDateTime, JobNo, Description, RamsProfileTypeID, UserID, ClientName, Site, LocationActivity, RevisionNo, ElementReviewed, ReviewedDateTime, StatusID) VALUES (@CreatedDateTime, @JobNo, @Description, @RamsProfileTypeID, @UserID, @ClientName, @Site, @LocationActivity, @RevisionNo, @ElementReviewed, @ReviewedDateTime, @StatusID);";
 
                                     command.Parameters.Add("@CreatedDateTime", DbType.DateTime).Value = createdDateTime;
 
@@ -307,17 +293,11 @@ namespace Event_Horizon
 
                                     command.Parameters.Add("@ReviewedDateTime", DbType.DateTime).Value = createdDateTime;
 
-                                    command.Parameters.Add("@MSContractTitle", DbType.String).Value = mSContractTitleSafeString;
-
-                                    command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = riskAssessmentWindow.MSRevisionNoComboBox.SelectedIndex;
-
-                                    command.Parameters.Add("@MSContractor", DbType.String).Value = mSContractorSafeString;
-
                                     command.Parameters.Add("@StatusID", DbType.Int32).Value = riskAssessmentWindow.RamsStatusIDComboBox.SelectedIndex;
 
                                     command.ExecuteNonQuery();
 
-                                    MainWindow.mw.Status.Content = "Successfully added a new rams";
+                                    MainWindow.mw.Status.Content = "Successfully added a new risk assessment";
                                 }
                             }
                         }
@@ -327,10 +307,9 @@ namespace Event_Horizon
 
                 if (rowsAffected > 0)
                 {
-                    MainWindow.mw.Status.Content = "Successfully updated a Risk Assessment";
+                    MainWindow.activeRamsWindow.Status.Content = "Successfully updated a Risk Assessment";
                     MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
                     MainWindow.activeRamsWindow.RefreshActiveRams();
-                    MainWindow.mw.RunningTask();
                 }
 
                 if (saveSuccessFull)
@@ -415,7 +394,7 @@ namespace Event_Horizon
 
                                 saveSuccessFull = true;
 
-                                MainWindow.mw.Status.Content = "Successfully deleted rams.";
+                                MainWindow.mw.Status.Content = "Successfully deleted risk assessment.";
                             }
                         }
                     }
@@ -429,14 +408,6 @@ namespace Event_Horizon
                         msg.ShowDialog();
                     }
                     break;
-            }
-
-            if (saveSuccessFull)
-            {
-                if (MainWindow.mw.DisplayMode == DisplayModes.Reminders)
-                    MainWindow.mw.RefreshLog(ListViews.Reminder);
-                else
-                    MainWindow.mw.RefreshLog(ListViews.Active);
             }
         }
 
@@ -534,22 +505,7 @@ namespace Event_Horizon
                 result++;
             }
 
-            if (riskAssessmentWindow.MSContractTitleTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (riskAssessmentWindow.MSRevisionNoComboBox.SelectedIndex > -1)
-            {
-                result++;
-            }
-
-            if (riskAssessmentWindow.MSContractorTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (result == 11)
+            if (result == 8)
             {
                 return true;
             }

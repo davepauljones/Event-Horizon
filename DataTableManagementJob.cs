@@ -255,7 +255,6 @@ namespace Event_Horizon
                     MainWindow.mw.Status.Content = "Successfully updated a Job";
                     MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
                     MainWindow.activeRamsWindow.RefreshActiveRams();
-                    MainWindow.mw.RunningTask();
                 }
 
                 if (saveSuccessFull)
@@ -311,8 +310,6 @@ namespace Event_Horizon
         
         public static void DeleteJob(Int32 JobID)
         {
-            bool saveSuccessFull = false;
-
             if (XMLReaderWriter.UserID != 1)
             {
                 if (GetUserID(JobID) != XMLReaderWriter.UserID)
@@ -338,9 +335,7 @@ namespace Event_Horizon
 
                                 command.ExecuteNonQuery();
 
-                                saveSuccessFull = true;
-
-                                MainWindow.mw.Status.Content = "Successfully deleted attached method statement";
+                                MainWindow.activeRamsWindow.Status.Content = "Successfully deleted attached method statement";
                             }
                         }
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
@@ -353,9 +348,7 @@ namespace Event_Horizon
 
                                 command.ExecuteNonQuery();
 
-                                saveSuccessFull = true;
-
-                                MainWindow.mw.Status.Content = "Successfully deleted attached risk assessment";
+                                MainWindow.activeRamsWindow.Status.Content = "Successfully deleted attached risk assessment";
                             }
                         }
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
@@ -368,9 +361,7 @@ namespace Event_Horizon
 
                                 command.ExecuteNonQuery();
 
-                                saveSuccessFull = true;
-
-                                MainWindow.mw.Status.Content = "Successfully deleted Job and attached risk assessment and method statement.";
+                                MainWindow.activeRamsWindow.Status.Content = "Successfully deleted Job and attached risk assessment and method statement.";
                             }
                         }
                     }
@@ -384,14 +375,6 @@ namespace Event_Horizon
                         msg.ShowDialog();
                     }
                     break;
-            }
-
-            if (saveSuccessFull)
-            {
-                if (MainWindow.mw.DisplayMode == DisplayModes.Reminders)
-                    MainWindow.mw.RefreshLog(ListViews.Reminder);
-                else
-                    MainWindow.mw.RefreshLog(ListViews.Active);
             }
         }
 
@@ -479,7 +462,7 @@ namespace Event_Horizon
                 result++;
             }
 
-            if (result == 11)
+            if (result == 6)
             {
                 return true;
             }

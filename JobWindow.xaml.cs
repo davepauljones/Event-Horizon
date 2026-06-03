@@ -110,7 +110,7 @@ namespace Event_Horizon
                 EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
                 ParentEventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "View Main Job";
+                EventTitleLabel.Content = "View Job";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
@@ -155,7 +155,7 @@ namespace Event_Horizon
                 EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
                 ParentEventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "Edit Main Job";
+                EventTitleLabel.Content = "Edit Job";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);

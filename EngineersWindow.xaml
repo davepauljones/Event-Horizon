@@ -83,12 +83,17 @@
 
                                 <Line X1="3" Y1="0" X2="1321" Y2="0" Stroke="Crimson" StrokeThickness="1" Margin="0,0,0,2"/>
 
-                                <ListView x:Name="EngineersListView" SelectionMode="Single" Margin="2,0,0,0" BorderThickness="0" MouseDoubleClick="EngineersListView_MouseDoubleClick">
+                                <ListView x:Name="EngineersListView" SelectionMode="Single" Margin="2,0,0,0" BorderThickness="0" PreviewMouseLeftButtonDown="EngineersListView_PreviewMouseLeftButtonDown" MouseDoubleClick="EngineersListView_MouseDoubleClick">
                                     <ListView.Template>
                                         <ControlTemplate>
                                             <ItemsPresenter></ItemsPresenter>
                                         </ControlTemplate>
                                     </ListView.Template>
+                                    <ListView.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Delete" Click="DeleteRightMouseButton_Click"/>
+                                        </ContextMenu>
+                                    </ListView.ContextMenu>
                                 </ListView>
                             </StackPanel>
                         </ScrollViewer>

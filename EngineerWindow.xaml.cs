@@ -107,7 +107,7 @@ namespace Event_Horizon
             {
                 EventIDLabel.Content = eventHorizonEngineerLINQ.ID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonEngineerLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "View Main Method Statement";
+                EventTitleLabel.Content = "View Engineer";
                 
                 NameTextBox.IsReadOnly = true;
                 RoleTextBox.IsReadOnly = true;
@@ -157,7 +157,7 @@ namespace Event_Horizon
             {
                 EventIDLabel.Content = eventHorizonEngineerLINQ.ID.ToString("D5");
                 CreatedDateTimeLabel.Content = eventHorizonEngineerLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "Edit Main Engineer";
+                EventTitleLabel.Content = "Edit Engineer";
 
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonEngineerLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
@@ -211,8 +211,12 @@ namespace Event_Horizon
             {
                 EventIDLabel.Content = "-1";
                 CreatedDateTimeLabel.Content = eventHorizonEngineerLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "New Method Statement";
-                
+                EventTitleLabel.Content = "New Engineer";
+
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonEngineerLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonEngineerLINQ.UserID);
+
                 NameTextBox.IsReadOnly = false;
                 RoleTextBox.IsReadOnly = false;
                 CompetenceDetailsTextBox.IsReadOnly = false;

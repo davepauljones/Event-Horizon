@@ -105,5 +105,51 @@ namespace Event_Horizon
                 editEngineerWindow.Show();
             }
         }
+        private void DeleteEngineerRow()
+        {
+            if (eventHorizonEngineerLINQ_SelectedItem != null)
+            {
+                EventHorizonRequesterNotification orn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Delete this engineer, are you sure", InformationTextBlock = "You would not normally do this, it could affect referential integrity." }, RequesterTypes.NoYes);
+                var result = orn.ShowDialog();
+                if (result == true)
+                {
+                    if (eventHorizonEngineerLINQ_SelectedItem.ID > 0) DataTableManagementEngineer.DeleteEngineer(eventHorizonEngineerLINQ_SelectedItem.ID);
+                }
+            }
+
+            RefreshEngineers();
+        }
+        private void DeleteRightMouseButton_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteEngineerRow();
+        }
+
+        private void EngineersListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is EngineerRow))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            EngineerRow item = (EngineerRow)dep;
+
+            eventHorizonEngineerLINQ_SelectedItem = (EventHorizonEngineerLINQ)item.Tag;
+
+            Console.WriteLine();
+            Console.WriteLine(">S>>Engineers EngineersListView_PreviewMouseLeftButtonDown<<<<");
+            Console.WriteLine();
+
+            Console.Write("item.Tag eventHorizonEngineerLINQ_SelectedItem.ID = ");
+            Console.WriteLine(eventHorizonEngineerLINQ_SelectedItem.ID);
+
+            Console.WriteLine();
+            Console.WriteLine(">F>>Engineers EngineersListView_PreviewMouseLeftButtonDown<<<<");
+            Console.WriteLine();
+        }
     }
 }

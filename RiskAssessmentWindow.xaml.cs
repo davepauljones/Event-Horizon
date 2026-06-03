@@ -118,7 +118,6 @@ namespace Event_Horizon
                 DescriptionTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
                 ReviewedDatePicker.IsEnabled = false;
-                MSRevisionNoComboBox.IsEnabled = false;
                 AddNoteButton.Visibility = Visibility.Visible;
                 ReplyButton.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Collapsed;
@@ -136,7 +135,6 @@ namespace Event_Horizon
                 DescriptionTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
                 ReviewedDatePicker.IsEnabled = false;
-                MSRevisionNoComboBox.IsEnabled = false;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Collapsed;
@@ -154,7 +152,6 @@ namespace Event_Horizon
                 DescriptionTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
                 ReviewedDatePicker.IsEnabled = false;
-                MSRevisionNoComboBox.IsEnabled = false;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Collapsed;
@@ -172,7 +169,6 @@ namespace Event_Horizon
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
-                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Visible;
                 ReplyButton.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Visible;
@@ -190,7 +186,6 @@ namespace Event_Horizon
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
-                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
@@ -208,7 +203,6 @@ namespace Event_Horizon
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
-                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
@@ -229,8 +223,6 @@ namespace Event_Horizon
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
                 ReviewedDatePicker.SelectedDate = DateTime.Now;
-                MSRevisionNoComboBox.SelectedIndex = 0;
-                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
@@ -251,8 +243,6 @@ namespace Event_Horizon
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
                 ReviewedDatePicker.SelectedDate = DateTime.Now;
-                MSRevisionNoComboBox.SelectedIndex = 0;
-                MSRevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
@@ -274,8 +264,6 @@ namespace Event_Horizon
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
                 ReviewedDatePicker.SelectedDate = DateTime.Now;
-                MSRevisionNoComboBox.SelectedIndex = 0;
-                MSRevisionNoComboBox.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
                 ReplyButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
@@ -310,11 +298,6 @@ namespace Event_Horizon
             SiteTextBox.Text = eventHorizonRamsLINQ.Site;
             LocationActivityTextBox.Text = eventHorizonRamsLINQ.LocationActivity;
             ElementReviewedTextBox.Text =  eventHorizonRamsLINQ.ElementReviewed;
-            MSContractTitleTextBox.Text = eventHorizonRamsLINQ.MSContractTitle;
-
-            MSRevisionNoComboBox.SelectedIndex = eventHorizonRamsLINQ.MSRevisionNo;
-
-            MSContractorTextBox.Text = eventHorizonRamsLINQ.MSContractor;
 
             RamsStatusIDComboBox.SelectedIndex = eventHorizonRamsLINQ.StatusID;
         }
@@ -336,13 +319,6 @@ namespace Event_Horizon
         private void RevisionNoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             RevisionNoID = RevisionNoComboBox.SelectedIndex;
-        }
-
-        public int MSRevisionNoID = 1;
-
-        private void MSRevisionNoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            MSRevisionNoID = RevisionNoComboBox.SelectedIndex;
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

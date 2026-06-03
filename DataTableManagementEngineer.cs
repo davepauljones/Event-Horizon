@@ -241,7 +241,89 @@ namespace Event_Horizon
                 }
             }
         }
+        private static Int32 GetUserID(Int32 EventID)
+        {
+            Int32 ReturnUserID = 0;
 
+            switch (XMLReaderWriter.DatabaseSystem)
+            {
+                case DatabaseSystems.SQLite:
+                    try
+                    {
+                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (SQLiteCommand command = new SQLiteCommand("SELECT UserID FROM Engineers WHERE ID = ?", connection))
+                            {
+                                connection.Open();
+
+                                command.Parameters.Add("@ID", DbType.Int32).Value = EventID;
+
+                                using (SQLiteDataReader reader = command.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        ReturnUserID = int.Parse(reader["UserID"].ToString());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("Error: " + ex.Message);
+                        Console.WriteLine("-------------------*---------------------");
+
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUserID - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        msg.ShowDialog();
+                    }
+                    break;
+            }
+            return ReturnUserID;
+        }
+        public static void DeleteEngineer(Int32 EngineerID)
+        {
+            if (XMLReaderWriter.UserID != 1)
+            {
+                if (GetUserID(EngineerID) != XMLReaderWriter.UserID)
+                {
+                    EventHorizonRequesterNotification rorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, you can only delete your own engineer.", InformationTextBlock = "You could ask the user who created it, to delete it." }, RequesterTypes.OK);
+                    rorn.ShowDialog();
+                    return;
+                }
+            }
+
+            switch (XMLReaderWriter.DatabaseSystem)
+            {
+                case DatabaseSystems.SQLite:
+                    try
+                    {
+                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                        {
+                            using (SQLiteCommand command = new SQLiteCommand("DELETE FROM Engineers WHERE ID = ?", connection))
+                            {
+                                connection.Open();
+
+                                command.Parameters.Add("@ID", DbType.Int32).Value = EngineerID;
+
+                                command.ExecuteNonQuery();
+
+                                MainWindow.engineersWindow.Status.Content = "Successfully deleted Engineer.";
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("Error: " + ex.Message);
+                        Console.WriteLine("-------------------*---------------------");
+
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "DeleteRams - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        msg.ShowDialog();
+                    }
+                    break;
+            }
+        }
         private static bool CheckFormFields(EngineerWindow engineerWindow)
         {
             int result = 0;
