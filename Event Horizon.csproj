@@ -313,6 +313,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="EventHorizonEngineerLINQ.cs" />
+    <Compile Include="EventHorizonJobLINQ.cs" />
+    <Compile Include="EventHorizonMethodStatementLINQ.cs" />
+    <Compile Include="EventHorizonRiskAssessmentLINQ.cs" />
     <Compile Include="EventHorizonRamsProfile.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -23,38 +23,38 @@ namespace Event_Horizon
     public partial class ActiveRamsWindow : Window
     {
         public MainWindow mainWindow;
-        EventHorizonRamsLINQ eventHorizonRamsLINQ;
+        EventHorizonJobLINQ eventHorizonJobLINQ;
    
-        public List<EventHorizonRamsLINQ> EventHorizonRamsLINQList;
-        public EventHorizonRamsLINQ eventHorizonRamsLINQ_SelectedItem;
+        public List<EventHorizonJobLINQ> EventHorizonJobLINQList;
+        public EventHorizonJobLINQ eventHorizonJobLINQ_SelectedItem;
 
-        public ActiveRamsWindow(MainWindow mainWindow, EventHorizonRamsLINQ eventHorizonRamsLINQ)
+        public ActiveRamsWindow(MainWindow mainWindow, EventHorizonJobLINQ eventHorizonJobLINQ)
         {
             InitializeComponent();
 
             MainWindow.activeRamsWindow = this;
 
             this.mainWindow = mainWindow;
-            this.eventHorizonRamsLINQ = (EventHorizonRamsLINQ)eventHorizonRamsLINQ.Clone();
+            this.eventHorizonJobLINQ = (EventHorizonJobLINQ)eventHorizonJobLINQ.Clone();
 
-            RefreshActiveRams();
+            RefreshActiveJobs();
         }
 
-        public void RefreshActiveRams()
+        public void RefreshActiveJobs()
         {
             try
             {
                 ActiveRamsListView.Items.Clear();
-                DataTableManagementRiskAssessment.EventHorizon_RiskAssessment.Clear();
+                DataTableManagementJob.EventHorizon_Job.Clear();
 
-                EventHorizonRamsLINQList = DataTableManagementRiskAssessment.GetRamss();
+                EventHorizonJobLINQList = DataTableManagementJob.GetJobs();
 
-                Console.Write("EventHorizonRamsLINQList Count = ");
-                Console.WriteLine(EventHorizonRamsLINQList.Count);
+                Console.Write("EventHorizonJobLINQList Count = ");
+                Console.WriteLine(EventHorizonJobLINQList.Count);
 
-                foreach (EventHorizonRamsLINQ eventHorizonRamsLINQ in EventHorizonRamsLINQList)
+                foreach (EventHorizonJobLINQ eventHorizonJobLINQ in EventHorizonJobLINQList)
                 {
-                    RamsRow ramsRow = RamsRow.CreateRamsRow(eventHorizonRamsLINQ);
+                    RamsRow ramsRow = RamsRow.CreateJobRow(eventHorizonJobLINQ);
 
                     ActiveRamsListView.Items.Add(ramsRow); 
                 }
@@ -83,14 +83,14 @@ namespace Event_Horizon
 
             RamsRow item = (RamsRow)dep;
 
-            MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem = (EventHorizonRamsLINQ)item.Tag;
+            MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem = (EventHorizonJobLINQ)item.Tag;
 
             MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = item;
 
-            if (MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem != null)
+            if (MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem != null)
             {
                 //try open event as EditRams
-                JobWindow editJobWindow = new JobWindow(MainWindow.activeRamsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem, null);
+                JobWindow editJobWindow = new JobWindow(MainWindow.activeRamsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem, null);
                 editJobWindow.Owner = MainWindow.activeRamsWindow;
                 editJobWindow.Show();
             }
@@ -98,17 +98,17 @@ namespace Event_Horizon
 
         private void DeleteJobRow()
         {
-            if (eventHorizonRamsLINQ_SelectedItem != null)
+            if (eventHorizonJobLINQ_SelectedItem != null)
             {             
                 EventHorizonRequesterNotification orn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Delete this job, are you sure", InformationTextBlock = "This will also delete the associated risk assessment and method statement." }, RequesterTypes.NoYes);
                 var result = orn.ShowDialog();
                 if (result == true)
                 {
-                    if (eventHorizonRamsLINQ_SelectedItem.ID > 0) DataTableManagementJob.DeleteJob(eventHorizonRamsLINQ_SelectedItem.ID);
+                    if (eventHorizonJobLINQ_SelectedItem.ID > 0) DataTableManagementJob.DeleteJob(eventHorizonJobLINQ_SelectedItem.ID);
                 }
             }
 
-            RefreshActiveRams();
+            RefreshActiveJobs();
         }
         private void DeleteRightMouseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -129,14 +129,14 @@ namespace Event_Horizon
 
             RamsRow item = (RamsRow)dep;
 
-            eventHorizonRamsLINQ_SelectedItem = (EventHorizonRamsLINQ)item.Tag;
+            eventHorizonJobLINQ_SelectedItem = (EventHorizonJobLINQ)item.Tag;
 
             Console.WriteLine();
             Console.WriteLine(">S>>Active Jobs ActiveRamsListView_PreviewMouseLeftButtonDown<<<<");
             Console.WriteLine();
 
-            Console.Write("item.Tag eventHorizonRamsLINQ_SelectedItem.ID = ");
-            Console.WriteLine(eventHorizonRamsLINQ_SelectedItem.ID);
+            Console.Write("item.Tag eventHorizonJobLINQ_SelectedItem.ID = ");
+            Console.WriteLine(eventHorizonJobLINQ_SelectedItem.ID);
 
             Console.WriteLine();
             Console.WriteLine(">F>>Active Jobs ActiveRamsListView_PreviewMouseLeftButtonDown<<<<");

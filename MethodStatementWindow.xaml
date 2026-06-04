@@ -9,9 +9,6 @@
         mc:Ignorable="d"
         Icon="EventHorizonIcon.ico" Closing="Window_Closing" Topmost="True" ResizeMode="NoResize" Name="RamsWindowWindow"
         Title="Event Horizon - Method Statement" Width="940" Height="784" WindowStartupLocation="CenterScreen">
-    <Window.Resources>
-        <local:RectConverter x:Key="RectConverter" />
-    </Window.Resources>
     <Grid RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" TextOptions.TextRenderingMode="Grayscale" RenderOptions.ClearTypeHint="Enabled">
 
         <Rectangle Opacity="0.56" Width="200" Height="794" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -91,7 +88,6 @@
             <Label Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3,0,0" >
                 <TextBlock Text="Method State Contract Title" FontSize="13" FontWeight="Medium" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top"/>
             </Label>
-            <Label Grid.Row="10" Content="MS Revision No" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
             <Label Grid.Row="11" Content="MS Contractor" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
             <Label Grid.Row="12" Content="Status" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
             <Label Grid.Row="13" Content="Options" HorizontalAlignment="Right" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>
@@ -216,20 +212,6 @@
                 </Border.Effect>
                 <TextBox x:Name="MSContractTitleTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
             </Border>
-
-            <StackPanel Grid.Column="1" Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Left">
-                <ComboBox x:Name="MSRevisionNoComboBox" SelectedIndex="0" IsEditable="False" IsReadOnly="True" FontSize="18" Background="#55ffffff" Width="160" Height="40" Margin="10,6,10,6"
-                    Style="{DynamicResource FrequencyComboBoxStyle}" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right"
-                    ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="MSRevisionNoComboBox_SelectionChanged">
-                    <ComboBox.Effect>
-                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
-                    </ComboBox.Effect>
-                    <ComboBoxItem Content="1"/>
-                    <ComboBoxItem Content="2"/>
-                    <ComboBoxItem Content="3"/>
-                    <ComboBoxItem Content="4"/>
-                </ComboBox>
-            </StackPanel>
 
             <StackPanel Grid.Column="3" Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label Content="Rams Status" HorizontalAlignment="Left" Margin="0,11,0,0" FontSize="13" FontWeight="Medium"/>

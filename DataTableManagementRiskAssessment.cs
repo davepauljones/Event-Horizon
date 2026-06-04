@@ -16,7 +16,6 @@ namespace Event_Horizon
     public class DataTableManagementRiskAssessment
     {
         public static EventHorizonRiskAssessment EventHorizon_RiskAssessment = new EventHorizonRiskAssessment();
-        public static EventHorizonRamsProfile EventHorizon_RamsProfile = new EventHorizonRamsProfile();
         public static int RowLimitMode = RowLimitModes.LimitOnly;
         public static Int32 RowLimitStep = 30;
         public static Int32 RowLimit = RowLimitStep;
@@ -71,7 +70,6 @@ namespace Event_Horizon
             EnumerableRowCollection<DataRow> query;
 
             query = from eventHorizonRams in EventHorizon_RiskAssessment.AsEnumerable()      
-                    orderby eventHorizonRams.Field<DateTime>("CreatedDateTime") descending
                     select eventHorizonRams;
 
             DataView dataView = query.AsDataView();
@@ -83,23 +81,6 @@ namespace Event_Horizon
                 EventHorizonRamsLINQ eventHorizonRamsLINQ = new EventHorizonRamsLINQ();
 
                 if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonRamsLINQ.ID)) eventHorizonRamsLINQ.ID = 0;
-
-                string createdDateTimeString = dataRow["CreatedDateTime"].ToString();
-                DateTime createdDateTime = DateTime.MinValue;
-                if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
-                eventHorizonRamsLINQ.CreationDate = createdDateTime;
-
-                eventHorizonRamsLINQ.JobNo = dataRow["JobNo"].ToString();
-
-                eventHorizonRamsLINQ.Description = dataRow["Description"].ToString();
-
-                if (!int.TryParse(dataRow["RamsProfileTypeID"].ToString(), out eventHorizonRamsLINQ.RamsProfileTypeID)) eventHorizonRamsLINQ.RamsProfileTypeID = 0;
-
-                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonRamsLINQ.UserID)) eventHorizonRamsLINQ.UserID = 0;
-
-                eventHorizonRamsLINQ.ClientName = dataRow["ClientName"].ToString();
-                eventHorizonRamsLINQ.Site = dataRow["Site"].ToString();
-                eventHorizonRamsLINQ.LocationActivity = dataRow["LocationActivity"].ToString();
 
                 if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonRamsLINQ.RevisionNo)) eventHorizonRamsLINQ.RevisionNo = 0;
 
@@ -176,22 +157,6 @@ namespace Event_Horizon
 
                 if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonRamsLINQ.ID)) eventHorizonRamsLINQ.ID = 0;
 
-                string createdDateTimeString = dataRow["CreatedDateTime"].ToString();
-                DateTime createdDateTime = DateTime.MinValue;
-                if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
-                eventHorizonRamsLINQ.CreationDate = createdDateTime;
-
-                eventHorizonRamsLINQ.JobNo = dataRow["JobNo"].ToString();
-
-                eventHorizonRamsLINQ.Description = dataRow["Description"].ToString();
-
-                if (!int.TryParse(dataRow["RamsProfileTypeID"].ToString(), out eventHorizonRamsLINQ.RamsProfileTypeID)) eventHorizonRamsLINQ.RamsProfileTypeID = 0;
-                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonRamsLINQ.UserID)) eventHorizonRamsLINQ.UserID = 0;
-
-                eventHorizonRamsLINQ.ClientName = dataRow["ClientName"].ToString();
-                eventHorizonRamsLINQ.Site = dataRow["Site"].ToString();
-                eventHorizonRamsLINQ.LocationActivity = dataRow["LocationActivity"].ToString();
-
                 if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonRamsLINQ.RevisionNo)) eventHorizonRamsLINQ.RevisionNo = 0;
 
                 eventHorizonRamsLINQ.ElementReviewed = dataRow["ElementReviewed"].ToString();
@@ -227,14 +192,7 @@ namespace Event_Horizon
             {
                 bool saveSuccessFull = false;
 
-                string jobNoSafeString = riskAssessmentWindow.JobNoTextBox.Text.Replace("'", "''");
-                string descriptionSafeString = riskAssessmentWindow.DescriptionTextBox.Text.Replace("'", "''");
-                string clientNameSafeString = riskAssessmentWindow.ClientNameTextBox.Text.Replace("'", "''");
-                string siteSafeString = riskAssessmentWindow.SiteTextBox.Text.Replace("'", "''");
-                string locationActivitySafeString = riskAssessmentWindow.LocationActivityTextBox.Text.Replace("'", "''");
                 string elementReviewedSafeString = riskAssessmentWindow.ElementReviewedTextBox.Text.Replace("'", "''");
-
-                DateTime? createdDateTime = DateTime.Now;
 
                 DateTime reviewedDateTimeNow = DateTime.Now;
 
@@ -245,16 +203,9 @@ namespace Event_Horizon
                     case DatabaseSystems.SQLite:
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            using (SQLiteCommand command = new SQLiteCommand("UPDATE RiskAssessments SET JobNo = ?, Description = ?, RamsProfileTypeID = ?, ClientName = ?, Site = ?, LocationActivity = ?, RevisionNo = ?, ElementReviewed = ?, ReviewedDateTime = ?, StatusID = ? WHERE ID = ?", connection))
+                            using (SQLiteCommand command = new SQLiteCommand("UPDATE RiskAssessments SET RevisionNo = ?, ElementReviewed = ?, ReviewedDateTime = ?, StatusID = ? WHERE ID = ?", connection))
                             {
                                 connection.Open();
-
-                                command.Parameters.Add("@JobNo", DbType.String).Value = jobNoSafeString;
-                                command.Parameters.Add("@Description", DbType.String).Value = descriptionSafeString;
-                                command.Parameters.Add("@RamsProfileTypeID", DbType.Int32).Value = riskAssessmentWindow.RamsProfileTypeComboBox.SelectedIndex;
-                                command.Parameters.Add("@ClientName", DbType.String).Value = clientNameSafeString;
-                                command.Parameters.Add("@Site", DbType.String).Value = siteSafeString;
-                                command.Parameters.Add("@LocationActivity", DbType.String).Value = locationActivitySafeString;
 
                                 command.Parameters.Add("@RevisionNo", DbType.Int32).Value = riskAssessmentWindow.RevisionNoComboBox.SelectedIndex;
 
@@ -271,33 +222,19 @@ namespace Event_Horizon
                                 else if (rowsAffected == 0 || ramsMode == EventWindowModes.NewEvent || ramsMode == EventWindowModes.NewNote || ramsMode == EventWindowModes.NewReply)
                                 {
                                     command.Parameters.Clear();
-                                    command.CommandText = "INSERT INTO RiskAssessments (CreatedDateTime, JobNo, Description, RamsProfileTypeID, UserID, ClientName, Site, LocationActivity, RevisionNo, ElementReviewed, ReviewedDateTime, StatusID) VALUES (@CreatedDateTime, @JobNo, @Description, @RamsProfileTypeID, @UserID, @ClientName, @Site, @LocationActivity, @RevisionNo, @ElementReviewed, @ReviewedDateTime, @StatusID);";
-
-                                    command.Parameters.Add("@CreatedDateTime", DbType.DateTime).Value = createdDateTime;
-
-                                    command.Parameters.Add("@JobNo", DbType.String).Value = jobNoSafeString;
-
-                                    command.Parameters.Add("@Description", DbType.String).Value = descriptionSafeString;
-
-                                    command.Parameters.Add("@RamsProfileTypeID", DbType.Int32).Value = riskAssessmentWindow.RamsProfileTypeComboBox.SelectedIndex;
-                                    
-                                    command.Parameters.Add("@UserID", DbType.Int32).Value = XMLReaderWriter.UserID;
-
-                                    command.Parameters.Add("@ClientName", DbType.String).Value = clientNameSafeString;
-                                    command.Parameters.Add("@Site", DbType.String).Value = siteSafeString;
-                                    command.Parameters.Add("@LocationActivity", DbType.String).Value = locationActivitySafeString;
+                                    command.CommandText = "INSERT INTO RiskAssessments (RevisionNo, ElementReviewed, ReviewedDateTime, StatusID) VALUES (@RevisionNo, @ElementReviewed, @ReviewedDateTime, @StatusID);";
 
                                     command.Parameters.Add("@RevisionNo", DbType.Int32).Value = riskAssessmentWindow.RevisionNoComboBox.SelectedIndex;
 
                                     command.Parameters.Add("@ElementReviewed", DbType.String).Value = elementReviewedSafeString;
 
-                                    command.Parameters.Add("@ReviewedDateTime", DbType.DateTime).Value = createdDateTime;
+                                    command.Parameters.Add("@ReviewedDateTime", DbType.DateTime).Value = reviewedDateTimeNow;
 
                                     command.Parameters.Add("@StatusID", DbType.Int32).Value = riskAssessmentWindow.RamsStatusIDComboBox.SelectedIndex;
 
                                     command.ExecuteNonQuery();
 
-                                    MainWindow.mw.Status.Content = "Successfully added a new risk assessment";
+                                    MainWindow.activeRamsWindow.Status.Content = "Successfully added a new risk assessment";
                                 }
                             }
                         }
@@ -309,7 +246,7 @@ namespace Event_Horizon
                 {
                     MainWindow.activeRamsWindow.Status.Content = "Successfully updated a Risk Assessment";
                     MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
-                    MainWindow.activeRamsWindow.RefreshActiveRams();
+                    MainWindow.activeRamsWindow.RefreshActiveJobs();
                 }
 
                 if (saveSuccessFull)
@@ -317,7 +254,7 @@ namespace Event_Horizon
                     riskAssessmentWindow.Close();
                     if (riskAssessmentWindow.riskAssessmentWindow != null) riskAssessmentWindow.riskAssessmentWindow.Close();
                     MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
-                    MainWindow.activeRamsWindow.RefreshActiveRams();
+                    MainWindow.activeRamsWindow.RefreshActiveJobs();
                 }
             }
         }
@@ -365,8 +302,6 @@ namespace Event_Horizon
         
         public static void DeleteRams(Int32 EventID)
         {
-            bool saveSuccessFull = false;
-
             if (XMLReaderWriter.UserID != 1)
             {
                 if (GetUserID(EventID) != XMLReaderWriter.UserID)
@@ -392,8 +327,6 @@ namespace Event_Horizon
 
                                 command.ExecuteNonQuery();
 
-                                saveSuccessFull = true;
-
                                 MainWindow.mw.Status.Content = "Successfully deleted risk assessment.";
                             }
                         }
@@ -411,89 +344,9 @@ namespace Event_Horizon
             }
         }
 
-        public static void GetRamsProfiles()
-        {
-            try
-            {
-                using (SQLiteConnection conn = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
-                {
-                    string sqlcmd = "SELECT * FROM RamsProfiles ORDER BY ID DESC;";
-
-                    SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
-
-                    conn.Open();
-
-                    SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-
-                    adapter.Fill(EventHorizon_RamsProfile);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions here
-                Console.WriteLine("Error: " + ex.Message);
-                Console.WriteLine("-------------------*---------------------");
-
-                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetRamsProfiles - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
-                msg.ShowDialog();
-            }
-        }
-        public static bool GetRamsProfileTypes()
-        {
-            RamsProfileTypesList.Clear();
-
-            RamsProfileTypesList.Add(new RamsProfileType { ID = 0, ProfileName = "All Rams Profile Types", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
-            RamsProfileTypesList.Add(new RamsProfileType { ID = 1, ProfileName = "Number 1", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
-            RamsProfileTypesList.Add(new RamsProfileType { ID = 2, ProfileName = "Number 2", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
-
-            foreach (DataRow row in EventHorizon_RamsProfile.Rows)
-            {
-                RamsProfileTypesList.Add(new RamsProfileType { ID = row.Field<Int32>("ID"), ProfileName = row.Field<string>("ProfileName") });
-            }
-
-            return true;
-        }
-        
         private static bool CheckFormFields(RiskAssessmentWindow riskAssessmentWindow)
         {
             int result = 0;
-
-            if (riskAssessmentWindow.JobNoTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (riskAssessmentWindow.DescriptionTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (riskAssessmentWindow.RamsProfileTypeComboBox.SelectedIndex == 0)
-            {
-                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CheckFormFields", InformationTextBlock = "You can not choose 'All Rams' as an Rams Profile type." }, RequesterTypes.OK);
-                msg.ShowDialog();
-                return false;
-            }
-
-            if (riskAssessmentWindow.RamsProfileTypeComboBox.SelectedIndex > -1)
-            {
-                result++;
-            }
-
-            if (riskAssessmentWindow.ClientNameTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (riskAssessmentWindow.SiteTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (riskAssessmentWindow.LocationActivityTextBox.Text.Length > 0)
-            {
-                result++;
-            }
 
             if (riskAssessmentWindow.RevisionNoComboBox.SelectedIndex > -1)
             {
@@ -505,7 +358,7 @@ namespace Event_Horizon
                 result++;
             }
 
-            if (result == 8)
+            if (result == 2)
             {
                 return true;
             }

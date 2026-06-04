@@ -138,8 +138,8 @@ namespace Event_Horizon
             {
                 RAMSTreeViewStackPanel.Visibility = System.Windows.Visibility.Visible;
                 LoadRAMSVisualTree();
-                DataTableManagementRiskAssessment.GetRamsProfiles();
-                DataTableManagementRiskAssessment.GetRamsProfileTypes();
+                DataTableManagementJob.GetRamsProfiles();
+                DataTableManagementJob.GetRamsProfileTypes();
             }
             else
             {
@@ -1174,13 +1174,13 @@ namespace Event_Horizon
                     {
                         case Rams.NewRams:
                             JobWindow newJobWindow;
-                            newJobWindow = new JobWindow(this, EventWindowModes.NewEvent, new EventHorizonRamsLINQ(), null);
+                            newJobWindow = new JobWindow(this, EventWindowModes.NewEvent, new EventHorizonJobLINQ(), null);
                             newJobWindow.Owner = this;
                             newJobWindow.Show();
                             break;
                         case Rams.ActiveRams:
                             ActiveRamsWindow activeRamsWindow;
-                            activeRamsWindow = new ActiveRamsWindow(this, new EventHorizonRamsLINQ());
+                            activeRamsWindow = new ActiveRamsWindow(this, new EventHorizonJobLINQ());
                             activeRamsWindow.Owner = this;
                             activeRamsWindow.Show();
                             break;

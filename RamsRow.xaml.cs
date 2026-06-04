@@ -14,32 +14,32 @@ namespace Event_Horizon
     /// </summary>
     public partial class RamsRow : UserControl
     {
-        EventHorizonRamsLINQ eventHorizonRamsLINQ;
+        EventHorizonJobLINQ eventHorizonJobLINQ;
 
-        public RamsRow(EventHorizonRamsLINQ eventHorizonRamsLINQ)
+        public RamsRow(EventHorizonJobLINQ eventHorizonJobLINQ)
         {
             InitializeComponent();
 
-            this.eventHorizonRamsLINQ = eventHorizonRamsLINQ;
+            this.eventHorizonJobLINQ = eventHorizonJobLINQ;
         }
 
-        public static RamsRow CreateRamsRow(EventHorizonRamsLINQ eventHorizonRamsLINQ)
+        public static RamsRow CreateJobRow(EventHorizonJobLINQ eventHorizonJobLINQ)
         {
-            RamsRow ramsRow = new RamsRow(eventHorizonRamsLINQ);
+            RamsRow ramsRow = new RamsRow(eventHorizonJobLINQ);
 
-            ramsRow.RamsIDTextBlock.Text = eventHorizonRamsLINQ.ID.ToString("D5");
+            ramsRow.RamsIDTextBlock.Text = eventHorizonJobLINQ.ID.ToString("D5");
 
-            ramsRow.CreatedDateTimeTextBlock.Text = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/y HH:mm");
+            ramsRow.CreatedDateTimeTextBlock.Text = eventHorizonJobLINQ.CreationDate.ToString("dd/MM/y HH:mm");
 
-            ramsRow.JobNoTextBlock.Text = eventHorizonRamsLINQ.JobNo.ToString();
+            ramsRow.JobNoTextBlock.Text = eventHorizonJobLINQ.JobNo.ToString();
 
-            ramsRow.DescriptionTextBlock.Text = eventHorizonRamsLINQ.Description;
+            ramsRow.DescriptionTextBlock.Text = eventHorizonJobLINQ.Description;
 
-            if (eventHorizonRamsLINQ.RamsProfileTypeID < DataTableManagementRiskAssessment.RamsProfileTypesList.Count)
+            if (eventHorizonJobLINQ.RamsProfileTypeID < DataTableManagementJob.RamsProfileTypesList.Count)
             {
                 ramsRow.RamsProfileTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.Beige);
                 ramsRow.RamsProfileTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Star;
-                ramsRow.RamsProfileTypeTextBlock.Text = DataTableManagementRiskAssessment.RamsProfileTypesList[eventHorizonRamsLINQ.RamsProfileTypeID].ProfileName;
+                ramsRow.RamsProfileTypeTextBlock.Text = DataTableManagementRiskAssessment.RamsProfileTypesList[eventHorizonJobLINQ.RamsProfileTypeID].ProfileName;
                 ramsRow.BackgroundGrid.Background = new SolidColorBrush(Colors.Transparent);
             }
             else
@@ -51,21 +51,21 @@ namespace Event_Horizon
             }
 
 
-            if (eventHorizonRamsLINQ.UserID < XMLReaderWriter.UsersList.Count)
+            if (eventHorizonJobLINQ.UserID < XMLReaderWriter.UsersList.Count)
             {
-                ramsRow.UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
-                ramsRow.UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                ramsRow.UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
+                ramsRow.UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
             }
             else
             {
                 ramsRow.UserEllipse.Fill = new SolidColorBrush(Colors.White);
-                ramsRow.UserLabel.Content = eventHorizonRamsLINQ.UserID;
+                ramsRow.UserLabel.Content = eventHorizonJobLINQ.UserID;
             }
 
-            if (eventHorizonRamsLINQ.UserID < XMLReaderWriter.UsersList.Count)
+            if (eventHorizonJobLINQ.UserID < XMLReaderWriter.UsersList.Count)
             {
-                if (eventHorizonRamsLINQ.UserID > 0)
-                    ramsRow.UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                if (eventHorizonJobLINQ.UserID > 0)
+                    ramsRow.UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 else
                 {
                     ramsRow.UserLabel.Content = "★";
@@ -76,14 +76,14 @@ namespace Event_Horizon
             else
             {
                 ramsRow.UserEllipse.Fill = new SolidColorBrush(Colors.White);
-                ramsRow.UserLabel.Content = eventHorizonRamsLINQ.UserID;
+                ramsRow.UserLabel.Content = eventHorizonJobLINQ.UserID;
             }
 
-            ramsRow.ClientNameTextBlock.Text = eventHorizonRamsLINQ.ClientName;
-            ramsRow.SiteTextBlock.Text = eventHorizonRamsLINQ.Site;
-            ramsRow.LocationActivityTextBlock.Text = eventHorizonRamsLINQ.LocationActivity;
+            ramsRow.ClientNameTextBlock.Text = eventHorizonJobLINQ.ClientName;
+            ramsRow.SiteTextBlock.Text = eventHorizonJobLINQ.Site;
+            ramsRow.LocationActivityTextBlock.Text = eventHorizonJobLINQ.LocationActivity;
 
-            switch (eventHorizonRamsLINQ.StatusID)
+            switch (eventHorizonJobLINQ.StatusID)
             {
                 case 0:
                     ramsRow.StatusTextBlock.Text = "New";
@@ -99,7 +99,7 @@ namespace Event_Horizon
                     break;
             }
             
-            ramsRow.Tag = eventHorizonRamsLINQ;
+            ramsRow.Tag = eventHorizonJobLINQ;
 
             return ramsRow;
         }
@@ -118,14 +118,14 @@ namespace Event_Horizon
 
             RamsRow item = (RamsRow)dep;
 
-            MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem = (EventHorizonRamsLINQ)item.Tag;
+            MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem = (EventHorizonJobLINQ)item.Tag;
 
             MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = item;
 
-            if (MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem != null)
+            if (MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem != null)
             {
                 //try open event as EditRams
-                RiskAssessmentWindow editRamsWindow = new RiskAssessmentWindow(MainWindow.activeRamsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem, null);
+                RiskAssessmentWindow editRamsWindow = new RiskAssessmentWindow(MainWindow.activeRamsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem, null);
                 editRamsWindow.Owner = MainWindow.activeRamsWindow;
                 editRamsWindow.Show();
             }
@@ -145,14 +145,14 @@ namespace Event_Horizon
 
             RamsRow item = (RamsRow)dep;
 
-            MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem = (EventHorizonRamsLINQ)item.Tag;
+            MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem = (EventHorizonJobLINQ)item.Tag;
 
             MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = item;
 
-            if (MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem != null)
+            if (MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem != null)
             {
                 //try open event as EditRams
-                MethodStatementWindow MethodStatementWindow = new MethodStatementWindow(MainWindow.activeRamsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeRamsWindow.eventHorizonRamsLINQ_SelectedItem, null);
+                MethodStatementWindow MethodStatementWindow = new MethodStatementWindow(MainWindow.activeRamsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem, null);
                 MethodStatementWindow.Owner = MainWindow.activeRamsWindow;
                 MethodStatementWindow.Show();
             }

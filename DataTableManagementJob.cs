@@ -29,9 +29,9 @@ namespace Event_Horizon
 
         public static List<RamsProfileType> RamsProfileTypesList = new List<RamsProfileType>();
 
-        public static List<EventHorizonRamsLINQ> GetRamss()
+        public static List<EventHorizonJobLINQ> GetJobs()
         {
-            List<EventHorizonRamsLINQ> _EventHorizonRamsLINQReturnList = new List<EventHorizonRamsLINQ>();
+            List<EventHorizonJobLINQ> _EventHorizonJobLINQReturnList = new List<EventHorizonJobLINQ>();
 
             MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\Audio\\claves.wav");
             MainWindow.mw.widgetDatabaseHealth.UpdateLastWriteLabel(true);
@@ -80,37 +80,37 @@ namespace Event_Horizon
 
             foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                EventHorizonRamsLINQ eventHorizonRamsLINQ = new EventHorizonRamsLINQ();
+                EventHorizonJobLINQ eventHorizonJobLINQ = new EventHorizonJobLINQ();
 
-                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonRamsLINQ.ID)) eventHorizonRamsLINQ.ID = 0;
+                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonJobLINQ.ID)) eventHorizonJobLINQ.ID = 0;
 
                 string createdDateTimeString = dataRow["CreatedDateTime"].ToString();
                 DateTime createdDateTime = DateTime.MinValue;
                 if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
-                eventHorizonRamsLINQ.CreationDate = createdDateTime;
+                eventHorizonJobLINQ.CreationDate = createdDateTime;
 
-                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonRamsLINQ.UserID)) eventHorizonRamsLINQ.UserID = 0;
+                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonJobLINQ.UserID)) eventHorizonJobLINQ.UserID = 0;
 
-                eventHorizonRamsLINQ.JobNo = dataRow["JobNo"].ToString();
+                eventHorizonJobLINQ.JobNo = dataRow["JobNo"].ToString();
 
-                eventHorizonRamsLINQ.Description = dataRow["Description"].ToString();
+                eventHorizonJobLINQ.Description = dataRow["Description"].ToString();
 
-                if (!int.TryParse(dataRow["RamsProfileTypeID"].ToString(), out eventHorizonRamsLINQ.RamsProfileTypeID)) eventHorizonRamsLINQ.RamsProfileTypeID = 0;
+                if (!int.TryParse(dataRow["RamsProfileTypeID"].ToString(), out eventHorizonJobLINQ.RamsProfileTypeID)) eventHorizonJobLINQ.RamsProfileTypeID = 0;
 
-                eventHorizonRamsLINQ.ClientName = dataRow["ClientName"].ToString();
-                eventHorizonRamsLINQ.Site = dataRow["Site"].ToString();
-                eventHorizonRamsLINQ.LocationActivity = dataRow["LocationActivity"].ToString();
+                eventHorizonJobLINQ.ClientName = dataRow["ClientName"].ToString();
+                eventHorizonJobLINQ.Site = dataRow["Site"].ToString();
+                eventHorizonJobLINQ.LocationActivity = dataRow["LocationActivity"].ToString();
 
-                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonRamsLINQ.StatusID)) eventHorizonRamsLINQ.StatusID = 0;
+                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonJobLINQ.StatusID)) eventHorizonJobLINQ.StatusID = 0;
 
-                _EventHorizonRamsLINQReturnList.Add(eventHorizonRamsLINQ);
+                _EventHorizonJobLINQReturnList.Add(eventHorizonJobLINQ);
             }
-            return _EventHorizonRamsLINQReturnList;
+            return _EventHorizonJobLINQReturnList;
         }
 
-        public static EventHorizonRamsLINQ GetRams(Int32 eventID)
+        public static EventHorizonJobLINQ GetJob(Int32 eventID)
         {
-            EventHorizonRamsLINQ _EventHorizonLINQReturn = new EventHorizonRamsLINQ();
+            EventHorizonJobLINQ _EventHorizonJobLINQReturn = new EventHorizonJobLINQ();
 
             switch (XMLReaderWriter.DatabaseSystem)
             {
@@ -154,35 +154,35 @@ namespace Event_Horizon
 
             foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                EventHorizonRamsLINQ eventHorizonRamsLINQ = new EventHorizonRamsLINQ();
+                EventHorizonJobLINQ eventHorizonJobLINQ = new EventHorizonJobLINQ();
 
-                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonRamsLINQ.ID)) eventHorizonRamsLINQ.ID = 0;
+                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonJobLINQ.ID)) eventHorizonJobLINQ.ID = 0;
 
                 string createdDateTimeString = dataRow["CreatedDateTime"].ToString();
                 DateTime createdDateTime = DateTime.MinValue;
                 if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
-                eventHorizonRamsLINQ.CreationDate = createdDateTime;
+                eventHorizonJobLINQ.CreationDate = createdDateTime;
 
-                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonRamsLINQ.UserID)) eventHorizonRamsLINQ.UserID = 0;
+                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonJobLINQ.UserID)) eventHorizonJobLINQ.UserID = 0;
 
-                eventHorizonRamsLINQ.JobNo = dataRow["JobNo"].ToString();
+                eventHorizonJobLINQ.JobNo = dataRow["JobNo"].ToString();
 
-                eventHorizonRamsLINQ.Description = dataRow["Description"].ToString();
+                eventHorizonJobLINQ.Description = dataRow["Description"].ToString();
 
-                if (!int.TryParse(dataRow["RamsProfileTypeID"].ToString(), out eventHorizonRamsLINQ.RamsProfileTypeID)) eventHorizonRamsLINQ.RamsProfileTypeID = 0;
+                if (!int.TryParse(dataRow["RamsProfileTypeID"].ToString(), out eventHorizonJobLINQ.RamsProfileTypeID)) eventHorizonJobLINQ.RamsProfileTypeID = 0;
 
-                eventHorizonRamsLINQ.ClientName = dataRow["ClientName"].ToString();
-                eventHorizonRamsLINQ.Site = dataRow["Site"].ToString();
-                eventHorizonRamsLINQ.LocationActivity = dataRow["LocationActivity"].ToString();
+                eventHorizonJobLINQ.ClientName = dataRow["ClientName"].ToString();
+                eventHorizonJobLINQ.Site = dataRow["Site"].ToString();
+                eventHorizonJobLINQ.LocationActivity = dataRow["LocationActivity"].ToString();
 
-                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonRamsLINQ.StatusID)) eventHorizonRamsLINQ.StatusID = 0;
+                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonJobLINQ.StatusID)) eventHorizonJobLINQ.StatusID = 0;
 
-                _EventHorizonLINQReturn = eventHorizonRamsLINQ;
+                _EventHorizonJobLINQReturn = eventHorizonJobLINQ;
             }
-            return _EventHorizonLINQReturn;
+            return _EventHorizonJobLINQReturn;
         }
  
-        public static void SaveJob(JobWindow jobWindow, EventHorizonRamsLINQ eventHorizonRamsLINQ, int ramsMode)
+        public static void SaveJob(JobWindow jobWindow, EventHorizonJobLINQ eventHorizonJobLINQ, int ramsMode)
         {
             if (CheckFormFields(jobWindow))
             {
@@ -215,7 +215,7 @@ namespace Event_Horizon
                                 command.Parameters.Add("@LocationActivity", DbType.String).Value = locationActivitySafeString;
                                 command.Parameters.Add("@StatusID", DbType.Int32).Value = jobWindow.RamsStatusIDComboBox.SelectedIndex;
 
-                                command.Parameters.AddWithValue("@ID", eventHorizonRamsLINQ.ID);
+                                command.Parameters.AddWithValue("@ID", eventHorizonJobLINQ.ID);
 
                                 if (ramsMode == EventWindowModes.ViewMainEvent || ramsMode == EventWindowModes.ViewNote || ramsMode == EventWindowModes.ViewReply || ramsMode == EventWindowModes.EditMainEvent || ramsMode == EventWindowModes.EditNote || ramsMode == EventWindowModes.EditReply)
                                     rowsAffected = command.ExecuteNonQuery();
@@ -242,7 +242,7 @@ namespace Event_Horizon
 
                                     command.ExecuteNonQuery();
 
-                                    MainWindow.mw.Status.Content = "Successfully added a new Job";
+                                    MainWindow.activeRamsWindow.Status.Content = "Successfully added a new Job";
                                 }
                             }
                         }
@@ -252,9 +252,9 @@ namespace Event_Horizon
 
                 if (rowsAffected > 0)
                 {
-                    MainWindow.mw.Status.Content = "Successfully updated a Job";
+                    MainWindow.activeRamsWindow.Status.Content = "Successfully updated a Job";
                     MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
-                    MainWindow.activeRamsWindow.RefreshActiveRams();
+                    MainWindow.activeRamsWindow.RefreshActiveJobs();
                 }
 
                 if (saveSuccessFull)
@@ -262,7 +262,7 @@ namespace Event_Horizon
                     jobWindow.Close();
                     if (jobWindow.jobWindow != null) jobWindow.jobWindow.Close();
                     MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
-                    MainWindow.activeRamsWindow.RefreshActiveRams();
+                    MainWindow.activeRamsWindow.RefreshActiveJobs();
                 }
             }
         }

@@ -71,7 +71,6 @@ namespace Event_Horizon
             EnumerableRowCollection<DataRow> query;
 
             query = from eventHorizonRams in EventHorizon_MethodStatement.AsEnumerable()      
-                    orderby eventHorizonRams.Field<DateTime>("CreatedDateTime") descending
                     select eventHorizonRams;
 
             DataView dataView = query.AsDataView();
@@ -83,23 +82,6 @@ namespace Event_Horizon
                 EventHorizonRamsLINQ eventHorizonRamsLINQ = new EventHorizonRamsLINQ();
 
                 if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonRamsLINQ.ID)) eventHorizonRamsLINQ.ID = 0;
-
-                string createdDateTimeString = dataRow["CreatedDateTime"].ToString();
-                DateTime createdDateTime = DateTime.MinValue;
-                if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
-                eventHorizonRamsLINQ.CreationDate = createdDateTime;
-
-                eventHorizonRamsLINQ.JobNo = dataRow["JobNo"].ToString();
-
-                eventHorizonRamsLINQ.Description = dataRow["Description"].ToString();
-
-                if (!int.TryParse(dataRow["RamsProfileTypeID"].ToString(), out eventHorizonRamsLINQ.RamsProfileTypeID)) eventHorizonRamsLINQ.RamsProfileTypeID = 0;
-
-                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonRamsLINQ.UserID)) eventHorizonRamsLINQ.UserID = 0;
-
-                eventHorizonRamsLINQ.ClientName = dataRow["ClientName"].ToString();
-                eventHorizonRamsLINQ.Site = dataRow["Site"].ToString();
-                eventHorizonRamsLINQ.LocationActivity = dataRow["LocationActivity"].ToString();
 
                 if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonRamsLINQ.RevisionNo)) eventHorizonRamsLINQ.RevisionNo = 0;
 
@@ -182,22 +164,6 @@ namespace Event_Horizon
 
                 if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonRamsLINQ.ID)) eventHorizonRamsLINQ.ID = 0;
 
-                string createdDateTimeString = dataRow["CreatedDateTime"].ToString();
-                DateTime createdDateTime = DateTime.MinValue;
-                if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
-                eventHorizonRamsLINQ.CreationDate = createdDateTime;
-
-                eventHorizonRamsLINQ.JobNo = dataRow["JobNo"].ToString();
-
-                eventHorizonRamsLINQ.Description = dataRow["Description"].ToString();
-
-                if (!int.TryParse(dataRow["RamsProfileTypeID"].ToString(), out eventHorizonRamsLINQ.RamsProfileTypeID)) eventHorizonRamsLINQ.RamsProfileTypeID = 0;
-                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonRamsLINQ.UserID)) eventHorizonRamsLINQ.UserID = 0;
-
-                eventHorizonRamsLINQ.ClientName = dataRow["ClientName"].ToString();
-                eventHorizonRamsLINQ.Site = dataRow["Site"].ToString();
-                eventHorizonRamsLINQ.LocationActivity = dataRow["LocationActivity"].ToString();
-
                 if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonRamsLINQ.RevisionNo)) eventHorizonRamsLINQ.RevisionNo = 0;
 
                 eventHorizonRamsLINQ.ElementReviewed = dataRow["ElementReviewed"].ToString();
@@ -233,16 +199,9 @@ namespace Event_Horizon
             {
                 bool saveSuccessFull = false;
 
-                string jobNoSafeString = methodStatementWindow.JobNoTextBox.Text.Replace("'", "''");
-                string descriptionSafeString = methodStatementWindow.DescriptionTextBox.Text.Replace("'", "''");
-                string clientNameSafeString = methodStatementWindow.ClientNameTextBox.Text.Replace("'", "''");
-                string siteSafeString = methodStatementWindow.SiteTextBox.Text.Replace("'", "''");
-                string locationActivitySafeString = methodStatementWindow.LocationActivityTextBox.Text.Replace("'", "''");
                 string elementReviewedSafeString = methodStatementWindow.ElementReviewedTextBox.Text.Replace("'", "''");
                 string mSContractTitleSafeString = methodStatementWindow.MSContractTitleTextBox.Text.Replace("'", "''");
                 string mSContractorSafeString = methodStatementWindow.MSContractorTextBox.Text.Replace("'", "''");
-
-                DateTime? createdDateTime = DateTime.Now;
 
                 DateTime reviewedDateTimeNow = DateTime.Now;
 
@@ -253,26 +212,15 @@ namespace Event_Horizon
                     case DatabaseSystems.SQLite:
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            using (SQLiteCommand command = new SQLiteCommand("UPDATE MethodStatements SET JobNo = ?, Description = ?, RamsProfileTypeID = ?, ClientName = ?, Site = ?, LocationActivity = ?, RevisionNo = ?, ElementReviewed = ?, ReviewedDateTime = ?, MSContractTitle = ?, MSRevisionNo = ?, MSContractor = ?, StatusID = ? WHERE ID = ?", connection))
+                            using (SQLiteCommand command = new SQLiteCommand("UPDATE MethodStatements SET RevisionNo = ?, ElementReviewed = ?, ReviewedDateTime = ?, MSRevisionNo = ?, MSContractor = ?, StatusID = ? WHERE ID = ?", connection))
                             {
                                 connection.Open();
 
-                                command.Parameters.Add("@JobNo", DbType.String).Value = jobNoSafeString;
-                                command.Parameters.Add("@Description", DbType.String).Value = descriptionSafeString;
-                                command.Parameters.Add("@RamsProfileTypeID", DbType.Int32).Value = methodStatementWindow.RamsProfileTypeComboBox.SelectedIndex;
-                                command.Parameters.Add("@ClientName", DbType.String).Value = clientNameSafeString;
-                                command.Parameters.Add("@Site", DbType.String).Value = siteSafeString;
-                                command.Parameters.Add("@LocationActivity", DbType.String).Value = locationActivitySafeString;
-
-                                command.Parameters.Add("@RevisionNo", DbType.Int32).Value = methodStatementWindow.RevisionNoComboBox.SelectedIndex;
+                                command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = methodStatementWindow.RevisionNoComboBox.SelectedIndex;
 
                                 command.Parameters.Add("@ElementReviewed", DbType.String).Value = elementReviewedSafeString;
 
                                 command.Parameters.Add("@ReviewedDateTime", DbType.DateTime).Value = reviewedDateTimeNow;
-
-                                command.Parameters.Add("@MSContractTitle", DbType.String).Value = mSContractTitleSafeString;
-
-                                command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = methodStatementWindow.MSRevisionNoComboBox.SelectedIndex;
 
                                 command.Parameters.Add("@MSContractor", DbType.String).Value = mSContractorSafeString;
 
@@ -285,29 +233,13 @@ namespace Event_Horizon
                                 else if (rowsAffected == 0 || ramsMode == EventWindowModes.NewEvent || ramsMode == EventWindowModes.NewNote || ramsMode == EventWindowModes.NewReply)
                                 {
                                     command.Parameters.Clear();
-                                    command.CommandText = "INSERT INTO MethodStatements (CreatedDateTime, JobNo, Description, RamsProfileTypeID, UserID, ClientName, Site, LocationActivity, RevisionNo, ElementReviewed, ReviewedDateTime, MSContractTitle, MSRevisionNo, MSContractor, StatusID) VALUES (@CreatedDateTime, @JobNo, @Description, @RamsProfileTypeID, @UserID, @ClientName, @Site, @LocationActivity, @RevisionNo, @ElementReviewed, @ReviewedDateTime, @MSContractTitle, @MSRevisionNo, @MSContractor, @StatusID);";
-
-                                    command.Parameters.Add("@CreatedDateTime", DbType.DateTime).Value = createdDateTime;
-
-                                    command.Parameters.Add("@JobNo", DbType.String).Value = jobNoSafeString;
-
-                                    command.Parameters.Add("@Description", DbType.String).Value = descriptionSafeString;
-
-                                    command.Parameters.Add("@RamsProfileTypeID", DbType.Int32).Value = methodStatementWindow.RamsProfileTypeComboBox.SelectedIndex;
-                                    
-                                    command.Parameters.Add("@UserID", DbType.Int32).Value = XMLReaderWriter.UserID;
-
-                                    command.Parameters.Add("@ClientName", DbType.String).Value = clientNameSafeString;
-                                    command.Parameters.Add("@Site", DbType.String).Value = siteSafeString;
-                                    command.Parameters.Add("@LocationActivity", DbType.String).Value = locationActivitySafeString;
+                                    command.CommandText = "INSERT INTO MethodStatements (RevisionNo, ElementReviewed, ReviewedDateTime, MSRevisionNo, MSContractor, StatusID) VALUES (@RevisionNo, @ElementReviewed, @ReviewedDateTime, @MSRevisionNo, @MSContractor, @StatusID);";
 
                                     command.Parameters.Add("@RevisionNo", DbType.Int32).Value = methodStatementWindow.RevisionNoComboBox.SelectedIndex;
 
                                     command.Parameters.Add("@ElementReviewed", DbType.String).Value = elementReviewedSafeString;
 
-                                    command.Parameters.Add("@ReviewedDateTime", DbType.DateTime).Value = createdDateTime;
-
-                                    command.Parameters.Add("@MSContractTitle", DbType.String).Value = mSContractTitleSafeString;
+                                    command.Parameters.Add("@ReviewedDateTime", DbType.DateTime).Value = reviewedDateTimeNow;
 
                                     command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = methodStatementWindow.MSRevisionNoComboBox.SelectedIndex;
 
@@ -317,7 +249,7 @@ namespace Event_Horizon
 
                                     command.ExecuteNonQuery();
 
-                                    MainWindow.mw.Status.Content = "Successfully added a new Method Statement";
+                                    MainWindow.activeRamsWindow.Status.Content = "Successfully added a new Method Statement";
                                 }
                             }
                         }
@@ -327,10 +259,9 @@ namespace Event_Horizon
 
                 if (rowsAffected > 0)
                 {
-                    MainWindow.mw.Status.Content = "Successfully updated a Method Statement";
+                    MainWindow.activeRamsWindow.Status.Content = "Successfully updated a Method Statement";
                     MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
-                    MainWindow.activeRamsWindow.RefreshActiveRams();
-                    MainWindow.mw.RunningTask();
+                    MainWindow.activeRamsWindow.RefreshActiveJobs();
                 }
 
                 if (saveSuccessFull)
@@ -338,191 +269,14 @@ namespace Event_Horizon
                     methodStatementWindow.Close();
                     if (methodStatementWindow.methodStatementWindow != null) methodStatementWindow.methodStatementWindow.Close();
                     MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
-                    MainWindow.activeRamsWindow.RefreshActiveRams();
+                    MainWindow.activeRamsWindow.RefreshActiveJobs();
                 }
             }
-        }
-        
-        private static Int32 GetUserID(Int32 EventID)
-        {
-            Int32 ReturnUserID = 0;
-
-            switch (XMLReaderWriter.DatabaseSystem)
-            {
-                case DatabaseSystems.SQLite:
-                    try
-                    {
-                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
-                        {
-                            using (SQLiteCommand command = new SQLiteCommand("SELECT UserID FROM MethodStatements WHERE ID = ?", connection))
-                            {
-                                connection.Open();
-
-                                command.Parameters.Add("@ID", DbType.Int32).Value = EventID;
-
-                                using (SQLiteDataReader reader = command.ExecuteReader())
-                                {
-                                    while (reader.Read())
-                                    {
-                                        ReturnUserID = int.Parse(reader["UserID"].ToString());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Handle exceptions here
-                        Console.WriteLine("Error: " + ex.Message);
-                        Console.WriteLine("-------------------*---------------------");
-
-                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUserID - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
-                        msg.ShowDialog();
-                    }
-                    break;
-            }
-            return ReturnUserID;
-        }
-        
-        public static void DeleteRams(Int32 EventID)
-        {
-            bool saveSuccessFull = false;
-
-            if (XMLReaderWriter.UserID != 1)
-            {
-                if (GetUserID(EventID) != XMLReaderWriter.UserID)
-                {
-                    EventHorizonRequesterNotification rorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, you can only delete your own rams.", InformationTextBlock = "You could ask the user who created it, to delete it." }, RequesterTypes.OK);
-                    rorn.ShowDialog();
-                    return;
-                }
-            }
-
-            switch (XMLReaderWriter.DatabaseSystem)
-            {
-                case DatabaseSystems.SQLite:
-                    try
-                    {
-                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
-                        {
-                            using (SQLiteCommand command = new SQLiteCommand("DELETE FROM MethodStatements WHERE ID = ?", connection))
-                            {
-                                connection.Open();
-
-                                command.Parameters.Add("@ID", DbType.Int32).Value = EventID;
-
-                                command.ExecuteNonQuery();
-
-                                saveSuccessFull = true;
-
-                                MainWindow.mw.Status.Content = "Successfully deleted Method Statement";
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Handle exceptions here
-                        Console.WriteLine("Error: " + ex.Message);
-                        Console.WriteLine("-------------------*---------------------");
-
-                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "DeleteRams - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
-                        msg.ShowDialog();
-                    }
-                    break;
-            }
-
-            if (saveSuccessFull)
-            {
-                if (MainWindow.mw.DisplayMode == DisplayModes.Reminders)
-                    MainWindow.mw.RefreshLog(ListViews.Reminder);
-                else
-                    MainWindow.mw.RefreshLog(ListViews.Active);
-            }
-        }
-
-        public static void GetRamsProfiles()
-        {
-            try
-            {
-                using (SQLiteConnection conn = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
-                {
-                    string sqlcmd = "SELECT * FROM RamsProfiles ORDER BY ID DESC;";
-
-                    SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
-
-                    conn.Open();
-
-                    SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-
-                    adapter.Fill(EventHorizon_RamsProfile);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions here
-                Console.WriteLine("Error: " + ex.Message);
-                Console.WriteLine("-------------------*---------------------");
-
-                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetRamsProfiles - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
-                msg.ShowDialog();
-            }
-        }
-        public static bool GetRamsProfileTypes()
-        {
-            RamsProfileTypesList.Clear();
-
-            RamsProfileTypesList.Add(new RamsProfileType { ID = 0, ProfileName = "All Rams Profile Types", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
-            RamsProfileTypesList.Add(new RamsProfileType { ID = 1, ProfileName = "Number 1", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
-            RamsProfileTypesList.Add(new RamsProfileType { ID = 2, ProfileName = "Number 2", Icon = FontAwesomeIcon.Star, Color = (Color)ColorConverter.ConvertFromString("#FFAAAAAA") });
-
-            foreach (DataRow row in EventHorizon_RamsProfile.Rows)
-            {
-                RamsProfileTypesList.Add(new RamsProfileType { ID = row.Field<Int32>("ID"), ProfileName = row.Field<string>("ProfileName") });
-            }
-
-            return true;
         }
         
         private static bool CheckFormFields(MethodStatementWindow methodStatementWindow)
         {
             int result = 0;
-
-            if (methodStatementWindow.JobNoTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (methodStatementWindow.DescriptionTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (methodStatementWindow.RamsProfileTypeComboBox.SelectedIndex == 0)
-            {
-                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "CheckFormFields", InformationTextBlock = "You can not choose 'All Rams' as an Rams Profile type." }, RequesterTypes.OK);
-                msg.ShowDialog();
-                return false;
-            }
-
-            if (methodStatementWindow.RamsProfileTypeComboBox.SelectedIndex > -1)
-            {
-                result++;
-            }
-
-            if (methodStatementWindow.ClientNameTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (methodStatementWindow.SiteTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (methodStatementWindow.LocationActivityTextBox.Text.Length > 0)
-            {
-                result++;
-            }
 
             if (methodStatementWindow.RevisionNoComboBox.SelectedIndex > -1)
             {
@@ -530,11 +284,6 @@ namespace Event_Horizon
             }
 
             if (methodStatementWindow.ElementReviewedTextBox.Text.Length > 0)
-            {
-                result++;
-            }
-
-            if (methodStatementWindow.MSContractTitleTextBox.Text.Length > 0)
             {
                 result++;
             }
@@ -549,7 +298,7 @@ namespace Event_Horizon
                 result++;
             }
 
-            if (result == 11)
+            if (result == 4)
             {
                 return true;
             }

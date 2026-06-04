@@ -20,7 +20,7 @@ namespace Event_Horizon
         MainWindow mainWindow;
         int ramsWindowMode;
         int userID;
-        EventHorizonRamsLINQ eventHorizonRamsLINQ;
+        EventHorizonJobLINQ eventHorizonJobLINQ;
         public RiskAssessmentWindow riskAssessmentWindow;
 
         DateTime formOpenStartTime;
@@ -28,24 +28,22 @@ namespace Event_Horizon
 
         public Int32 ParentEventID;
 
-        public RiskAssessmentWindow(MainWindow mainWindow, int ramsWindowMode, EventHorizonRamsLINQ eventHorizonRamsLINQ, RiskAssessmentWindow riskAssessmentWindow = null)
+        public RiskAssessmentWindow(MainWindow mainWindow, int ramsWindowMode, EventHorizonJobLINQ eventHorizonJobLINQ, RiskAssessmentWindow riskAssessmentWindow = null)
         {
             InitializeComponent();
 
             this.mainWindow = mainWindow;
             this.ramsWindowMode = ramsWindowMode;
-            this.eventHorizonRamsLINQ = (EventHorizonRamsLINQ)eventHorizonRamsLINQ.Clone();
+            this.eventHorizonJobLINQ = (EventHorizonJobLINQ)eventHorizonJobLINQ.Clone();
             this.riskAssessmentWindow = riskAssessmentWindow;
-            this.userID = eventHorizonRamsLINQ.UserID;
-
-            AddItemsToRamsProfileTypeComboBox();
+            this.userID = eventHorizonJobLINQ.UserID;
 
             formOpenStartTime = DateTime.Now;
 
             switch (ramsWindowMode)
             {
                 case EventWindowModes.ViewMainEvent:
-                    GetRams();
+                    GetRiskAssessment();
 
                     if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
                         ramsWindowMode = EventWindowModes.EditMainEvent;
@@ -54,7 +52,7 @@ namespace Event_Horizon
 
                     break;
                 case EventWindowModes.ViewNote:
-                    GetRams();
+                    GetRiskAssessment();
 
                     if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
                         ramsWindowMode = EventWindowModes.EditNote;
@@ -63,7 +61,7 @@ namespace Event_Horizon
 
                     break;
                 case EventWindowModes.ViewReply:
-                    GetRams();
+                    GetRiskAssessment();
 
                     if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
                         ramsWindowMode = EventWindowModes.EditReply;
@@ -72,7 +70,7 @@ namespace Event_Horizon
 
                     break;
                 case EventWindowModes.EditMainEvent:
-                    GetRams();
+                    GetRiskAssessment();
 
                     if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
                         ramsWindowMode = EventWindowModes.EditMainEvent;
@@ -81,7 +79,7 @@ namespace Event_Horizon
 
                     break;
                 case EventWindowModes.EditNote:
-                    GetRams();
+                    GetRiskAssessment();
 
                     if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
                         ramsWindowMode = EventWindowModes.EditNote;
@@ -90,7 +88,7 @@ namespace Event_Horizon
 
                     break;
                 case EventWindowModes.EditReply:
-                    GetRams();
+                    GetRiskAssessment();
 
                     if (userID == XMLReaderWriter.UserID || XMLReaderWriter.UserID == 1)
                         ramsWindowMode = EventWindowModes.EditReply;
@@ -101,19 +99,19 @@ namespace Event_Horizon
                 case EventWindowModes.NewEvent:
                 case EventWindowModes.NewNote:
                 case EventWindowModes.NewReply:
-                    eventHorizonRamsLINQ.UserID = XMLReaderWriter.UserID;
+                    eventHorizonJobLINQ.UserID = XMLReaderWriter.UserID;
                     break;
             }
 
             if (ramsWindowMode == EventWindowModes.ViewMainEvent)
             {
-                EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                ParentEventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "View Main Risk Assessment";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                EventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonJobLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventTitleLabel.Content = "View Risk Assessment";
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 RamsProfileTypeComboBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
@@ -124,13 +122,13 @@ namespace Event_Horizon
             }
             else if (ramsWindowMode == EventWindowModes.ViewNote)
             {
-                EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                ParentEventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonJobLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "View Note";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 RamsProfileTypeComboBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
@@ -141,13 +139,13 @@ namespace Event_Horizon
             }
             else if (ramsWindowMode == EventWindowModes.ViewReply)
             {
-                EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                ParentEventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonJobLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "View Reply";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 RamsProfileTypeComboBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
@@ -158,13 +156,13 @@ namespace Event_Horizon
             }
             else if (ramsWindowMode == EventWindowModes.EditMainEvent)
             {
-                EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                ParentEventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
-                EventTitleLabel.Content = "Edit Main Risk Assessment";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                EventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonJobLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventTitleLabel.Content = "Edit Risk Assessment";
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 RamsProfileTypeComboBox.IsEnabled = true;
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
@@ -175,13 +173,13 @@ namespace Event_Horizon
             }
             else if (ramsWindowMode == EventWindowModes.EditNote)
             {
-                EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                ParentEventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonJobLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "Edit Note";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 RamsProfileTypeComboBox.IsEnabled = true;
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
@@ -192,13 +190,13 @@ namespace Event_Horizon
             }
             else if (ramsWindowMode == EventWindowModes.EditReply)
             {
-                EventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                ParentEventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                EventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                ParentEventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonJobLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "Edit Reply";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 RamsProfileTypeComboBox.IsEnabled = true;
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
@@ -210,13 +208,13 @@ namespace Event_Horizon
             else if (ramsWindowMode == EventWindowModes.NewEvent)
             {
                 EventIDLabel.Content = "-1";
-                ParentEventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                ParentEventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonJobLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "New Risk Assessment";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
-                RamsProfileTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.RamsProfileTypeID;
+                RamsProfileTypeComboBox.SelectedIndex = eventHorizonJobLINQ.RamsProfileTypeID;
                 RamsProfileTypeComboBox.IsEnabled = true;
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.SelectedIndex = 0;
@@ -230,13 +228,13 @@ namespace Event_Horizon
             else if (ramsWindowMode == EventWindowModes.NewNote)
             {
                 EventIDLabel.Content = "-1";
-                ParentEventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                ParentEventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonJobLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "New Note";
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
-                RamsProfileTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.RamsProfileTypeID;
+                RamsProfileTypeComboBox.SelectedIndex = eventHorizonJobLINQ.RamsProfileTypeID;
                 RamsProfileTypeComboBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.SelectedIndex = 0;
@@ -251,13 +249,13 @@ namespace Event_Horizon
             else if (ramsWindowMode == EventWindowModes.NewReply)
             {
                 EventIDLabel.Content = "-1";
-                ParentEventIDLabel.Content = eventHorizonRamsLINQ.ID.ToString("D5");
-                CreatedDateTimeLabel.Content = eventHorizonRamsLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
+                ParentEventIDLabel.Content = eventHorizonJobLINQ.ID.ToString("D5");
+                CreatedDateTimeLabel.Content = eventHorizonJobLINQ.CreationDate.ToString("dd/MM/yy HH:mm");
                 EventTitleLabel.Content = "New Reply";
-                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonRamsLINQ.UserID].Color);
-                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
-                RamsProfileTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.RamsProfileTypeID;
+                UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
+                UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
+                UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
+                RamsProfileTypeComboBox.SelectedIndex = eventHorizonJobLINQ.RamsProfileTypeID;
                 RamsProfileTypeComboBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.SelectedIndex = 0;
@@ -271,21 +269,11 @@ namespace Event_Horizon
 
             this.Owner = Application.Current.MainWindow;
         }
-        
-        private void AddItemsToRamsProfileTypeComboBox()
-        {
-            foreach (RamsProfileType ramsProfileType in DataTableManagementRiskAssessment.RamsProfileTypesList)
-            {
-                RamsProfileTypeComboBox.Items.Add(EventHorizonRamsProfileTypes.GetRamsProfileTypeStackPanel(ramsProfileType));
-            }
-
-            if (ramsWindowMode != EventWindowModes.EditMainEvent || ramsWindowMode != EventWindowModes.EditNote || ramsWindowMode != EventWindowModes.EditReply) RamsProfileTypeComboBox.SelectedIndex = 0;
-        }
   
-        private void GetRams()
+        private void GetRiskAssessment()
         {
-            RamsProfileTypeComboBox.SelectedIndex = eventHorizonRamsLINQ.RamsProfileTypeID;
-            RevisionNoComboBox.SelectedIndex = eventHorizonRamsLINQ.RevisionNo;
+            RamsProfileTypeComboBox.SelectedIndex = eventHorizonJobLINQ.RamsProfileTypeID;
+            RevisionNoComboBox.SelectedIndex = eventHorizonRiskAssessmentLINQ.RevisionNo;
 
             DateTime reviewedDateTimet = eventHorizonRamsLINQ.ReviewedDateTime;
             ReviewedDatePicker.SelectedDate = reviewedDateTimet;
@@ -302,7 +290,7 @@ namespace Event_Horizon
             RamsStatusIDComboBox.SelectedIndex = eventHorizonRamsLINQ.StatusID;
         }
         
-        private void SetRams()
+        private void SetRiskAssessment()
         {
             string descriptionSafeString = DescriptionTextBox.Text.Replace("'", "''");
 
