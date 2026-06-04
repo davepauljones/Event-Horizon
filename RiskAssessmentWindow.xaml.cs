@@ -21,6 +21,8 @@ namespace Event_Horizon
         int ramsWindowMode;
         int userID;
         EventHorizonJobLINQ eventHorizonJobLINQ;
+        EventHorizonRiskAssessmentLINQ eventHorizonRiskAssessmentLINQ;
+
         public RiskAssessmentWindow riskAssessmentWindow;
 
         DateTime formOpenStartTime;
@@ -28,13 +30,14 @@ namespace Event_Horizon
 
         public Int32 ParentEventID;
 
-        public RiskAssessmentWindow(MainWindow mainWindow, int ramsWindowMode, EventHorizonJobLINQ eventHorizonJobLINQ, RiskAssessmentWindow riskAssessmentWindow = null)
+        public RiskAssessmentWindow(MainWindow mainWindow, int ramsWindowMode, EventHorizonJobLINQ eventHorizonJobLINQ, EventHorizonRiskAssessmentLINQ eventHorizonRiskAssessmentLINQ, RiskAssessmentWindow riskAssessmentWindow = null)
         {
             InitializeComponent();
 
             this.mainWindow = mainWindow;
             this.ramsWindowMode = ramsWindowMode;
             this.eventHorizonJobLINQ = (EventHorizonJobLINQ)eventHorizonJobLINQ.Clone();
+            this.eventHorizonRiskAssessmentLINQ = (EventHorizonRiskAssessmentLINQ)eventHorizonRiskAssessmentLINQ.Clone();
             this.riskAssessmentWindow = riskAssessmentWindow;
             this.userID = eventHorizonJobLINQ.UserID;
 
@@ -275,31 +278,34 @@ namespace Event_Horizon
             RamsProfileTypeComboBox.SelectedIndex = eventHorizonJobLINQ.RamsProfileTypeID;
             RevisionNoComboBox.SelectedIndex = eventHorizonRiskAssessmentLINQ.RevisionNo;
 
-            DateTime reviewedDateTimet = eventHorizonRamsLINQ.ReviewedDateTime;
+            DateTime reviewedDateTimet = eventHorizonRiskAssessmentLINQ.ReviewedDateTime;
             ReviewedDatePicker.SelectedDate = reviewedDateTimet;
 
-            UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonRamsLINQ.UserID);
+            UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
 
-            JobNoTextBox.Text = eventHorizonRamsLINQ.JobNo;
-            DescriptionTextBox.Text = eventHorizonRamsLINQ.Description;
-            ClientNameTextBox.Text = eventHorizonRamsLINQ.ClientName;
-            SiteTextBox.Text = eventHorizonRamsLINQ.Site;
-            LocationActivityTextBox.Text = eventHorizonRamsLINQ.LocationActivity;
-            ElementReviewedTextBox.Text =  eventHorizonRamsLINQ.ElementReviewed;
+            JobNoTextBox.Text = eventHorizonJobLINQ.JobNo;
+            DescriptionTextBox.Text = eventHorizonJobLINQ.Description;
+            ClientNameTextBox.Text = eventHorizonJobLINQ.ClientName;
+            SiteTextBox.Text = eventHorizonJobLINQ.Site;
+            LocationActivityTextBox.Text = eventHorizonJobLINQ.LocationActivity;
+            ElementReviewedTextBox.Text = eventHorizonJobLINQ.ElementReviewed;
 
-            RamsStatusIDComboBox.SelectedIndex = eventHorizonRamsLINQ.StatusID;
+            RamsStatusIDComboBox.SelectedIndex = eventHorizonRiskAssessmentLINQ.StatusID;
         }
         
         private void SetRiskAssessment()
         {
-            string descriptionSafeString = DescriptionTextBox.Text.Replace("'", "''");
+            string elementReviewedSafeString = ElementReviewedTextBox.Text.Replace("'", "''");
+
+            eventHorizonRiskAssessmentLINQ.RevisionNo = RevisionNoComboBox.SelectedIndex;
+            eventHorizonRiskAssessmentLINQ.ElementReviewed = elementReviewedSafeString;
 
             DateTime reviewedDateTime = DateTime.Now;
             reviewedDateTime = new DateTime(ReviewedDatePicker.SelectedDate.Value.Year, ReviewedDatePicker.SelectedDate.Value.Month, ReviewedDatePicker.SelectedDate.Value.Day, reviewedDateTime.Hour, reviewedDateTime.Minute, reviewedDateTime.Second);
+           
+            eventHorizonRiskAssessmentLINQ.ReviewedDateTime = reviewedDateTime;
 
-            eventHorizonRamsLINQ.RamsProfileTypeID = RamsProfileTypeComboBox.SelectedIndex;
-            eventHorizonRamsLINQ.Description = descriptionSafeString;
-            eventHorizonRamsLINQ.ReviewedDateTime = reviewedDateTime;
+            eventHorizonRiskAssessmentLINQ.StatusID = RamsStatusIDComboBox.SelectedIndex;
         }
         
         public int RevisionNoID = 1;

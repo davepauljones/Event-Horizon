@@ -136,15 +136,12 @@
                 </Border>
             </StackPanel>
 
-            <StackPanel Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal">
-                <ComboBox x:Name="RamsProfileTypeComboBox" IsEditable="False" IsReadOnly="True" FontSize="18" Background="#55ffffff" Width="480" Height="40" Margin="10,6,10,6"
-                    Style="{DynamicResource FrequencyComboBoxStyle}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left"
-                    ItemContainerStyle="{DynamicResource theComboBoxItem}" SelectionChanged="RamsProfileTypeComboBox_SelectionChanged">
-                    <ComboBox.Effect>
-                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6"/>
-                    </ComboBox.Effect>
-                </ComboBox>
-            </StackPanel>
+            <Border Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Width="500" HorizontalAlignment="Left" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
+                </Border.Effect>
+                <TextBox x:Name="RamsProfileTypeTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
+            </Border>
 
             <StackPanel Grid.Column="3" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label Content="Job No." HorizontalAlignment="Right" Margin="10,11,0,0" FontSize="13" FontWeight="Medium"/>

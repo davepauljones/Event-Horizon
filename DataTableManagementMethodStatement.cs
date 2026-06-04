@@ -29,9 +29,9 @@ namespace Event_Horizon
 
         public static List<RamsProfileType> RamsProfileTypesList = new List<RamsProfileType>();
 
-        public static List<EventHorizonRamsLINQ> GetRamss()
+        public static List<EventHorizonMethodStatementLINQ> GetMethodStatement()
         {
-            List<EventHorizonRamsLINQ> _EventHorizonRamsLINQReturnList = new List<EventHorizonRamsLINQ>();
+            List<EventHorizonMethodStatementLINQ> _EventHorizonMethodStatementLINQReturnList = new List<EventHorizonMethodStatementLINQ>();
 
             MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\Audio\\claves.wav");
             MainWindow.mw.widgetDatabaseHealth.UpdateLastWriteLabel(true);
@@ -62,7 +62,7 @@ namespace Event_Horizon
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetRams - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetMethodStatement - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -79,13 +79,13 @@ namespace Event_Horizon
 
             foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                EventHorizonRamsLINQ eventHorizonRamsLINQ = new EventHorizonRamsLINQ();
+                EventHorizonMethodStatementLINQ eventHorizonMethodStatementLINQ = new EventHorizonMethodStatementLINQ();
 
-                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonRamsLINQ.ID)) eventHorizonRamsLINQ.ID = 0;
+                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonMethodStatementLINQ.ID)) eventHorizonMethodStatementLINQ.ID = 0;
 
-                if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonRamsLINQ.RevisionNo)) eventHorizonRamsLINQ.RevisionNo = 0;
+                if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonMethodStatementLINQ.MSRevisionNo)) eventHorizonMethodStatementLINQ.MSRevisionNo = 0;
 
-                eventHorizonRamsLINQ.ElementReviewed = dataRow["ElementReviewed"].ToString();
+                eventHorizonMethodStatementLINQ.ElementReviewed = dataRow["ElementReviewed"].ToString();
 
                 string reviewedDateTimeString = dataRow["ReviewedDateTime"].ToString();
                 DateTime reviewedDateTime = DateTime.MinValue;
@@ -96,27 +96,25 @@ namespace Event_Horizon
                     else
                         reviewedDateTimeString = reviewedDateTime.ToString("dd/MM/y HH:mm");
 
-                    eventHorizonRamsLINQ.ReviewedDateTime = reviewedDateTime;
+                    eventHorizonMethodStatementLINQ.ReviewedDateTime = reviewedDateTime;
                 }
                 else
                     Console.WriteLine("Unable to parse reviewedDateTimeString '{0}'", reviewedDateTimeString);
 
-                eventHorizonRamsLINQ.MSContractTitle = dataRow["MSContractTitle"].ToString();
+                if (!int.TryParse(dataRow["MSRevisionNo"].ToString(), out eventHorizonMethodStatementLINQ.MSRevisionNo)) eventHorizonMethodStatementLINQ.MSRevisionNo = 0;
 
-                if (!int.TryParse(dataRow["MSRevisionNo"].ToString(), out eventHorizonRamsLINQ.MSRevisionNo)) eventHorizonRamsLINQ.MSRevisionNo = 0;
+                eventHorizonMethodStatementLINQ.MSContractor = dataRow["MSContractor"].ToString();
 
-                eventHorizonRamsLINQ.MSContractor = dataRow["MSContractor"].ToString();
+                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonMethodStatementLINQ.StatusID)) eventHorizonMethodStatementLINQ.StatusID = 0;
 
-                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonRamsLINQ.StatusID)) eventHorizonRamsLINQ.StatusID = 0;
-
-                _EventHorizonRamsLINQReturnList.Add(eventHorizonRamsLINQ);
+                _EventHorizonMethodStatementLINQReturnList.Add(eventHorizonMethodStatementLINQ);
             }
-            return _EventHorizonRamsLINQReturnList;
+            return _EventHorizonMethodStatementLINQReturnList;
         }
 
-        public static EventHorizonRamsLINQ GetRams(Int32 eventID)
+        public static EventHorizonMethodStatementLINQ GetMethodStatement(Int32 eventID)
         {
-            EventHorizonRamsLINQ _EventHorizonLINQReturn = new EventHorizonRamsLINQ();
+            EventHorizonMethodStatementLINQ _EventHorizonMethodStatementLINQReturn = new EventHorizonMethodStatementLINQ();
 
             switch (XMLReaderWriter.DatabaseSystem)
             {
@@ -142,7 +140,7 @@ namespace Event_Horizon
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetRams - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetMethodStatement - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -160,13 +158,13 @@ namespace Event_Horizon
 
             foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                EventHorizonRamsLINQ eventHorizonRamsLINQ = new EventHorizonRamsLINQ();
+                EventHorizonMethodStatementLINQ eventHorizonMethodStatementLINQ = new EventHorizonMethodStatementLINQ();
 
-                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonRamsLINQ.ID)) eventHorizonRamsLINQ.ID = 0;
+                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonMethodStatementLINQ.ID)) eventHorizonMethodStatementLINQ.ID = 0;
 
-                if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonRamsLINQ.RevisionNo)) eventHorizonRamsLINQ.RevisionNo = 0;
+                if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonMethodStatementLINQ.MSRevisionNo)) eventHorizonMethodStatementLINQ.MSRevisionNo = 0;
 
-                eventHorizonRamsLINQ.ElementReviewed = dataRow["ElementReviewed"].ToString();
+                eventHorizonMethodStatementLINQ.ElementReviewed = dataRow["ElementReviewed"].ToString();
 
                 string reviewedDateTimeString = dataRow["ReviewedDateTime"].ToString();
                 DateTime reviewedDateTime = DateTime.MinValue;
@@ -177,7 +175,7 @@ namespace Event_Horizon
                     else
                         reviewedDateTimeString = reviewedDateTime.ToString("dd/MM/y HH:mm");
 
-                    eventHorizonRamsLINQ.ReviewedDateTime = reviewedDateTime;
+                    eventHorizonMethodStatementLINQ.ReviewedDateTime = reviewedDateTime;
                 }
                 else
                     Console.WriteLine("Unable to parse reviewedDateTimeString '{0}'", reviewedDateTimeString);
@@ -186,14 +184,14 @@ namespace Event_Horizon
 
                 iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe60000");
 
-                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonRamsLINQ.StatusID)) eventHorizonRamsLINQ.StatusID = 0;
+                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonMethodStatementLINQ.StatusID)) eventHorizonMethodStatementLINQ.StatusID = 0;
 
-                _EventHorizonLINQReturn = eventHorizonRamsLINQ;
+                _EventHorizonMethodStatementLINQReturn = eventHorizonMethodStatementLINQ;
             }
-            return _EventHorizonLINQReturn;
+            return _EventHorizonMethodStatementLINQReturn;
         }
  
-        public static void SaveRams(MethodStatementWindow methodStatementWindow, EventHorizonRamsLINQ eventHorizonRamsLINQ, int ramsMode)
+        public static void SaveMethodStatement(MethodStatementWindow methodStatementWindow, EventHorizonJobLINQ eventHorizonJobLINQ, EventHorizonMethodStatementLINQ eventHorizonMethodStatementLINQ, int ramsMode)
         {
             if (CheckFormFields(methodStatementWindow))
             {
@@ -212,7 +210,7 @@ namespace Event_Horizon
                     case DatabaseSystems.SQLite:
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
                         {
-                            using (SQLiteCommand command = new SQLiteCommand("UPDATE MethodStatements SET RevisionNo = ?, ElementReviewed = ?, ReviewedDateTime = ?, MSRevisionNo = ?, MSContractor = ?, StatusID = ? WHERE ID = ?", connection))
+                            using (SQLiteCommand command = new SQLiteCommand("UPDATE MethodStatements SET ElementReviewed = ?, ReviewedDateTime = ?, MSRevisionNo = ?, MSContractor = ?, StatusID = ? WHERE ID = ?", connection))
                             {
                                 connection.Open();
 
@@ -226,22 +224,22 @@ namespace Event_Horizon
 
                                 command.Parameters.Add("@StatusID", DbType.Int32).Value = methodStatementWindow.RamsStatusIDComboBox.SelectedIndex;
 
-                                command.Parameters.AddWithValue("@ID", eventHorizonRamsLINQ.ID);
+                                command.Parameters.AddWithValue("@ID", eventHorizonMethodStatementLINQ.ID);
 
                                 if (ramsMode == EventWindowModes.ViewMainEvent || ramsMode == EventWindowModes.ViewNote || ramsMode == EventWindowModes.ViewReply || ramsMode == EventWindowModes.EditMainEvent || ramsMode == EventWindowModes.EditNote || ramsMode == EventWindowModes.EditReply)
                                     rowsAffected = command.ExecuteNonQuery();
                                 else if (rowsAffected == 0 || ramsMode == EventWindowModes.NewEvent || ramsMode == EventWindowModes.NewNote || ramsMode == EventWindowModes.NewReply)
                                 {
                                     command.Parameters.Clear();
-                                    command.CommandText = "INSERT INTO MethodStatements (RevisionNo, ElementReviewed, ReviewedDateTime, MSRevisionNo, MSContractor, StatusID) VALUES (@RevisionNo, @ElementReviewed, @ReviewedDateTime, @MSRevisionNo, @MSContractor, @StatusID);";
+                                    command.CommandText = "INSERT INTO MethodStatements (ID, ElementReviewed, ReviewedDateTime, MSRevisionNo, MSContractor, StatusID) VALUES (@ElementReviewed, @ReviewedDateTime, @MSRevisionNo, @MSContractor, @StatusID);";
 
-                                    command.Parameters.Add("@RevisionNo", DbType.Int32).Value = methodStatementWindow.RevisionNoComboBox.SelectedIndex;
+                                    command.Parameters.Add("@ID", DbType.Int32).Value = eventHorizonJobLINQ.ID;
 
                                     command.Parameters.Add("@ElementReviewed", DbType.String).Value = elementReviewedSafeString;
 
                                     command.Parameters.Add("@ReviewedDateTime", DbType.DateTime).Value = reviewedDateTimeNow;
 
-                                    command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = methodStatementWindow.MSRevisionNoComboBox.SelectedIndex;
+                                    command.Parameters.Add("@MSRevisionNo", DbType.Int32).Value = methodStatementWindow.RevisionNoComboBox.SelectedIndex;
 
                                     command.Parameters.Add("@MSContractor", DbType.String).Value = mSContractorSafeString;
 
@@ -278,17 +276,12 @@ namespace Event_Horizon
         {
             int result = 0;
 
-            if (methodStatementWindow.RevisionNoComboBox.SelectedIndex > -1)
-            {
-                result++;
-            }
-
             if (methodStatementWindow.ElementReviewedTextBox.Text.Length > 0)
             {
                 result++;
             }
 
-            if (methodStatementWindow.MSRevisionNoComboBox.SelectedIndex > -1)
+            if (methodStatementWindow.RevisionNoComboBox.SelectedIndex > -1)
             {
                 result++;
             }
@@ -298,7 +291,7 @@ namespace Event_Horizon
                 result++;
             }
 
-            if (result == 4)
+            if (result == 3)
             {
                 return true;
             }
