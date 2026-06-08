@@ -32,7 +32,7 @@ namespace Event_Horizon
 
         public static MainWindow mw;
 
-        public static ActiveRamsWindow activeRamsWindow;
+        public static ActiveJobsWindow activeJobsWindow;
         public static EngineersWindow engineersWindow;
 
         public bool justLoaded = false;
@@ -1179,10 +1179,10 @@ namespace Event_Horizon
                             newJobWindow.Show();
                             break;
                         case Rams.ActiveRams:
-                            ActiveRamsWindow activeRamsWindow;
-                            activeRamsWindow = new ActiveRamsWindow(this, new EventHorizonJobLINQ());
-                            activeRamsWindow.Owner = this;
-                            activeRamsWindow.Show();
+                            ActiveJobsWindow activeJobsWindow;
+                            activeJobsWindow = new ActiveJobsWindow(this, new EventHorizonJobLINQ());
+                            activeJobsWindow.Owner = this;
+                            activeJobsWindow.Show();
                             break;
                         case Rams.Profile:
 

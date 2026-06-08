@@ -285,8 +285,8 @@
     <Compile Include="EngineersWindow.xaml.cs">
       <DependentUpon>EngineersWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ActiveRamsWindow.xaml.cs">
-      <DependentUpon>ActiveRamsWindow.xaml</DependentUpon>
+    <Compile Include="ActiveJobsWindow.xaml.cs">
+      <DependentUpon>ActiveJobsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ArcSliderUserControl.xaml.cs">
       <DependentUpon>ArcSliderUserControl.xaml</DependentUpon>
@@ -430,7 +430,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ActiveRamsWindow.xaml">
+    <Page Include="ActiveJobsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

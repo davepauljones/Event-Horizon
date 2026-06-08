@@ -28,9 +28,9 @@ namespace Event_Horizon
 
         public static List<RamsProfileType> RamsProfileTypesList = new List<RamsProfileType>();
 
-        public static List<EventHorizonRamsLINQ> GetRamss()
+        public static List<EventHorizonRiskAssessmentLINQ> GetRiskAssessment()
         {
-            List<EventHorizonRamsLINQ> _EventHorizonRamsLINQReturnList = new List<EventHorizonRamsLINQ>();
+            List<EventHorizonRiskAssessmentLINQ> _EventHorizonRiskAssessmentLINQReturnList = new List<EventHorizonRiskAssessmentLINQ>();
 
             MiscFunctions.PlayFile(AppDomain.CurrentDomain.BaseDirectory + "\\Audio\\claves.wav");
             MainWindow.mw.widgetDatabaseHealth.UpdateLastWriteLabel(true);
@@ -61,7 +61,7 @@ namespace Event_Horizon
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetRams - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetRiskAssessment - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -78,13 +78,13 @@ namespace Event_Horizon
 
             foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                EventHorizonRamsLINQ eventHorizonRamsLINQ = new EventHorizonRamsLINQ();
+                EventHorizonRiskAssessmentLINQ eventHorizonRiskAssessmentLINQ = new EventHorizonRiskAssessmentLINQ();
 
-                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonRamsLINQ.ID)) eventHorizonRamsLINQ.ID = 0;
+                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonRiskAssessmentLINQ.ID)) eventHorizonRiskAssessmentLINQ.ID = 0;
 
-                if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonRamsLINQ.RevisionNo)) eventHorizonRamsLINQ.RevisionNo = 0;
+                if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonRiskAssessmentLINQ.RevisionNo)) eventHorizonRiskAssessmentLINQ.RevisionNo = 0;
 
-                eventHorizonRamsLINQ.ElementReviewed = dataRow["ElementReviewed"].ToString();
+                eventHorizonRiskAssessmentLINQ.ElementReviewed = dataRow["ElementReviewed"].ToString();
 
                 string reviewedDateTimeString = dataRow["ReviewedDateTime"].ToString();
                 DateTime reviewedDateTime = DateTime.MinValue;
@@ -95,21 +95,21 @@ namespace Event_Horizon
                     else
                         reviewedDateTimeString = reviewedDateTime.ToString("dd/MM/y HH:mm");
 
-                    eventHorizonRamsLINQ.ReviewedDateTime = reviewedDateTime;
+                    eventHorizonRiskAssessmentLINQ.ReviewedDateTime = reviewedDateTime;
                 }
                 else
                     Console.WriteLine("Unable to parse reviewedDateTimeString '{0}'", reviewedDateTimeString);
 
-                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonRamsLINQ.StatusID)) eventHorizonRamsLINQ.StatusID = 0;
+                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonRiskAssessmentLINQ.StatusID)) eventHorizonRiskAssessmentLINQ.StatusID = 0;
 
-                _EventHorizonRamsLINQReturnList.Add(eventHorizonRamsLINQ);
+                _EventHorizonRiskAssessmentLINQReturnList.Add(eventHorizonRiskAssessmentLINQ);
             }
-            return _EventHorizonRamsLINQReturnList;
+            return _EventHorizonRiskAssessmentLINQReturnList;
         }
 
-        public static EventHorizonRamsLINQ GetRams(Int32 eventID)
+        public static EventHorizonRiskAssessmentLINQ GetRiskAssessment(Int32 eventID)
         {
-            EventHorizonRamsLINQ _EventHorizonLINQReturn = new EventHorizonRamsLINQ();
+            EventHorizonRiskAssessmentLINQ _EventHorizonRiskAssessmentLINQReturn = new EventHorizonRiskAssessmentLINQ();
 
             switch (XMLReaderWriter.DatabaseSystem)
             {
@@ -153,13 +153,13 @@ namespace Event_Horizon
 
             foreach (DataRow dataRow in dataView.ToTable().Rows)
             {
-                EventHorizonRamsLINQ eventHorizonRamsLINQ = new EventHorizonRamsLINQ();
+                EventHorizonRiskAssessmentLINQ eventHorizonRiskAssessmentLINQ = new EventHorizonRiskAssessmentLINQ();
 
-                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonRamsLINQ.ID)) eventHorizonRamsLINQ.ID = 0;
+                if (!int.TryParse(dataRow["ID"].ToString(), out eventHorizonRiskAssessmentLINQ.ID)) eventHorizonRiskAssessmentLINQ.ID = 0;
 
-                if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonRamsLINQ.RevisionNo)) eventHorizonRamsLINQ.RevisionNo = 0;
+                if (!int.TryParse(dataRow["RevisionNo"].ToString(), out eventHorizonRiskAssessmentLINQ.RevisionNo)) eventHorizonRiskAssessmentLINQ.RevisionNo = 0;
 
-                eventHorizonRamsLINQ.ElementReviewed = dataRow["ElementReviewed"].ToString();
+                eventHorizonRiskAssessmentLINQ.ElementReviewed = dataRow["ElementReviewed"].ToString();
 
                 string reviewedDateTimeString = dataRow["ReviewedDateTime"].ToString();
                 DateTime reviewedDateTime = DateTime.MinValue;
@@ -170,7 +170,7 @@ namespace Event_Horizon
                     else
                         reviewedDateTimeString = reviewedDateTime.ToString("dd/MM/y HH:mm");
 
-                    eventHorizonRamsLINQ.ReviewedDateTime = reviewedDateTime;
+                    eventHorizonRiskAssessmentLINQ.ReviewedDateTime = reviewedDateTime;
                 }
                 else
                     Console.WriteLine("Unable to parse reviewedDateTimeString '{0}'", reviewedDateTimeString);
@@ -179,14 +179,14 @@ namespace Event_Horizon
 
                 iconEllipeColor = (Color)ColorConverter.ConvertFromString("#FFe60000");
 
-                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonRamsLINQ.StatusID)) eventHorizonRamsLINQ.StatusID = 0;
+                if (!int.TryParse(dataRow["StatusID"].ToString(), out eventHorizonRiskAssessmentLINQ.StatusID)) eventHorizonRiskAssessmentLINQ.StatusID = 0;
 
-                _EventHorizonLINQReturn = eventHorizonRamsLINQ;
+                _EventHorizonRiskAssessmentLINQReturn = eventHorizonRiskAssessmentLINQ;
             }
-            return _EventHorizonLINQReturn;
+            return _EventHorizonRiskAssessmentLINQReturn;
         }
  
-        public static void SaveRiskAssessment(RiskAssessmentWindow riskAssessmentWindow, EventHorizonRamsLINQ eventHorizonRamsLINQ, int ramsMode)
+        public static void SaveRiskAssessment(RiskAssessmentWindow riskAssessmentWindow, EventHorizonJobLINQ eventHorizonJobLINQ, EventHorizonRiskAssessmentLINQ eventHorizonRiskAssessmentLINQ, int ramsMode)
         {
             if (CheckFormFields(riskAssessmentWindow))
             {
@@ -215,14 +215,16 @@ namespace Event_Horizon
 
                                 command.Parameters.Add("@StatusID", DbType.Int32).Value = riskAssessmentWindow.RamsStatusIDComboBox.SelectedIndex;
 
-                                command.Parameters.AddWithValue("@ID", eventHorizonRamsLINQ.ID);
+                                command.Parameters.AddWithValue("@ID", eventHorizonJobLINQ.ID);
 
                                 if (ramsMode == EventWindowModes.ViewMainEvent || ramsMode == EventWindowModes.ViewNote || ramsMode == EventWindowModes.ViewReply || ramsMode == EventWindowModes.EditMainEvent || ramsMode == EventWindowModes.EditNote || ramsMode == EventWindowModes.EditReply)
                                     rowsAffected = command.ExecuteNonQuery();
                                 else if (rowsAffected == 0 || ramsMode == EventWindowModes.NewEvent || ramsMode == EventWindowModes.NewNote || ramsMode == EventWindowModes.NewReply)
                                 {
                                     command.Parameters.Clear();
-                                    command.CommandText = "INSERT INTO RiskAssessments (RevisionNo, ElementReviewed, ReviewedDateTime, StatusID) VALUES (@RevisionNo, @ElementReviewed, @ReviewedDateTime, @StatusID);";
+                                    command.CommandText = "INSERT INTO RiskAssessments (ID, RevisionNo, ElementReviewed, ReviewedDateTime, StatusID) VALUES (@ID, @RevisionNo, @ElementReviewed, @ReviewedDateTime, @StatusID);";
+
+                                    command.Parameters.Add("@ID", DbType.Int32).Value = eventHorizonJobLINQ.ID;
 
                                     command.Parameters.Add("@RevisionNo", DbType.Int32).Value = riskAssessmentWindow.RevisionNoComboBox.SelectedIndex;
 
@@ -234,7 +236,7 @@ namespace Event_Horizon
 
                                     command.ExecuteNonQuery();
 
-                                    MainWindow.activeRamsWindow.Status.Content = "Successfully added a new risk assessment";
+                                    MainWindow.activeJobsWindow.Status.Content = "Successfully added a new risk assessment";
                                 }
                             }
                         }
@@ -244,69 +246,28 @@ namespace Event_Horizon
 
                 if (rowsAffected > 0)
                 {
-                    MainWindow.activeRamsWindow.Status.Content = "Successfully updated a Risk Assessment";
-                    MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
-                    MainWindow.activeRamsWindow.RefreshActiveJobs();
+                    MainWindow.activeJobsWindow.Status.Content = "Successfully updated a Risk Assessment";
+                    MainWindow.activeJobsWindow.ActiveJobsListView.SelectedItem = null;
+                    MainWindow.activeJobsWindow.RefreshActiveJobs();
                 }
 
                 if (saveSuccessFull)
                 {
                     riskAssessmentWindow.Close();
                     if (riskAssessmentWindow.riskAssessmentWindow != null) riskAssessmentWindow.riskAssessmentWindow.Close();
-                    MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
-                    MainWindow.activeRamsWindow.RefreshActiveJobs();
+                    MainWindow.activeJobsWindow.ActiveJobsListView.SelectedItem = null;
+                    MainWindow.activeJobsWindow.RefreshActiveJobs();
                 }
             }
         }
-        
-        private static Int32 GetUserID(Int32 EventID)
-        {
-            Int32 ReturnUserID = 0;
 
-            switch (XMLReaderWriter.DatabaseSystem)
-            {
-                case DatabaseSystems.SQLite:
-                    try
-                    {
-                        using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
-                        {
-                            using (SQLiteCommand command = new SQLiteCommand("SELECT UserID FROM RiskAssessments WHERE ID = ?", connection))
-                            {
-                                connection.Open();
-
-                                command.Parameters.Add("@ID", DbType.Int32).Value = EventID;
-
-                                using (SQLiteDataReader reader = command.ExecuteReader())
-                                {
-                                    while (reader.Read())
-                                    {
-                                        ReturnUserID = int.Parse(reader["UserID"].ToString());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Handle exceptions here
-                        Console.WriteLine("Error: " + ex.Message);
-                        Console.WriteLine("-------------------*---------------------");
-
-                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetUserID - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
-                        msg.ShowDialog();
-                    }
-                    break;
-            }
-            return ReturnUserID;
-        }
-        
-        public static void DeleteRams(Int32 EventID)
+        public static void DeleteRiskAssessment(Int32 UserID, Int32 EventID)
         {
             if (XMLReaderWriter.UserID != 1)
             {
-                if (GetUserID(EventID) != XMLReaderWriter.UserID)
+                if (UserID != XMLReaderWriter.UserID)
                 {
-                    EventHorizonRequesterNotification rorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, you can only delete your own rams.", InformationTextBlock = "You could ask the user who created it, to delete it." }, RequesterTypes.OK);
+                    EventHorizonRequesterNotification rorn = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Error, you can only delete your own Risk Assessment.", InformationTextBlock = "You could ask the user who created it, to delete it." }, RequesterTypes.OK);
                     rorn.ShowDialog();
                     return;
                 }

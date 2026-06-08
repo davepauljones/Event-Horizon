@@ -343,49 +343,49 @@ namespace Event_Horizon
                         Close();
                         break;
                     case EventFormCloseButtons.Note:
-                        SetRams();
-                        RiskAssessmentWindow nevn = new RiskAssessmentWindow(mainWindow, EventWindowModes.NewNote, eventHorizonRamsLINQ, this);
+                        SetRiskAssessment();
+                        RiskAssessmentWindow nevn = new RiskAssessmentWindow(mainWindow, EventWindowModes.NewNote, eventHorizonJobLINQ, eventHorizonRiskAssessmentLINQ, this);
                         nevn.Show();
                         nevn.Left += 30;
                         nevn.Top += 30;
                         break;
                     case EventFormCloseButtons.Reply:
-                        SetRams();
-                        RiskAssessmentWindow nev = new RiskAssessmentWindow(mainWindow, EventWindowModes.NewReply, eventHorizonRamsLINQ, this);
+                        SetRiskAssessment();
+                        RiskAssessmentWindow nev = new RiskAssessmentWindow(mainWindow, EventWindowModes.NewReply, eventHorizonJobLINQ, eventHorizonRiskAssessmentLINQ, this);
                         nev.Show();
                         nev.Left += 30;
                         nev.Top += 30;
                         break;
                     case EventFormCloseButtons.Save:
-                        SetRams();
+                        SetRiskAssessment();
                         switch (ramsWindowMode)
                         {
                             case EventWindowModes.ViewMainEvent:
-                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonRamsLINQ, EventWindowModes.ViewMainEvent);
+                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonJobLINQ,  eventHorizonRiskAssessmentLINQ, EventWindowModes.ViewMainEvent);
                                 break;
                             case EventWindowModes.ViewNote:
-                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonRamsLINQ, EventWindowModes.ViewNote);
+                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonJobLINQ, eventHorizonRiskAssessmentLINQ, EventWindowModes.ViewNote);
                                 break;
                             case EventWindowModes.ViewReply:
-                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonRamsLINQ, EventWindowModes.ViewReply);
+                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonJobLINQ, eventHorizonRiskAssessmentLINQ, EventWindowModes.ViewReply);
                                 break;
                             case EventWindowModes.EditMainEvent:
-                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonRamsLINQ, EventWindowModes.EditMainEvent);
+                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonJobLINQ, eventHorizonRiskAssessmentLINQ, EventWindowModes.EditMainEvent);
                                 break;
                             case EventWindowModes.EditNote:
-                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonRamsLINQ, EventWindowModes.EditNote);
+                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonJobLINQ, eventHorizonRiskAssessmentLINQ, EventWindowModes.EditNote);
                                 break;
                             case EventWindowModes.EditReply:
-                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonRamsLINQ, EventWindowModes.EditReply);
+                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonJobLINQ, eventHorizonRiskAssessmentLINQ, EventWindowModes.EditReply);
                                 break;
                             case EventWindowModes.NewEvent:
-                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonRamsLINQ, EventWindowModes.NewEvent);
+                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonJobLINQ, eventHorizonRiskAssessmentLINQ, EventWindowModes.NewEvent);
                                 break;
                             case EventWindowModes.NewNote:
-                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonRamsLINQ, EventWindowModes.NewNote);
+                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonJobLINQ, eventHorizonRiskAssessmentLINQ, EventWindowModes.NewNote);
                                 break;
                             case EventWindowModes.NewReply:
-                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonRamsLINQ, EventWindowModes.NewReply);
+                                DataTableManagementRiskAssessment.SaveRiskAssessment(this, eventHorizonJobLINQ, eventHorizonRiskAssessmentLINQ, EventWindowModes.NewReply);
                                 break;
                         }
                         break;

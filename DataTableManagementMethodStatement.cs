@@ -247,7 +247,7 @@ namespace Event_Horizon
 
                                     command.ExecuteNonQuery();
 
-                                    MainWindow.activeRamsWindow.Status.Content = "Successfully added a new Method Statement";
+                                    MainWindow.activeJobsWindow.Status.Content = "Successfully added a new Method Statement";
                                 }
                             }
                         }
@@ -257,17 +257,17 @@ namespace Event_Horizon
 
                 if (rowsAffected > 0)
                 {
-                    MainWindow.activeRamsWindow.Status.Content = "Successfully updated a Method Statement";
-                    MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
-                    MainWindow.activeRamsWindow.RefreshActiveJobs();
+                    MainWindow.activeJobsWindow.Status.Content = "Successfully updated a Method Statement";
+                    MainWindow.activeJobsWindow.ActiveJobsListView.SelectedItem = null;
+                    MainWindow.activeJobsWindow.RefreshActiveJobs();
                 }
 
                 if (saveSuccessFull)
                 {
                     methodStatementWindow.Close();
                     if (methodStatementWindow.methodStatementWindow != null) methodStatementWindow.methodStatementWindow.Close();
-                    MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
-                    MainWindow.activeRamsWindow.RefreshActiveJobs();
+                    MainWindow.activeJobsWindow.ActiveJobsListView.SelectedItem = null;
+                    MainWindow.activeJobsWindow.RefreshActiveJobs();
                 }
             }
         }

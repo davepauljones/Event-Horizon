@@ -18,9 +18,9 @@ using System.Windows.Shapes;
 namespace Event_Horizon
 {
     /// <summary>
-    /// Interaction logic for ActiveRamsWindow.xaml
+    /// Interaction logic for ActiveJobsWindow.xaml
     /// </summary>
-    public partial class ActiveRamsWindow : Window
+    public partial class ActiveJobsWindow : Window
     {
         public MainWindow mainWindow;
         EventHorizonJobLINQ eventHorizonJobLINQ;
@@ -28,11 +28,11 @@ namespace Event_Horizon
         public List<EventHorizonJobLINQ> EventHorizonJobLINQList;
         public EventHorizonJobLINQ eventHorizonJobLINQ_SelectedItem;
 
-        public ActiveRamsWindow(MainWindow mainWindow, EventHorizonJobLINQ eventHorizonJobLINQ)
+        public ActiveJobsWindow(MainWindow mainWindow, EventHorizonJobLINQ eventHorizonJobLINQ)
         {
             InitializeComponent();
 
-            MainWindow.activeRamsWindow = this;
+            MainWindow.activeJobsWindow = this;
 
             this.mainWindow = mainWindow;
             this.eventHorizonJobLINQ = (EventHorizonJobLINQ)eventHorizonJobLINQ.Clone();
@@ -44,7 +44,7 @@ namespace Event_Horizon
         {
             try
             {
-                ActiveRamsListView.Items.Clear();
+                ActiveJobsListView.Items.Clear();
                 DataTableManagementJob.EventHorizon_Job.Clear();
 
                 EventHorizonJobLINQList = DataTableManagementJob.GetJobs();
@@ -56,20 +56,20 @@ namespace Event_Horizon
                 {
                     RamsRow ramsRow = RamsRow.CreateJobRow(eventHorizonJobLINQ);
 
-                    ActiveRamsListView.Items.Add(ramsRow); 
+                    ActiveJobsListView.Items.Add(ramsRow);
                 }
-                Status.Content = "Active rams " + ActiveRamsListView.Items.Count;
+                Status.Content = "Active jobs " + ActiveJobsListView.Items.Count;
             }
             catch (Exception e)
             {
                 Console.WriteLine("----------------------------------------");
 
-                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Active Rams - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "Active Jobs - " + e.Source, InformationTextBlock = e.Message }, RequesterTypes.OK);
                 msg.ShowDialog();
             }
         }
 
-        private void ActiveRamsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ActiveJobsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
 
@@ -83,15 +83,15 @@ namespace Event_Horizon
 
             RamsRow item = (RamsRow)dep;
 
-            MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem = (EventHorizonJobLINQ)item.Tag;
+            MainWindow.activeJobsWindow.eventHorizonJobLINQ_SelectedItem = (EventHorizonJobLINQ)item.Tag;
 
-            MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = item;
+            MainWindow.activeJobsWindow.ActiveJobsListView.SelectedItem = item;
 
-            if (MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem != null)
+            if (MainWindow.activeJobsWindow.eventHorizonJobLINQ_SelectedItem != null)
             {
                 //try open event as EditRams
-                JobWindow editJobWindow = new JobWindow(MainWindow.activeRamsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem, null);
-                editJobWindow.Owner = MainWindow.activeRamsWindow;
+                JobWindow editJobWindow = new JobWindow(MainWindow.activeJobsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeJobsWindow.eventHorizonJobLINQ_SelectedItem, null);
+                editJobWindow.Owner = MainWindow.activeJobsWindow;
                 editJobWindow.Show();
             }
         }
@@ -115,7 +115,7 @@ namespace Event_Horizon
             DeleteJobRow();
         }
 
-        private void ActiveRamsListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void ActiveJobsListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
 
@@ -132,14 +132,14 @@ namespace Event_Horizon
             eventHorizonJobLINQ_SelectedItem = (EventHorizonJobLINQ)item.Tag;
 
             Console.WriteLine();
-            Console.WriteLine(">S>>Active Jobs ActiveRamsListView_PreviewMouseLeftButtonDown<<<<");
+            Console.WriteLine(">S>>Active Jobs ActiveJobsListView_PreviewMouseLeftButtonDown<<<<");
             Console.WriteLine();
 
             Console.Write("item.Tag eventHorizonJobLINQ_SelectedItem.ID = ");
             Console.WriteLine(eventHorizonJobLINQ_SelectedItem.ID);
 
             Console.WriteLine();
-            Console.WriteLine(">F>>Active Jobs ActiveRamsListView_PreviewMouseLeftButtonDown<<<<");
+            Console.WriteLine(">F>>Active Jobs ActiveJobsListView_PreviewMouseLeftButtonDown<<<<");
             Console.WriteLine();
         }
     }

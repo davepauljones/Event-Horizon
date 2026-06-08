@@ -62,10 +62,10 @@ namespace Event_Horizon
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetRams - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetJobs - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
-                    break;
+            break;
             }
 
             EnumerableRowCollection<DataRow> query;
@@ -89,13 +89,13 @@ namespace Event_Horizon
                 if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
                 eventHorizonJobLINQ.CreationDate = createdDateTime;
 
-                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonJobLINQ.UserID)) eventHorizonJobLINQ.UserID = 0;
-
                 eventHorizonJobLINQ.JobNo = dataRow["JobNo"].ToString();
 
                 eventHorizonJobLINQ.Description = dataRow["Description"].ToString();
 
                 if (!int.TryParse(dataRow["RamsProfileTypeID"].ToString(), out eventHorizonJobLINQ.RamsProfileTypeID)) eventHorizonJobLINQ.RamsProfileTypeID = 0;
+
+                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonJobLINQ.UserID)) eventHorizonJobLINQ.UserID = 0;
 
                 eventHorizonJobLINQ.ClientName = dataRow["ClientName"].ToString();
                 eventHorizonJobLINQ.Site = dataRow["Site"].ToString();
@@ -136,7 +136,7 @@ namespace Event_Horizon
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetRams - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetJob - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;
@@ -163,13 +163,13 @@ namespace Event_Horizon
                 if (DateTime.TryParse(createdDateTimeString, out createdDateTime)) createdDateTimeString = createdDateTime.ToString("dd/MM/y HH:mm");
                 eventHorizonJobLINQ.CreationDate = createdDateTime;
 
-                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonJobLINQ.UserID)) eventHorizonJobLINQ.UserID = 0;
-
                 eventHorizonJobLINQ.JobNo = dataRow["JobNo"].ToString();
 
                 eventHorizonJobLINQ.Description = dataRow["Description"].ToString();
 
                 if (!int.TryParse(dataRow["RamsProfileTypeID"].ToString(), out eventHorizonJobLINQ.RamsProfileTypeID)) eventHorizonJobLINQ.RamsProfileTypeID = 0;
+
+                if (!int.TryParse(dataRow["UserID"].ToString(), out eventHorizonJobLINQ.UserID)) eventHorizonJobLINQ.UserID = 0;
 
                 eventHorizonJobLINQ.ClientName = dataRow["ClientName"].ToString();
                 eventHorizonJobLINQ.Site = dataRow["Site"].ToString();
@@ -242,7 +242,7 @@ namespace Event_Horizon
 
                                     command.ExecuteNonQuery();
 
-                                    MainWindow.activeRamsWindow.Status.Content = "Successfully added a new Job";
+                                    MainWindow.activeJobsWindow.Status.Content = "Successfully added a new Job";
                                 }
                             }
                         }
@@ -252,17 +252,17 @@ namespace Event_Horizon
 
                 if (rowsAffected > 0)
                 {
-                    MainWindow.activeRamsWindow.Status.Content = "Successfully updated a Job";
-                    MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
-                    MainWindow.activeRamsWindow.RefreshActiveJobs();
+                    MainWindow.activeJobsWindow.Status.Content = "Successfully updated a Job";
+                    MainWindow.activeJobsWindow.ActiveJobsListView.SelectedItem = null;
+                    MainWindow.activeJobsWindow.RefreshActiveJobs();
                 }
 
                 if (saveSuccessFull)
                 {
                     jobWindow.Close();
                     if (jobWindow.jobWindow != null) jobWindow.jobWindow.Close();
-                    MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = null;
-                    MainWindow.activeRamsWindow.RefreshActiveJobs();
+                    MainWindow.activeJobsWindow.ActiveJobsListView.SelectedItem = null;
+                    MainWindow.activeJobsWindow.RefreshActiveJobs();
                 }
             }
         }
@@ -335,7 +335,7 @@ namespace Event_Horizon
 
                                 command.ExecuteNonQuery();
 
-                                MainWindow.activeRamsWindow.Status.Content = "Successfully deleted attached method statement";
+                                MainWindow.activeJobsWindow.Status.Content = "Successfully deleted attached method statement";
                             }
                         }
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
@@ -348,7 +348,7 @@ namespace Event_Horizon
 
                                 command.ExecuteNonQuery();
 
-                                MainWindow.activeRamsWindow.Status.Content = "Successfully deleted attached risk assessment";
+                                MainWindow.activeJobsWindow.Status.Content = "Successfully deleted attached risk assessment";
                             }
                         }
                         using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
@@ -361,7 +361,7 @@ namespace Event_Horizon
 
                                 command.ExecuteNonQuery();
 
-                                MainWindow.activeRamsWindow.Status.Content = "Successfully deleted Job and attached risk assessment and method statement.";
+                                MainWindow.activeJobsWindow.Status.Content = "Successfully deleted Job and attached risk assessment and method statement.";
                             }
                         }
                     }
@@ -371,7 +371,7 @@ namespace Event_Horizon
                         Console.WriteLine("Error: " + ex.Message);
                         Console.WriteLine("-------------------*---------------------");
 
-                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "DeleteRams - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                        EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "DeleteJob - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
                         msg.ShowDialog();
                     }
                     break;

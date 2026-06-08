@@ -39,7 +39,7 @@ namespace Event_Horizon
             {
                 ramsRow.RamsProfileTypeFontAwesomeIconBorder.Background = new SolidColorBrush(Colors.Beige);
                 ramsRow.RamsProfileTypeFontAwesomeIcon.Icon = FontAwesomeIcon.Star;
-                ramsRow.RamsProfileTypeTextBlock.Text = DataTableManagementRiskAssessment.RamsProfileTypesList[eventHorizonJobLINQ.RamsProfileTypeID].ProfileName;
+                ramsRow.RamsProfileTypeTextBlock.Text = DataTableManagementJob.RamsProfileTypesList[eventHorizonJobLINQ.RamsProfileTypeID].ProfileName;
                 ramsRow.BackgroundGrid.Background = new SolidColorBrush(Colors.Transparent);
             }
             else
@@ -118,15 +118,15 @@ namespace Event_Horizon
 
             RamsRow item = (RamsRow)dep;
 
-            MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem = (EventHorizonJobLINQ)item.Tag;
+            MainWindow.activeJobsWindow.eventHorizonJobLINQ_SelectedItem = (EventHorizonJobLINQ)item.Tag;
 
-            MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = item;
+            MainWindow.activeJobsWindow.ActiveJobsListView.SelectedItem = item;
 
-            if (MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem != null)
+            if (MainWindow.activeJobsWindow.eventHorizonJobLINQ_SelectedItem != null)
             {
                 //try open event as EditRams
-                RiskAssessmentWindow editRamsWindow = new RiskAssessmentWindow(MainWindow.activeRamsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem, null);
-                editRamsWindow.Owner = MainWindow.activeRamsWindow;
+                RiskAssessmentWindow editRamsWindow = new RiskAssessmentWindow(MainWindow.activeJobsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeJobsWindow.eventHorizonJobLINQ_SelectedItem, null);
+                editRamsWindow.Owner = MainWindow.activeJobsWindow;
                 editRamsWindow.Show();
             }
         }
@@ -145,15 +145,15 @@ namespace Event_Horizon
 
             RamsRow item = (RamsRow)dep;
 
-            MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem = (EventHorizonJobLINQ)item.Tag;
+            MainWindow.activeJobsWindow.eventHorizonJobLINQ_SelectedItem = (EventHorizonJobLINQ)item.Tag;
 
-            MainWindow.activeRamsWindow.ActiveRamsListView.SelectedItem = item;
+            MainWindow.activeJobsWindow.ActiveJobsListView.SelectedItem = item;
 
-            if (MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem != null)
+            if (MainWindow.activeJobsWindow.eventHorizonJobLINQ_SelectedItem != null)
             {
                 //try open event as EditRams
-                MethodStatementWindow MethodStatementWindow = new MethodStatementWindow(MainWindow.activeRamsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeRamsWindow.eventHorizonJobLINQ_SelectedItem, null);
-                MethodStatementWindow.Owner = MainWindow.activeRamsWindow;
+                MethodStatementWindow MethodStatementWindow = new MethodStatementWindow(MainWindow.activeJobsWindow.mainWindow, EventWindowModes.ViewMainEvent, MainWindow.activeJobsWindow.eventHorizonJobLINQ_SelectedItem, null);
+                MethodStatementWindow.Owner = MainWindow.activeJobsWindow;
                 MethodStatementWindow.Show();
             }
         }
