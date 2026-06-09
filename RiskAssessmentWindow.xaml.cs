@@ -37,7 +37,12 @@ namespace Event_Horizon
             this.mainWindow = mainWindow;
             this.ramsWindowMode = ramsWindowMode;
             this.eventHorizonJobLINQ = (EventHorizonJobLINQ)eventHorizonJobLINQ.Clone();
-            this.eventHorizonRiskAssessmentLINQ = (EventHorizonRiskAssessmentLINQ)eventHorizonRiskAssessmentLINQ.Clone();
+            
+            if (eventHorizonRiskAssessmentLINQ != null)//if not passed in as an argument, just create 
+                this.eventHorizonRiskAssessmentLINQ = (EventHorizonRiskAssessmentLINQ)eventHorizonRiskAssessmentLINQ.Clone();
+            else
+                this.eventHorizonRiskAssessmentLINQ = new EventHorizonRiskAssessmentLINQ();
+
             this.riskAssessmentWindow = riskAssessmentWindow;
             this.userID = eventHorizonJobLINQ.UserID;
 
@@ -115,7 +120,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeComboBox.IsEnabled = false;
+                RamsProfileTypeTextBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
                 ReviewedDatePicker.IsEnabled = false;
@@ -132,7 +137,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeComboBox.IsEnabled = false;
+                RamsProfileTypeTextBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
                 ReviewedDatePicker.IsEnabled = false;
@@ -149,7 +154,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeComboBox.IsEnabled = false;
+                RamsProfileTypeTextBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
                 ReviewedDatePicker.IsEnabled = false;
@@ -166,7 +171,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeComboBox.IsEnabled = true;
+                RamsProfileTypeTextBox.IsEnabled = true;
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
@@ -183,7 +188,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeComboBox.IsEnabled = true;
+                RamsProfileTypeTextBox.IsEnabled = true;
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
@@ -200,7 +205,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeComboBox.IsEnabled = true;
+                RamsProfileTypeTextBox.IsEnabled = true;
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
@@ -217,8 +222,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
-                RamsProfileTypeComboBox.SelectedIndex = eventHorizonJobLINQ.RamsProfileTypeID;
-                RamsProfileTypeComboBox.IsEnabled = true;
+                RamsProfileTypeTextBox.IsEnabled = true;
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.SelectedIndex = 0;
                 RevisionNoComboBox.IsEnabled = true;
@@ -237,8 +241,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
-                RamsProfileTypeComboBox.SelectedIndex = eventHorizonJobLINQ.RamsProfileTypeID;
-                RamsProfileTypeComboBox.IsEnabled = false;
+                RamsProfileTypeTextBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.SelectedIndex = 0;
                 RevisionNoComboBox.IsEnabled = true;
@@ -258,8 +261,7 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeComboBox.SelectedIndex = eventHorizonJobLINQ.RamsProfileTypeID;
-                RamsProfileTypeComboBox.IsEnabled = false;
+                RamsProfileTypeTextBox.IsEnabled = false;
                 DescriptionTextBox.IsReadOnly = false;
                 RevisionNoComboBox.SelectedIndex = 0;
                 RevisionNoComboBox.IsEnabled = true;
@@ -275,7 +277,8 @@ namespace Event_Horizon
   
         private void GetRiskAssessment()
         {
-            RamsProfileTypeComboBox.SelectedIndex = eventHorizonJobLINQ.RamsProfileTypeID;
+            RamsProfileTypeTextBox.Text = eventHorizonJobLINQ.RamsProfileTypeID;
+            
             RevisionNoComboBox.SelectedIndex = eventHorizonRiskAssessmentLINQ.RevisionNo;
 
             DateTime reviewedDateTimet = eventHorizonRiskAssessmentLINQ.ReviewedDateTime;
