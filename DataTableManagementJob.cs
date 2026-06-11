@@ -1,4 +1,5 @@
 ﻿using FontAwesome.WPF;
+using Microsoft.Extensions.Logging;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -376,6 +377,43 @@ namespace Event_Horizon
                     }
                     break;
             }
+        }
+
+        public static String GetRamsProfileNameFromRamsProfileID(Int32  RamsProfileID)
+        {
+            String ramsProfileNameToReturn = String.Empty;
+
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand("SELECT ProfileName FROM RamsProfiles WHERE ID = ?", connection))
+                    {
+                        connection.Open();
+
+                        command.Parameters.Add("@ID", DbType.Int32).Value = RamsProfileID;
+
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            { 
+                                ramsProfileNameToReturn = reader["ProfileName"].ToString();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions here
+                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("-------------------*---------------------");
+
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "GetRamsProfileNameFromRamsProfileID - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                msg.ShowDialog();
+            }
+
+            return ramsProfileNameToReturn;
         }
 
         public static void GetRamsProfiles()

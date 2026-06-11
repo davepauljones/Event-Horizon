@@ -85,7 +85,7 @@
             <Label Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3,0,0" >
                 <TextBlock Text="Location Activity" FontSize="13" FontWeight="Medium" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top"/>
             </Label>
-            <Label Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3,0,0" >
+            <Label Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3,0,0" >
                 <TextBlock Text="Element Reviewed" FontSize="13" FontWeight="Medium" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top"/>
             </Label>
 
@@ -196,7 +196,7 @@
                 <TextBox x:Name="LocationActivityTextBox" Width="762" Height="50" HorizontalAlignment="Left" FontSize="18" Background="Transparent" Margin="8,4,4,4" BorderThickness="0" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="False"/>
             </Border>
 
-            <Border Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="3" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6">
+            <Border Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="3" CornerRadius="6" BorderBrush="#3b71ca" Background="#55ffffff" BorderThickness="1" Margin="10,6,10,6">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="1" Opacity="0.6" />
                 </Border.Effect>

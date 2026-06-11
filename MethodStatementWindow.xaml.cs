@@ -279,7 +279,7 @@ namespace Event_Horizon
             ClientNameTextBox.Text = eventHorizonJobLINQ.ClientName;
             SiteTextBox.Text = eventHorizonJobLINQ.Site;
             LocationActivityTextBox.Text = eventHorizonJobLINQ.LocationActivity;
-            MSContractTitleTextBox.Text = eventHorizonJobLINQ.MSContractTitle;
+            MSContractTitleTextBox.Text = eventHorizonJobLINQ.Description;
 
             DateTime reviewedDateTimet = eventHorizonMethodStatementLINQ.ReviewedDateTime;
             ReviewedDatePicker.SelectedDate = reviewedDateTimet;

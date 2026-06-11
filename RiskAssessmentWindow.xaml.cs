@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Ookii.Dialogs.Wpf;
+using System;
+using System.Data;
+using System.Data.SQLite;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using System.IO;
 using System.Windows.Media.Imaging;
-using System.Diagnostics;
-using Ookii.Dialogs.Wpf;
 
 namespace Event_Horizon
 {
@@ -120,8 +122,13 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeTextBox.IsEnabled = false;
+                JobNoTextBox.IsReadOnly = true;
+                RamsProfileTypeTextBox.IsReadOnly = true;
                 DescriptionTextBox.IsReadOnly = true;
+                ClientNameTextBox.IsReadOnly = true;
+                SiteTextBox.IsReadOnly = true;
+                LocationActivityTextBox.IsReadOnly = true;
+                ElementReviewedTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
                 ReviewedDatePicker.IsEnabled = false;
                 AddNoteButton.Visibility = Visibility.Visible;
@@ -137,8 +144,13 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeTextBox.IsEnabled = false;
+                JobNoTextBox.IsReadOnly = true;
+                RamsProfileTypeTextBox.IsReadOnly = true;
                 DescriptionTextBox.IsReadOnly = true;
+                ClientNameTextBox.IsReadOnly = true;
+                SiteTextBox.IsReadOnly = true;
+                LocationActivityTextBox.IsReadOnly = true;
+                ElementReviewedTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
                 ReviewedDatePicker.IsEnabled = false;
                 AddNoteButton.Visibility = Visibility.Collapsed;
@@ -154,8 +166,13 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeTextBox.IsEnabled = false;
+                JobNoTextBox.IsReadOnly = true;
+                RamsProfileTypeTextBox.IsReadOnly = true;
                 DescriptionTextBox.IsReadOnly = true;
+                ClientNameTextBox.IsReadOnly = true;
+                SiteTextBox.IsReadOnly = true;
+                LocationActivityTextBox.IsReadOnly = true;
+                ElementReviewedTextBox.IsReadOnly = true;
                 RevisionNoComboBox.IsEnabled = false;
                 ReviewedDatePicker.IsEnabled = false;
                 AddNoteButton.Visibility = Visibility.Collapsed;
@@ -171,8 +188,13 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeTextBox.IsEnabled = true;
-                DescriptionTextBox.IsReadOnly = false;
+                JobNoTextBox.IsReadOnly = true;
+                RamsProfileTypeTextBox.IsReadOnly = true;
+                DescriptionTextBox.IsReadOnly = true;
+                ClientNameTextBox.IsReadOnly = true;
+                SiteTextBox.IsReadOnly = true;
+                LocationActivityTextBox.IsReadOnly = true;
+                ElementReviewedTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Visible;
@@ -188,8 +210,13 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeTextBox.IsEnabled = true;
-                DescriptionTextBox.IsReadOnly = false;
+                JobNoTextBox.IsReadOnly = true;
+                RamsProfileTypeTextBox.IsReadOnly = true;
+                DescriptionTextBox.IsReadOnly = true;
+                ClientNameTextBox.IsReadOnly = true;
+                SiteTextBox.IsReadOnly = true;
+                LocationActivityTextBox.IsReadOnly = true;
+                ElementReviewedTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
@@ -205,8 +232,13 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeTextBox.IsEnabled = true;
-                DescriptionTextBox.IsReadOnly = false;
+                JobNoTextBox.IsReadOnly = true;
+                RamsProfileTypeTextBox.IsReadOnly = true;
+                DescriptionTextBox.IsReadOnly = true;
+                ClientNameTextBox.IsReadOnly = true;
+                SiteTextBox.IsReadOnly = true;
+                LocationActivityTextBox.IsReadOnly = true;
+                ElementReviewedTextBox.IsReadOnly = false;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
                 AddNoteButton.Visibility = Visibility.Collapsed;
@@ -222,8 +254,13 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
-                RamsProfileTypeTextBox.IsEnabled = true;
-                DescriptionTextBox.IsReadOnly = false;
+                JobNoTextBox.IsReadOnly = true;
+                RamsProfileTypeTextBox.IsReadOnly = true;
+                DescriptionTextBox.IsReadOnly = true;
+                ClientNameTextBox.IsReadOnly = true;
+                SiteTextBox.IsReadOnly = true;
+                LocationActivityTextBox.IsReadOnly = true;
+                ElementReviewedTextBox.IsReadOnly = false;
                 RevisionNoComboBox.SelectedIndex = 0;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
@@ -241,8 +278,13 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[XMLReaderWriter.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, XMLReaderWriter.UserID);
-                RamsProfileTypeTextBox.IsEnabled = false;
-                DescriptionTextBox.IsReadOnly = false;
+                JobNoTextBox.IsReadOnly = true;
+                RamsProfileTypeTextBox.IsReadOnly = true;
+                DescriptionTextBox.IsReadOnly = true;
+                ClientNameTextBox.IsReadOnly = true;
+                SiteTextBox.IsReadOnly = true;
+                LocationActivityTextBox.IsReadOnly = true;
+                ElementReviewedTextBox.IsReadOnly = false;
                 RevisionNoComboBox.SelectedIndex = 0;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
@@ -261,8 +303,13 @@ namespace Event_Horizon
                 UserEllipse.Fill = new SolidColorBrush(XMLReaderWriter.UsersList[eventHorizonJobLINQ.UserID].Color);
                 UserLabel.Content = MiscFunctions.GetUsersInitalsFromID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
                 UserNameLabel.Content = MiscFunctions.GetUserNameFromUserID(XMLReaderWriter.UsersList, eventHorizonJobLINQ.UserID);
-                RamsProfileTypeTextBox.IsEnabled = false;
-                DescriptionTextBox.IsReadOnly = false;
+                JobNoTextBox.IsReadOnly = true;
+                RamsProfileTypeTextBox.IsReadOnly = true;
+                DescriptionTextBox.IsReadOnly = true;
+                ClientNameTextBox.IsReadOnly = true;
+                SiteTextBox.IsReadOnly = true;
+                LocationActivityTextBox.IsReadOnly = true;
+                ElementReviewedTextBox.IsReadOnly = false;
                 RevisionNoComboBox.SelectedIndex = 0;
                 RevisionNoComboBox.IsEnabled = true;
                 ReviewedDatePicker.IsEnabled = true;
@@ -272,13 +319,56 @@ namespace Event_Horizon
                 SaveButton.Visibility = Visibility.Visible;
             }
 
-            this.Owner = Application.Current.MainWindow;
+            this.Owner = Application.Current.MainWindow;   
         }
   
+        private void LoadRiskAssessmentFromID(Int32 riskAssessmentID)
+        {
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(XMLReaderWriter.GlobalConnectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand("SELECT * FROM RiskAssessments WHERE ID = ?", connection))
+                    {
+                        connection.Open();
+
+                        command.Parameters.Add("@ID", DbType.Int32).Value = riskAssessmentID;
+
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (!int.TryParse(reader["RevisionNo"].ToString(), out eventHorizonRiskAssessmentLINQ.RevisionNo)) eventHorizonRiskAssessmentLINQ.RevisionNo = 0;
+                                
+                                eventHorizonRiskAssessmentLINQ.ElementReviewed = reader["ElementReviewed"].ToString();
+
+                                string reviewedDateTimeString = reader["ReviewedDateTime"].ToString();
+                                DateTime reviewedDateTime = DateTime.MinValue;
+                                if (DateTime.TryParse(reviewedDateTimeString, out reviewedDateTime)) reviewedDateTimeString = reviewedDateTime.ToString("dd/MM/y HH:mm");
+                                eventHorizonRiskAssessmentLINQ.ReviewedDateTime = reviewedDateTime;
+
+                                if (!int.TryParse(reader["StatusID"].ToString(), out eventHorizonRiskAssessmentLINQ.StatusID)) eventHorizonRiskAssessmentLINQ.StatusID = 0;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions here
+                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("-------------------*---------------------");
+
+                EventHorizonRequesterNotification msg = new EventHorizonRequesterNotification(MainWindow.mw, new OracleCustomMessage { MessageTitleTextBlock = "LoadRiskAssessmentFromID - ", InformationTextBlock = ex.Message }, RequesterTypes.OK);
+                msg.ShowDialog();
+            }
+        }
         private void GetRiskAssessment()
         {
-            RamsProfileTypeTextBox.Text = eventHorizonJobLINQ.RamsProfileTypeID;
-            
+            LoadRiskAssessmentFromID(eventHorizonJobLINQ.ID);
+
+            RamsProfileTypeTextBox.Text = DataTableManagementJob.GetRamsProfileNameFromRamsProfileID(eventHorizonJobLINQ.RamsProfileTypeID);
+
             RevisionNoComboBox.SelectedIndex = eventHorizonRiskAssessmentLINQ.RevisionNo;
 
             DateTime reviewedDateTimet = eventHorizonRiskAssessmentLINQ.ReviewedDateTime;
@@ -291,7 +381,8 @@ namespace Event_Horizon
             ClientNameTextBox.Text = eventHorizonJobLINQ.ClientName;
             SiteTextBox.Text = eventHorizonJobLINQ.Site;
             LocationActivityTextBox.Text = eventHorizonJobLINQ.LocationActivity;
-            ElementReviewedTextBox.Text = eventHorizonJobLINQ.ElementReviewed;
+            
+            ElementReviewedTextBox.Text = eventHorizonRiskAssessmentLINQ.ElementReviewed;
 
             RamsStatusIDComboBox.SelectedIndex = eventHorizonRiskAssessmentLINQ.StatusID;
         }
@@ -394,30 +485,6 @@ namespace Event_Horizon
                         break;
                 }
             }
-        }
-
-        String RamsProfileTypeName = string.Empty;
-
-        private void RamsProfileTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DependencyObject dep = (DependencyObject)e.OriginalSource;
-
-            while ((dep != null) && !(dep is StackPanel))
-            {
-                dep = VisualTreeHelper.GetParent(dep);
-            }
-
-            if (dep == null)
-                return;
-
-            var selectedTag = ((StackPanel)RamsProfileTypeComboBox.SelectedItem).Tag.ToString();
-
-            RamsProfileTypeName = selectedTag;
-           
-            Console.Write("** RamsProfileTypeComboBox_SelectedIndex = ");
-            Console.WriteLine(RamsProfileTypeComboBox.SelectedIndex);
-            Console.Write("** item.Tag EventTypeName = ");
-            Console.WriteLine(RamsProfileTypeName);
         }
 
         public int RamsStatusID = RamsStatus.New;
